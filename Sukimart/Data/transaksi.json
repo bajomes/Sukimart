@@ -1,0 +1,26 @@
+[
+  {
+    "id": "TRX-20261015-0001",
+    "tanggal": "2026-10-15T09:10:00",
+    "kasir": "kasir",
+    "total": 22500,
+    "bayar": 25000,
+    "kembalian": 2500
+  },
+  {
+    "id": "TRX-20261015-0002",
+    "tanggal": "2026-10-15T10:25:00",
+    "kasir": "kasir",
+    "total": 12000,
+    "bayar": 15000,
+    "kembalian": 3000
+  },
+  {
+    "id": "TRX-20261014-0001",
+    "tanggal": "2026-10-14T16:40:00",
+    "kasir": "kasir",
+    "total": 4000,
+    "bayar": 5000,
+    "kembalian": 1000
+  }
+]
