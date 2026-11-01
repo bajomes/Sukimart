@@ -27,8 +27,8 @@ dotnet run --project Sukimart/Sukimart.csproj
 
 ## Current capabilities
 
-- **Role-based Authentication**: Secure dual-role login distinguishing administrative privileges from cashier operations.
-- **Point of Sale (POS) Cashier**: Product selection with instant stock availability checks, dynamic cart quantity management, automated subtotal and total calculations, cash payment handling with change computation, automatic inventory reduction, and printed receipt generation.
+- **Role-based Authentication**: Demo role-based login separating administrative control from cashier operations with isolated access privileges.
+- **Point of Sale (POS) Cashier**: Product selection with instant stock availability checks, dynamic cart quantity management, automated subtotal and total calculations, cash payment handling with change computation, automatic inventory reduction, and structured on-screen receipt preview.
 - **Product Catalog Management**: Complete CRUD operations (Create, Read, Update, Delete) for store merchandise with category grouping, formatted price display, unique SKU code enforcement, and instant keyword search.
 - **Warehouse & Stock Management**: Inventory tracking with real-time stock thresholds, low-stock alerts, and fast inbound restock replenishment.
 - **Transaction History & Ledger**: Complete sales audit log with custom date-range filters, invoice/cashier search, revenue summary metrics, and itemized invoice details.
@@ -59,7 +59,7 @@ Data persistence is handled through `System.Text.Json` using an atomic write pat
 ## Project structure
 
 ```text
-Bajomart/
+Sukimart/
 ├── Sukimart.sln               # Solution file
 ├── Sukimart.slnx              # Modern solution descriptor
 └── Sukimart/

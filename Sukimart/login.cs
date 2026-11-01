@@ -60,12 +60,12 @@ namespace Sukimart
             if (username == "admin" && password == "admin123")
             {
                 ResetErrorLabels();
-                Navigasi.MulaiSesi(this, "admin");
+                Navigasi.MulaiSesi(this, username, "admin");
             }
             else if (username == "kasir" && password == "kasir123")
             {
                 ResetErrorLabels();
-                Navigasi.MulaiSesi(this, "kasir");
+                Navigasi.MulaiSesi(this, username, "kasir");
             }
             else
             {

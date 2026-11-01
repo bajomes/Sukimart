@@ -91,7 +91,7 @@ namespace Sukimart
             }
 
             string teks = cmbBarang.SelectedItem?.ToString() ?? "";
-            string kode = teks.Split('-')[0].Trim();
+            string kode = teks.Split(new[] { " - " }, StringSplitOptions.None)[0].Trim();
             Barang? barang = daftarBarang.FirstOrDefault(b => b.Kode == kode);
 
             if (barang == null)
@@ -155,6 +155,11 @@ namespace Sukimart
 
         private void PerbaruiTampilanKeranjang()
         {
+            if (keranjang.Count == 0)
+            {
+                nudBayar.Value = 0;
+            }
+
             gridKeranjang.AutoGenerateColumns = false;
             gridKeranjang.DataSource = keranjang.Select(k => new
             {
@@ -212,13 +217,13 @@ namespace Sukimart
             }
 
             int kembalian = bayar - total;
-            string idTransaksi = "TRX-" + DateTime.Now.ToString("yyyyMMdd-HHmmss");
+            string idTransaksi = "TRX-" + DateTime.Now.ToString("yyyyMMdd-HHmmssfff");
 
             Transaksi trx = new Transaksi
             {
                 Id = idTransaksi,
                 Tanggal = DateTime.Now,
-                Kasir = peran,
+                Kasir = Navigasi.PenggunaAktif,
                 Total = total,
                 Bayar = bayar,
                 Kembalian = kembalian
@@ -235,18 +240,18 @@ namespace Sukimart
                 Tanggal = DateTime.Now
             }).ToList();
 
-            // Potong stok produk
-            foreach (var item in keranjang)
-            {
-                var brg = daftarBarang.FirstOrDefault(b => b.Kode == item.KodeBarang);
-                if (brg != null)
-                {
-                    brg.Stok = Math.Max(0, brg.Stok - item.Jumlah);
-                }
-            }
-
             try
             {
+                // Potong stok produk di memori setelah validasi pembayaran lolos
+                foreach (var item in keranjang)
+                {
+                    var brg = daftarBarang.FirstOrDefault(b => b.Kode == item.KodeBarang);
+                    if (brg != null)
+                    {
+                        brg.Stok = Math.Max(0, brg.Stok - item.Jumlah);
+                    }
+                }
+
                 // Simpan ke file JSON
                 PenyimpananData.TambahTransaksi(trx, details);
                 PenyimpananData.SimpanBarang(daftarBarang);
@@ -274,6 +279,8 @@ namespace Sukimart
             }
             catch (Exception ex)
             {
+                // Muat ulang data barang jika penyimpanan gagal agar stok di memori tetap sinkron
+                MuatDataBarang();
                 MessageBox.Show("Gagal menyimpan transaksi ke JSON: " + ex.Message, "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

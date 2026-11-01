@@ -100,7 +100,7 @@
             btnKeluar.FlatAppearance.BorderColor = Color.FromArgb(229, 231, 235);
             btnKeluar.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
             btnKeluar.FlatStyle = FlatStyle.Flat;
-            btnKeluar.Font = new Font("Inter", 12F);
+            btnKeluar.Font = new Font("Segoe UI", 12F);
             btnKeluar.ForeColor = Color.FromArgb(75, 85, 99);
             btnKeluar.Location = new Point(16, 620);
             btnKeluar.Name = "btnKeluar";
@@ -116,7 +116,7 @@
             btnLaporan.FlatAppearance.BorderSize = 0;
             btnLaporan.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
             btnLaporan.FlatStyle = FlatStyle.Flat;
-            btnLaporan.Font = new Font("Inter", 12F, FontStyle.Bold);
+            btnLaporan.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             btnLaporan.ForeColor = Color.FromArgb(31, 41, 55);
             btnLaporan.Location = new Point(16, 350);
             btnLaporan.Name = "btnLaporan";
@@ -134,7 +134,7 @@
             btnGudang.FlatAppearance.BorderSize = 0;
             btnGudang.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
             btnGudang.FlatStyle = FlatStyle.Flat;
-            btnGudang.Font = new Font("Inter", 12F);
+            btnGudang.Font = new Font("Segoe UI", 12F);
             btnGudang.ForeColor = Color.FromArgb(31, 41, 55);
             btnGudang.Location = new Point(16, 300);
             btnGudang.Name = "btnGudang";
@@ -152,7 +152,7 @@
             btnRiwayat.FlatAppearance.BorderSize = 0;
             btnRiwayat.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
             btnRiwayat.FlatStyle = FlatStyle.Flat;
-            btnRiwayat.Font = new Font("Inter", 12F);
+            btnRiwayat.Font = new Font("Segoe UI", 12F);
             btnRiwayat.ForeColor = Color.FromArgb(31, 41, 55);
             btnRiwayat.Location = new Point(16, 250);
             btnRiwayat.Name = "btnRiwayat";
@@ -170,7 +170,7 @@
             btnKatalog.FlatAppearance.BorderSize = 0;
             btnKatalog.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
             btnKatalog.FlatStyle = FlatStyle.Flat;
-            btnKatalog.Font = new Font("Inter", 12F);
+            btnKatalog.Font = new Font("Segoe UI", 12F);
             btnKatalog.ForeColor = Color.FromArgb(31, 41, 55);
             btnKatalog.Location = new Point(16, 200);
             btnKatalog.Name = "btnKatalog";
@@ -188,7 +188,7 @@
             btnKasir.FlatAppearance.BorderSize = 0;
             btnKasir.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
             btnKasir.FlatStyle = FlatStyle.Flat;
-            btnKasir.Font = new Font("Inter", 12F);
+            btnKasir.Font = new Font("Segoe UI", 12F);
             btnKasir.ForeColor = Color.FromArgb(31, 41, 55);
             btnKasir.Location = new Point(16, 150);
             btnKasir.Name = "btnKasir";
@@ -206,7 +206,7 @@
             btnDashboard.FlatAppearance.BorderSize = 0;
             btnDashboard.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
             btnDashboard.FlatStyle = FlatStyle.Flat;
-            btnDashboard.Font = new Font("Inter", 12F);
+            btnDashboard.Font = new Font("Segoe UI", 12F);
             btnDashboard.ForeColor = Color.FromArgb(31, 41, 55);
             btnDashboard.Location = new Point(16, 100);
             btnDashboard.Name = "btnDashboard";
@@ -230,7 +230,7 @@
             // lblNama
             // 
             lblNama.AutoSize = true;
-            lblNama.Font = new Font("Inter", 14.25F, FontStyle.Bold);
+            lblNama.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
             lblNama.Location = new Point(65, 30);
             lblNama.Name = "lblNama";
             lblNama.Size = new Size(112, 23);
@@ -282,7 +282,7 @@
             // lblJudul
             // 
             lblJudul.AutoSize = true;
-            lblJudul.Font = new Font("Inter", 20F, FontStyle.Bold);
+            lblJudul.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
             lblJudul.ForeColor = Color.FromArgb(31, 41, 55);
             lblJudul.Location = new Point(30, 20);
             lblJudul.Name = "lblJudul";
@@ -304,7 +304,7 @@
             // lblCard1Judul
             // 
             lblCard1Judul.AutoSize = true;
-            lblCard1Judul.Font = new Font("Inter", 8.5F);
+            lblCard1Judul.Font = new Font("Segoe UI", 8.5F);
             lblCard1Judul.ForeColor = Color.FromArgb(107, 114, 128);
             lblCard1Judul.Location = new Point(12, 12);
             lblCard1Judul.Name = "lblCard1Judul";
@@ -315,7 +315,7 @@
             // lblOmzetNilai
             // 
             lblOmzetNilai.AutoSize = true;
-            lblOmzetNilai.Font = new Font("Inter", 13.5F, FontStyle.Bold);
+            lblOmzetNilai.Font = new Font("Segoe UI", 13.5F, FontStyle.Bold);
             lblOmzetNilai.ForeColor = Color.FromArgb(16, 149, 102);
             lblOmzetNilai.Location = new Point(12, 35);
             lblOmzetNilai.Name = "lblOmzetNilai";
@@ -337,7 +337,7 @@
             // lblCard2Judul
             // 
             lblCard2Judul.AutoSize = true;
-            lblCard2Judul.Font = new Font("Inter", 8.5F);
+            lblCard2Judul.Font = new Font("Segoe UI", 8.5F);
             lblCard2Judul.ForeColor = Color.FromArgb(107, 114, 128);
             lblCard2Judul.Location = new Point(12, 12);
             lblCard2Judul.Name = "lblCard2Judul";
@@ -348,7 +348,7 @@
             // lblTrxNilai
             // 
             lblTrxNilai.AutoSize = true;
-            lblTrxNilai.Font = new Font("Inter", 13.5F, FontStyle.Bold);
+            lblTrxNilai.Font = new Font("Segoe UI", 13.5F, FontStyle.Bold);
             lblTrxNilai.ForeColor = Color.FromArgb(31, 41, 55);
             lblTrxNilai.Location = new Point(12, 35);
             lblTrxNilai.Name = "lblTrxNilai";
@@ -370,7 +370,7 @@
             // lblCard3Judul
             // 
             lblCard3Judul.AutoSize = true;
-            lblCard3Judul.Font = new Font("Inter", 8.5F);
+            lblCard3Judul.Font = new Font("Segoe UI", 8.5F);
             lblCard3Judul.ForeColor = Color.FromArgb(107, 114, 128);
             lblCard3Judul.Location = new Point(12, 12);
             lblCard3Judul.Name = "lblCard3Judul";
@@ -381,7 +381,7 @@
             // lblItemTerjualNilai
             // 
             lblItemTerjualNilai.AutoSize = true;
-            lblItemTerjualNilai.Font = new Font("Inter", 13.5F, FontStyle.Bold);
+            lblItemTerjualNilai.Font = new Font("Segoe UI", 13.5F, FontStyle.Bold);
             lblItemTerjualNilai.ForeColor = Color.FromArgb(31, 41, 55);
             lblItemTerjualNilai.Location = new Point(12, 35);
             lblItemTerjualNilai.Name = "lblItemTerjualNilai";
@@ -403,7 +403,7 @@
             // lblCard4Judul
             // 
             lblCard4Judul.AutoSize = true;
-            lblCard4Judul.Font = new Font("Inter", 8.5F);
+            lblCard4Judul.Font = new Font("Segoe UI", 8.5F);
             lblCard4Judul.ForeColor = Color.FromArgb(107, 114, 128);
             lblCard4Judul.Location = new Point(12, 12);
             lblCard4Judul.Name = "lblCard4Judul";
@@ -414,7 +414,7 @@
             // lblRataNilai
             // 
             lblRataNilai.AutoSize = true;
-            lblRataNilai.Font = new Font("Inter", 13.5F, FontStyle.Bold);
+            lblRataNilai.Font = new Font("Segoe UI", 13.5F, FontStyle.Bold);
             lblRataNilai.ForeColor = Color.FromArgb(31, 41, 55);
             lblRataNilai.Location = new Point(12, 35);
             lblRataNilai.Name = "lblRataNilai";
@@ -428,7 +428,7 @@
             btnHariIni.Cursor = Cursors.Hand;
             btnHariIni.FlatAppearance.BorderSize = 0;
             btnHariIni.FlatStyle = FlatStyle.Flat;
-            btnHariIni.Font = new Font("Inter", 9F, FontStyle.Bold);
+            btnHariIni.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnHariIni.ForeColor = Color.FromArgb(31, 41, 55);
             btnHariIni.Location = new Point(30, 180);
             btnHariIni.Name = "btnHariIni";
@@ -443,7 +443,7 @@
             btnBulanIni.Cursor = Cursors.Hand;
             btnBulanIni.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
             btnBulanIni.FlatStyle = FlatStyle.Flat;
-            btnBulanIni.Font = new Font("Inter", 9F);
+            btnBulanIni.Font = new Font("Segoe UI", 9F);
             btnBulanIni.ForeColor = Color.FromArgb(75, 85, 99);
             btnBulanIni.Location = new Point(135, 180);
             btnBulanIni.Name = "btnBulanIni";
@@ -458,7 +458,7 @@
             btnSemuaWaktu.Cursor = Cursors.Hand;
             btnSemuaWaktu.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
             btnSemuaWaktu.FlatStyle = FlatStyle.Flat;
-            btnSemuaWaktu.Font = new Font("Inter", 9F);
+            btnSemuaWaktu.Font = new Font("Segoe UI", 9F);
             btnSemuaWaktu.ForeColor = Color.FromArgb(75, 85, 99);
             btnSemuaWaktu.Location = new Point(240, 180);
             btnSemuaWaktu.Name = "btnSemuaWaktu";
@@ -476,7 +476,7 @@
             gridLaporan.BorderStyle = BorderStyle.None;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = Color.FromArgb(243, 244, 246);
-            dataGridViewCellStyle3.Font = new Font("Inter", 9.5F, FontStyle.Bold);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             dataGridViewCellStyle3.ForeColor = Color.FromArgb(55, 65, 81);
             dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(255, 244, 204);
             dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(31, 41, 55);
@@ -486,7 +486,7 @@
             gridLaporan.Columns.AddRange(new DataGridViewColumn[] { colFaktur, colWaktu, colKasir, colItemQty, colTotalOmzet, colStatus });
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = SystemColors.Window;
-            dataGridViewCellStyle4.Font = new Font("Inter", 9F);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
             dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
             dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(255, 244, 204);
             dataGridViewCellStyle4.SelectionForeColor = Color.FromArgb(31, 41, 55);

@@ -28,6 +28,7 @@ namespace Sukimart
         public string NamaBarang { get; set; } = "";
         public int Harga { get; set; }
 
+        [System.Text.Json.Serialization.JsonIgnore]
         public int HargaSatuan
         {
             get => Harga;

@@ -7,12 +7,19 @@ namespace Sukimart
     public static class Navigasi
     {
         public static string PeranAktif { get; set; } = "kasir";
+        public static string PenggunaAktif { get; set; } = "kasir";
         public static FormLogin? FormLoginUtama { get; set; }
         private static bool sedangBeralih = false;
 
         public static void MulaiSesi(FormLogin loginForm, string peran)
         {
+            MulaiSesi(loginForm, peran, peran);
+        }
+
+        public static void MulaiSesi(FormLogin loginForm, string pengguna, string peran)
+        {
             FormLoginUtama = loginForm;
+            PenggunaAktif = string.IsNullOrEmpty(pengguna) ? "kasir" : pengguna;
             PeranAktif = string.IsNullOrEmpty(peran) ? "kasir" : peran;
             loginForm.Hide();
 

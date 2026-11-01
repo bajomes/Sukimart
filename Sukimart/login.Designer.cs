@@ -1,4 +1,4 @@
-namespace Sukimart
+﻿namespace Sukimart
 {
     partial class FormLogin
     {
@@ -70,7 +70,7 @@ namespace Sukimart
             // lblPassSalah
             // 
             lblPassSalah.AutoSize = true;
-            lblPassSalah.Font = new Font("Inter", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblPassSalah.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblPassSalah.ForeColor = Color.FromArgb(220, 38, 38);
             lblPassSalah.Location = new Point(56, 432);
             lblPassSalah.Name = "lblPassSalah";
@@ -80,7 +80,7 @@ namespace Sukimart
             // lblUsnSalah
             // 
             lblUsnSalah.AutoSize = true;
-            lblUsnSalah.Font = new Font("Inter", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblUsnSalah.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblUsnSalah.ForeColor = Color.FromArgb(220, 38, 38);
             lblUsnSalah.Location = new Point(56, 332);
             lblUsnSalah.Name = "lblUsnSalah";
@@ -90,7 +90,7 @@ namespace Sukimart
             // lblPassword
             // 
             lblPassword.AutoSize = true;
-            lblPassword.Font = new Font("Inter", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblPassword.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblPassword.Location = new Point(53, 375);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new Size(69, 16);
@@ -100,7 +100,7 @@ namespace Sukimart
             // lblUsername
             // 
             lblUsername.AutoSize = true;
-            lblUsername.Font = new Font("Inter", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblUsername.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblUsername.Location = new Point(53, 275);
             lblUsername.Name = "lblUsername";
             lblUsername.Size = new Size(73, 16);
@@ -113,7 +113,7 @@ namespace Sukimart
             btnMasuk.Cursor = Cursors.Hand;
             btnMasuk.FlatAppearance.BorderSize = 0;
             btnMasuk.FlatStyle = FlatStyle.Flat;
-            btnMasuk.Font = new Font("Inter", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnMasuk.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnMasuk.ForeColor = Color.Black;
             btnMasuk.Location = new Point(55, 500);
             btnMasuk.Name = "btnMasuk";
@@ -126,7 +126,7 @@ namespace Sukimart
             // txtPassword
             // 
             txtPassword.BackColor = Color.White;
-            txtPassword.Font = new Font("Inter", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtPassword.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtPassword.ForeColor = Color.Black;
             txtPassword.Location = new Point(55, 400);
             txtPassword.Name = "txtPassword";
@@ -138,7 +138,7 @@ namespace Sukimart
             // txtUsername
             // 
             txtUsername.BackColor = Color.White;
-            txtUsername.Font = new Font("Inter", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtUsername.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtUsername.ForeColor = Color.Black;
             txtUsername.Location = new Point(55, 300);
             txtUsername.Name = "txtUsername";
@@ -149,7 +149,7 @@ namespace Sukimart
             // lblJudul
             // 
             lblJudul.AutoSize = true;
-            lblJudul.Font = new Font("Inter", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblJudul.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblJudul.ForeColor = Color.Black;
             lblJudul.Location = new Point(50, 175);
             lblJudul.Name = "lblJudul";
@@ -171,7 +171,7 @@ namespace Sukimart
             // lblMerk
             // 
             lblMerk.AutoSize = true;
-            lblMerk.Font = new Font("Inter", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblMerk.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblMerk.ForeColor = Color.Black;
             lblMerk.Location = new Point(100, 65);
             lblMerk.Name = "lblMerk";
@@ -217,7 +217,7 @@ namespace Sukimart
             // lblKecil
             // 
             lblKecil.AutoSize = true;
-            lblKecil.Font = new Font("Inter", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblKecil.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblKecil.Location = new Point(40, 300);
             lblKecil.Name = "lblKecil";
             lblKecil.Size = new Size(415, 23);
@@ -227,7 +227,7 @@ namespace Sukimart
             // lblBesar
             // 
             lblBesar.AutoSize = true;
-            lblBesar.Font = new Font("Inter", 27.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblBesar.Font = new Font("Segoe UI", 27.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblBesar.Location = new Point(30, 225);
             lblBesar.Name = "lblBesar";
             lblBesar.Size = new Size(437, 45);

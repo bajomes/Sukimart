@@ -101,7 +101,7 @@
             btnKeluar.FlatAppearance.BorderColor = Color.FromArgb(229, 231, 235);
             btnKeluar.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
             btnKeluar.FlatStyle = FlatStyle.Flat;
-            btnKeluar.Font = new Font("Inter", 12F);
+            btnKeluar.Font = new Font("Segoe UI", 12F);
             btnKeluar.ForeColor = Color.FromArgb(75, 85, 99);
             btnKeluar.Location = new Point(16, 620);
             btnKeluar.Name = "btnKeluar";
@@ -117,7 +117,7 @@
             btnLaporan.FlatAppearance.BorderSize = 0;
             btnLaporan.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
             btnLaporan.FlatStyle = FlatStyle.Flat;
-            btnLaporan.Font = new Font("Inter", 12F);
+            btnLaporan.Font = new Font("Segoe UI", 12F);
             btnLaporan.ForeColor = Color.FromArgb(31, 41, 55);
             btnLaporan.Location = new Point(16, 350);
             btnLaporan.Name = "btnLaporan";
@@ -135,7 +135,7 @@
             btnGudang.FlatAppearance.BorderSize = 0;
             btnGudang.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
             btnGudang.FlatStyle = FlatStyle.Flat;
-            btnGudang.Font = new Font("Inter", 12F);
+            btnGudang.Font = new Font("Segoe UI", 12F);
             btnGudang.ForeColor = Color.FromArgb(31, 41, 55);
             btnGudang.Location = new Point(16, 300);
             btnGudang.Name = "btnGudang";
@@ -153,7 +153,7 @@
             btnRiwayat.FlatAppearance.BorderSize = 0;
             btnRiwayat.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
             btnRiwayat.FlatStyle = FlatStyle.Flat;
-            btnRiwayat.Font = new Font("Inter", 12F);
+            btnRiwayat.Font = new Font("Segoe UI", 12F);
             btnRiwayat.ForeColor = Color.FromArgb(31, 41, 55);
             btnRiwayat.Location = new Point(16, 250);
             btnRiwayat.Name = "btnRiwayat";
@@ -171,7 +171,7 @@
             btnKatalog.FlatAppearance.BorderSize = 0;
             btnKatalog.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
             btnKatalog.FlatStyle = FlatStyle.Flat;
-            btnKatalog.Font = new Font("Inter", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnKatalog.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnKatalog.ForeColor = Color.FromArgb(31, 41, 55);
             btnKatalog.Location = new Point(16, 200);
             btnKatalog.Name = "btnKatalog";
@@ -189,7 +189,7 @@
             btnKasir.FlatAppearance.BorderSize = 0;
             btnKasir.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
             btnKasir.FlatStyle = FlatStyle.Flat;
-            btnKasir.Font = new Font("Inter", 12F);
+            btnKasir.Font = new Font("Segoe UI", 12F);
             btnKasir.ForeColor = Color.FromArgb(31, 41, 55);
             btnKasir.Location = new Point(16, 150);
             btnKasir.Name = "btnKasir";
@@ -207,7 +207,7 @@
             btnDashboard.FlatAppearance.BorderSize = 0;
             btnDashboard.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
             btnDashboard.FlatStyle = FlatStyle.Flat;
-            btnDashboard.Font = new Font("Inter", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnDashboard.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnDashboard.ForeColor = Color.FromArgb(31, 41, 55);
             btnDashboard.Location = new Point(16, 100);
             btnDashboard.Name = "btnDashboard";
@@ -231,7 +231,7 @@
             // lblNama
             // 
             lblNama.AutoSize = true;
-            lblNama.Font = new Font("Inter", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblNama.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblNama.Location = new Point(65, 30);
             lblNama.Name = "lblNama";
             lblNama.Size = new Size(112, 23);
@@ -293,7 +293,7 @@
             // lblJudulKatalog
             // 
             lblJudulKatalog.AutoSize = true;
-            lblJudulKatalog.Font = new Font("Inter", 20F, FontStyle.Bold);
+            lblJudulKatalog.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
             lblJudulKatalog.ForeColor = Color.FromArgb(31, 41, 55);
             lblJudulKatalog.Location = new Point(30, 20);
             lblJudulKatalog.Name = "lblJudulKatalog";
@@ -304,7 +304,7 @@
             // txtCari
             // 
             txtCari.BackColor = Color.White;
-            txtCari.Font = new Font("Inter", 10F);
+            txtCari.Font = new Font("Segoe UI", 10F);
             txtCari.Location = new Point(30, 85);
             txtCari.Name = "txtCari";
             txtCari.PlaceholderText = "Cari berdasarkan nama, kode, atau kategori barang...";
@@ -321,7 +321,7 @@
             gridBarang.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = Color.FromArgb(243, 244, 246);
-            dataGridViewCellStyle3.Font = new Font("Inter", 9.5F, FontStyle.Bold);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             dataGridViewCellStyle3.ForeColor = Color.FromArgb(55, 65, 81);
             dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(255, 244, 204);
             dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(31, 41, 55);
@@ -331,7 +331,7 @@
             gridBarang.Columns.AddRange(new DataGridViewColumn[] { colKode, colNama, colKategori, colHarga, colStok, colStokMin });
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = SystemColors.Window;
-            dataGridViewCellStyle4.Font = new Font("Inter", 9.5F);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9.5F);
             dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
             dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(255, 244, 204);
             dataGridViewCellStyle4.SelectionForeColor = Color.FromArgb(31, 41, 55);
@@ -398,7 +398,7 @@
             // lblKode
             // 
             lblKode.AutoSize = true;
-            lblKode.Font = new Font("Inter", 9F, FontStyle.Bold);
+            lblKode.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblKode.ForeColor = Color.FromArgb(75, 85, 99);
             lblKode.Location = new Point(30, 365);
             lblKode.Name = "lblKode";
@@ -408,7 +408,7 @@
             // 
             // txtKode
             // 
-            txtKode.Font = new Font("Inter", 10F);
+            txtKode.Font = new Font("Segoe UI", 10F);
             txtKode.Location = new Point(30, 385);
             txtKode.Name = "txtKode";
             txtKode.Size = new Size(250, 24);
@@ -417,7 +417,7 @@
             // lblNamaBarang
             // 
             lblNamaBarang.AutoSize = true;
-            lblNamaBarang.Font = new Font("Inter", 9F, FontStyle.Bold);
+            lblNamaBarang.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblNamaBarang.ForeColor = Color.FromArgb(75, 85, 99);
             lblNamaBarang.Location = new Point(310, 365);
             lblNamaBarang.Name = "lblNamaBarang";
@@ -427,7 +427,7 @@
             // 
             // txtNamaBarang
             // 
-            txtNamaBarang.Font = new Font("Inter", 10F);
+            txtNamaBarang.Font = new Font("Segoe UI", 10F);
             txtNamaBarang.Location = new Point(310, 385);
             txtNamaBarang.Name = "txtNamaBarang";
             txtNamaBarang.Size = new Size(260, 24);
@@ -436,7 +436,7 @@
             // lblKategori
             // 
             lblKategori.AutoSize = true;
-            lblKategori.Font = new Font("Inter", 9F, FontStyle.Bold);
+            lblKategori.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblKategori.ForeColor = Color.FromArgb(75, 85, 99);
             lblKategori.Location = new Point(600, 365);
             lblKategori.Name = "lblKategori";
@@ -447,7 +447,7 @@
             // cmbKategori
             // 
             cmbKategori.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbKategori.Font = new Font("Inter", 10F);
+            cmbKategori.Font = new Font("Segoe UI", 10F);
             cmbKategori.FormattingEnabled = true;
             cmbKategori.Items.AddRange(new object[] { "Makanan", "Minuman", "Perlengkapan", "Lainnya" });
             cmbKategori.Location = new Point(600, 385);
@@ -458,7 +458,7 @@
             // lblHarga
             // 
             lblHarga.AutoSize = true;
-            lblHarga.Font = new Font("Inter", 9F, FontStyle.Bold);
+            lblHarga.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblHarga.ForeColor = Color.FromArgb(75, 85, 99);
             lblHarga.Location = new Point(30, 425);
             lblHarga.Name = "lblHarga";
@@ -468,7 +468,7 @@
             // 
             // nudHarga
             // 
-            nudHarga.Font = new Font("Inter", 10F);
+            nudHarga.Font = new Font("Segoe UI", 10F);
             nudHarga.Location = new Point(30, 445);
             nudHarga.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
             nudHarga.Name = "nudHarga";
@@ -479,7 +479,7 @@
             // lblStok
             // 
             lblStok.AutoSize = true;
-            lblStok.Font = new Font("Inter", 9F, FontStyle.Bold);
+            lblStok.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblStok.ForeColor = Color.FromArgb(75, 85, 99);
             lblStok.Location = new Point(310, 425);
             lblStok.Name = "lblStok";
@@ -489,7 +489,7 @@
             // 
             // nudStok
             // 
-            nudStok.Font = new Font("Inter", 10F);
+            nudStok.Font = new Font("Segoe UI", 10F);
             nudStok.Location = new Point(310, 445);
             nudStok.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
             nudStok.Name = "nudStok";
@@ -499,7 +499,7 @@
             // lblStokMin
             // 
             lblStokMin.AutoSize = true;
-            lblStokMin.Font = new Font("Inter", 9F, FontStyle.Bold);
+            lblStokMin.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblStokMin.ForeColor = Color.FromArgb(75, 85, 99);
             lblStokMin.Location = new Point(600, 425);
             lblStokMin.Name = "lblStokMin";
@@ -509,7 +509,7 @@
             // 
             // nudStokMinimum
             // 
-            nudStokMinimum.Font = new Font("Inter", 10F);
+            nudStokMinimum.Font = new Font("Segoe UI", 10F);
             nudStokMinimum.Location = new Point(600, 445);
             nudStokMinimum.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
             nudStokMinimum.Name = "nudStokMinimum";
@@ -522,7 +522,7 @@
             btnSimpanBarang.Cursor = Cursors.Hand;
             btnSimpanBarang.FlatAppearance.BorderSize = 0;
             btnSimpanBarang.FlatStyle = FlatStyle.Flat;
-            btnSimpanBarang.Font = new Font("Inter", 10.5F, FontStyle.Bold);
+            btnSimpanBarang.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             btnSimpanBarang.ForeColor = Color.FromArgb(31, 41, 55);
             btnSimpanBarang.Location = new Point(30, 500);
             btnSimpanBarang.Name = "btnSimpanBarang";
@@ -537,7 +537,7 @@
             btnUbahBarang.Cursor = Cursors.Hand;
             btnUbahBarang.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
             btnUbahBarang.FlatStyle = FlatStyle.Flat;
-            btnUbahBarang.Font = new Font("Inter", 10F, FontStyle.Bold);
+            btnUbahBarang.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnUbahBarang.ForeColor = Color.FromArgb(55, 65, 81);
             btnUbahBarang.Location = new Point(205, 500);
             btnUbahBarang.Name = "btnUbahBarang";
@@ -552,7 +552,7 @@
             btnHapusBarang.Cursor = Cursors.Hand;
             btnHapusBarang.FlatAppearance.BorderColor = Color.FromArgb(254, 202, 202);
             btnHapusBarang.FlatStyle = FlatStyle.Flat;
-            btnHapusBarang.Font = new Font("Inter", 10F, FontStyle.Bold);
+            btnHapusBarang.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnHapusBarang.ForeColor = Color.FromArgb(220, 38, 38);
             btnHapusBarang.Location = new Point(380, 500);
             btnHapusBarang.Name = "btnHapusBarang";
@@ -567,7 +567,7 @@
             btnBersihkanBarang.Cursor = Cursors.Hand;
             btnBersihkanBarang.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
             btnBersihkanBarang.FlatStyle = FlatStyle.Flat;
-            btnBersihkanBarang.Font = new Font("Inter", 10F);
+            btnBersihkanBarang.Font = new Font("Segoe UI", 10F);
             btnBersihkanBarang.ForeColor = Color.FromArgb(107, 114, 128);
             btnBersihkanBarang.Location = new Point(505, 500);
             btnBersihkanBarang.Name = "btnBersihkanBarang";

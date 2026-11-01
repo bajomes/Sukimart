@@ -130,6 +130,10 @@ namespace Sukimart
                 txtKode.Text = barang.Kode;
                 txtKode.ReadOnly = true;
                 txtNamaBarang.Text = barang.Nama;
+                if (!string.IsNullOrEmpty(barang.Kategori) && !cmbKategori.Items.Contains(barang.Kategori))
+                {
+                    cmbKategori.Items.Add(barang.Kategori);
+                }
                 cmbKategori.SelectedItem = barang.Kategori;
                 if (cmbKategori.SelectedIndex < 0)
                 {
@@ -177,11 +181,19 @@ namespace Sukimart
                 StokMinimum = stokMin
             };
 
-            daftarBarang.Add(baru);
-            PenyimpananData.SimpanBarang(daftarBarang);
-            MessageBox.Show($"Barang '{nama}' berhasil ditambahkan ke katalog!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            MuatDataBarang();
-            BersihkanForm();
+            try
+            {
+                daftarBarang.Add(baru);
+                PenyimpananData.SimpanBarang(daftarBarang);
+                MessageBox.Show($"Barang '{nama}' berhasil ditambahkan ke katalog!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MuatDataBarang();
+                BersihkanForm();
+            }
+            catch (Exception ex)
+            {
+                daftarBarang.Remove(baru);
+                MessageBox.Show("Gagal menyimpan data barang ke JSON: " + ex.Message, "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void BtnUbahBarang_Click(object? sender, EventArgs e)
@@ -204,16 +216,23 @@ namespace Sukimart
                 return;
             }
 
-            barang.Nama = nama;
-            barang.Kategori = string.IsNullOrWhiteSpace(kategori) ? "Lainnya" : kategori;
-            barang.Harga = (int)nudHarga.Value;
-            barang.Stok = (int)nudStok.Value;
-            barang.StokMinimum = (int)nudStokMinimum.Value;
+            try
+            {
+                barang.Nama = nama;
+                barang.Kategori = string.IsNullOrWhiteSpace(kategori) ? "Lainnya" : kategori;
+                barang.Harga = (int)nudHarga.Value;
+                barang.Stok = (int)nudStok.Value;
+                barang.StokMinimum = (int)nudStokMinimum.Value;
 
-            PenyimpananData.SimpanBarang(daftarBarang);
-            MessageBox.Show($"Data barang '{nama}' berhasil diperbarui!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            MuatDataBarang();
-            BersihkanForm();
+                PenyimpananData.SimpanBarang(daftarBarang);
+                MessageBox.Show($"Data barang '{nama}' berhasil diperbarui!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MuatDataBarang();
+                BersihkanForm();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal memperbarui data barang di JSON: " + ex.Message, "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void BtnHapusBarang_Click(object? sender, EventArgs e)
@@ -235,18 +254,25 @@ namespace Sukimart
 
             if (konfirmasi == DialogResult.Yes)
             {
-                daftarBarang.Remove(barang);
-                PenyimpananData.SimpanBarang(daftarBarang);
-                MessageBox.Show("Barang berhasil dihapus.", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                MuatDataBarang();
-                BersihkanForm();
+                try
+                {
+                    daftarBarang.Remove(barang);
+                    PenyimpananData.SimpanBarang(daftarBarang);
+                    MessageBox.Show("Barang berhasil dihapus.", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MuatDataBarang();
+                    BersihkanForm();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Gagal menghapus barang dari JSON: " + ex.Message, "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
         private void BersihkanForm()
         {
             kodeTerpilih = null;
-            txtKode.ReadOnly = false;
+            txtKode.ReadOnly = this.peran == "kasir";
             txtKode.Clear();
             txtNamaBarang.Clear();
             cmbKategori.SelectedIndex = -1;
