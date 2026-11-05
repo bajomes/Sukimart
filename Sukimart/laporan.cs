@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 
 namespace Sukimart
 {
@@ -75,33 +75,33 @@ namespace Sukimart
             periodeAktif = periode;
 
             btnHariIni.BackColor = Color.White;
-            btnHariIni.Font = new Font("Segoe UI", 9F);
+            btnHariIni.Font = FontInter.Buat(10F);
             btnHariIni.ForeColor = Color.FromArgb(75, 85, 99);
 
             btnBulanIni.BackColor = Color.White;
-            btnBulanIni.Font = new Font("Segoe UI", 9F);
+            btnBulanIni.Font = FontInter.Buat(10F);
             btnBulanIni.ForeColor = Color.FromArgb(75, 85, 99);
 
             btnSemuaWaktu.BackColor = Color.White;
-            btnSemuaWaktu.Font = new Font("Segoe UI", 9F);
+            btnSemuaWaktu.Font = FontInter.Buat(10F);
             btnSemuaWaktu.ForeColor = Color.FromArgb(75, 85, 99);
 
             if (periode == "hari_ini")
             {
                 btnHariIni.BackColor = Color.FromArgb(255, 196, 0);
-                btnHariIni.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+                btnHariIni.Font = FontInter.Buat(10F, FontStyle.Bold);
                 btnHariIni.ForeColor = Color.FromArgb(31, 41, 55);
             }
             else if (periode == "bulan_ini")
             {
                 btnBulanIni.BackColor = Color.FromArgb(255, 196, 0);
-                btnBulanIni.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+                btnBulanIni.Font = FontInter.Buat(10F, FontStyle.Bold);
                 btnBulanIni.ForeColor = Color.FromArgb(31, 41, 55);
             }
             else
             {
                 btnSemuaWaktu.BackColor = Color.FromArgb(255, 196, 0);
-                btnSemuaWaktu.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+                btnSemuaWaktu.Font = FontInter.Buat(10F, FontStyle.Bold);
                 btnSemuaWaktu.ForeColor = Color.FromArgb(31, 41, 55);
             }
 

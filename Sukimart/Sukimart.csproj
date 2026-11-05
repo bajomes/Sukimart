@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
+    <RollForward>Major</RollForward>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -41,6 +42,12 @@
     <None Update="Data\transaksi.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Fonts\Inter-Regular.ttf" />
+    <EmbeddedResource Include="Fonts\Inter-Bold.ttf" />
+    <None Include="Fonts\OFL.txt" />
   </ItemGroup>
 
 </Project>

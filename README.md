@@ -1,23 +1,42 @@
 # Sukimart
 
-Sukimart is a desktop Point of Sale (POS) and warehouse inventory management application built with C# and Windows Forms on .NET 10. The application manages sales checkout, stock level monitoring, inventory restocking, role-based access control, transaction auditing, and business performance reporting. Operational data is stored locally in persistent JSON format without external database dependencies.
+Sukimart adalah aplikasi desktop kasir (Point of Sale) dan manajemen stok gudang untuk toko ritel kecil, dibuat dengan C# dan Windows Forms. Aplikasi ini menangani transaksi penjualan, pemantauan stok, penambahan stok, pembagian hak akses admin dan kasir, riwayat transaksi, serta laporan penjualan. Semua data disimpan secara lokal dalam format JSON, tanpa perlu database terpisah.
 
-## Quick start
+![Halaman Kasir / POS](docs/tangkapan-layar/kasir.jpg)
 
-### Prerequisites
-- Windows 10 or 11
-- Visual Studio 2022 / 2026 (with .NET desktop development workload) or [.NET 10 SDK](https://dotnet.microsoft.com/)
+## Tangkapan layar
 
-### Running from Visual Studio
-1. Clone the repository:
+| Login | Dashboard Admin |
+|---|---|
+| ![Login](docs/tangkapan-layar/login.jpg) | ![Dashboard Admin](docs/tangkapan-layar/dashboard-admin.jpg) |
+| **Katalog Produk** | **Manajemen Gudang** |
+| ![Katalog Produk](docs/tangkapan-layar/katalog.jpg) | ![Manajemen Gudang](docs/tangkapan-layar/gudang.jpg) |
+| **Laporan Penjualan** | |
+| ![Laporan Penjualan](docs/tangkapan-layar/laporan.jpg) | |
+
+## Memulai
+
+### Kebutuhan
+
+- Windows 10 atau 11
+- Salah satu dari:
+  - Visual Studio 2022 / 2026 dengan workload **.NET desktop development**, atau
+  - [.NET SDK](https://dotnet.microsoft.com/download) versi 8 atau yang lebih baru
+
+Proyek ini menargetkan .NET 8 (`net8.0-windows`) dengan pengaturan `RollForward` bernilai `Major`. Artinya, aplikasi berjalan di komputer yang memiliki .NET 8 Desktop Runtime, dan otomatis memakai .NET 10 jika hanya versi itu yang terpasang.
+
+### Menjalankan dari Visual Studio
+
+1. Clone repositori:
    ```bash
    git clone https://github.com/bajomes/Sukimart.git
    ```
-2. Open `Sukimart.sln` or `Sukimart.slnx` in Visual Studio.
-3. Build the solution via **Build > Rebuild Solution** (`Ctrl + Shift + B`) and verify `0 Errors`.
-4. Press `F5` to start debugging.
+2. Buka `Sukimart.sln` atau `Sukimart.slnx` di Visual Studio.
+3. Build solusi lewat **Build > Rebuild Solution** (`Ctrl + Shift + B`) dan pastikan hasilnya `0 Error`.
+4. Tekan `F5` untuk menjalankan aplikasi.
 
-### Running from .NET CLI
+### Menjalankan dari .NET CLI
+
 ```bash
 git clone https://github.com/bajomes/Sukimart.git
 cd Sukimart
@@ -25,61 +44,64 @@ dotnet build
 dotnet run --project Sukimart/Sukimart.csproj
 ```
 
-## Current capabilities
+## Fitur
 
-- **Role-based Authentication**: Demo role-based login separating administrative control from cashier operations with isolated access privileges.
-- **Point of Sale (POS) Cashier**: Product selection with instant stock availability checks, dynamic cart quantity management, automated subtotal and total calculations, cash payment handling with change computation, automatic inventory reduction, and structured on-screen receipt preview.
-- **Product Catalog Management**: Complete CRUD operations (Create, Read, Update, Delete) for store merchandise with category grouping, formatted price display, unique SKU code enforcement, and instant keyword search.
-- **Warehouse & Stock Management**: Inventory tracking with real-time stock thresholds, low-stock alerts, and fast inbound restock replenishment.
-- **Transaction History & Ledger**: Complete sales audit log with custom date-range filters, invoice/cashier search, revenue summary metrics, and itemized invoice details.
-- **Sales Analytics & Reporting**: Business reports categorized by period (Today, This Month, All Time) calculating total revenue, transaction counts, sold items, and average ticket size.
-- **Modern Borderless Interface**: Frameless window aesthetic with smooth native window dragging (`WM_NCLBUTTONDOWN`) and unified brand-aligned DataGridView selection themes.
+- **Login berdasarkan peran**: akun admin dan kasir memiliki hak akses yang berbeda.
+- **Kasir / POS**: cari produk dengan mengetik nama atau kode, cek stok otomatis, ubah jumlah langsung di tabel keranjang (− / + / ×), hitung total dan kembalian, tombol uang cepat (Uang Pas, 50.000, 100.000), pengurangan stok otomatis, dan pratinjau struk.
+- **Katalog Produk**: tambah, ubah, hapus, dan cari produk lengkap dengan kategori, harga, stok, serta batas minimum stok. Kode barang dijamin unik.
+- **Manajemen Gudang**: pantau stok, tampilkan produk yang stoknya menipis, dan tambah stok dengan cepat.
+- **Riwayat Transaksi**: filter berdasarkan rentang tanggal, cari faktur atau kasir, ringkasan omzet, dan rincian barang per faktur.
+- **Laporan Penjualan**: laporan Hari Ini, Bulan Ini, dan Semua Waktu berisi total pendapatan, jumlah transaksi, item terjual, dan rata-rata per transaksi.
+- **Tampilan konsisten**: jendela tanpa bingkai yang bisa digeser, ukuran tetap 1280×720, font Inter yang sudah tertanam di aplikasi, serta gaya tabel dan tombol yang seragam di semua halaman.
 
-## Demo accounts
+## Akun demo
 
-The system includes pre-configured demo credentials:
-
-| Role | Username | Password | Access Scope |
+| Peran | Username | Password | Hak akses |
 |---|---|---|---|
-| **Administrator** | `admin` | `admin123` | Dashboard Admin, POS / Kasir, Katalog Produk, Riwayat Transaksi, Gudang, Laporan |
-| **Kasir** | `kasir` | `kasir123` | Dashboard Kasir, POS / Kasir, Katalog Produk (Read-Only), Riwayat Transaksi |
+| **Admin** | `admin` | `admin123` | Dashboard Admin, Kasir / POS, Katalog Produk, Riwayat Transaksi, Gudang, Laporan |
+| **Kasir** | `kasir` | `kasir123` | Dashboard Kasir, Kasir / POS, Katalog Produk (hanya lihat), Riwayat Transaksi |
 
-## Architecture and data storage
+## Arsitektur dan penyimpanan data
 
-Data persistence is handled through `System.Text.Json` using an atomic write pattern:
+Data disimpan menggunakan `System.Text.Json`:
 
-- **Storage Location**: `%LOCALAPPDATA%\Sukimart\Data\` (automatically seeded from `Sukimart/Data/` on first execution).
-- **Data Collections**:
-  - `barang.json`: Merchandise registry containing SKU, name, category, unit price, current stock, and safety stock threshold.
-  - `transaksi.json`: Master transaction ledger tracking invoice numbers, timestamps, cashier usernames, total amounts, cash tendered, and change returned.
-  - `detail_transaksi.json`: Normalized itemized transaction records mapped to their corresponding invoice ID.
-- **Atomic File Operations**: Data is serialized to a temporary file (`.tmp`) before replacing the target file, ensuring zero data corruption during power interruptions or unexpected process terminations.
-- **Designer Stability**: Form lifecycle and UI enhancements use modular static helper functions (`UIHelper`) rather than complex form inheritance, ensuring complete compatibility with the Visual Studio out-of-process WinForms Designer.
+- **Lokasi data**: `%LOCALAPPDATA%\Sukimart\Data\`. Saat aplikasi pertama kali dijalankan, folder ini diisi dari `Sukimart/Data/`.
+- **Berkas data**:
+  - `barang.json`: daftar produk berisi kode, nama, kategori, harga, stok, dan batas minimum stok.
+  - `transaksi.json`: daftar transaksi berisi nomor faktur, waktu, kasir, total, uang dibayar, dan kembalian.
+  - `detail_transaksi.json`: rincian barang untuk setiap nomor faktur.
+- **Penyimpanan aman**: data ditulis ke berkas sementara (`.tmp`) terlebih dahulu, lalu menggantikan berkas asli, sehingga data tidak rusak jika aplikasi tertutup mendadak.
+- **Ramah Designer**: penyesuaian tampilan dilakukan lewat kelas bantu statis (`UIHelper`, `FontInter`), bukan pewarisan form, sehingga semua form tetap bisa dibuka di WinForms Designer Visual Studio.
 
-## Project structure
+## Struktur proyek
 
 ```text
 Sukimart/
-├── Sukimart.sln               # Solution file
-├── Sukimart.slnx              # Modern solution descriptor
+├── Sukimart.sln               # Berkas solusi
+├── Sukimart.slnx              # Berkas solusi format baru
+├── docs/tangkapan-layar/      # Gambar untuk README
 └── Sukimart/
-    ├── Data/                  # Seed JSON datasets
-    ├── Properties/            # Assembly resources
-    ├── Resources/             # Application logos and icons
-    ├── Models.cs              # Domain entities (Barang, Transaksi, DetailTransaksi)
-    ├── PenyimpananData.cs     # Persistence engine & JSON serializer
-    ├── Navigasi.cs            # Session controller & navigation router
-    ├── UIHelper.cs            # Borderless drag and table styling helper
-    ├── login.cs               # Authentication form
-    ├── dashboardadmin.cs      # Administrative dashboard
-    ├── dashboardkasir.cs      # Cashier overview dashboard
-    ├── kasir.cs               # Point of Sale (POS) cashier form
-    ├── katalog.cs             # Product catalog CRUD form
-    ├── gudang.cs              # Warehouse & stock replenishment form
-    ├── laporan.cs             # Sales performance reporting form
-    └── riwayattransaksi.cs    # Transaction history & ledger form
+    ├── Data/                  # Data awal JSON
+    ├── Fonts/                 # Font Inter beserta lisensinya (OFL)
+    ├── Properties/            # Resource aplikasi
+    ├── Resources/             # Logo dan ikon
+    ├── Models.cs              # Model data (Barang, Transaksi, DetailTransaksi)
+    ├── PenyimpananData.cs     # Baca dan simpan data JSON
+    ├── Navigasi.cs            # Sesi pengguna dan perpindahan halaman
+    ├── UIHelper.cs            # Geser jendela, gaya tabel, dan garis tepi
+    ├── FontInter.cs           # Memuat font Inter dari dalam aplikasi
+    ├── login.cs               # Halaman login
+    ├── dashboardadmin.cs      # Dashboard admin
+    ├── dashboardkasir.cs      # Dashboard kasir
+    ├── kasir.cs               # Halaman Kasir / POS
+    ├── katalog.cs             # Katalog produk
+    ├── gudang.cs              # Manajemen gudang
+    ├── laporan.cs             # Laporan penjualan
+    └── riwayattransaksi.cs    # Riwayat transaksi
 ```
 
-## License
+## Lisensi
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Kode aplikasi didistribusikan di bawah Lisensi MIT. Lihat `LICENSE` untuk informasi lebih lanjut.
+
+Font Inter dibuat oleh The Inter Project Authors dan didistribusikan di bawah SIL Open Font License 1.1. Lihat `Sukimart/Fonts/OFL.txt`.

@@ -130,8 +130,10 @@ namespace Sukimart
         public static void KeluarKeLogin(Form? formSaatIni)
         {
             sedangBeralih = true;
+            Point? lokasiLama = null;
             if (formSaatIni != null && !formSaatIni.IsDisposed)
             {
+                lokasiLama = formSaatIni.Location;
                 formSaatIni.Hide();
                 formSaatIni.Close();
                 formSaatIni.Dispose();
@@ -139,6 +141,11 @@ namespace Sukimart
 
             if (FormLoginUtama != null && !FormLoginUtama.IsDisposed)
             {
+                if (lokasiLama.HasValue)
+                {
+                    FormLoginUtama.StartPosition = FormStartPosition.Manual;
+                    FormLoginUtama.Location = lokasiLama.Value;
+                }
                 FormLoginUtama.ResetInput();
                 FormLoginUtama.Show();
                 FormLoginUtama.BringToFront();

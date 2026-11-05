@@ -1,4 +1,4 @@
-﻿namespace Sukimart
+namespace Sukimart
 {
     partial class FormDashboardKasir
     {
@@ -39,6 +39,7 @@
             pictureLogo = new PictureBox();
             lblNama = new Label();
             pnlKanan = new Panel();
+            lblTransaksiTerbaru = new Label();
             nightControlBox1 = new ReaLTaiizor.Controls.NightControlBox();
             pnlStok = new Panel();
             lblNilaiStok = new Label();
@@ -75,7 +76,7 @@
             pnlKiri.Dock = DockStyle.Left;
             pnlKiri.Location = new Point(0, 0);
             pnlKiri.Name = "pnlKiri";
-            pnlKiri.Size = new Size(220, 680);
+            pnlKiri.Size = new Size(240, 720);
             pnlKiri.TabIndex = 0;
             // 
             // btnKeluar
@@ -85,13 +86,15 @@
             btnKeluar.FlatAppearance.BorderColor = Color.FromArgb(229, 231, 235);
             btnKeluar.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
             btnKeluar.FlatStyle = FlatStyle.Flat;
-            btnKeluar.Font = new Font("Segoe UI", 12F);
+            btnKeluar.Font = new Font("Inter", 10F);
             btnKeluar.ForeColor = Color.FromArgb(75, 85, 99);
-            btnKeluar.Location = new Point(16, 620);
+            btnKeluar.Location = new Point(16, 640);
             btnKeluar.Name = "btnKeluar";
-            btnKeluar.Size = new Size(188, 44);
+            btnKeluar.Padding = new Padding(16, 0, 0, 0);
+            btnKeluar.Size = new Size(208, 40);
             btnKeluar.TabIndex = 7;
             btnKeluar.Text = "Keluar";
+            btnKeluar.TextAlign = ContentAlignment.MiddleLeft;
             btnKeluar.UseVisualStyleBackColor = false;
             btnKeluar.Click += btnKeluar_Click;
             // 
@@ -102,12 +105,12 @@
             btnRiwayat.FlatAppearance.BorderSize = 0;
             btnRiwayat.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
             btnRiwayat.FlatStyle = FlatStyle.Flat;
-            btnRiwayat.Font = new Font("Segoe UI", 12F);
+            btnRiwayat.Font = new Font("Inter", 10F);
             btnRiwayat.ForeColor = Color.FromArgb(31, 41, 55);
-            btnRiwayat.Location = new Point(15, 250);
+            btnRiwayat.Location = new Point(16, 256);
             btnRiwayat.Name = "btnRiwayat";
-            btnRiwayat.Padding = new Padding(12, 0, 0, 0);
-            btnRiwayat.Size = new Size(188, 44);
+            btnRiwayat.Padding = new Padding(16, 0, 0, 0);
+            btnRiwayat.Size = new Size(208, 40);
             btnRiwayat.TabIndex = 6;
             btnRiwayat.Text = "Riwayat Transaksi";
             btnRiwayat.TextAlign = ContentAlignment.MiddleLeft;
@@ -120,12 +123,12 @@
             btnKatalog.FlatAppearance.BorderSize = 0;
             btnKatalog.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
             btnKatalog.FlatStyle = FlatStyle.Flat;
-            btnKatalog.Font = new Font("Segoe UI", 12F);
+            btnKatalog.Font = new Font("Inter", 10F);
             btnKatalog.ForeColor = Color.FromArgb(31, 41, 55);
-            btnKatalog.Location = new Point(15, 200);
+            btnKatalog.Location = new Point(16, 208);
             btnKatalog.Name = "btnKatalog";
-            btnKatalog.Padding = new Padding(12, 0, 0, 0);
-            btnKatalog.Size = new Size(188, 44);
+            btnKatalog.Padding = new Padding(16, 0, 0, 0);
+            btnKatalog.Size = new Size(208, 40);
             btnKatalog.TabIndex = 5;
             btnKatalog.Text = "Katalog Produk";
             btnKatalog.TextAlign = ContentAlignment.MiddleLeft;
@@ -139,12 +142,12 @@
             btnKasir.FlatAppearance.BorderSize = 0;
             btnKasir.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
             btnKasir.FlatStyle = FlatStyle.Flat;
-            btnKasir.Font = new Font("Segoe UI", 12F);
+            btnKasir.Font = new Font("Inter", 10F);
             btnKasir.ForeColor = Color.FromArgb(31, 41, 55);
-            btnKasir.Location = new Point(15, 150);
+            btnKasir.Location = new Point(16, 160);
             btnKasir.Name = "btnKasir";
-            btnKasir.Padding = new Padding(12, 0, 0, 0);
-            btnKasir.Size = new Size(188, 44);
+            btnKasir.Padding = new Padding(16, 0, 0, 0);
+            btnKasir.Size = new Size(208, 40);
             btnKasir.TabIndex = 4;
             btnKasir.Text = "Kasir / POS";
             btnKasir.TextAlign = ContentAlignment.MiddleLeft;
@@ -157,12 +160,12 @@
             btnDashboard.FlatAppearance.BorderSize = 0;
             btnDashboard.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
             btnDashboard.FlatStyle = FlatStyle.Flat;
-            btnDashboard.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnDashboard.Font = new Font("Inter", 10F, FontStyle.Bold);
             btnDashboard.ForeColor = Color.FromArgb(31, 41, 55);
-            btnDashboard.Location = new Point(16, 100);
+            btnDashboard.Location = new Point(16, 112);
             btnDashboard.Name = "btnDashboard";
-            btnDashboard.Padding = new Padding(12, 0, 0, 0);
-            btnDashboard.Size = new Size(188, 44);
+            btnDashboard.Padding = new Padding(16, 0, 0, 0);
+            btnDashboard.Size = new Size(208, 40);
             btnDashboard.TabIndex = 3;
             btnDashboard.Text = "Dashboard";
             btnDashboard.TextAlign = ContentAlignment.MiddleLeft;
@@ -171,9 +174,9 @@
             // pictureLogo
             // 
             pictureLogo.Image = Properties.Resources.logo;
-            pictureLogo.Location = new Point(15, 15);
+            pictureLogo.Location = new Point(24, 32);
             pictureLogo.Name = "pictureLogo";
-            pictureLogo.Size = new Size(50, 50);
+            pictureLogo.Size = new Size(40, 40);
             pictureLogo.SizeMode = PictureBoxSizeMode.Zoom;
             pictureLogo.TabIndex = 2;
             pictureLogo.TabStop = false;
@@ -181,8 +184,8 @@
             // lblNama
             // 
             lblNama.AutoSize = true;
-            lblNama.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblNama.Location = new Point(65, 30);
+            lblNama.Font = new Font("Inter", 14F, FontStyle.Bold);
+            lblNama.Location = new Point(72, 40);
             lblNama.Name = "lblNama";
             lblNama.Size = new Size(112, 23);
             lblNama.TabIndex = 1;
@@ -199,11 +202,12 @@
             pnlKanan.Controls.Add(btnTransaksiBaru);
             pnlKanan.Controls.Add(lblTanggal);
             pnlKanan.Controls.Add(lblJudul);
+            pnlKanan.Controls.Add(lblTransaksiTerbaru);
             pnlKanan.Dock = DockStyle.Fill;
-            pnlKanan.Location = new Point(220, 0);
+            pnlKanan.Location = new Point(240, 0);
             pnlKanan.Name = "pnlKanan";
             pnlKanan.Padding = new Padding(28);
-            pnlKanan.Size = new Size(880, 680);
+            pnlKanan.Size = new Size(1040, 720);
             pnlKanan.TabIndex = 1;
             // 
             // nightControlBox1
@@ -220,7 +224,7 @@
             nightControlBox1.EnableMaximizeColor = Color.FromArgb(160, 160, 160);
             nightControlBox1.EnableMinimizeButton = true;
             nightControlBox1.EnableMinimizeColor = Color.FromArgb(160, 160, 160);
-            nightControlBox1.Location = new Point(741, 0);
+            nightControlBox1.Location = new Point(901, 0);
             nightControlBox1.MaximizeHoverColor = Color.FromArgb(15, 255, 255, 255);
             nightControlBox1.MaximizeHoverForeColor = Color.White;
             nightControlBox1.MinimizeHoverColor = Color.FromArgb(15, 255, 255, 255);
@@ -234,17 +238,18 @@
             pnlStok.BackColor = Color.White;
             pnlStok.Controls.Add(lblNilaiStok);
             pnlStok.Controls.Add(lblStok);
-            pnlStok.Location = new Point(565, 100);
+            pnlStok.Location = new Point(696, 112);
+            pnlStok.BorderStyle = BorderStyle.None;
             pnlStok.Name = "pnlStok";
-            pnlStok.Size = new Size(250, 150);
+            pnlStok.Size = new Size(304, 112);
             pnlStok.TabIndex = 12;
             // 
             // lblNilaiStok
             // 
             lblNilaiStok.AutoSize = true;
-            lblNilaiStok.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblNilaiStok.Font = new Font("Inter", 20F, FontStyle.Bold);
             lblNilaiStok.ForeColor = Color.FromArgb(180, 35, 24);
-            lblNilaiStok.Location = new Point(15, 75);
+            lblNilaiStok.Location = new Point(24, 48);
             lblNilaiStok.Name = "lblNilaiStok";
             lblNilaiStok.Size = new Size(39, 39);
             lblNilaiStok.TabIndex = 17;
@@ -253,9 +258,9 @@
             // lblStok
             // 
             lblStok.AutoSize = true;
-            lblStok.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblStok.Font = new Font("Inter", 9F);
             lblStok.ForeColor = Color.FromArgb(107, 114, 128);
-            lblStok.Location = new Point(15, 15);
+            lblStok.Location = new Point(24, 20);
             lblStok.Name = "lblStok";
             lblStok.Size = new Size(87, 16);
             lblStok.TabIndex = 15;
@@ -266,17 +271,18 @@
             pnlTerjual.BackColor = Color.White;
             pnlTerjual.Controls.Add(lblNilaiTerjual);
             pnlTerjual.Controls.Add(lblTerjual);
-            pnlTerjual.Location = new Point(300, 100);
+            pnlTerjual.Location = new Point(368, 112);
+            pnlTerjual.BorderStyle = BorderStyle.None;
             pnlTerjual.Name = "pnlTerjual";
-            pnlTerjual.Size = new Size(250, 150);
+            pnlTerjual.Size = new Size(304, 112);
             pnlTerjual.TabIndex = 11;
             // 
             // lblNilaiTerjual
             // 
             lblNilaiTerjual.AutoSize = true;
-            lblNilaiTerjual.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblNilaiTerjual.Font = new Font("Inter", 20F, FontStyle.Bold);
             lblNilaiTerjual.ForeColor = Color.FromArgb(31, 41, 55);
-            lblNilaiTerjual.Location = new Point(15, 75);
+            lblNilaiTerjual.Location = new Point(24, 48);
             lblNilaiTerjual.Name = "lblNilaiTerjual";
             lblNilaiTerjual.Size = new Size(39, 39);
             lblNilaiTerjual.TabIndex = 16;
@@ -285,9 +291,9 @@
             // lblTerjual
             // 
             lblTerjual.AutoSize = true;
-            lblTerjual.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTerjual.Font = new Font("Inter", 9F);
             lblTerjual.ForeColor = Color.FromArgb(107, 114, 128);
-            lblTerjual.Location = new Point(15, 15);
+            lblTerjual.Location = new Point(24, 20);
             lblTerjual.Name = "lblTerjual";
             lblTerjual.Size = new Size(143, 16);
             lblTerjual.TabIndex = 15;
@@ -298,17 +304,18 @@
             pnlTransaksi.BackColor = Color.White;
             pnlTransaksi.Controls.Add(lblNilaiTransaksi);
             pnlTransaksi.Controls.Add(lblTransaksiHariIni);
-            pnlTransaksi.Location = new Point(35, 100);
+            pnlTransaksi.Location = new Point(40, 112);
+            pnlTransaksi.BorderStyle = BorderStyle.None;
             pnlTransaksi.Name = "pnlTransaksi";
-            pnlTransaksi.Size = new Size(250, 150);
+            pnlTransaksi.Size = new Size(304, 112);
             pnlTransaksi.TabIndex = 10;
             // 
             // lblNilaiTransaksi
             // 
             lblNilaiTransaksi.AutoSize = true;
-            lblNilaiTransaksi.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblNilaiTransaksi.Font = new Font("Inter", 20F, FontStyle.Bold);
             lblNilaiTransaksi.ForeColor = Color.FromArgb(31, 41, 55);
-            lblNilaiTransaksi.Location = new Point(15, 75);
+            lblNilaiTransaksi.Location = new Point(24, 48);
             lblNilaiTransaksi.Name = "lblNilaiTransaksi";
             lblNilaiTransaksi.Size = new Size(39, 39);
             lblNilaiTransaksi.TabIndex = 15;
@@ -317,9 +324,9 @@
             // lblTransaksiHariIni
             // 
             lblTransaksiHariIni.AutoSize = true;
-            lblTransaksiHariIni.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTransaksiHariIni.Font = new Font("Inter", 9F);
             lblTransaksiHariIni.ForeColor = Color.FromArgb(107, 114, 128);
-            lblTransaksiHariIni.Location = new Point(15, 15);
+            lblTransaksiHariIni.Location = new Point(24, 20);
             lblTransaksiHariIni.Name = "lblTransaksiHariIni";
             lblTransaksiHariIni.Size = new Size(112, 16);
             lblTransaksiHariIni.TabIndex = 14;
@@ -334,29 +341,31 @@
             dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = Color.White;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.Font = new Font("Inter", 9F, FontStyle.Bold);
             dataGridViewCellStyle1.ForeColor = Color.FromArgb(107, 114, 128);
             dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(255, 244, 204);
             dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(31, 41, 55);
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.ColumnHeadersHeight = 40;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.Font = new Font("Inter", 10F);
             dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
             dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(255, 244, 204);
             dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(31, 41, 55);
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.EnableHeadersVisualStyles = false;
-            dataGridView1.GridColor = Color.FromArgb(243, 244, 246);
-            dataGridView1.Location = new Point(35, 275);
+            dataGridView1.GridColor = Color.FromArgb(229, 231, 235);
+            dataGridView1.Location = new Point(40, 280);
+            dataGridView1.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowTemplate.Height = 36;
-            dataGridView1.Size = new Size(475, 375);
+            dataGridView1.Size = new Size(960, 400);
             dataGridView1.TabIndex = 9;
             // 
             // btnTransaksiBaru
@@ -366,12 +375,12 @@
             btnTransaksiBaru.FlatAppearance.BorderSize = 0;
             btnTransaksiBaru.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
             btnTransaksiBaru.FlatStyle = FlatStyle.Flat;
-            btnTransaksiBaru.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnTransaksiBaru.Font = new Font("Inter", 10F, FontStyle.Bold);
             btnTransaksiBaru.ForeColor = Color.FromArgb(31, 41, 55);
-            btnTransaksiBaru.Location = new Point(570, 25);
+            btnTransaksiBaru.Location = new Point(824, 32);
             btnTransaksiBaru.Name = "btnTransaksiBaru";
             btnTransaksiBaru.Padding = new Padding(12, 0, 0, 0);
-            btnTransaksiBaru.Size = new Size(170, 44);
+            btnTransaksiBaru.Size = new Size(176, 40);
             btnTransaksiBaru.TabIndex = 8;
             btnTransaksiBaru.Text = "+ Transaksi Baru";
             btnTransaksiBaru.TextAlign = ContentAlignment.MiddleLeft;
@@ -380,9 +389,9 @@
             // lblTanggal
             // 
             lblTanggal.AutoSize = true;
-            lblTanggal.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTanggal.Font = new Font("Inter", 9F);
             lblTanggal.ForeColor = Color.FromArgb(107, 114, 128);
-            lblTanggal.Location = new Point(35, 60);
+            lblTanggal.Location = new Point(40, 72);
             lblTanggal.Name = "lblTanggal";
             lblTanggal.Size = new Size(55, 16);
             lblTanggal.TabIndex = 1;
@@ -391,25 +400,33 @@
             // lblJudul
             // 
             lblJudul.AutoSize = true;
-            lblJudul.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblJudul.Font = new Font("Inter", 20F, FontStyle.Bold);
             lblJudul.ForeColor = Color.FromArgb(31, 41, 55);
-            lblJudul.Location = new Point(30, 25);
+            lblJudul.Location = new Point(40, 32);
             lblJudul.Name = "lblJudul";
             lblJudul.Size = new Size(188, 33);
             lblJudul.TabIndex = 0;
-            lblJudul.Text = "DASHBOARD";
+            lblJudul.Text = "Dashboard Kasir";
             // 
             // FormDashboardKasir
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1100, 680);
+            ClientSize = new Size(1280, 720);
             Controls.Add(pnlKanan);
             Controls.Add(pnlKiri);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormDashboardKasir";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "dashboardkasir";
+            lblTransaksiTerbaru.AutoSize = true;
+            lblTransaksiTerbaru.BackColor = Color.Transparent;
+            lblTransaksiTerbaru.Font = new Font("Inter", 12F, FontStyle.Bold);
+            lblTransaksiTerbaru.ForeColor = Color.FromArgb(31, 41, 55);
+            lblTransaksiTerbaru.Location = new Point(40, 248);
+            lblTransaksiTerbaru.TabIndex = 0;
+            lblTransaksiTerbaru.Text = "Transaksi Terbaru";
+            lblTransaksiTerbaru.Name = "lblTransaksiTerbaru";
             pnlKiri.ResumeLayout(false);
             pnlKiri.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureLogo).EndInit();
@@ -431,6 +448,7 @@
         private PictureBox pictureLogo;
         private Button btnDashboard;
         private Panel pnlKanan;
+        private Label lblTransaksiTerbaru;
         private Button btnKasir;
         private Button btnKeluar;
         private Button btnRiwayat;

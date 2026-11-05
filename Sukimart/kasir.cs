@@ -19,8 +19,8 @@ namespace Sukimart
             InitializeComponent();
             UIHelper.InisialisasiForm(this);
             MaximizeBox = false;
-            gridKeranjang.AllowUserToResizeColumns = true;
-            gridKeranjang.AllowUserToResizeRows = false;
+            AturGridKeranjang();
+            lblInfoKasir.Text = $"Kasir: {Navigasi.PenggunaAktif} · {DateTime.Now.ToString("dd/MM/yyyy", BudayaIndonesia)}";
             SesuaikanPeran();
             PasangEventHandlers();
             MuatDataBarang();
@@ -52,7 +52,26 @@ namespace Sukimart
             btnKeluar.Click += (s, e) => Navigasi.KeluarKeLogin(this);
 
             btnTambahKeranjang.Click += BtnTambahKeranjang_Click;
-            btnHapusKeranjang.Click += BtnHapusKeranjang_Click;
+            gridKeranjang.CellClick += GridKeranjang_CellClick;
+            gridKeranjang.CellMouseEnter += (s, e) =>
+            {
+                if (e.RowIndex >= 0 && KolomAksi(e.ColumnIndex))
+                {
+                    gridKeranjang.Cursor = Cursors.Hand;
+                }
+            };
+            gridKeranjang.CellMouseLeave += (s, e) => gridKeranjang.Cursor = Cursors.Default;
+            cmbBarang.KeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    btnTambahKeranjang.PerformClick();
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                }
+            };
+            btnUang50.Click += (s, e) => { nudBayar.Value = 50000; HitungKembalian(); };
+            btnUang100.Click += (s, e) => { nudBayar.Value = 100000; HitungKembalian(); };
             btnBatalKeranjang.Click += (s, e) => { keranjang.Clear(); PerbaruiTampilanKeranjang(); };
             btnProsesBayar.Click += BtnProsesBayar_Click;
 
@@ -105,19 +124,12 @@ namespace Sukimart
 
         private void BtnTambahKeranjang_Click(object? sender, EventArgs e)
         {
-            if (cmbBarang.SelectedIndex < 0)
-            {
-                MessageBox.Show("Pilih produk terlebih dahulu!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            string teks = cmbBarang.SelectedItem?.ToString() ?? "";
-            string kode = teks.Split(new[] { " - " }, StringSplitOptions.None)[0].Trim();
-            Barang? barang = daftarBarang.FirstOrDefault(b => b.Kode == kode);
+            Barang? barang = CariBarangDipilih();
 
             if (barang == null)
             {
-                MessageBox.Show("Produk tidak ditemukan!", "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Produk tidak ditemukan! Ketik kode atau nama produk, lalu pilih dari daftar.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cmbBarang.Focus();
                 return;
             }
 
@@ -152,25 +164,91 @@ namespace Sukimart
 
             nudJumlah.Value = 1;
             PerbaruiTampilanKeranjang();
+            cmbBarang.Focus();
+            cmbBarang.SelectAll();
         }
 
-        private void BtnHapusKeranjang_Click(object? sender, EventArgs e)
+        private Barang? CariBarangDipilih()
         {
-            if (gridKeranjang.CurrentRow == null || gridKeranjang.CurrentRow.Index < 0)
+            string teks = cmbBarang.SelectedIndex >= 0 ? cmbBarang.SelectedItem?.ToString() ?? "" : cmbBarang.Text;
+            teks = teks.Trim();
+            if (teks.Length == 0)
             {
-                MessageBox.Show("Pilih baris item keranjang yang ingin dihapus.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
+            }
+
+            string kode = teks.Split(new[] { " - " }, StringSplitOptions.None)[0].Trim();
+            Barang? barang = daftarBarang.FirstOrDefault(b => string.Equals(b.Kode, kode, StringComparison.OrdinalIgnoreCase));
+            if (barang != null)
+            {
+                return barang;
+            }
+
+            var cocok = daftarBarang.Where(b => b.Stok > 0 && b.Nama.Contains(teks, StringComparison.OrdinalIgnoreCase)).ToList();
+            return cocok.Count == 1 ? cocok[0] : null;
+        }
+
+        private void AturGridKeranjang()
+        {
+            colQty.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colQty.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            foreach (DataGridViewColumn kolom in new DataGridViewColumn[] { colKurang, colTambah, colHapus })
+            {
+                kolom.MinimumWidth = 36;
+                kolom.Width = 36;
+                kolom.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                kolom.DefaultCellStyle.Font = FontInter.Buat(12F, FontStyle.Bold);
+                kolom.DefaultCellStyle.ForeColor = Color.FromArgb(75, 85, 99);
+                kolom.DefaultCellStyle.SelectionForeColor = Color.FromArgb(31, 41, 55);
+            }
+            colHapus.DefaultCellStyle.ForeColor = Color.FromArgb(220, 38, 38);
+            colHapus.DefaultCellStyle.SelectionForeColor = Color.FromArgb(220, 38, 38);
+        }
+
+        private bool KolomAksi(int indeks)
+        {
+            return indeks == colKurang.Index || indeks == colTambah.Index || indeks == colHapus.Index;
+        }
+
+        private void GridKeranjang_CellClick(object? sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || !KolomAksi(e.ColumnIndex))
+            {
                 return;
             }
 
-            var item = gridKeranjang.CurrentRow.DataBoundItem;
-            if (item == null) return;
-
-            string kode = (string)item.GetType().GetProperty("KodeBarang")?.GetValue(item, null)!;
-            var target = keranjang.FirstOrDefault(k => k.KodeBarang == kode);
-            if (target != null)
+            string kode = gridKeranjang.Rows[e.RowIndex].Cells[colKode.Index].Value?.ToString() ?? "";
+            var item = keranjang.FirstOrDefault(k => k.KodeBarang == kode);
+            if (item == null)
             {
-                keranjang.Remove(target);
-                PerbaruiTampilanKeranjang();
+                return;
+            }
+
+            if (e.ColumnIndex == colTambah.Index)
+            {
+                Barang? barang = daftarBarang.FirstOrDefault(b => b.Kode == kode);
+                if (barang != null && item.Jumlah + 1 > barang.Stok)
+                {
+                    MessageBox.Show($"Stok produk '{barang.Nama}' tidak mencukupi!\nStok tersedia: {barang.Stok}", "Stok Terbatas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                item.Jumlah++;
+            }
+            else if (e.ColumnIndex == colKurang.Index && item.Jumlah > 1)
+            {
+                item.Jumlah--;
+            }
+            else
+            {
+                keranjang.Remove(item);
+            }
+
+            PerbaruiTampilanKeranjang();
+
+            int baris = Math.Min(e.RowIndex, gridKeranjang.Rows.Count - 1);
+            if (baris >= 0)
+            {
+                gridKeranjang.CurrentCell = gridKeranjang.Rows[baris].Cells[colNama.Index];
             }
         }
 
@@ -188,8 +266,14 @@ namespace Sukimart
                 k.NamaBarang,
                 HargaFormat = "Rp " + k.Harga.ToString("N0", BudayaIndonesia),
                 k.Jumlah,
-                SubtotalFormat = "Rp " + k.Subtotal.ToString("N0", BudayaIndonesia)
+                SubtotalFormat = "Rp " + k.Subtotal.ToString("N0", BudayaIndonesia),
+                Kurang = "−",
+                Tambah = "+",
+                Hapus = "×"
             }).ToList();
+
+            int jumlahItem = keranjang.Sum(k => k.Jumlah);
+            lblInfoKeranjang.Text = $"{keranjang.Count} produk · {jumlahItem} item";
 
             int total = keranjang.Sum(k => k.Subtotal);
             lblTotalNilai.Text = "Rp " + total.ToString("N0", BudayaIndonesia);

@@ -1,4 +1,4 @@
-﻿namespace Sukimart
+namespace Sukimart
 {
     partial class FormLogin
     {
@@ -64,15 +64,15 @@
             pnlKiri.Dock = DockStyle.Left;
             pnlKiri.Location = new Point(0, 0);
             pnlKiri.Name = "pnlKiri";
-            pnlKiri.Size = new Size(500, 640);
+            pnlKiri.Size = new Size(560, 720);
             pnlKiri.TabIndex = 1;
             // 
             // lblPassSalah
             // 
             lblPassSalah.AutoSize = true;
-            lblPassSalah.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblPassSalah.Font = new Font("Inter", 9F);
             lblPassSalah.ForeColor = Color.FromArgb(220, 38, 38);
-            lblPassSalah.Location = new Point(56, 432);
+            lblPassSalah.Location = new Point(80, 410);
             lblPassSalah.Name = "lblPassSalah";
             lblPassSalah.Size = new Size(0, 15);
             lblPassSalah.TabIndex = 9;
@@ -80,9 +80,9 @@
             // lblUsnSalah
             // 
             lblUsnSalah.AutoSize = true;
-            lblUsnSalah.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblUsnSalah.Font = new Font("Inter", 9F);
             lblUsnSalah.ForeColor = Color.FromArgb(220, 38, 38);
-            lblUsnSalah.Location = new Point(56, 332);
+            lblUsnSalah.Location = new Point(80, 330);
             lblUsnSalah.Name = "lblUsnSalah";
             lblUsnSalah.Size = new Size(0, 15);
             lblUsnSalah.TabIndex = 8;
@@ -90,8 +90,8 @@
             // lblPassword
             // 
             lblPassword.AutoSize = true;
-            lblPassword.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblPassword.Location = new Point(53, 375);
+            lblPassword.Font = new Font("Inter", 9F, FontStyle.Bold);
+            lblPassword.Location = new Point(80, 360);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new Size(69, 16);
             lblPassword.TabIndex = 7;
@@ -100,8 +100,8 @@
             // lblUsername
             // 
             lblUsername.AutoSize = true;
-            lblUsername.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblUsername.Location = new Point(53, 275);
+            lblUsername.Font = new Font("Inter", 9F, FontStyle.Bold);
+            lblUsername.Location = new Point(80, 280);
             lblUsername.Name = "lblUsername";
             lblUsername.Size = new Size(73, 16);
             lblUsername.TabIndex = 6;
@@ -113,11 +113,11 @@
             btnMasuk.Cursor = Cursors.Hand;
             btnMasuk.FlatAppearance.BorderSize = 0;
             btnMasuk.FlatStyle = FlatStyle.Flat;
-            btnMasuk.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnMasuk.Font = new Font("Inter", 10F, FontStyle.Bold);
             btnMasuk.ForeColor = Color.Black;
-            btnMasuk.Location = new Point(55, 500);
+            btnMasuk.Location = new Point(80, 448);
             btnMasuk.Name = "btnMasuk";
-            btnMasuk.Size = new Size(375, 30);
+            btnMasuk.Size = new Size(400, 40);
             btnMasuk.TabIndex = 5;
             btnMasuk.Text = "Sign in";
             btnMasuk.UseVisualStyleBackColor = false;
@@ -126,34 +126,34 @@
             // txtPassword
             // 
             txtPassword.BackColor = Color.White;
-            txtPassword.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtPassword.Font = new Font("Inter", 10F);
             txtPassword.ForeColor = Color.Black;
-            txtPassword.Location = new Point(55, 400);
+            txtPassword.Location = new Point(80, 380);
             txtPassword.Name = "txtPassword";
             txtPassword.PlaceholderText = "Enter your password";
-            txtPassword.Size = new Size(375, 27);
+            txtPassword.Size = new Size(400, 25);
             txtPassword.TabIndex = 4;
             txtPassword.UseSystemPasswordChar = true;
             // 
             // txtUsername
             // 
             txtUsername.BackColor = Color.White;
-            txtUsername.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtUsername.Font = new Font("Inter", 10F);
             txtUsername.ForeColor = Color.Black;
-            txtUsername.Location = new Point(55, 300);
+            txtUsername.Location = new Point(80, 300);
             txtUsername.Name = "txtUsername";
             txtUsername.PlaceholderText = "Enter your username";
-            txtUsername.Size = new Size(375, 27);
+            txtUsername.Size = new Size(400, 25);
             txtUsername.TabIndex = 3;
             // 
             // lblJudul
             // 
             lblJudul.AutoSize = true;
-            lblJudul.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblJudul.Font = new Font("Inter", 20F, FontStyle.Bold);
             lblJudul.ForeColor = Color.Black;
-            lblJudul.Location = new Point(50, 175);
+            lblJudul.Location = new Point(80, 208);
             lblJudul.Name = "lblJudul";
-            lblJudul.Size = new Size(103, 33);
+            lblJudul.Size = new Size(116, 36);
             lblJudul.TabIndex = 2;
             lblJudul.Text = "Sign in";
             // 
@@ -161,9 +161,9 @@
             // 
             pictureLogo.BackColor = Color.Transparent;
             pictureLogo.Image = Properties.Resources.logo;
-            pictureLogo.Location = new Point(50, 50);
+            pictureLogo.Location = new Point(80, 64);
             pictureLogo.Name = "pictureLogo";
-            pictureLogo.Size = new Size(50, 50);
+            pictureLogo.Size = new Size(40, 40);
             pictureLogo.SizeMode = PictureBoxSizeMode.Zoom;
             pictureLogo.TabIndex = 1;
             pictureLogo.TabStop = false;
@@ -171,9 +171,9 @@
             // lblMerk
             // 
             lblMerk.AutoSize = true;
-            lblMerk.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblMerk.Font = new Font("Inter", 14F, FontStyle.Bold);
             lblMerk.ForeColor = Color.Black;
-            lblMerk.Location = new Point(100, 65);
+            lblMerk.Location = new Point(128, 72);
             lblMerk.Name = "lblMerk";
             lblMerk.Size = new Size(126, 25);
             lblMerk.TabIndex = 0;
@@ -186,9 +186,9 @@
             pnlKanan.Controls.Add(lblKecil);
             pnlKanan.Controls.Add(lblBesar);
             pnlKanan.Dock = DockStyle.Fill;
-            pnlKanan.Location = new Point(500, 0);
+            pnlKanan.Location = new Point(560, 0);
             pnlKanan.Name = "pnlKanan";
-            pnlKanan.Size = new Size(500, 640);
+            pnlKanan.Size = new Size(720, 720);
             pnlKanan.TabIndex = 2;
             // 
             // nightControlBox1
@@ -205,7 +205,7 @@
             nightControlBox1.EnableMaximizeColor = Color.FromArgb(160, 160, 160);
             nightControlBox1.EnableMinimizeButton = true;
             nightControlBox1.EnableMinimizeColor = Color.FromArgb(160, 160, 160);
-            nightControlBox1.Location = new Point(361, 0);
+            nightControlBox1.Location = new Point(581, 0);
             nightControlBox1.MaximizeHoverColor = Color.FromArgb(15, 255, 255, 255);
             nightControlBox1.MaximizeHoverForeColor = Color.White;
             nightControlBox1.MinimizeHoverColor = Color.FromArgb(15, 255, 255, 255);
@@ -217,20 +217,20 @@
             // lblKecil
             // 
             lblKecil.AutoSize = true;
-            lblKecil.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblKecil.Location = new Point(40, 300);
+            lblKecil.Font = new Font("Inter", 12F);
+            lblKecil.Location = new Point(64, 376);
             lblKecil.Name = "lblKecil";
-            lblKecil.Size = new Size(415, 23);
+            lblKecil.Size = new Size(393, 22);
             lblKecil.TabIndex = 2;
             lblKecil.Text = "\"Kasir, stok, dan laporan dalam satu aplikasi\"";
             // 
             // lblBesar
             // 
             lblBesar.AutoSize = true;
-            lblBesar.Font = new Font("Segoe UI", 27.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblBesar.Location = new Point(30, 225);
+            lblBesar.Font = new Font("Inter", 28F, FontStyle.Bold);
+            lblBesar.Location = new Point(64, 320);
             lblBesar.Name = "lblBesar";
-            lblBesar.Size = new Size(437, 45);
+            lblBesar.Size = new Size(436, 45);
             lblBesar.TabIndex = 1;
             lblBesar.Text = "Kelola toko lebih mudah";
             // 
@@ -239,7 +239,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            ClientSize = new Size(1000, 640);
+            ClientSize = new Size(1280, 720);
             Controls.Add(pnlKanan);
             Controls.Add(pnlKiri);
             FormBorderStyle = FormBorderStyle.None;
