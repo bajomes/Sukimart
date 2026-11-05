@@ -128,7 +128,7 @@ namespace Sukimart
             {
                 kodeTerpilih = barang.Kode;
                 txtKode.Text = barang.Kode;
-                txtKode.ReadOnly = true;
+                txtKode.ReadOnly = this.peran == "kasir";
                 txtNamaBarang.Text = barang.Nama;
                 if (!string.IsNullOrEmpty(barang.Kategori) && !cmbKategori.Items.Contains(barang.Kategori))
                 {
@@ -207,8 +207,15 @@ namespace Sukimart
             var barang = daftarBarang.FirstOrDefault(b => b.Kode == kodeTerpilih);
             if (barang == null) return;
 
+            string kodeBaru = txtKode.Text.Trim();
             string nama = txtNamaBarang.Text.Trim();
             string kategori = cmbKategori.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(kodeBaru))
+            {
+                MessageBox.Show("Kode barang tidak boleh kosong!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             if (string.IsNullOrWhiteSpace(nama))
             {
@@ -216,8 +223,19 @@ namespace Sukimart
                 return;
             }
 
+            // Jika kode diubah, periksa apakah kode baru sudah digunakan oleh barang lain
+            if (!kodeBaru.Equals(kodeTerpilih, StringComparison.OrdinalIgnoreCase))
+            {
+                if (daftarBarang.Any(b => b.Kode.Equals(kodeBaru, StringComparison.OrdinalIgnoreCase)))
+                {
+                    MessageBox.Show($"Kode barang '{kodeBaru}' sudah digunakan oleh barang lain! Gunakan kode yang berbeda.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+
             try
             {
+                barang.Kode = kodeBaru;
                 barang.Nama = nama;
                 barang.Kategori = string.IsNullOrWhiteSpace(kategori) ? "Lainnya" : kategori;
                 barang.Harga = (int)nudHarga.Value;
@@ -225,7 +243,7 @@ namespace Sukimart
                 barang.StokMinimum = (int)nudStokMinimum.Value;
 
                 PenyimpananData.SimpanBarang(daftarBarang);
-                MessageBox.Show($"Data barang '{nama}' berhasil diperbarui!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Data barang '{nama}' ({kodeBaru}) berhasil diperbarui!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MuatDataBarang();
                 BersihkanForm();
             }

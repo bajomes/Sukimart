@@ -1,4 +1,4 @@
-﻿namespace Sukimart
+namespace Sukimart
 {
     partial class FormKasir
     {
@@ -65,6 +65,7 @@
             lblKembalianNilai = new Label();
             btnProsesBayar = new Button();
             btnBatalKeranjang = new Button();
+            btnUangPas = new Button();
             pnlKiri.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureLogo).BeginInit();
             pnlKanan.SuspendLayout();
@@ -448,6 +449,7 @@
             pnlCheckout.Controls.Add(lblTotalLabel);
             pnlCheckout.Controls.Add(lblTotalNilai);
             pnlCheckout.Controls.Add(lblBayarLabel);
+            pnlCheckout.Controls.Add(btnUangPas);
             pnlCheckout.Controls.Add(nudBayar);
             pnlCheckout.Controls.Add(lblKembalianLabel);
             pnlCheckout.Controls.Add(lblKembalianNilai);
@@ -502,6 +504,21 @@
             lblBayarLabel.TabIndex = 3;
             lblBayarLabel.Text = "Uang Diterima (Rp):";
             // 
+            // btnUangPas
+            // 
+            btnUangPas.BackColor = Color.FromArgb(243, 244, 246);
+            btnUangPas.Cursor = Cursors.Hand;
+            btnUangPas.FlatAppearance.BorderSize = 0;
+            btnUangPas.FlatStyle = FlatStyle.Flat;
+            btnUangPas.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            btnUangPas.ForeColor = Color.FromArgb(31, 41, 55);
+            btnUangPas.Location = new Point(148, 136);
+            btnUangPas.Name = "btnUangPas";
+            btnUangPas.Size = new Size(83, 24);
+            btnUangPas.TabIndex = 12;
+            btnUangPas.Text = "Uang Pas";
+            btnUangPas.UseVisualStyleBackColor = false;
+            // 
             // nudBayar
             // 
             nudBayar.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
@@ -510,7 +527,7 @@
             nudBayar.Name = "nudBayar";
             nudBayar.Size = new Size(215, 25);
             nudBayar.TabIndex = 4;
-            nudBayar.ThousandsSeparator = true;
+            nudBayar.ThousandsSeparator = false;
             // 
             // lblKembalianLabel
             // 
@@ -625,5 +642,6 @@
         private Label lblKembalianNilai;
         private Button btnProsesBayar;
         private Button btnBatalKeranjang;
+        private Button btnUangPas;
     }
 }

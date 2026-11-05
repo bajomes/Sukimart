@@ -1,4 +1,4 @@
-﻿namespace Sukimart
+namespace Sukimart
 {
     partial class FormKatalog
     {
@@ -474,7 +474,7 @@
             nudHarga.Name = "nudHarga";
             nudHarga.Size = new Size(250, 24);
             nudHarga.TabIndex = 12;
-            nudHarga.ThousandsSeparator = true;
+            nudHarga.ThousandsSeparator = false;
             // 
             // lblStok
             // 

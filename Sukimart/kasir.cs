@@ -56,8 +56,29 @@ namespace Sukimart
             btnBatalKeranjang.Click += (s, e) => { keranjang.Clear(); PerbaruiTampilanKeranjang(); };
             btnProsesBayar.Click += BtnProsesBayar_Click;
 
+            btnUangPas.Click += (s, e) =>
+            {
+                int total = keranjang.Sum(k => k.Subtotal);
+                if (total > 0)
+                {
+                    nudBayar.Value = total;
+                    HitungKembalian();
+                }
+            };
+
             nudBayar.ValueChanged += (s, e) => HitungKembalian();
             nudBayar.KeyUp += (s, e) => HitungKembalian();
+            nudBayar.Enter += (s, e) => nudBayar.Select(0, nudBayar.Text.Length);
+            nudBayar.Click += (s, e) => nudBayar.Select(0, nudBayar.Text.Length);
+            nudBayar.KeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    btnProsesBayar.PerformClick();
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                }
+            };
         }
 
         public void MuatDataBarang()
@@ -242,7 +263,6 @@ namespace Sukimart
 
             try
             {
-                // Potong stok produk di memori setelah validasi pembayaran lolos
                 foreach (var item in keranjang)
                 {
                     var brg = daftarBarang.FirstOrDefault(b => b.Kode == item.KodeBarang);
@@ -252,7 +272,6 @@ namespace Sukimart
                     }
                 }
 
-                // Simpan ke file JSON
                 PenyimpananData.TambahTransaksi(trx, details);
                 PenyimpananData.SimpanBarang(daftarBarang);
 
@@ -279,16 +298,12 @@ namespace Sukimart
             }
             catch (Exception ex)
             {
-                // Muat ulang data barang jika penyimpanan gagal agar stok di memori tetap sinkron
                 MuatDataBarang();
                 MessageBox.Show("Gagal menyimpan transaksi ke JSON: " + ex.Message, "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
 
-    /// <summary>
-    /// Kelas kompatibilitas untuk referensi lama FormTransaksi.
-    /// </summary>
     public class FormTransaksi : FormKasir
     {
         public FormTransaksi() : base("kasir") { }
