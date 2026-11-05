@@ -8,6 +8,8 @@ namespace Sukimart
         private readonly string peran;
         private List<Barang> daftarBarang = new List<Barang>();
         private readonly List<ItemKeranjang> keranjang = new List<ItemKeranjang>();
+        private bool bayarDiisiManual;
+        private bool bayarDiaturOtomatis;
 
         public FormKasir() : this(Navigasi.PeranAktif)
         {
@@ -61,7 +63,7 @@ namespace Sukimart
                 }
             };
             gridKeranjang.CellMouseLeave += (s, e) => gridKeranjang.Cursor = Cursors.Default;
-            cmbBarang.KeyDown += (s, e) =>
+            nudJumlah.KeyDown += (s, e) =>
             {
                 if (e.KeyCode == Keys.Enter)
                 {
@@ -70,9 +72,10 @@ namespace Sukimart
                     e.SuppressKeyPress = true;
                 }
             };
+            Shown += (s, e) => FokusPencarian();
             btnUang50.Click += (s, e) => { nudBayar.Value = 50000; HitungKembalian(); };
             btnUang100.Click += (s, e) => { nudBayar.Value = 100000; HitungKembalian(); };
-            btnBatalKeranjang.Click += (s, e) => { keranjang.Clear(); PerbaruiTampilanKeranjang(); };
+            btnBatalKeranjang.Click += (s, e) => { keranjang.Clear(); PerbaruiTampilanKeranjang(); FokusPencarian(); };
             btnProsesBayar.Click += BtnProsesBayar_Click;
 
             btnUangPas.Click += (s, e) =>
@@ -85,8 +88,22 @@ namespace Sukimart
                 }
             };
 
-            nudBayar.ValueChanged += (s, e) => HitungKembalian();
-            nudBayar.KeyUp += (s, e) => HitungKembalian();
+            nudBayar.ValueChanged += (s, e) =>
+            {
+                if (!bayarDiaturOtomatis)
+                {
+                    bayarDiisiManual = true;
+                }
+                HitungKembalian();
+            };
+            nudBayar.KeyUp += (s, e) =>
+            {
+                if ((e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9) || (e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9) || e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete)
+                {
+                    bayarDiisiManual = true;
+                }
+                HitungKembalian();
+            };
             nudBayar.Enter += (s, e) => nudBayar.Select(0, nudBayar.Text.Length);
             nudBayar.Click += (s, e) => nudBayar.Select(0, nudBayar.Text.Length);
             nudBayar.KeyDown += (s, e) =>
@@ -111,10 +128,8 @@ namespace Sukimart
                     cmbBarang.Items.Add($"{b.Kode} - {b.Nama} (Rp {b.Harga:N0} | Stok: {b.Stok})");
                 }
 
-                if (cmbBarang.Items.Count > 0)
-                {
-                    cmbBarang.SelectedIndex = 0;
-                }
+                cmbBarang.SelectedIndex = -1;
+                cmbBarang.Text = "";
             }
             catch (Exception ex)
             {
@@ -164,8 +179,173 @@ namespace Sukimart
 
             nudJumlah.Value = 1;
             PerbaruiTampilanKeranjang();
+            PilihBaris(barang.Kode);
+            cmbBarang.SelectedIndex = -1;
+            cmbBarang.Text = "";
+            FokusPencarian();
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (TanganiPintasan(keyData))
+            {
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private bool TanganiPintasan(Keys tombol)
+        {
+            bool diPencarian = cmbBarang.ContainsFocus;
+            bool diBayar = nudBayar.ContainsFocus;
+            bool pencarianKosong = cmbBarang.Text.Trim().Length == 0;
+
+            switch (tombol)
+            {
+                case Keys.Enter when diPencarian:
+                    if (pencarianKosong)
+                    {
+                        if (keranjang.Count > 0)
+                        {
+                            nudBayar.Focus();
+                            nudBayar.Select(0, nudBayar.Text.Length);
+                        }
+                    }
+                    else
+                    {
+                        btnTambahKeranjang.PerformClick();
+                    }
+                    return true;
+
+                case Keys.Multiply when diPencarian:
+                    if (int.TryParse(cmbBarang.Text.Trim(), out int jumlah) && jumlah > 0)
+                    {
+                        nudJumlah.Value = Math.Min(jumlah, (int)nudJumlah.Maximum);
+                        cmbBarang.Text = "";
+                    }
+                    return true;
+
+                case Keys.Add when !diBayar && !nudJumlah.ContainsFocus:
+                    UbahJumlahBarisTerpilih(1);
+                    return true;
+
+                case Keys.Subtract when !diBayar && !nudJumlah.ContainsFocus:
+                    UbahJumlahBarisTerpilih(-1);
+                    return true;
+
+                case Keys.Up when diPencarian && pencarianKosong && !cmbBarang.DroppedDown:
+                    PindahBaris(-1);
+                    return true;
+
+                case Keys.Down when diPencarian && pencarianKosong && !cmbBarang.DroppedDown:
+                    PindahBaris(1);
+                    return true;
+
+                case Keys.Delete when (diPencarian && pencarianKosong) || gridKeranjang.ContainsFocus:
+                    HapusBarisTerpilih();
+                    return true;
+
+                case Keys.Escape when diBayar || nudJumlah.ContainsFocus:
+                    FokusPencarian();
+                    return true;
+
+                case Keys.Escape when diPencarian && !cmbBarang.DroppedDown:
+                    cmbBarang.SelectedIndex = -1;
+                    cmbBarang.Text = "";
+                    nudJumlah.Value = 1;
+                    return true;
+            }
+            return false;
+        }
+
+        private void FokusPencarian()
+        {
             cmbBarang.Focus();
             cmbBarang.SelectAll();
+        }
+
+        private string? KodeBarisTerpilih()
+        {
+            if (gridKeranjang.CurrentRow == null || gridKeranjang.CurrentRow.Index < 0)
+            {
+                return null;
+            }
+            return gridKeranjang.CurrentRow.Cells[colKode.Index].Value?.ToString();
+        }
+
+        private void PilihBaris(string kode)
+        {
+            foreach (DataGridViewRow baris in gridKeranjang.Rows)
+            {
+                if (baris.Cells[colKode.Index].Value?.ToString() == kode)
+                {
+                    gridKeranjang.CurrentCell = baris.Cells[colNama.Index];
+                    return;
+                }
+            }
+        }
+
+        private void PindahBaris(int arah)
+        {
+            if (gridKeranjang.Rows.Count == 0)
+            {
+                return;
+            }
+            int sekarang = gridKeranjang.CurrentRow?.Index ?? 0;
+            int tujuan = Math.Max(0, Math.Min(gridKeranjang.Rows.Count - 1, sekarang + arah));
+            gridKeranjang.CurrentCell = gridKeranjang.Rows[tujuan].Cells[colNama.Index];
+        }
+
+        private void UbahJumlahBarisTerpilih(int perubahan)
+        {
+            string? kode = KodeBarisTerpilih();
+            if (kode != null)
+            {
+                UbahJumlahItem(kode, perubahan);
+            }
+        }
+
+        private void HapusBarisTerpilih()
+        {
+            string? kode = KodeBarisTerpilih();
+            if (kode == null)
+            {
+                return;
+            }
+            int indeks = gridKeranjang.CurrentRow!.Index;
+            keranjang.RemoveAll(k => k.KodeBarang == kode);
+            PerbaruiTampilanKeranjang();
+            if (gridKeranjang.Rows.Count > 0)
+            {
+                gridKeranjang.CurrentCell = gridKeranjang.Rows[Math.Min(indeks, gridKeranjang.Rows.Count - 1)].Cells[colNama.Index];
+            }
+        }
+
+        private void UbahJumlahItem(string kode, int perubahan)
+        {
+            var item = keranjang.FirstOrDefault(k => k.KodeBarang == kode);
+            if (item == null)
+            {
+                return;
+            }
+
+            if (perubahan > 0)
+            {
+                Barang? barang = daftarBarang.FirstOrDefault(b => b.Kode == kode);
+                if (barang != null && item.Jumlah + perubahan > barang.Stok)
+                {
+                    MessageBox.Show($"Stok produk '{barang.Nama}' tidak mencukupi!\nStok tersedia: {barang.Stok}", "Stok Terbatas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+            else if (item.Jumlah + perubahan < 1)
+            {
+                return;
+            }
+
+            item.Jumlah += perubahan;
+            PerbaruiTampilanKeranjang();
+            PilihBaris(kode);
         }
 
         private Barang? CariBarangDipilih()
@@ -218,37 +398,19 @@ namespace Sukimart
             }
 
             string kode = gridKeranjang.Rows[e.RowIndex].Cells[colKode.Index].Value?.ToString() ?? "";
-            var item = keranjang.FirstOrDefault(k => k.KodeBarang == kode);
-            if (item == null)
-            {
-                return;
-            }
 
             if (e.ColumnIndex == colTambah.Index)
             {
-                Barang? barang = daftarBarang.FirstOrDefault(b => b.Kode == kode);
-                if (barang != null && item.Jumlah + 1 > barang.Stok)
-                {
-                    MessageBox.Show($"Stok produk '{barang.Nama}' tidak mencukupi!\nStok tersedia: {barang.Stok}", "Stok Terbatas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                item.Jumlah++;
+                UbahJumlahItem(kode, 1);
             }
-            else if (e.ColumnIndex == colKurang.Index && item.Jumlah > 1)
+            else if (e.ColumnIndex == colKurang.Index)
             {
-                item.Jumlah--;
+                UbahJumlahItem(kode, -1);
             }
             else
             {
-                keranjang.Remove(item);
-            }
-
-            PerbaruiTampilanKeranjang();
-
-            int baris = Math.Min(e.RowIndex, gridKeranjang.Rows.Count - 1);
-            if (baris >= 0)
-            {
-                gridKeranjang.CurrentCell = gridKeranjang.Rows[baris].Cells[colNama.Index];
+                gridKeranjang.CurrentCell = gridKeranjang.Rows[e.RowIndex].Cells[colNama.Index];
+                HapusBarisTerpilih();
             }
         }
 
@@ -256,7 +418,8 @@ namespace Sukimart
         {
             if (keranjang.Count == 0)
             {
-                nudBayar.Value = 0;
+                bayarDiisiManual = false;
+                AturBayarOtomatis(0);
             }
 
             gridKeranjang.AutoGenerateColumns = false;
@@ -278,12 +441,19 @@ namespace Sukimart
             int total = keranjang.Sum(k => k.Subtotal);
             lblTotalNilai.Text = "Rp " + total.ToString("N0", BudayaIndonesia);
 
-            if (nudBayar.Value < (decimal)total)
+            if (!bayarDiisiManual || nudBayar.Value < (decimal)total)
             {
-                nudBayar.Value = (decimal)total;
+                AturBayarOtomatis(total);
             }
 
             HitungKembalian();
+        }
+
+        private void AturBayarOtomatis(int nilai)
+        {
+            bayarDiaturOtomatis = true;
+            nudBayar.Value = nilai;
+            bayarDiaturOtomatis = false;
         }
 
         private void HitungKembalian()
@@ -379,6 +549,7 @@ namespace Sukimart
                 keranjang.Clear();
                 MuatDataBarang();
                 PerbaruiTampilanKeranjang();
+                FokusPencarian();
             }
             catch (Exception ex)
             {
