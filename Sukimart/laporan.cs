@@ -20,7 +20,6 @@ namespace Sukimart
             InitializeComponent();
             UIHelper.InisialisasiForm(this);
             MaximizeBox = false;
-            gridLaporan.AllowUserToResizeColumns = true;
             gridLaporan.AllowUserToResizeRows = false;
             SesuaikanPeran();
             PasangEventHandlers();

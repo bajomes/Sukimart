@@ -19,9 +19,7 @@ namespace Sukimart
             InitializeComponent();
             UIHelper.InisialisasiForm(this);
             MaximizeBox = false;
-            gridTransaksi.AllowUserToResizeColumns = true;
             gridTransaksi.AllowUserToResizeRows = false;
-            gridDetail.AllowUserToResizeColumns = true;
             gridDetail.AllowUserToResizeRows = false;
             SesuaikanPeran();
             dtpMulai.Value = DateTime.Today.AddDays(-30);
@@ -60,6 +58,14 @@ namespace Sukimart
             txtCari.TextChanged += (s, e) => TerapkanFilter();
 
             gridTransaksi.SelectionChanged += GridTransaksi_SelectionChanged;
+            gridTransaksi.CellDoubleClick += (s, e) =>
+            {
+                if (e.RowIndex >= 0)
+                {
+                    TampilkanStruk();
+                }
+            };
+            btnLihatStruk.Click += (s, e) => TampilkanStruk();
         }
 
         public void MuatData()
@@ -110,10 +116,40 @@ namespace Sukimart
                 KembalianFormat = "Rp " + t.Kembalian.ToString("N0", BudayaIndonesia)
             }).ToList();
 
+            btnLihatStruk.Enabled = hasil.Count > 0;
+
             if (hasil.Count == 0)
             {
                 gridDetail.DataSource = null;
                 lblDetailJudul.Text = "Rincian Item Barang (Tidak ada transaksi dipilih)";
+            }
+        }
+
+        private string? IdTransaksiTerpilih()
+        {
+            var item = gridTransaksi.CurrentRow?.DataBoundItem;
+            return item?.GetType().GetProperty("Id")?.GetValue(item, null) as string;
+        }
+
+        private void TampilkanStruk()
+        {
+            string? id = IdTransaksiTerpilih();
+            Transaksi? trx = daftarTransaksi.FirstOrDefault(t => t.Id == id);
+            if (trx == null)
+            {
+                MessageBox.Show("Pilih transaksi terlebih dahulu.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                var rincian = daftarDetail.Where(d => d.IdTransaksi == trx.Id).ToList();
+                using FormStruk formStruk = new FormStruk(trx, rincian, false);
+                formStruk.ShowDialog(this);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal menampilkan struk: " + ex.Message, "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

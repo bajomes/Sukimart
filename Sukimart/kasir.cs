@@ -456,10 +456,20 @@ namespace Sukimart
             bayarDiaturOtomatis = false;
         }
 
+        private int NilaiBayarDiketik()
+        {
+            string angka = new string(nudBayar.Text.Where(char.IsDigit).ToArray());
+            if (!decimal.TryParse(angka, out decimal nilai))
+            {
+                return 0;
+            }
+            return (int)Math.Min(nilai, nudBayar.Maximum);
+        }
+
         private void HitungKembalian()
         {
             int total = keranjang.Sum(k => k.Subtotal);
-            int bayar = (int)nudBayar.Value;
+            int bayar = NilaiBayarDiketik();
             int kembalian = bayar - total;
 
             if (kembalian >= 0)
@@ -529,22 +539,15 @@ namespace Sukimart
                 PenyimpananData.TambahTransaksi(trx, details);
                 PenyimpananData.SimpanBarang(daftarBarang);
 
-                string struk = $"=== STRUK TRANSAKSI SUKIMART ===\n" +
-                               $"No. Faktur : {idTransaksi}\n" +
-                               $"Tanggal    : {trx.Tanggal:dd/MM/yyyy HH:mm}\n" +
-                               $"Kasir      : {trx.Kasir}\n" +
-                               $"--------------------------------\n";
-                foreach (var item in keranjang)
+                try
                 {
-                    struk += $"{item.NamaBarang} x{item.Jumlah} = Rp {item.Subtotal:N0}\n";
+                    using FormStruk formStruk = new FormStruk(trx, details);
+                    formStruk.ShowDialog(this);
                 }
-                struk += $"--------------------------------\n" +
-                         $"TOTAL      : Rp {total:N0}\n" +
-                         $"BAYAR      : Rp {bayar:N0}\n" +
-                         $"KEMBALIAN  : Rp {kembalian:N0}\n" +
-                         $"================================";
-
-                MessageBox.Show("Transaksi berhasil diproses dan disimpan ke JSON!\n\n" + struk, "Transaksi Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                catch (Exception exStruk)
+                {
+                    MessageBox.Show("Transaksi sudah tersimpan, tetapi struk gagal ditampilkan: " + exStruk.Message, "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
                 keranjang.Clear();
                 MuatDataBarang();

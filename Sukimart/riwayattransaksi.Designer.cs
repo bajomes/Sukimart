@@ -43,6 +43,7 @@ namespace Sukimart
             pictureLogo = new PictureBox();
             lblNama = new Label();
             pnlKanan = new Panel();
+            btnLihatStruk = new Button();
             nightControlBox1 = new ReaLTaiizor.Controls.NightControlBox();
             lblJudul = new Label();
             pnlFilter = new Panel();
@@ -259,6 +260,7 @@ namespace Sukimart
             pnlKanan.Controls.Add(gridTransaksi);
             pnlKanan.Controls.Add(lblDetailJudul);
             pnlKanan.Controls.Add(gridDetail);
+            pnlKanan.Controls.Add(btnLihatStruk);
             pnlKanan.Dock = DockStyle.Fill;
             pnlKanan.Location = new Point(240, 0);
             pnlKanan.Name = "pnlKanan";
@@ -673,6 +675,18 @@ namespace Sukimart
             Name = "FormRiwayatTransaksi";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Riwayat Transaksi";
+            btnLihatStruk.BackColor = Color.White;
+            btnLihatStruk.Cursor = Cursors.Hand;
+            btnLihatStruk.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
+            btnLihatStruk.FlatStyle = FlatStyle.Flat;
+            btnLihatStruk.Font = new Font("Inter", 10F);
+            btnLihatStruk.ForeColor = Color.FromArgb(55, 65, 81);
+            btnLihatStruk.Location = new Point(856, 488);
+            btnLihatStruk.Size = new Size(144, 32);
+            btnLihatStruk.TabIndex = 20;
+            btnLihatStruk.Text = "Lihat Struk";
+            btnLihatStruk.UseVisualStyleBackColor = false;
+            btnLihatStruk.Name = "btnLihatStruk";
             pnlKiri.ResumeLayout(false);
             pnlKiri.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureLogo).EndInit();
@@ -700,6 +714,7 @@ namespace Sukimart
         private Label lblNama;
         private Button btnKeluar;
         private Panel pnlKanan;
+        private Button btnLihatStruk;
         private ReaLTaiizor.Controls.NightControlBox nightControlBox1;
         private Label lblJudul;
         private Panel pnlFilter;
