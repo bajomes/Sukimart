@@ -45,6 +45,29 @@ namespace Sukimart
         }
     }
 
+    public class Pengguna
+    {
+        public string NamaPengguna { get; set; } = "";
+        public string Peran { get; set; } = "kasir";
+        public string HashSandi { get; set; } = "";
+        public string Garam { get; set; } = "";
+        public int Iterasi { get; set; }
+        public DateTime Dibuat { get; set; }
+    }
+
+    public class RiwayatStok
+    {
+        public DateTime Tanggal { get; set; }
+        public string KodeBarang { get; set; } = "";
+        public string NamaBarang { get; set; } = "";
+        public string Jenis { get; set; } = "";
+        public int Jumlah { get; set; }
+        public int StokSebelum { get; set; }
+        public int StokSesudah { get; set; }
+        public string Keterangan { get; set; } = "";
+        public string Pengguna { get; set; } = "";
+    }
+
     public class ItemKeranjang
     {
         public string KodeBarang { get; set; } = "";

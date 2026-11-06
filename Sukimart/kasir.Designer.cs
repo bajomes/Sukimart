@@ -33,6 +33,7 @@ namespace Sukimart
             pnlKiri = new Panel();
             btnKeluar = new Button();
             btnLaporan = new Button();
+            btnPengguna = new Button();
             btnGudang = new Button();
             btnRiwayat = new Button();
             btnKatalog = new Button();
@@ -41,6 +42,9 @@ namespace Sukimart
             pictureLogo = new PictureBox();
             lblNama = new Label();
             pnlKanan = new Panel();
+            btnNolkanBayar = new Button();
+            btnUang20 = new Button();
+            btnUang10 = new Button();
             lblPintasanKet5 = new Label();
             lblPintasanTombol5 = new Label();
             lblPintasanKet4 = new Label();
@@ -97,6 +101,7 @@ namespace Sukimart
             // 
             pnlKiri.BackColor = Color.White;
             pnlKiri.Controls.Add(btnKeluar);
+            pnlKiri.Controls.Add(btnPengguna);
             pnlKiri.Controls.Add(btnLaporan);
             pnlKiri.Controls.Add(btnGudang);
             pnlKiri.Controls.Add(btnRiwayat);
@@ -146,6 +151,21 @@ namespace Sukimart
             btnLaporan.Text = "Laporan";
             btnLaporan.TextAlign = ContentAlignment.MiddleLeft;
             btnLaporan.UseVisualStyleBackColor = false;
+            btnPengguna.BackColor = Color.White;
+            btnPengguna.Cursor = Cursors.Hand;
+            btnPengguna.FlatAppearance.BorderSize = 0;
+            btnPengguna.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
+            btnPengguna.FlatStyle = FlatStyle.Flat;
+            btnPengguna.Font = new Font("Inter", 10F);
+            btnPengguna.ForeColor = Color.FromArgb(31, 41, 55);
+            btnPengguna.Location = new Point(16, 400);
+            btnPengguna.Name = "btnPengguna";
+            btnPengguna.Padding = new Padding(16, 0, 0, 0);
+            btnPengguna.Size = new Size(208, 40);
+            btnPengguna.TabIndex = 12;
+            btnPengguna.Text = "Pengguna";
+            btnPengguna.TextAlign = ContentAlignment.MiddleLeft;
+            btnPengguna.UseVisualStyleBackColor = false;
             // 
             // btnGudang
             // 
@@ -479,6 +499,9 @@ namespace Sukimart
             pnlCheckout.Controls.Add(lblPintasanKet4);
             pnlCheckout.Controls.Add(lblPintasanTombol5);
             pnlCheckout.Controls.Add(lblPintasanKet5);
+            pnlCheckout.Controls.Add(btnUang10);
+            pnlCheckout.Controls.Add(btnUang20);
+            pnlCheckout.Controls.Add(btnNolkanBayar);
             pnlCheckout.Location = new Point(696, 112);
             pnlCheckout.Name = "pnlCheckout";
             pnlCheckout.Size = new Size(304, 568);
@@ -525,10 +548,10 @@ namespace Sukimart
             btnUangPas.FlatStyle = FlatStyle.Flat;
             btnUangPas.Font = new Font("Inter", 9F, FontStyle.Bold);
             btnUangPas.ForeColor = Color.FromArgb(31, 41, 55);
-            btnUangPas.Location = new Point(24, 196);
+            btnUangPas.Location = new Point(24, 192);
             btnUangPas.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
             btnUangPas.Name = "btnUangPas";
-            btnUangPas.Size = new Size(80, 32);
+            btnUangPas.Size = new Size(80, 28);
             btnUangPas.TabIndex = 12;
             btnUangPas.Text = "Uang Pas";
             btnUangPas.UseVisualStyleBackColor = false;
@@ -549,7 +572,7 @@ namespace Sukimart
             lblKembalianLabel.AutoSize = true;
             lblKembalianLabel.Font = new Font("Inter", 9F);
             lblKembalianLabel.ForeColor = Color.FromArgb(107, 114, 128);
-            lblKembalianLabel.Location = new Point(24, 252);
+            lblKembalianLabel.Location = new Point(24, 264);
             lblKembalianLabel.Name = "lblKembalianLabel";
             lblKembalianLabel.Size = new Size(70, 15);
             lblKembalianLabel.TabIndex = 5;
@@ -560,7 +583,7 @@ namespace Sukimart
             lblKembalianNilai.AutoSize = true;
             lblKembalianNilai.Font = new Font("Inter", 20F, FontStyle.Bold);
             lblKembalianNilai.ForeColor = Color.FromArgb(31, 41, 55);
-            lblKembalianNilai.Location = new Point(24, 272);
+            lblKembalianNilai.Location = new Point(24, 282);
             lblKembalianNilai.Name = "lblKembalianNilai";
             lblKembalianNilai.Size = new Size(60, 26);
             lblKembalianNilai.TabIndex = 6;
@@ -669,10 +692,10 @@ namespace Sukimart
             btnUang100.FlatStyle = FlatStyle.Flat;
             btnUang100.Font = new Font("Inter", 9F, FontStyle.Bold);
             btnUang100.ForeColor = Color.FromArgb(31, 41, 55);
-            btnUang100.Location = new Point(200, 196);
-            btnUang100.Size = new Size(80, 32);
+            btnUang100.Location = new Point(112, 224);
+            btnUang100.Size = new Size(80, 28);
             btnUang100.TabIndex = 13;
-            btnUang100.Text = "100.000";
+            btnUang100.Text = "+100.000";
             btnUang100.UseVisualStyleBackColor = false;
             btnUang100.Name = "btnUang100";
             btnUang50.BackColor = Color.FromArgb(243, 244, 246);
@@ -682,10 +705,10 @@ namespace Sukimart
             btnUang50.FlatStyle = FlatStyle.Flat;
             btnUang50.Font = new Font("Inter", 9F, FontStyle.Bold);
             btnUang50.ForeColor = Color.FromArgb(31, 41, 55);
-            btnUang50.Location = new Point(112, 196);
-            btnUang50.Size = new Size(80, 32);
+            btnUang50.Location = new Point(24, 224);
+            btnUang50.Size = new Size(80, 28);
             btnUang50.TabIndex = 13;
-            btnUang50.Text = "50.000";
+            btnUang50.Text = "+50.000";
             btnUang50.UseVisualStyleBackColor = false;
             btnUang50.Name = "btnUang50";
             lblPintasanJudul.AutoSize = true;
@@ -776,6 +799,42 @@ namespace Sukimart
             lblPintasanKet5.TabIndex = 0;
             lblPintasanKet5.Text = "Hapus baris terpilih";
             lblPintasanKet5.Name = "lblPintasanKet5";
+            btnUang10.BackColor = Color.FromArgb(243, 244, 246);
+            btnUang10.Cursor = Cursors.Hand;
+            btnUang10.FlatAppearance.BorderSize = 0;
+            btnUang10.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
+            btnUang10.FlatStyle = FlatStyle.Flat;
+            btnUang10.Font = new Font("Inter", 9F, FontStyle.Bold);
+            btnUang10.ForeColor = Color.FromArgb(31, 41, 55);
+            btnUang10.Location = new Point(112, 192);
+            btnUang10.Size = new Size(80, 28);
+            btnUang10.Text = "+10.000";
+            btnUang10.UseVisualStyleBackColor = false;
+            btnUang10.Name = "btnUang10";
+            btnUang20.BackColor = Color.FromArgb(243, 244, 246);
+            btnUang20.Cursor = Cursors.Hand;
+            btnUang20.FlatAppearance.BorderSize = 0;
+            btnUang20.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
+            btnUang20.FlatStyle = FlatStyle.Flat;
+            btnUang20.Font = new Font("Inter", 9F, FontStyle.Bold);
+            btnUang20.ForeColor = Color.FromArgb(31, 41, 55);
+            btnUang20.Location = new Point(200, 192);
+            btnUang20.Size = new Size(80, 28);
+            btnUang20.Text = "+20.000";
+            btnUang20.UseVisualStyleBackColor = false;
+            btnUang20.Name = "btnUang20";
+            btnNolkanBayar.BackColor = Color.FromArgb(243, 244, 246);
+            btnNolkanBayar.Cursor = Cursors.Hand;
+            btnNolkanBayar.FlatAppearance.BorderSize = 0;
+            btnNolkanBayar.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
+            btnNolkanBayar.FlatStyle = FlatStyle.Flat;
+            btnNolkanBayar.Font = new Font("Inter", 9F, FontStyle.Bold);
+            btnNolkanBayar.ForeColor = Color.FromArgb(220, 38, 38);
+            btnNolkanBayar.Location = new Point(200, 224);
+            btnNolkanBayar.Size = new Size(80, 28);
+            btnNolkanBayar.Text = "Hapus";
+            btnNolkanBayar.UseVisualStyleBackColor = false;
+            btnNolkanBayar.Name = "btnNolkanBayar";
             pnlKiri.ResumeLayout(false);
             pnlKiri.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureLogo).EndInit();
@@ -793,6 +852,7 @@ namespace Sukimart
 
         private Panel pnlKiri;
         private Button btnLaporan;
+        private Button btnPengguna;
         private Button btnGudang;
         private Button btnRiwayat;
         private Button btnKatalog;
@@ -802,6 +862,9 @@ namespace Sukimart
         private Label lblNama;
         private Button btnKeluar;
         private Panel pnlKanan;
+        private Button btnNolkanBayar;
+        private Button btnUang20;
+        private Button btnUang10;
         private Label lblPintasanKet5;
         private Label lblPintasanTombol5;
         private Label lblPintasanKet4;

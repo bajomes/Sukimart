@@ -35,6 +35,7 @@ namespace Sukimart
             pnlKiri = new Panel();
             btnKeluar = new Button();
             btnLaporan = new Button();
+            btnPengguna = new Button();
             btnGudang = new Button();
             btnRiwayat = new Button();
             btnKatalog = new Button();
@@ -89,6 +90,7 @@ namespace Sukimart
             // 
             pnlKiri.BackColor = Color.White;
             pnlKiri.Controls.Add(btnKeluar);
+            pnlKiri.Controls.Add(btnPengguna);
             pnlKiri.Controls.Add(btnLaporan);
             pnlKiri.Controls.Add(btnGudang);
             pnlKiri.Controls.Add(btnRiwayat);
@@ -138,6 +140,21 @@ namespace Sukimart
             btnLaporan.Text = "Laporan";
             btnLaporan.TextAlign = ContentAlignment.MiddleLeft;
             btnLaporan.UseVisualStyleBackColor = false;
+            btnPengguna.BackColor = Color.White;
+            btnPengguna.Cursor = Cursors.Hand;
+            btnPengguna.FlatAppearance.BorderSize = 0;
+            btnPengguna.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
+            btnPengguna.FlatStyle = FlatStyle.Flat;
+            btnPengguna.Font = new Font("Inter", 10F);
+            btnPengguna.ForeColor = Color.FromArgb(31, 41, 55);
+            btnPengguna.Location = new Point(16, 400);
+            btnPengguna.Name = "btnPengguna";
+            btnPengguna.Padding = new Padding(16, 0, 0, 0);
+            btnPengguna.Size = new Size(208, 40);
+            btnPengguna.TabIndex = 12;
+            btnPengguna.Text = "Pengguna";
+            btnPengguna.TextAlign = ContentAlignment.MiddleLeft;
+            btnPengguna.UseVisualStyleBackColor = false;
             // 
             // btnGudang
             // 
@@ -705,6 +722,7 @@ namespace Sukimart
 
         private Panel pnlKiri;
         private Button btnLaporan;
+        private Button btnPengguna;
         private Button btnGudang;
         private Button btnRiwayat;
         private Button btnKatalog;

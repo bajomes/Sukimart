@@ -111,6 +111,43 @@ namespace Sukimart
             SimpanData("detail_transaksi.json", daftarDetail);
         }
 
+        public static List<Pengguna> BacaPengguna()
+        {
+            List<Pengguna> daftarPengguna = BacaData<Pengguna>("pengguna.json");
+            if (daftarPengguna.Count == 0)
+            {
+                daftarPengguna = BuatPenggunaAwal();
+                SimpanPengguna(daftarPengguna);
+            }
+            return daftarPengguna;
+        }
+
+        public static void SimpanPengguna(List<Pengguna> daftarPengguna)
+        {
+            SimpanData("pengguna.json", daftarPengguna);
+        }
+
+        private static List<Pengguna> BuatPenggunaAwal()
+        {
+            Pengguna admin = new Pengguna { NamaPengguna = "admin", Peran = "admin", Dibuat = DateTime.Now };
+            Pengguna kasir = new Pengguna { NamaPengguna = "kasir", Peran = "kasir", Dibuat = DateTime.Now };
+            KeamananSandi.IsiSandi(admin, "admin123");
+            KeamananSandi.IsiSandi(kasir, "kasir123");
+            return new List<Pengguna> { admin, kasir };
+        }
+
+        public static List<RiwayatStok> BacaRiwayatStok()
+        {
+            return BacaData<RiwayatStok>("riwayat_stok.json");
+        }
+
+        public static void TambahRiwayatStok(RiwayatStok catatan)
+        {
+            List<RiwayatStok> daftarRiwayat = BacaRiwayatStok();
+            daftarRiwayat.Add(catatan);
+            SimpanData("riwayat_stok.json", daftarRiwayat);
+        }
+
         public static void TambahDetailTransaksi(List<DetailTransaksi> rincian)
         {
             if (rincian != null && rincian.Count > 0)

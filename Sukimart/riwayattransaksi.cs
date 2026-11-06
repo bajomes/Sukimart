@@ -35,11 +35,13 @@ namespace Sukimart
             {
                 btnGudang.Visible = false;
                 btnLaporan.Visible = false;
+                btnPengguna.Visible = false;
             }
             else
             {
                 btnGudang.Visible = true;
                 btnLaporan.Visible = true;
+                btnPengguna.Visible = true;
             }
         }
 
@@ -51,6 +53,7 @@ namespace Sukimart
             btnRiwayat.Click += (s, e) => { /* Sedang di form riwayat */ };
             btnGudang.Click += (s, e) => Navigasi.BukaGudang(this);
             btnLaporan.Click += (s, e) => Navigasi.BukaLaporan(this);
+            btnPengguna.Click += (s, e) => Navigasi.BukaPengguna(this);
             btnKeluar.Click += (s, e) => Navigasi.KeluarKeLogin(this);
 
             btnFilter.Click += (s, e) => TerapkanFilter();

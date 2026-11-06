@@ -95,7 +95,7 @@ namespace Sukimart
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new Size(69, 16);
             lblPassword.TabIndex = 7;
-            lblPassword.Text = "Password";
+            lblPassword.Text = "Kata Sandi";
             // 
             // lblUsername
             // 
@@ -105,7 +105,7 @@ namespace Sukimart
             lblUsername.Name = "lblUsername";
             lblUsername.Size = new Size(73, 16);
             lblUsername.TabIndex = 6;
-            lblUsername.Text = "Username";
+            lblUsername.Text = "Nama Pengguna";
             // 
             // btnMasuk
             // 
@@ -119,7 +119,7 @@ namespace Sukimart
             btnMasuk.Name = "btnMasuk";
             btnMasuk.Size = new Size(400, 40);
             btnMasuk.TabIndex = 5;
-            btnMasuk.Text = "Sign in";
+            btnMasuk.Text = "Masuk";
             btnMasuk.UseVisualStyleBackColor = false;
             btnMasuk.Click += btnMasuk_Click;
             // 
@@ -130,7 +130,7 @@ namespace Sukimart
             txtPassword.ForeColor = Color.Black;
             txtPassword.Location = new Point(80, 380);
             txtPassword.Name = "txtPassword";
-            txtPassword.PlaceholderText = "Enter your password";
+            txtPassword.PlaceholderText = "Masukkan kata sandi";
             txtPassword.Size = new Size(400, 25);
             txtPassword.TabIndex = 4;
             txtPassword.UseSystemPasswordChar = true;
@@ -142,7 +142,7 @@ namespace Sukimart
             txtUsername.ForeColor = Color.Black;
             txtUsername.Location = new Point(80, 300);
             txtUsername.Name = "txtUsername";
-            txtUsername.PlaceholderText = "Enter your username";
+            txtUsername.PlaceholderText = "Masukkan nama pengguna";
             txtUsername.Size = new Size(400, 25);
             txtUsername.TabIndex = 3;
             // 
@@ -155,7 +155,7 @@ namespace Sukimart
             lblJudul.Name = "lblJudul";
             lblJudul.Size = new Size(116, 36);
             lblJudul.TabIndex = 2;
-            lblJudul.Text = "Sign in";
+            lblJudul.Text = "Masuk";
             // 
             // pictureLogo
             // 
@@ -246,7 +246,7 @@ namespace Sukimart
             MaximizeBox = false;
             Name = "FormLogin";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Log in";
+            Text = "Masuk";
             pnlKiri.ResumeLayout(false);
             pnlKiri.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureLogo).EndInit();

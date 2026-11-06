@@ -32,6 +32,7 @@ namespace Sukimart
             {
                 btnGudang.Visible = false;
                 btnLaporan.Visible = false;
+                btnPengguna.Visible = false;
 
                 btnSimpanBarang.Visible = false;
                 btnUbahBarang.Visible = false;
@@ -49,6 +50,7 @@ namespace Sukimart
             {
                 btnGudang.Visible = true;
                 btnLaporan.Visible = true;
+                btnPengguna.Visible = true;
                 btnSimpanBarang.Visible = true;
                 btnUbahBarang.Visible = true;
                 btnHapusBarang.Visible = true;
@@ -64,6 +66,7 @@ namespace Sukimart
             btnRiwayat.Click += (s, e) => Navigasi.BukaRiwayat(this);
             btnGudang.Click += (s, e) => Navigasi.BukaGudang(this);
             btnLaporan.Click += (s, e) => Navigasi.BukaLaporan(this);
+            btnPengguna.Click += (s, e) => Navigasi.BukaPengguna(this);
             btnKeluar.Click += (s, e) => Navigasi.KeluarKeLogin(this);
 
             txtCari.TextChanged += (s, e) => FilterDaftarBarang();
@@ -140,6 +143,8 @@ namespace Sukimart
                 }
                 nudHarga.Value = Math.Min(nudHarga.Maximum, Math.Max(0, (decimal)barang.Harga));
                 nudStok.Value = Math.Min(nudStok.Maximum, Math.Max(0, barang.Stok));
+                nudStok.Enabled = false;
+                lblStok.Text = "Stok (ubah lewat Gudang)";
                 nudStokMinimum.Value = Math.Min(nudStokMinimum.Maximum, Math.Max(0, barang.StokMinimum));
             }
         }
@@ -184,6 +189,10 @@ namespace Sukimart
             {
                 daftarBarang.Add(baru);
                 PenyimpananData.SimpanBarang(daftarBarang);
+                if (stok > 0)
+                {
+                    CatatStokAwal(baru);
+                }
                 MessageBox.Show($"Barang '{nama}' berhasil ditambahkan ke katalog!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MuatDataBarang();
                 BersihkanForm();
@@ -238,7 +247,6 @@ namespace Sukimart
                 barang.Nama = nama;
                 barang.Kategori = string.IsNullOrWhiteSpace(kategori) ? "Lainnya" : kategori;
                 barang.Harga = (int)nudHarga.Value;
-                barang.Stok = (int)nudStok.Value;
                 barang.StokMinimum = (int)nudStokMinimum.Value;
 
                 PenyimpananData.SimpanBarang(daftarBarang);
@@ -286,6 +294,29 @@ namespace Sukimart
             }
         }
 
+        private void CatatStokAwal(Barang barang)
+        {
+            try
+            {
+                PenyimpananData.TambahRiwayatStok(new RiwayatStok
+                {
+                    Tanggal = DateTime.Now,
+                    KodeBarang = barang.Kode,
+                    NamaBarang = barang.Nama,
+                    Jenis = "Stok Masuk",
+                    Jumlah = barang.Stok,
+                    StokSebelum = 0,
+                    StokSesudah = barang.Stok,
+                    Keterangan = "Stok awal",
+                    Pengguna = peran
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Barang tersimpan, tetapi riwayat stok gagal dicatat: " + ex.Message, "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
         private void BersihkanForm()
         {
             kodeTerpilih = null;
@@ -296,6 +327,8 @@ namespace Sukimart
             cmbKategori.Text = "";
             nudHarga.Value = 0;
             nudStok.Value = 0;
+            nudStok.Enabled = true;
+            lblStok.Text = "Stok Awal";
             nudStokMinimum.Value = 5;
             gridBarang.ClearSelection();
         }

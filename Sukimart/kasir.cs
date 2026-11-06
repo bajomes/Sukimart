@@ -35,11 +35,13 @@ namespace Sukimart
             {
                 btnGudang.Visible = false;
                 btnLaporan.Visible = false;
+                btnPengguna.Visible = false;
             }
             else
             {
                 btnGudang.Visible = true;
                 btnLaporan.Visible = true;
+                btnPengguna.Visible = true;
             }
         }
 
@@ -51,6 +53,7 @@ namespace Sukimart
             btnRiwayat.Click += (s, e) => Navigasi.BukaRiwayat(this);
             btnGudang.Click += (s, e) => Navigasi.BukaGudang(this);
             btnLaporan.Click += (s, e) => Navigasi.BukaLaporan(this);
+            btnPengguna.Click += (s, e) => Navigasi.BukaPengguna(this);
             btnKeluar.Click += (s, e) => Navigasi.KeluarKeLogin(this);
 
             btnTambahKeranjang.Click += BtnTambahKeranjang_Click;
@@ -73,8 +76,16 @@ namespace Sukimart
                 }
             };
             Shown += (s, e) => FokusPencarian();
-            btnUang50.Click += (s, e) => { nudBayar.Value = 50000; HitungKembalian(); };
-            btnUang100.Click += (s, e) => { nudBayar.Value = 100000; HitungKembalian(); };
+            btnUang10.Click += (s, e) => TambahUangDiterima(10000);
+            btnUang20.Click += (s, e) => TambahUangDiterima(20000);
+            btnUang50.Click += (s, e) => TambahUangDiterima(50000);
+            btnUang100.Click += (s, e) => TambahUangDiterima(100000);
+            btnNolkanBayar.Click += (s, e) =>
+            {
+                nudBayar.Value = 0;
+                bayarDiisiManual = true;
+                HitungKembalian();
+            };
             btnBatalKeranjang.Click += (s, e) => { keranjang.Clear(); PerbaruiTampilanKeranjang(); FokusPencarian(); };
             btnProsesBayar.Click += BtnProsesBayar_Click;
 
@@ -83,7 +94,8 @@ namespace Sukimart
                 int total = keranjang.Sum(k => k.Subtotal);
                 if (total > 0)
                 {
-                    nudBayar.Value = total;
+                    AturBayarOtomatis(total);
+                    bayarDiisiManual = false;
                     HitungKembalian();
                 }
             };
@@ -454,6 +466,14 @@ namespace Sukimart
             bayarDiaturOtomatis = true;
             nudBayar.Value = nilai;
             bayarDiaturOtomatis = false;
+        }
+
+        private void TambahUangDiterima(int nominal)
+        {
+            decimal dasar = bayarDiisiManual ? NilaiBayarDiketik() : 0;
+            nudBayar.Value = Math.Min(nudBayar.Maximum, dasar + nominal);
+            bayarDiisiManual = true;
+            HitungKembalian();
         }
 
         private int NilaiBayarDiketik()

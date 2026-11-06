@@ -127,6 +127,18 @@ namespace Sukimart
             BeralihKe(new FormLaporan("admin"), formSaatIni);
         }
 
+        public static void BukaPengguna(Form formSaatIni)
+        {
+            if (PeranAktif != "admin")
+            {
+                MessageBox.Show("Menu Pengguna hanya dapat diakses oleh Admin.", "Akses Ditolak", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (formSaatIni is FormPengguna) return;
+            BeralihKe(new FormPengguna(), formSaatIni);
+        }
+
         public static void KeluarKeLogin(Form? formSaatIni)
         {
             sedangBeralih = true;
