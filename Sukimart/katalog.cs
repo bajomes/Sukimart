@@ -161,12 +161,23 @@ namespace Sukimart
             if (string.IsNullOrWhiteSpace(kode) || string.IsNullOrWhiteSpace(nama))
             {
                 MessageBox.Show("Kode dan Nama barang wajib diisi!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (string.IsNullOrWhiteSpace(kode)) txtKode.Focus(); else txtNamaBarang.Focus();
                 return;
             }
 
             if (daftarBarang.Any(b => b.Kode.Equals(kode, StringComparison.OrdinalIgnoreCase)))
             {
                 MessageBox.Show($"Kode barang '{kode}' sudah digunakan! Gunakan kode lain.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtKode.Focus();
+                txtKode.SelectAll();
+                return;
+            }
+
+            if (harga <= 0)
+            {
+                MessageBox.Show("Harga jual harus lebih dari 0!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                nudHarga.Focus();
+                nudHarga.Select(0, nudHarga.Text.Length);
                 return;
             }
 
@@ -222,12 +233,22 @@ namespace Sukimart
             if (string.IsNullOrWhiteSpace(kodeBaru))
             {
                 MessageBox.Show("Kode barang tidak boleh kosong!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtKode.Focus();
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(nama))
             {
                 MessageBox.Show("Nama barang tidak boleh kosong!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtNamaBarang.Focus();
+                return;
+            }
+
+            if (nudHarga.Value <= 0)
+            {
+                MessageBox.Show("Harga jual harus lebih dari 0!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                nudHarga.Focus();
+                nudHarga.Select(0, nudHarga.Text.Length);
                 return;
             }
 
@@ -237,9 +258,17 @@ namespace Sukimart
                 if (daftarBarang.Any(b => b.Kode.Equals(kodeBaru, StringComparison.OrdinalIgnoreCase)))
                 {
                     MessageBox.Show($"Kode barang '{kodeBaru}' sudah digunakan oleh barang lain! Gunakan kode yang berbeda.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtKode.Focus();
+                    txtKode.SelectAll();
                     return;
                 }
             }
+
+            string kodeLama = barang.Kode;
+            string namaLama = barang.Nama;
+            string kategoriLama = barang.Kategori;
+            int hargaLama = barang.Harga;
+            int stokMinimumLama = barang.StokMinimum;
 
             try
             {
@@ -256,6 +285,11 @@ namespace Sukimart
             }
             catch (Exception ex)
             {
+                barang.Kode = kodeLama;
+                barang.Nama = namaLama;
+                barang.Kategori = kategoriLama;
+                barang.Harga = hargaLama;
+                barang.StokMinimum = stokMinimumLama;
                 MessageBox.Show("Gagal memperbarui data barang di JSON: " + ex.Message, "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

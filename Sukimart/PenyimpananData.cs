@@ -46,8 +46,20 @@ namespace Sukimart
             }
             catch (JsonException ex)
             {
+                string cadangan = lokasi + ".rusak";
+                try
+                {
+                    if (!File.Exists(cadangan))
+                    {
+                        File.Copy(lokasi, cadangan);
+                    }
+                }
+                catch (IOException)
+                {
+                }
+
                 throw new InvalidDataException(
-                    $"File {namaFile} bukan JSON yang valid. Periksa tanda kurung, koma, dan tanda kutip.", ex);
+                    $"File {namaFile} bukan JSON yang valid. Periksa tanda kurung, koma, dan tanda kutip. Salinan aslinya disimpan sebagai {Path.GetFileName(cadangan)}.", ex);
             }
         }
 

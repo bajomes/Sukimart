@@ -56,7 +56,16 @@ namespace Sukimart
             btnPengguna.Click += (s, e) => Navigasi.BukaPengguna(this);
             btnKeluar.Click += (s, e) => Navigasi.KeluarKeLogin(this);
 
-            btnFilter.Click += (s, e) => TerapkanFilter();
+            btnFilter.Click += (s, e) =>
+            {
+                if (dtpMulai.Value.Date > dtpSelesai.Value.Date)
+                {
+                    MessageBox.Show("Tanggal mulai tidak boleh setelah tanggal selesai!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    dtpMulai.Focus();
+                    return;
+                }
+                TerapkanFilter();
+            };
             btnReset.Click += (s, e) => ResetFilter();
             txtCari.TextChanged += (s, e) => TerapkanFilter();
 
