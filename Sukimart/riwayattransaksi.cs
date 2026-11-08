@@ -201,11 +201,4 @@ namespace Sukimart
             }).ToList();
         }
     }
-
-    /// <summary>
-    /// Kelas kompatibilitas untuk referensi lama FormRiwayat.
-    /// </summary>
-    public class FormRiwayat : FormRiwayatTransaksi
-    {
-    }
 }

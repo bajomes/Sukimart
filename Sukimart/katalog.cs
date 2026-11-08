@@ -342,7 +342,7 @@ namespace Sukimart
                     StokSebelum = 0,
                     StokSesudah = barang.Stok,
                     Keterangan = "Stok awal",
-                    Pengguna = peran
+                    Pengguna = Navigasi.PenggunaAktif
                 });
             }
             catch (Exception ex)

@@ -181,7 +181,7 @@ namespace Sukimart
                     StokSebelum = stokSebelum,
                     StokSesudah = stokSesudah,
                     Keterangan = txtKeterangan.Text.Trim(),
-                    Pengguna = peran
+                    Pengguna = Navigasi.PenggunaAktif
                 });
             }
             catch (Exception ex)

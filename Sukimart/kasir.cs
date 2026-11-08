@@ -552,7 +552,25 @@ namespace Sukimart
                     var brg = daftarBarang.FirstOrDefault(b => b.Kode == item.KodeBarang);
                     if (brg != null)
                     {
+                        int stokSebelum = brg.Stok;
                         brg.Stok = Math.Max(0, brg.Stok - item.Jumlah);
+
+                        try
+                        {
+                            PenyimpananData.TambahRiwayatStok(new RiwayatStok
+                            {
+                                Tanggal = DateTime.Now,
+                                KodeBarang = brg.Kode,
+                                NamaBarang = brg.Nama,
+                                Jenis = "Stok Keluar",
+                                Jumlah = item.Jumlah,
+                                StokSebelum = stokSebelum,
+                                StokSesudah = brg.Stok,
+                                Keterangan = $"Penjualan {idTransaksi}",
+                                Pengguna = Navigasi.PenggunaAktif
+                            });
+                        }
+                        catch { }
                     }
                 }
 
@@ -580,11 +598,5 @@ namespace Sukimart
                 MessageBox.Show("Gagal menyimpan transaksi ke JSON: " + ex.Message, "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-    }
-
-    public class FormTransaksi : FormKasir
-    {
-        public FormTransaksi() : base("kasir") { }
-        public FormTransaksi(string peran) : base(peran) { }
     }
 }
