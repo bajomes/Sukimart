@@ -1,21 +1,11 @@
 [
   {
-    "tanggal": "2026-10-14T16:40:00",
-    "idTransaksi": "TRX-20261014-0001",
-    "kodeBarang": "MNM001",
-    "namaBarang": "Air Mineral 600ml",
-    "harga": 4000,
-    "jumlah": 1,
-    "subtotal": 4000
-  },
-  {
     "tanggal": "2026-10-15T09:10:00",
     "idTransaksi": "TRX-20261015-0001",
     "kodeBarang": "MKN001",
     "namaBarang": "Roti Tawar",
     "harga": 15000,
-    "jumlah": 1,
-    "subtotal": 15000
+    "jumlah": 1
   },
   {
     "tanggal": "2026-10-15T09:10:00",
@@ -23,8 +13,7 @@
     "kodeBarang": "MNM004",
     "namaBarang": "Susu UHT",
     "harga": 7500,
-    "jumlah": 1,
-    "subtotal": 7500
+    "jumlah": 1
   },
   {
     "tanggal": "2026-10-15T10:25:00",
@@ -32,160 +21,14 @@
     "kodeBarang": "MKN004",
     "namaBarang": "Keripik Kentang",
     "harga": 12000,
-    "jumlah": 1,
-    "subtotal": 12000
+    "jumlah": 1
   },
   {
-    "tanggal": "2026-10-26T07:26:57.3106802+07:00",
-    "idTransaksi": "TRX-20261026-0001",
-    "kodeBarang": "MNM004",
-    "namaBarang": "Susu UHT",
-    "harga": 7500,
-    "jumlah": 3,
-    "subtotal": 22500
-  },
-  {
-    "tanggal": "2026-11-05T17:33:35.1365136+07:00",
-    "idTransaksi": "TRX-20261105-173335134",
-    "kodeBarang": "MKN001",
-    "namaBarang": "Sukironi",
-    "harga": 10000,
-    "jumlah": 1,
-    "subtotal": 10000
-  },
-  {
-    "tanggal": "2026-11-05T22:31:22.203141+07:00",
-    "idTransaksi": "TRX-20261105-223122201",
-    "kodeBarang": "MKN001",
-    "namaBarang": "Sukironi",
-    "harga": 10000,
-    "jumlah": 1,
-    "subtotal": 10000
-  },
-  {
-    "tanggal": "2026-11-05T22:31:22.2031414+07:00",
-    "idTransaksi": "TRX-20261105-223122201",
-    "kodeBarang": "MKN002",
-    "namaBarang": "Roti Ambakar",
-    "harga": 15000,
-    "jumlah": 1,
-    "subtotal": 15000
-  },
-  {
-    "tanggal": "2026-11-05T22:31:22.2031416+07:00",
-    "idTransaksi": "TRX-20261105-223122201",
-    "kodeBarang": "MNM002",
-    "namaBarang": "Susu Asli Ngawi",
-    "harga": 5000,
-    "jumlah": 1,
-    "subtotal": 5000
-  },
-  {
-    "tanggal": "2026-11-05T22:31:22.2031417+07:00",
-    "idTransaksi": "TRX-20261105-223122201",
+    "tanggal": "2026-10-14T16:40:00",
+    "idTransaksi": "TRX-20261014-0001",
     "kodeBarang": "MNM001",
-    "namaBarang": "Air Pegunungan Ngawi",
-    "harga": 3000,
-    "jumlah": 1,
-    "subtotal": 3000
-  },
-  {
-    "tanggal": "2026-11-05T22:31:22.2031419+07:00",
-    "idTransaksi": "TRX-20261105-223122201",
-    "kodeBarang": "MNM003",
-    "namaBarang": "Es Teler Mwanis",
-    "harga": 10000,
-    "jumlah": 1,
-    "subtotal": 10000
-  },
-  {
-    "tanggal": "2026-11-05T22:31:22.2031419+07:00",
-    "idTransaksi": "TRX-20261105-223122201",
-    "kodeBarang": "MNM004",
-    "namaBarang": "Es Teh Anget",
-    "harga": 5000,
-    "jumlah": 1,
-    "subtotal": 5000
-  },
-  {
-    "tanggal": "2026-11-05T22:31:22.203142+07:00",
-    "idTransaksi": "TRX-20261105-223122201",
-    "kodeBarang": "MKN003",
-    "namaBarang": "Es Kwental Mwanis",
+    "namaBarang": "Air Mineral 600ml",
     "harga": 4000,
-    "jumlah": 1,
-    "subtotal": 4000
-  },
-  {
-    "tanggal": "2026-11-06T00:43:18.0654891+07:00",
-    "idTransaksi": "TRX-20261106-004318063",
-    "kodeBarang": "MKN001",
-    "namaBarang": "Sukironi",
-    "harga": 10000,
-    "jumlah": 3,
-    "subtotal": 30000
-  },
-  {
-    "tanggal": "2026-11-06T00:43:18.0654897+07:00",
-    "idTransaksi": "TRX-20261106-004318063",
-    "kodeBarang": "MKN002",
-    "namaBarang": "Roti Ambakar",
-    "harga": 15000,
-    "jumlah": 3,
-    "subtotal": 45000
-  },
-  {
-    "tanggal": "2026-11-06T00:43:18.0654899+07:00",
-    "idTransaksi": "TRX-20261106-004318063",
-    "kodeBarang": "MKN003",
-    "namaBarang": "Es Kwental Mwanis",
-    "harga": 4000,
-    "jumlah": 5,
-    "subtotal": 20000
-  },
-  {
-    "tanggal": "2026-11-06T00:47:41.4800703+07:00",
-    "idTransaksi": "TRX-20261106-004741479",
-    "kodeBarang": "MKN002",
-    "namaBarang": "Roti Ambakar",
-    "harga": 15000,
-    "jumlah": 6,
-    "subtotal": 90000
-  },
-  {
-    "tanggal": "2026-11-06T00:47:41.4800799+07:00",
-    "idTransaksi": "TRX-20261106-004741479",
-    "kodeBarang": "MKN003",
-    "namaBarang": "Es Kwental Mwanis",
-    "harga": 4000,
-    "jumlah": 4,
-    "subtotal": 16000
-  },
-  {
-    "tanggal": "2026-11-06T00:49:43.8024597+07:00",
-    "idTransaksi": "TRX-20261106-004943802",
-    "kodeBarang": "MNM001",
-    "namaBarang": "Air Pegunungan Ngawi",
-    "harga": 3000,
-    "jumlah": 1,
-    "subtotal": 3000
-  },
-  {
-    "tanggal": "2026-11-06T07:41:29.4900846+07:00",
-    "idTransaksi": "TRX-20261106-074129489",
-    "kodeBarang": "MNM002",
-    "namaBarang": "Susu Asli Ngawi",
-    "harga": 5000,
-    "jumlah": 1,
-    "subtotal": 5000
-  },
-  {
-    "tanggal": "2026-11-06T07:48:12.2615561+07:00",
-    "idTransaksi": "TRX-20261106-074812261",
-    "kodeBarang": "MNM003",
-    "namaBarang": "Es Teler Mwanis",
-    "harga": 10000,
-    "jumlah": 12,
-    "subtotal": 120000
+    "jumlah": 1
   }
 ]

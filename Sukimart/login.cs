@@ -42,13 +42,13 @@ namespace Sukimart
 
             if (string.IsNullOrEmpty(username))
             {
-                lblUsnSalah.Text = "Nama pengguna wajib diisi";
+                lblUsnSalah.Text = "Username wajib diisi";
                 adaError = true;
             }
 
             if (string.IsNullOrEmpty(password))
             {
-                lblPassSalah.Text = "Kata sandi wajib diisi";
+                lblPassSalah.Text = "Password wajib diisi";
                 adaError = true;
             }
 
@@ -57,32 +57,27 @@ namespace Sukimart
                 return;
             }
 
-            Pengguna? akun;
-            try
+            if (username == "admin" && password == "admin123")
             {
-                akun = PenyimpananData.BacaPengguna()
-                    .FirstOrDefault(p => string.Equals(p.NamaPengguna, username, StringComparison.OrdinalIgnoreCase));
+                ResetErrorLabels();
+                Navigasi.MulaiSesi(this, username, "admin");
             }
-            catch (Exception ex)
+            else if (username == "kasir" && password == "kasir123")
             {
-                MessageBox.Show("Data pengguna tidak dapat dibaca: " + ex.Message, "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                ResetErrorLabels();
+                Navigasi.MulaiSesi(this, username, "kasir");
             }
-
-            if (akun == null)
+            else
             {
-                lblUsnSalah.Text = "Nama pengguna tidak ditemukan";
-                return;
+                if (username != "admin" && username != "kasir")
+                {
+                    lblUsnSalah.Text = "Username tidak ditemukan";
+                }
+                else
+                {
+                    lblPassSalah.Text = "Password salah";
+                }
             }
-
-            if (!KeamananSandi.Cocok(akun, password))
-            {
-                lblPassSalah.Text = "Kata sandi salah";
-                return;
-            }
-
-            ResetErrorLabels();
-            Navigasi.MulaiSesi(this, akun.NamaPengguna, akun.Peran);
         }
 
         private void ResetErrorLabels()

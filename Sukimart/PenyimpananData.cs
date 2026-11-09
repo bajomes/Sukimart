@@ -46,20 +46,8 @@ namespace Sukimart
             }
             catch (JsonException ex)
             {
-                string cadangan = lokasi + ".rusak";
-                try
-                {
-                    if (!File.Exists(cadangan))
-                    {
-                        File.Copy(lokasi, cadangan);
-                    }
-                }
-                catch (IOException)
-                {
-                }
-
                 throw new InvalidDataException(
-                    $"File {namaFile} bukan JSON yang valid. Periksa tanda kurung, koma, dan tanda kutip. Salinan aslinya disimpan sebagai {Path.GetFileName(cadangan)}.", ex);
+                    $"File {namaFile} bukan JSON yang valid. Periksa tanda kurung, koma, dan tanda kutip.", ex);
             }
         }
 
@@ -70,6 +58,22 @@ namespace Sukimart
             string json = JsonSerializer.Serialize(data, opsiJson);
             File.WriteAllText(fileSementara, json);
             File.Move(fileSementara, lokasi, true);
+        }
+
+        public static List<string> BacaKategori()
+        {
+            List<string> daftar = BacaData<string>("kategori.json");
+            if (daftar == null || daftar.Count == 0)
+            {
+                daftar = new List<string> { "Makanan", "Minuman", "Perlengkapan", "Lainnya" };
+                SimpanKategori(daftar);
+            }
+            return daftar;
+        }
+
+        public static void SimpanKategori(List<string> daftarKategori)
+        {
+            SimpanData("kategori.json", daftarKategori);
         }
 
         public static List<Barang> BacaBarang()
@@ -121,43 +125,6 @@ namespace Sukimart
         public static void SimpanDetailTransaksi(List<DetailTransaksi> daftarDetail)
         {
             SimpanData("detail_transaksi.json", daftarDetail);
-        }
-
-        public static List<Pengguna> BacaPengguna()
-        {
-            List<Pengguna> daftarPengguna = BacaData<Pengguna>("pengguna.json");
-            if (daftarPengguna.Count == 0)
-            {
-                daftarPengguna = BuatPenggunaAwal();
-                SimpanPengguna(daftarPengguna);
-            }
-            return daftarPengguna;
-        }
-
-        public static void SimpanPengguna(List<Pengguna> daftarPengguna)
-        {
-            SimpanData("pengguna.json", daftarPengguna);
-        }
-
-        private static List<Pengguna> BuatPenggunaAwal()
-        {
-            Pengguna admin = new Pengguna { NamaPengguna = "admin", Peran = "admin", Dibuat = DateTime.Now };
-            Pengguna kasir = new Pengguna { NamaPengguna = "kasir", Peran = "kasir", Dibuat = DateTime.Now };
-            KeamananSandi.IsiSandi(admin, "admin123");
-            KeamananSandi.IsiSandi(kasir, "kasir123");
-            return new List<Pengguna> { admin, kasir };
-        }
-
-        public static List<RiwayatStok> BacaRiwayatStok()
-        {
-            return BacaData<RiwayatStok>("riwayat_stok.json");
-        }
-
-        public static void TambahRiwayatStok(RiwayatStok catatan)
-        {
-            List<RiwayatStok> daftarRiwayat = BacaRiwayatStok();
-            daftarRiwayat.Add(catatan);
-            SimpanData("riwayat_stok.json", daftarRiwayat);
         }
 
         public static void TambahDetailTransaksi(List<DetailTransaksi> rincian)

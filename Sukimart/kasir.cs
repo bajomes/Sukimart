@@ -35,13 +35,11 @@ namespace Sukimart
             {
                 btnGudang.Visible = false;
                 btnLaporan.Visible = false;
-                btnPengguna.Visible = false;
             }
             else
             {
                 btnGudang.Visible = true;
                 btnLaporan.Visible = true;
-                btnPengguna.Visible = true;
             }
         }
 
@@ -53,7 +51,6 @@ namespace Sukimart
             btnRiwayat.Click += (s, e) => Navigasi.BukaRiwayat(this);
             btnGudang.Click += (s, e) => Navigasi.BukaGudang(this);
             btnLaporan.Click += (s, e) => Navigasi.BukaLaporan(this);
-            btnPengguna.Click += (s, e) => Navigasi.BukaPengguna(this);
             btnKeluar.Click += (s, e) => Navigasi.KeluarKeLogin(this);
 
             btnTambahKeranjang.Click += BtnTambahKeranjang_Click;
@@ -76,16 +73,8 @@ namespace Sukimart
                 }
             };
             Shown += (s, e) => FokusPencarian();
-            btnUang10.Click += (s, e) => TambahUangDiterima(10000);
-            btnUang20.Click += (s, e) => TambahUangDiterima(20000);
-            btnUang50.Click += (s, e) => TambahUangDiterima(50000);
-            btnUang100.Click += (s, e) => TambahUangDiterima(100000);
-            btnNolkanBayar.Click += (s, e) =>
-            {
-                nudBayar.Value = 0;
-                bayarDiisiManual = true;
-                HitungKembalian();
-            };
+            btnUang50.Click += (s, e) => { nudBayar.Value = 50000; HitungKembalian(); };
+            btnUang100.Click += (s, e) => { nudBayar.Value = 100000; HitungKembalian(); };
             btnBatalKeranjang.Click += (s, e) => { keranjang.Clear(); PerbaruiTampilanKeranjang(); FokusPencarian(); };
             btnProsesBayar.Click += BtnProsesBayar_Click;
 
@@ -94,8 +83,7 @@ namespace Sukimart
                 int total = keranjang.Sum(k => k.Subtotal);
                 if (total > 0)
                 {
-                    AturBayarOtomatis(total);
-                    bayarDiisiManual = false;
+                    nudBayar.Value = total;
                     HitungKembalian();
                 }
             };
@@ -468,14 +456,6 @@ namespace Sukimart
             bayarDiaturOtomatis = false;
         }
 
-        private void TambahUangDiterima(int nominal)
-        {
-            decimal dasar = bayarDiisiManual ? NilaiBayarDiketik() : 0;
-            nudBayar.Value = Math.Min(nudBayar.Maximum, dasar + nominal);
-            bayarDiisiManual = true;
-            HitungKembalian();
-        }
-
         private int NilaiBayarDiketik()
         {
             string angka = new string(nudBayar.Text.Where(char.IsDigit).ToArray());
@@ -552,25 +532,7 @@ namespace Sukimart
                     var brg = daftarBarang.FirstOrDefault(b => b.Kode == item.KodeBarang);
                     if (brg != null)
                     {
-                        int stokSebelum = brg.Stok;
                         brg.Stok = Math.Max(0, brg.Stok - item.Jumlah);
-
-                        try
-                        {
-                            PenyimpananData.TambahRiwayatStok(new RiwayatStok
-                            {
-                                Tanggal = DateTime.Now,
-                                KodeBarang = brg.Kode,
-                                NamaBarang = brg.Nama,
-                                Jenis = "Stok Keluar",
-                                Jumlah = item.Jumlah,
-                                StokSebelum = stokSebelum,
-                                StokSesudah = brg.Stok,
-                                Keterangan = $"Penjualan {idTransaksi}",
-                                Pengguna = Navigasi.PenggunaAktif
-                            });
-                        }
-                        catch { }
                     }
                 }
 
@@ -598,5 +560,11 @@ namespace Sukimart
                 MessageBox.Show("Gagal menyimpan transaksi ke JSON: " + ex.Message, "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+    }
+
+    public class FormTransaksi : FormKasir
+    {
+        public FormTransaksi() : base("kasir") { }
+        public FormTransaksi(string peran) : base(peran) { }
     }
 }

@@ -18,7 +18,6 @@ namespace Sukimart
             UIHelper.InisialisasiForm(this);
             MaximizeBox = false;
             gridGudang.AllowUserToResizeRows = false;
-            cmbJenisStok.SelectedIndex = 0;
             SesuaikanPeran();
             PasangEventHandlers();
             MuatDataGudang();
@@ -30,13 +29,11 @@ namespace Sukimart
             {
                 btnGudang.Visible = false;
                 btnLaporan.Visible = false;
-                btnPengguna.Visible = false;
             }
             else
             {
                 btnGudang.Visible = true;
                 btnLaporan.Visible = true;
-                btnPengguna.Visible = true;
             }
         }
 
@@ -48,7 +45,6 @@ namespace Sukimart
             btnRiwayat.Click += (s, e) => Navigasi.BukaRiwayat(this);
             btnGudang.Click += (s, e) => { /* Sedang di form gudang */ };
             btnLaporan.Click += (s, e) => Navigasi.BukaLaporan(this);
-            btnPengguna.Click += (s, e) => Navigasi.BukaPengguna(this);
             btnKeluar.Click += (s, e) => Navigasi.KeluarKeLogin(this);
 
             txtCariGudang.TextChanged += (s, e) => FilterDaftarGudang();
@@ -57,11 +53,6 @@ namespace Sukimart
 
             gridGudang.SelectionChanged += GridGudang_SelectionChanged;
             btnSimpanStok.Click += BtnSimpanStok_Click;
-            btnRiwayatStok.Click += (s, e) =>
-            {
-                using FormRiwayatStok formRiwayat = new FormRiwayatStok();
-                formRiwayat.ShowDialog(this);
-            };
         }
 
         public void MuatDataGudang()
@@ -135,83 +126,34 @@ namespace Sukimart
         {
             if (barangTerpilih == null)
             {
-                MessageBox.Show("Pilih barang pada tabel terlebih dahulu.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Pilih baris barang yang ingin ditambah stoknya terlebih dahulu pada tabel di atas.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            int jumlah = (int)nudJumlahMasuk.Value;
-            if (jumlah <= 0)
+            int tambahan = (int)nudJumlahMasuk.Value;
+            if (tambahan <= 0)
             {
-                MessageBox.Show("Jumlah stok harus lebih dari 0.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Jumlah tambahan stok harus lebih dari 0.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            bool stokKeluar = cmbJenisStok.SelectedIndex == 1;
-            if (stokKeluar && jumlah > barangTerpilih.Stok)
-            {
-                MessageBox.Show($"Stok keluar tidak boleh melebihi stok saat ini ({barangTerpilih.Stok}).", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            int stokSebelum = barangTerpilih.Stok;
-            int stokSesudah = stokKeluar ? stokSebelum - jumlah : stokSebelum + jumlah;
-            string jenis = stokKeluar ? "Stok Keluar" : "Stok Masuk";
+            barangTerpilih.Stok += tambahan;
 
             try
             {
-                barangTerpilih.Stok = stokSesudah;
                 PenyimpananData.SimpanBarang(daftarBarang);
+                MessageBox.Show(
+                    $"Berhasil menambahkan {tambahan} stok untuk barang '{barangTerpilih.Nama}'!\nStok baru sekarang: {barangTerpilih.Stok}",
+                    "Stok Berhasil Ditambahkan",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+                MuatDataGudang();
+                nudJumlahMasuk.Value = 10;
             }
             catch (Exception ex)
             {
-                barangTerpilih.Stok = stokSebelum;
-                MessageBox.Show("Gagal menyimpan perubahan stok: " + ex.Message, "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            try
-            {
-                PenyimpananData.TambahRiwayatStok(new RiwayatStok
-                {
-                    Tanggal = DateTime.Now,
-                    KodeBarang = barangTerpilih.Kode,
-                    NamaBarang = barangTerpilih.Nama,
-                    Jenis = jenis,
-                    Jumlah = jumlah,
-                    StokSebelum = stokSebelum,
-                    StokSesudah = stokSesudah,
-                    Keterangan = txtKeterangan.Text.Trim(),
-                    Pengguna = Navigasi.PenggunaAktif
-                });
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Stok sudah tersimpan, tetapi riwayat stok gagal dicatat: " + ex.Message, "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-
-            MessageBox.Show(
-                $"{jenis} {jumlah} untuk '{barangTerpilih.Nama}' berhasil disimpan.\nStok sekarang: {stokSesudah}",
-                "Stok Diperbarui",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
-
-            string kodeTerakhir = barangTerpilih.Kode;
-            MuatDataGudang();
-            PilihBaris(kodeTerakhir);
-            nudJumlahMasuk.Value = 10;
-            txtKeterangan.Clear();
-        }
-
-        private void PilihBaris(string kode)
-        {
-            foreach (DataGridViewRow baris in gridGudang.Rows)
-            {
-                var item = baris.DataBoundItem;
-                if (item?.GetType().GetProperty("Kode")?.GetValue(item, null) as string == kode)
-                {
-                    gridGudang.CurrentCell = baris.Cells[0];
-                    return;
-                }
+                MessageBox.Show("Gagal menyimpan penambahan stok ke JSON: " + ex.Message, "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

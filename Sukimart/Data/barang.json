@@ -1,58 +1,34 @@
 [
   {
     "kode": "MKN001",
-    "nama": "Sukironi",
-    "kategori": "Makanan",
-    "harga": 10000,
-    "stok": 0,
-    "stokMinimum": 5
-  },
-  {
-    "kode": "MKN002",
-    "nama": "Roti Ambakar",
+    "nama": "Roti Tawar",
     "kategori": "Makanan",
     "harga": 15000,
-    "stok": 0,
+    "stok": 20,
     "stokMinimum": 5
   },
   {
-    "kode": "MNM002",
-    "nama": "Susu Asli Ngawi",
-    "kategori": "Minuman",
-    "harga": 5000,
-    "stok": 13,
-    "stokMinimum": 5
-  },
-  {
-    "kode": "MNM001",
-    "nama": "Air Pegunungan Ngawi",
-    "kategori": "Minuman",
-    "harga": 3000,
-    "stok": 98,
-    "stokMinimum": 10
-  },
-  {
-    "kode": "MNM003",
-    "nama": "Es Teler Mwanis",
-    "kategori": "Minuman",
-    "harga": 10000,
-    "stok": 2,
+    "kode": "MKN004",
+    "nama": "Keripik Kentang",
+    "kategori": "Makanan",
+    "harga": 12000,
+    "stok": 4,
     "stokMinimum": 5
   },
   {
     "kode": "MNM004",
-    "nama": "Es Teh Anget",
+    "nama": "Susu UHT",
     "kategori": "Minuman",
-    "harga": 5000,
-    "stok": 19,
+    "harga": 7500,
+    "stok": 3,
     "stokMinimum": 5
   },
   {
-    "kode": "MKN003",
-    "nama": "Es Kwental Mwanis",
+    "kode": "MNM001",
+    "nama": "Air Mineral 600ml",
     "kategori": "Minuman",
     "harga": 4000,
-    "stok": 0,
-    "stokMinimum": 5
+    "stok": 100,
+    "stokMinimum": 10
   }
 ]

@@ -14,7 +14,6 @@ namespace Sukimart
             btnKasir.Click += btnKasir_Click;
             btnGudang.Click += btnGudang_Click;
             btnLaporan.Click += btnLaporan_Click;
-            btnPengguna.Click += (s, e) => Navigasi.BukaPengguna(this);
 
             IsiDashboard();
         }

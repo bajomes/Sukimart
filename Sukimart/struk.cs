@@ -12,6 +12,7 @@ namespace Sukimart
         private static readonly Color WarnaGaris = Color.FromArgb(209, 213, 219);
         private const int LebarKertasCetak = 315;
         private const int MarginCetak = 16;
+        private const int JarakTepi = 24;
 
         private readonly Transaksi transaksi;
         private readonly List<DetailTransaksi> rincian;
@@ -28,6 +29,9 @@ namespace Sukimart
                 lblJudul.Text = "Struk Transaksi";
             }
 
+            pnlStruk.Paint += PnlStruk_Paint;
+            pnlStruk.Scroll += (s, e) => pnlStruk.Invalidate();
+            pnlStruk.MouseWheel += (s, e) => pnlStruk.Invalidate();
             Paint += (s, e) =>
             {
                 using Pen pena = new Pen(UIHelper.WarnaGarisTepi);
@@ -35,31 +39,11 @@ namespace Sukimart
             };
             btnTutup.Click += (s, e) => Close();
             btnCetak.Click += (s, e) => CetakStruk();
-            gridRincian.SelectionChanged += (s, e) => gridRincian.ClearSelection();
-            Shown += (s, e) =>
-            {
-                gridRincian.ClearSelection();
-                btnTutup.Focus();
-            };
+            Shown += (s, e) => btnTutup.Focus();
 
-            IsiStruk();
-        }
-
-        private void IsiStruk()
-        {
-            lblFaktur.Text = transaksi.Id;
-            lblTanggal.Text = transaksi.Tanggal.ToString("dd/MM/yyyy HH:mm", BudayaIndonesia);
-            lblKasir.Text = transaksi.Kasir;
-            lblTotal.Text = "Rp " + transaksi.Total.ToString("N0", BudayaIndonesia);
-            lblTunai.Text = "Rp " + transaksi.Bayar.ToString("N0", BudayaIndonesia);
-            lblKembalian.Text = "Rp " + transaksi.Kembalian.ToString("N0", BudayaIndonesia);
-
-            gridRincian.AutoGenerateColumns = false;
-            gridRincian.DataSource = rincian.Select(item => new
-            {
-                Barang = item.NamaBarang + Environment.NewLine + $"{item.Jumlah} x Rp {item.HargaSatuan.ToString("N0", BudayaIndonesia)}",
-                Subtotal = "Rp " + item.Subtotal.ToString("N0", BudayaIndonesia)
-            }).ToList();
+            using Graphics g = pnlStruk.CreateGraphics();
+            float tinggi = GambarStruk(g, 0, 0, LebarIsiLayar(), false, true);
+            pnlStruk.AutoScrollMinSize = new Size(0, (int)Math.Ceiling(tinggi) + JarakTepi * 2);
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -75,6 +59,18 @@ namespace Sukimart
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private int LebarIsiLayar()
+        {
+            return pnlStruk.ClientSize.Width - JarakTepi * 2;
+        }
+
+        private void PnlStruk_Paint(object? sender, PaintEventArgs e)
+        {
+            e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            e.Graphics.TranslateTransform(0, pnlStruk.AutoScrollPosition.Y);
+            GambarStruk(e.Graphics, JarakTepi, JarakTepi, LebarIsiLayar(), false, false);
         }
 
         private void CetakStruk()
