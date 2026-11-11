@@ -10,13 +10,95 @@ namespace Sukimart
         {
             InitializeComponent();
             UIHelper.InisialisasiForm(this);
-            MaximizeBox = false;
+            MaximizeBox = true;
             btnKasir.Click += btnKasir_Click;
             btnGudang.Click += btnGudang_Click;
             btnLaporan.Click += btnLaporan_Click;
             btnPengguna.Click += (s, e) => Navigasi.BukaPengguna(this);
 
+            SesuaikanPeran();
+
+            pnlKanan.Resize += (s, e) => AturTataLetakResponsif();
+            AturTataLetakResponsif();
+
             IsiDashboard();
+        }
+
+        private void SesuaikanPeran()
+        {
+            if (Navigasi.PeranAktif == "gudang")
+            {
+                btnKasir.Visible = false;
+                btnRiwayat.Visible = false;
+                btnLaporan.Visible = false;
+                btnPengguna.Visible = false;
+                btnGudang.Visible = true;
+                btnKatalog.Visible = true;
+                lblJudul.Text = "Dashboard Gudang";
+            }
+            else if (Navigasi.PeranAktif == "kasir")
+            {
+                btnGudang.Visible = false;
+                btnLaporan.Visible = false;
+                btnPengguna.Visible = false;
+                btnKasir.Visible = true;
+                btnKatalog.Visible = true;
+                btnRiwayat.Visible = true;
+                lblJudul.Text = "Dashboard Kasir";
+            }
+            else
+            {
+                btnKasir.Visible = true;
+                btnRiwayat.Visible = true;
+                btnGudang.Visible = true;
+                btnLaporan.Visible = true;
+                btnPengguna.Visible = true;
+                lblJudul.Text = "Dashboard Admin";
+            }
+
+            UIHelper.SusunTombolSidebar(pnlKiri);
+        }
+
+        private void AturTataLetakResponsif()
+        {
+            int margin = 40;
+            int lebarTersedia = pnlKanan.ClientSize.Width - (margin * 2);
+            if (lebarTersedia < 500) return;
+
+            int jarak = 24;
+
+            // Kolom kanan (Peringatan Stok & Kartu 3): lebar 32% (minimal 304px)
+            int lebarKolomKanan = Math.Max(304, (int)(lebarTersedia * 0.32));
+            int lebarKolomKiri = lebarTersedia - jarak - lebarKolomKanan;
+
+            // Kolom kiri: Kartu 1 dan Kartu 2 membagi rata lebar kolom kiri
+            int lebarKartuKiri = (lebarKolomKiri - jarak) / 2;
+            pnlTransaksi.Location = new Point(margin, 112);
+            pnlTransaksi.Size = new Size(lebarKartuKiri, 112);
+
+            pnlTerjual.Location = new Point(margin + lebarKartuKiri + jarak, 112);
+            pnlTerjual.Size = new Size(lebarKartuKiri, 112);
+
+            // Kolom kanan: Kartu 3 mengikuti lebar kolom kanan
+            int posXKanan = margin + lebarKolomKiri + jarak;
+            pnlStok.Location = new Point(posXKanan, 112);
+            pnlStok.Size = new Size(lebarKolomKanan, 112);
+
+            // Tinggi area bawah
+            int tinggiBawah = Math.Max(200, pnlKanan.ClientSize.Height - 320);
+
+            // Tabel Transaksi Terbaru di kiri bawah
+            lblTransaksiTerbaru.Location = new Point(margin, 248);
+            dataGridView1.Location = new Point(margin, 280);
+            dataGridView1.Size = new Size(lebarKolomKiri, tinggiBawah);
+
+            // Panel Peringatan Stok di kanan bawah
+            lblPeringatan.Location = new Point(posXKanan, 248);
+            pnlPeringatan.Location = new Point(posXKanan, 280);
+            pnlPeringatan.Size = new Size(lebarKolomKanan, tinggiBawah);
+
+            lstStokMenipis.Location = new Point(20, 20);
+            lstStokMenipis.Size = new Size(Math.Max(100, pnlPeringatan.ClientSize.Width - 40), Math.Max(100, pnlPeringatan.ClientSize.Height - 40));
         }
 
         private void IsiDashboard()

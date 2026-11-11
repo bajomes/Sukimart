@@ -226,7 +226,7 @@ namespace Sukimart
             nightControlBox1.DisableMaximizeColor = Color.FromArgb(105, 105, 105);
             nightControlBox1.DisableMinimizeColor = Color.FromArgb(105, 105, 105);
             nightControlBox1.EnableCloseColor = Color.FromArgb(160, 160, 160);
-            nightControlBox1.EnableMaximizeButton = false;
+            nightControlBox1.EnableMaximizeButton = true;
             nightControlBox1.EnableMaximizeColor = Color.FromArgb(160, 160, 160);
             nightControlBox1.EnableMinimizeButton = true;
             nightControlBox1.EnableMinimizeColor = Color.FromArgb(160, 160, 160);
@@ -282,6 +282,7 @@ namespace Sukimart
             gridPengguna.DefaultCellStyle = gayaSel;
             gridPengguna.EnableHeadersVisualStyles = false;
             gridPengguna.GridColor = Color.FromArgb(229, 231, 235);
+            gridPengguna.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             gridPengguna.Location = new Point(40, 112);
             gridPengguna.MultiSelect = false;
             gridPengguna.Name = "gridPengguna";
@@ -307,6 +308,7 @@ namespace Sukimart
             colDibuat.Name = "colDibuat";
             colDibuat.ReadOnly = true;
             pnlForm.BackColor = Color.White;
+            pnlForm.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             pnlForm.Location = new Point(664, 112);
             pnlForm.Size = new Size(336, 568);
             pnlForm.Name = "pnlForm";
@@ -361,7 +363,7 @@ namespace Sukimart
             lblPeran.TabIndex = 8;
             cmbPeran.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbPeran.Font = new Font("Inter", 10F);
-            cmbPeran.Items.AddRange(new object[] { "Admin", "Kasir" });
+            cmbPeran.Items.AddRange(new object[] { "Admin", "Kasir", "Gudang" });
             cmbPeran.Location = new Point(24, 148);
             cmbPeran.Size = new Size(288, 25);
             cmbPeran.Name = "cmbPeran";

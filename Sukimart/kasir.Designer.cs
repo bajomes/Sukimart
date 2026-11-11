@@ -60,7 +60,6 @@ namespace Sukimart
             btnUang100 = new Button();
             pnlGaris = new Panel();
             lblInfoKasir = new Label();
-            lblPetunjuk = new Label();
             lblInfoKeranjang = new Label();
             nightControlBox1 = new ReaLTaiizor.Controls.NightControlBox();
             lblJudul = new Label();
@@ -290,7 +289,6 @@ namespace Sukimart
             pnlKanan.Controls.Add(gridKeranjang);
             pnlKanan.Controls.Add(pnlCheckout);
             pnlKanan.Controls.Add(lblInfoKeranjang);
-            pnlKanan.Controls.Add(lblPetunjuk);
             pnlKanan.Controls.Add(lblInfoKasir);
             pnlKanan.Dock = DockStyle.Fill;
             pnlKanan.Location = new Point(240, 0);
@@ -308,7 +306,7 @@ namespace Sukimart
             nightControlBox1.DisableMaximizeColor = Color.FromArgb(105, 105, 105);
             nightControlBox1.DisableMinimizeColor = Color.FromArgb(105, 105, 105);
             nightControlBox1.EnableCloseColor = Color.FromArgb(160, 160, 160);
-            nightControlBox1.EnableMaximizeButton = false;
+            nightControlBox1.EnableMaximizeButton = true;
             nightControlBox1.EnableMaximizeColor = Color.FromArgb(160, 160, 160);
             nightControlBox1.EnableMinimizeButton = true;
             nightControlBox1.EnableMinimizeColor = Color.FromArgb(160, 160, 160);
@@ -350,6 +348,7 @@ namespace Sukimart
             cmbBarang.DropDownStyle = ComboBoxStyle.DropDown;
             cmbBarang.Font = new Font("Inter", 10F);
             cmbBarang.FormattingEnabled = true;
+            cmbBarang.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             cmbBarang.Location = new Point(40, 136);
             cmbBarang.Name = "cmbBarang";
             cmbBarang.Size = new Size(448, 25);
@@ -360,6 +359,7 @@ namespace Sukimart
             lblJumlah.AutoSize = true;
             lblJumlah.Font = new Font("Inter", 9F, FontStyle.Bold);
             lblJumlah.ForeColor = Color.FromArgb(75, 85, 99);
+            lblJumlah.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblJumlah.Location = new Point(504, 112);
             lblJumlah.Name = "lblJumlah";
             lblJumlah.Size = new Size(49, 15);
@@ -369,6 +369,7 @@ namespace Sukimart
             // nudJumlah
             // 
             nudJumlah.Font = new Font("Inter", 10F);
+            nudJumlah.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             nudJumlah.Location = new Point(504, 136);
             nudJumlah.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
             nudJumlah.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
@@ -386,6 +387,7 @@ namespace Sukimart
             btnTambahKeranjang.FlatStyle = FlatStyle.Flat;
             btnTambahKeranjang.Font = new Font("Inter", 10F, FontStyle.Bold);
             btnTambahKeranjang.ForeColor = Color.FromArgb(31, 41, 55);
+            btnTambahKeranjang.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnTambahKeranjang.Location = new Point(584, 132);
             btnTambahKeranjang.Name = "btnTambahKeranjang";
             btnTambahKeranjang.Size = new Size(88, 32);
@@ -419,6 +421,7 @@ namespace Sukimart
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             gridKeranjang.DefaultCellStyle = dataGridViewCellStyle2;
             gridKeranjang.EnableHeadersVisualStyles = false;
+            gridKeranjang.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             gridKeranjang.Location = new Point(40, 176);
             gridKeranjang.MultiSelect = false;
             gridKeranjang.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
@@ -502,6 +505,7 @@ namespace Sukimart
             pnlCheckout.Controls.Add(btnUang10);
             pnlCheckout.Controls.Add(btnUang20);
             pnlCheckout.Controls.Add(btnNolkanBayar);
+            pnlCheckout.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             pnlCheckout.Location = new Point(696, 112);
             pnlCheckout.Name = "pnlCheckout";
             pnlCheckout.Size = new Size(304, 568);
@@ -658,22 +662,15 @@ namespace Sukimart
             lblInfoKeranjang.BackColor = Color.Transparent;
             lblInfoKeranjang.Font = new Font("Inter", 9F);
             lblInfoKeranjang.ForeColor = Color.FromArgb(107, 114, 128);
+            lblInfoKeranjang.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblInfoKeranjang.Location = new Point(40, 652);
             lblInfoKeranjang.TabIndex = 0;
             lblInfoKeranjang.Text = "0 produk · 0 item";
             lblInfoKeranjang.Name = "lblInfoKeranjang";
-            lblPetunjuk.BackColor = Color.Transparent;
-            lblPetunjuk.Font = new Font("Inter", 9F);
-            lblPetunjuk.ForeColor = Color.FromArgb(107, 114, 128);
-            lblPetunjuk.Location = new Point(352, 648);
-            lblPetunjuk.Size = new Size(320, 24);
-            lblPetunjuk.TextAlign = ContentAlignment.MiddleRight;
-            lblPetunjuk.TabIndex = 0;
-            lblPetunjuk.Text = "Klik − atau + untuk ubah jumlah, × untuk hapus";
-            lblPetunjuk.Name = "lblPetunjuk";
             lblInfoKasir.BackColor = Color.Transparent;
             lblInfoKasir.Font = new Font("Inter", 9F);
             lblInfoKasir.ForeColor = Color.FromArgb(107, 114, 128);
+            lblInfoKasir.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblInfoKasir.Location = new Point(600, 40);
             lblInfoKasir.Size = new Size(400, 24);
             lblInfoKasir.TextAlign = ContentAlignment.MiddleRight;
@@ -880,7 +877,6 @@ namespace Sukimart
         private Button btnUang100;
         private Panel pnlGaris;
         private Label lblInfoKasir;
-        private Label lblPetunjuk;
         private Label lblInfoKeranjang;
         private ReaLTaiizor.Controls.NightControlBox nightControlBox1;
         private Label lblJudul;

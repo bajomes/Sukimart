@@ -147,6 +147,8 @@ namespace Sukimart
             Controls.Add(btnTutup);
             Controls.Add(lblInfo);
             FormBorderStyle = FormBorderStyle.None;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FormRiwayatStok";
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;

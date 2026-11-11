@@ -18,12 +18,25 @@ namespace Sukimart
             this.peran = string.IsNullOrEmpty(peran) ? Navigasi.PeranAktif : peran;
             InitializeComponent();
             UIHelper.InisialisasiForm(this);
-            MaximizeBox = false;
+            MaximizeBox = true;
             gridTransaksi.AllowUserToResizeRows = false;
             gridDetail.AllowUserToResizeRows = false;
             SesuaikanPeran();
             dtpMulai.Value = DateTime.Today.AddDays(-30);
             dtpSelesai.Value = DateTime.Today;
+
+            pnlRingkasan.Resize += (s, e) =>
+            {
+                int sepertiga = pnlRingkasan.ClientSize.Width / 3;
+                lblStatTransaksi.Location = new Point(24, 12);
+                lblValTransaksi.Location = new Point(24, 32);
+
+                lblStatOmzet.Location = new Point(sepertiga + 24, 12);
+                lblValOmzet.Location = new Point(sepertiga + 24, 32);
+
+                lblStatRata.Location = new Point(sepertiga * 2 + 24, 12);
+                lblValRata.Location = new Point(sepertiga * 2 + 24, 32);
+            };
 
             PasangEventHandlers();
             MuatData();
@@ -37,12 +50,22 @@ namespace Sukimart
                 btnLaporan.Visible = false;
                 btnPengguna.Visible = false;
             }
+            else if (this.peran == "gudang")
+            {
+                btnKasir.Visible = false;
+                btnRiwayat.Visible = false;
+                btnLaporan.Visible = false;
+                btnPengguna.Visible = false;
+                btnGudang.Visible = true;
+            }
             else
             {
                 btnGudang.Visible = true;
                 btnLaporan.Visible = true;
                 btnPengguna.Visible = true;
             }
+
+            UIHelper.SusunTombolSidebar(pnlKiri);
         }
 
         private void PasangEventHandlers()

@@ -39,10 +39,91 @@ namespace Sukimart
             {
                 if (e.Button == MouseButtons.Left)
                 {
+                    if (e.Clicks == 2 && targetForm.MaximizeBox)
+                    {
+                        AlihkanMaximize(targetForm);
+                        return;
+                    }
+
                     ReleaseCapture();
                     SendMessage(targetForm.Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
                 }
             };
+        }
+
+        public static void AlihkanMaximize(Form form)
+        {
+            if (form == null || !form.MaximizeBox) return;
+
+            if (form.WindowState == FormWindowState.Maximized)
+            {
+                form.WindowState = FormWindowState.Normal;
+                form.Size = new Size(1280, 720);
+                PusatkanForm(form);
+            }
+            else
+            {
+                form.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        public static void PusatkanForm(Form form)
+        {
+            if (form == null) return;
+            Screen layar = Screen.FromControl(form);
+            form.Location = new Point(
+                layar.WorkingArea.Left + Math.Max(0, (layar.WorkingArea.Width - form.Width) / 2),
+                layar.WorkingArea.Top + Math.Max(0, (layar.WorkingArea.Height - form.Height) / 2)
+            );
+        }
+
+        /// <summary>
+        /// Merapatkan tombol-tombol menu sidebar yang terlihat sehingga tidak ada lubang kosong
+        /// ketika sebagian tombol disembunyikan berdasarkan peran pengguna (Kasir / Gudang).
+        /// </summary>
+        public static void SusunTombolSidebar(Panel pnlKiri)
+        {
+            if (pnlKiri == null) return;
+
+            if (!pnlKiri.Visible)
+            {
+                pnlKiri.VisibleChanged -= SusunSaatTampil;
+                pnlKiri.VisibleChanged += SusunSaatTampil;
+                return;
+            }
+
+            int y = 112; // Mulai tepat di bawah logo aplikasi
+            int jarak = 8; // Jarak seragam antar-tombol
+
+            string[] urutanTombol = { "btnDashboard", "btnKasir", "btnKatalog", "btnRiwayat", "btnGudang", "btnLaporan", "btnPengguna" };
+
+            foreach (string nama in urutanTombol)
+            {
+                Control[] ditemukan = pnlKiri.Controls.Find(nama, false);
+                if (ditemukan.Length > 0 && ditemukan[0] is Button btn && btn.Visible)
+                {
+                    btn.Location = new Point(btn.Location.X, y);
+                    y += btn.Height + jarak;
+                }
+            }
+        }
+
+        public static void RatakanTengah(params DataGridViewColumn[] daftarKolom)
+        {
+            foreach (DataGridViewColumn kolom in daftarKolom)
+            {
+                kolom.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                kolom.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+        }
+
+        private static void SusunSaatTampil(object? sender, EventArgs e)
+        {
+            if (sender is Panel pnl && pnl.Visible)
+            {
+                pnl.VisibleChanged -= SusunSaatTampil;
+                SusunTombolSidebar(pnl);
+            }
         }
 
         /// <summary>
@@ -78,6 +159,20 @@ namespace Sukimart
             FontInter.Terapkan(form);
 
             PasangDrag(form, form);
+
+            // Jamin ukuran normal kembali ke 1280x720 saat jendela di-restore dari maximize
+            form.Resize += (s, e) =>
+            {
+                if (form.WindowState == FormWindowState.Normal)
+                {
+                    Screen layar = Screen.FromControl(form);
+                    if (form.Width >= layar.WorkingArea.Width - 10 && form.Height >= layar.WorkingArea.Height - 10)
+                    {
+                        form.Size = new Size(1280, 720);
+                        PusatkanForm(form);
+                    }
+                }
+            };
 
             // Pasang drag dan tema grid secara menyeluruh ke semua kontrol di form
             PasangRekursif(form, form);
@@ -119,11 +214,6 @@ namespace Sukimart
         }
         public static readonly Color WarnaGarisTepi = Color.FromArgb(229, 231, 235);
 
-        private static readonly string[] KataKolomAngka =
-        {
-            "Harga", "Total", "Subtotal", "Stok", "Qty", "Jumlah", "Omzet", "Bayar", "Kembalian", "Terjual"
-        };
-
         private static readonly ConditionalWeakTable<Control, object> IndukBergaris = new ConditionalWeakTable<Control, object>();
 
         public static void RapikanGrid(DataGridView grid)
@@ -146,25 +236,6 @@ namespace Sukimart
             {
                 kolom.MinimumWidth = 64;
             }
-
-            if (KolomAngka(kolom))
-            {
-                kolom.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                kolom.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
-            }
-        }
-
-        private static bool KolomAngka(DataGridViewColumn kolom)
-        {
-            string gabungan = (kolom.Name ?? "") + "|" + (kolom.DataPropertyName ?? "") + "|" + (kolom.HeaderText ?? "");
-            foreach (string kata in KataKolomAngka)
-            {
-                if (gabungan.IndexOf(kata, StringComparison.OrdinalIgnoreCase) >= 0)
-                {
-                    return true;
-                }
-            }
-            return false;
         }
 
         private static bool PerluGarisTepi(Control ctrl)

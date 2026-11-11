@@ -280,7 +280,7 @@ namespace Sukimart
             nightControlBox1.DisableMaximizeColor = Color.FromArgb(105, 105, 105);
             nightControlBox1.DisableMinimizeColor = Color.FromArgb(105, 105, 105);
             nightControlBox1.EnableCloseColor = Color.FromArgb(160, 160, 160);
-            nightControlBox1.EnableMaximizeButton = false;
+            nightControlBox1.EnableMaximizeButton = true;
             nightControlBox1.EnableMaximizeColor = Color.FromArgb(160, 160, 160);
             nightControlBox1.EnableMinimizeButton = true;
             nightControlBox1.EnableMinimizeColor = Color.FromArgb(160, 160, 160);
@@ -307,6 +307,7 @@ namespace Sukimart
             // txtCariGudang
             // 
             txtCariGudang.Font = new Font("Inter", 10F);
+            txtCariGudang.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtCariGudang.Location = new Point(40, 116);
             txtCariGudang.Name = "txtCariGudang";
             txtCariGudang.PlaceholderText = "Cari kode, nama, atau kategori produk...";
@@ -321,6 +322,7 @@ namespace Sukimart
             btnFilterMenipis.FlatStyle = FlatStyle.Flat;
             btnFilterMenipis.Font = new Font("Inter", 10F, FontStyle.Bold);
             btnFilterMenipis.ForeColor = Color.FromArgb(220, 38, 38);
+            btnFilterMenipis.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnFilterMenipis.Location = new Point(712, 112);
             btnFilterMenipis.Name = "btnFilterMenipis";
             btnFilterMenipis.Size = new Size(136, 32);
@@ -336,6 +338,7 @@ namespace Sukimart
             btnSemuaStok.FlatStyle = FlatStyle.Flat;
             btnSemuaStok.Font = new Font("Inter", 10F);
             btnSemuaStok.ForeColor = Color.FromArgb(75, 85, 99);
+            btnSemuaStok.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnSemuaStok.Location = new Point(864, 112);
             btnSemuaStok.Name = "btnSemuaStok";
             btnSemuaStok.Size = new Size(136, 32);
@@ -369,6 +372,7 @@ namespace Sukimart
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             gridGudang.DefaultCellStyle = dataGridViewCellStyle2;
             gridGudang.EnableHeadersVisualStyles = false;
+            gridGudang.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             gridGudang.Location = new Point(40, 160);
             gridGudang.MultiSelect = false;
             gridGudang.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
@@ -442,6 +446,7 @@ namespace Sukimart
             pnlRestock.Controls.Add(cmbJenisStok);
             pnlRestock.Controls.Add(lblKeterangan);
             pnlRestock.Controls.Add(txtKeterangan);
+            pnlRestock.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pnlRestock.Location = new Point(40, 576);
             pnlRestock.Name = "pnlRestock";
             pnlRestock.Size = new Size(960, 104);
@@ -499,6 +504,7 @@ namespace Sukimart
             btnSimpanStok.FlatStyle = FlatStyle.Flat;
             btnSimpanStok.Font = new Font("Inter", 10F, FontStyle.Bold);
             btnSimpanStok.ForeColor = Color.FromArgb(31, 41, 55);
+            btnSimpanStok.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnSimpanStok.Location = new Point(808, 44);
             btnSimpanStok.Name = "btnSimpanStok";
             btnSimpanStok.Size = new Size(128, 32);
@@ -514,6 +520,7 @@ namespace Sukimart
             btnRiwayatStok.FlatStyle = FlatStyle.Flat;
             btnRiwayatStok.Font = new Font("Inter", 10F);
             btnRiwayatStok.ForeColor = Color.FromArgb(75, 85, 99);
+            btnRiwayatStok.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnRiwayatStok.Location = new Point(560, 112);
             btnRiwayatStok.Name = "btnRiwayatStok";
             btnRiwayatStok.Size = new Size(136, 32);
@@ -543,6 +550,7 @@ namespace Sukimart
             lblKeterangan.Size = new Size(72, 15);
             lblKeterangan.TabIndex = 8;
             lblKeterangan.Text = "Keterangan";
+            txtKeterangan.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtKeterangan.Font = new Font("Inter", 10F);
             txtKeterangan.Location = new Point(608, 48);
             txtKeterangan.MaxLength = 100;

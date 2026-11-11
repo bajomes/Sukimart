@@ -51,7 +51,6 @@ namespace Sukimart
             lblNilaiTransaksi = new Label();
             lblTransaksiHariIni = new Label();
             dataGridView1 = new DataGridView();
-            btnTransaksiBaru = new Button();
             lblTanggal = new Label();
             lblJudul = new Label();
             pnlKiri.SuspendLayout();
@@ -199,7 +198,6 @@ namespace Sukimart
             pnlKanan.Controls.Add(pnlTerjual);
             pnlKanan.Controls.Add(pnlTransaksi);
             pnlKanan.Controls.Add(dataGridView1);
-            pnlKanan.Controls.Add(btnTransaksiBaru);
             pnlKanan.Controls.Add(lblTanggal);
             pnlKanan.Controls.Add(lblJudul);
             pnlKanan.Controls.Add(lblTransaksiTerbaru);
@@ -220,7 +218,7 @@ namespace Sukimart
             nightControlBox1.DisableMaximizeColor = Color.FromArgb(105, 105, 105);
             nightControlBox1.DisableMinimizeColor = Color.FromArgb(105, 105, 105);
             nightControlBox1.EnableCloseColor = Color.FromArgb(160, 160, 160);
-            nightControlBox1.EnableMaximizeButton = false;
+            nightControlBox1.EnableMaximizeButton = true;
             nightControlBox1.EnableMaximizeColor = Color.FromArgb(160, 160, 160);
             nightControlBox1.EnableMinimizeButton = true;
             nightControlBox1.EnableMinimizeColor = Color.FromArgb(160, 160, 160);
@@ -368,24 +366,6 @@ namespace Sukimart
             dataGridView1.Size = new Size(960, 400);
             dataGridView1.TabIndex = 9;
             // 
-            // btnTransaksiBaru
-            // 
-            btnTransaksiBaru.BackColor = Color.FromArgb(255, 196, 0);
-            btnTransaksiBaru.Cursor = Cursors.Hand;
-            btnTransaksiBaru.FlatAppearance.BorderSize = 0;
-            btnTransaksiBaru.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
-            btnTransaksiBaru.FlatStyle = FlatStyle.Flat;
-            btnTransaksiBaru.Font = new Font("Inter", 10F, FontStyle.Bold);
-            btnTransaksiBaru.ForeColor = Color.FromArgb(31, 41, 55);
-            btnTransaksiBaru.Location = new Point(824, 32);
-            btnTransaksiBaru.Name = "btnTransaksiBaru";
-            btnTransaksiBaru.Padding = new Padding(12, 0, 0, 0);
-            btnTransaksiBaru.Size = new Size(176, 40);
-            btnTransaksiBaru.TabIndex = 8;
-            btnTransaksiBaru.Text = "+ Transaksi Baru";
-            btnTransaksiBaru.TextAlign = ContentAlignment.MiddleLeft;
-            btnTransaksiBaru.UseVisualStyleBackColor = false;
-            // 
             // lblTanggal
             // 
             lblTanggal.AutoSize = true;
@@ -455,7 +435,6 @@ namespace Sukimart
         private Button btnKatalog;
         private Label lblJudul;
         private Label lblNama;
-        private Button btnTransaksiBaru;
         private Label lblTanggal;
         private DataGridView dataGridView1;
         private Panel pnlTransaksi;

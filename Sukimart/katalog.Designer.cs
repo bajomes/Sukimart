@@ -42,7 +42,6 @@ namespace Sukimart
             pictureLogo = new PictureBox();
             lblNama = new Label();
             pnlKanan = new Panel();
-            pnlDetail = new Panel();
             nightControlBox1 = new ReaLTaiizor.Controls.NightControlBox();
             lblJudulKatalog = new Label();
             txtCari = new TextBox();
@@ -53,29 +52,13 @@ namespace Sukimart
             colHarga = new DataGridViewTextBoxColumn();
             colStok = new DataGridViewTextBoxColumn();
             colStokMin = new DataGridViewTextBoxColumn();
-            lblKode = new Label();
-            txtKode = new TextBox();
-            lblNamaBarang = new Label();
-            txtNamaBarang = new TextBox();
-            lblKategori = new Label();
-            cmbKategori = new ComboBox();
-            lblHarga = new Label();
-            nudHarga = new NumericUpDown();
-            lblStok = new Label();
-            nudStok = new NumericUpDown();
-            lblStokMin = new Label();
-            nudStokMinimum = new NumericUpDown();
-            btnSimpanBarang = new Button();
-            btnUbahBarang = new Button();
+            btnTambahItem = new Button();
+            btnEditProduk = new Button();
             btnHapusBarang = new Button();
-            btnBersihkanBarang = new Button();
             pnlKiri.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureLogo).BeginInit();
             pnlKanan.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)gridBarang).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nudHarga).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nudStok).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nudStokMinimum).BeginInit();
             SuspendLayout();
             // 
             // pnlKiri
@@ -265,8 +248,9 @@ namespace Sukimart
             pnlKanan.Controls.Add(lblJudulKatalog);
             pnlKanan.Controls.Add(txtCari);
             pnlKanan.Controls.Add(gridBarang);
-            pnlKanan.Controls.Add(btnBersihkanBarang);
-            pnlKanan.Controls.Add(pnlDetail);
+            pnlKanan.Controls.Add(btnTambahItem);
+            pnlKanan.Controls.Add(btnEditProduk);
+            pnlKanan.Controls.Add(btnHapusBarang);
             pnlKanan.Dock = DockStyle.Fill;
             pnlKanan.Location = new Point(240, 0);
             pnlKanan.Name = "pnlKanan";
@@ -283,7 +267,7 @@ namespace Sukimart
             nightControlBox1.DisableMaximizeColor = Color.FromArgb(105, 105, 105);
             nightControlBox1.DisableMinimizeColor = Color.FromArgb(105, 105, 105);
             nightControlBox1.EnableCloseColor = Color.FromArgb(160, 160, 160);
-            nightControlBox1.EnableMaximizeButton = false;
+            nightControlBox1.EnableMaximizeButton = true;
             nightControlBox1.EnableMaximizeColor = Color.FromArgb(160, 160, 160);
             nightControlBox1.EnableMinimizeButton = true;
             nightControlBox1.EnableMinimizeColor = Color.FromArgb(160, 160, 160);
@@ -311,6 +295,7 @@ namespace Sukimart
             // 
             txtCari.BackColor = Color.White;
             txtCari.Font = new Font("Inter", 10F);
+            txtCari.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtCari.Location = new Point(40, 116);
             txtCari.Name = "txtCari";
             txtCari.PlaceholderText = "Cari berdasarkan nama, kode, atau kategori barang...";
@@ -344,6 +329,7 @@ namespace Sukimart
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             gridBarang.DefaultCellStyle = dataGridViewCellStyle2;
             gridBarang.EnableHeadersVisualStyles = false;
+            gridBarang.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             gridBarang.Location = new Point(40, 160);
             gridBarang.MultiSelect = false;
             gridBarang.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
@@ -353,7 +339,7 @@ namespace Sukimart
             gridBarang.RowHeadersVisible = false;
             gridBarang.RowTemplate.Height = 36;
             gridBarang.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            gridBarang.Size = new Size(960, 280);
+            gridBarang.Size = new Size(960, 456);
             gridBarang.TabIndex = 4;
             // 
             // colKode
@@ -402,186 +388,49 @@ namespace Sukimart
             colStokMin.HeaderText = "Min Stok";
             colStokMin.Name = "colStokMin";
             colStokMin.ReadOnly = true;
-            // 
-            // lblKode
-            // 
-            lblKode.AutoSize = true;
-            lblKode.Font = new Font("Inter", 9F, FontStyle.Bold);
-            lblKode.ForeColor = Color.FromArgb(75, 85, 99);
-            lblKode.Location = new Point(24, 20);
-            lblKode.Name = "lblKode";
-            lblKode.Size = new Size(83, 15);
-            lblKode.TabIndex = 5;
-            lblKode.Text = "Kode Barang";
-            // 
-            // txtKode
-            // 
-            txtKode.Font = new Font("Inter", 10F);
-            txtKode.Location = new Point(24, 40);
-            txtKode.Name = "txtKode";
-            txtKode.Size = new Size(288, 24);
-            txtKode.TabIndex = 6;
-            // 
-            // lblNamaBarang
-            // 
-            lblNamaBarang.AutoSize = true;
-            lblNamaBarang.Font = new Font("Inter", 9F, FontStyle.Bold);
-            lblNamaBarang.ForeColor = Color.FromArgb(75, 85, 99);
-            lblNamaBarang.Location = new Point(336, 20);
-            lblNamaBarang.Name = "lblNamaBarang";
-            lblNamaBarang.Size = new Size(86, 15);
-            lblNamaBarang.TabIndex = 7;
-            lblNamaBarang.Text = "Nama Barang";
-            // 
-            // txtNamaBarang
-            // 
-            txtNamaBarang.Font = new Font("Inter", 10F);
-            txtNamaBarang.Location = new Point(336, 40);
-            txtNamaBarang.Name = "txtNamaBarang";
-            txtNamaBarang.Size = new Size(288, 24);
-            txtNamaBarang.TabIndex = 8;
-            // 
-            // lblKategori
-            // 
-            lblKategori.AutoSize = true;
-            lblKategori.Font = new Font("Inter", 9F, FontStyle.Bold);
-            lblKategori.ForeColor = Color.FromArgb(75, 85, 99);
-            lblKategori.Location = new Point(648, 20);
-            lblKategori.Name = "lblKategori";
-            lblKategori.Size = new Size(57, 15);
-            lblKategori.TabIndex = 9;
-            lblKategori.Text = "Kategori";
-            // 
-            // cmbKategori
-            // 
-            cmbKategori.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbKategori.Font = new Font("Inter", 10F);
-            cmbKategori.FormattingEnabled = true;
-            cmbKategori.Items.AddRange(new object[] { "Makanan", "Minuman", "Perlengkapan", "Lainnya" });
-            cmbKategori.Location = new Point(648, 40);
-            cmbKategori.Name = "cmbKategori";
-            cmbKategori.Size = new Size(288, 24);
-            cmbKategori.TabIndex = 10;
-            // 
-            // lblHarga
-            // 
-            lblHarga.AutoSize = true;
-            lblHarga.Font = new Font("Inter", 9F, FontStyle.Bold);
-            lblHarga.ForeColor = Color.FromArgb(75, 85, 99);
-            lblHarga.Location = new Point(24, 84);
-            lblHarga.Name = "lblHarga";
-            lblHarga.Size = new Size(72, 15);
-            lblHarga.TabIndex = 11;
-            lblHarga.Text = "Harga (Rp)";
-            // 
-            // nudHarga
-            // 
-            nudHarga.Font = new Font("Inter", 10F);
-            nudHarga.Location = new Point(24, 104);
-            nudHarga.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
-            nudHarga.Name = "nudHarga";
-            nudHarga.Size = new Size(288, 24);
-            nudHarga.TabIndex = 12;
-            // 
-            // lblStok
-            // 
-            lblStok.AutoSize = true;
-            lblStok.Font = new Font("Inter", 9F, FontStyle.Bold);
-            lblStok.ForeColor = Color.FromArgb(75, 85, 99);
-            lblStok.Location = new Point(336, 84);
-            lblStok.Name = "lblStok";
-            lblStok.Size = new Size(92, 15);
-            lblStok.TabIndex = 13;
-            lblStok.Text = "Stok Awal";
-            // 
-            // nudStok
-            // 
-            nudStok.Font = new Font("Inter", 10F);
-            nudStok.Location = new Point(336, 104);
-            nudStok.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
-            nudStok.Name = "nudStok";
-            nudStok.Size = new Size(288, 24);
-            nudStok.TabIndex = 14;
-            // 
-            // lblStokMin
-            // 
-            lblStokMin.AutoSize = true;
-            lblStokMin.Font = new Font("Inter", 9F, FontStyle.Bold);
-            lblStokMin.ForeColor = Color.FromArgb(75, 85, 99);
-            lblStokMin.Location = new Point(648, 84);
-            lblStokMin.Name = "lblStokMin";
-            lblStokMin.Size = new Size(93, 15);
-            lblStokMin.TabIndex = 15;
-            lblStokMin.Text = "Batas Min Stok";
-            // 
-            // nudStokMinimum
-            // 
-            nudStokMinimum.Font = new Font("Inter", 10F);
-            nudStokMinimum.Location = new Point(648, 104);
-            nudStokMinimum.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            nudStokMinimum.Name = "nudStokMinimum";
-            nudStokMinimum.Size = new Size(288, 24);
-            nudStokMinimum.TabIndex = 16;
-            // 
-            // btnSimpanBarang
-            // 
-            btnSimpanBarang.BackColor = Color.FromArgb(255, 196, 0);
-            btnSimpanBarang.Cursor = Cursors.Hand;
-            btnSimpanBarang.FlatAppearance.BorderSize = 0;
-            btnSimpanBarang.FlatStyle = FlatStyle.Flat;
-            btnSimpanBarang.Font = new Font("Inter", 10F, FontStyle.Bold);
-            btnSimpanBarang.ForeColor = Color.FromArgb(31, 41, 55);
-            btnSimpanBarang.Location = new Point(24, 152);
-            btnSimpanBarang.Name = "btnSimpanBarang";
-            btnSimpanBarang.Size = new Size(160, 40);
-            btnSimpanBarang.TabIndex = 17;
-            btnSimpanBarang.Text = "+ Tambah Barang";
-            btnSimpanBarang.UseVisualStyleBackColor = false;
-            // 
-            // btnUbahBarang
-            // 
-            btnUbahBarang.BackColor = Color.White;
-            btnUbahBarang.Cursor = Cursors.Hand;
-            btnUbahBarang.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
-            btnUbahBarang.FlatStyle = FlatStyle.Flat;
-            btnUbahBarang.Font = new Font("Inter", 10F, FontStyle.Bold);
-            btnUbahBarang.ForeColor = Color.FromArgb(55, 65, 81);
-            btnUbahBarang.Location = new Point(200, 152);
-            btnUbahBarang.Name = "btnUbahBarang";
-            btnUbahBarang.Size = new Size(176, 40);
-            btnUbahBarang.TabIndex = 18;
-            btnUbahBarang.Text = "Simpan Perubahan";
-            btnUbahBarang.UseVisualStyleBackColor = false;
+            btnTambahItem.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnTambahItem.BackColor = Color.FromArgb(255, 196, 0);
+            btnTambahItem.Cursor = Cursors.Hand;
+            btnTambahItem.FlatAppearance.BorderSize = 0;
+            btnTambahItem.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 210, 64);
+            btnTambahItem.FlatStyle = FlatStyle.Flat;
+            btnTambahItem.Font = new Font("Inter", 10F, FontStyle.Bold);
+            btnTambahItem.ForeColor = Color.FromArgb(31, 41, 55);
+            btnTambahItem.Location = new Point(40, 640);
+            btnTambahItem.Name = "btnTambahItem";
+            btnTambahItem.Size = new Size(152, 40);
+            btnTambahItem.TabIndex = 5;
+            btnTambahItem.Text = "+ Tambah Item";
+            btnTambahItem.UseVisualStyleBackColor = false;
+            btnEditProduk.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnEditProduk.BackColor = Color.White;
+            btnEditProduk.Cursor = Cursors.Hand;
+            btnEditProduk.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
+            btnEditProduk.FlatStyle = FlatStyle.Flat;
+            btnEditProduk.Font = new Font("Inter", 10F, FontStyle.Bold);
+            btnEditProduk.ForeColor = Color.FromArgb(55, 65, 81);
+            btnEditProduk.Location = new Point(208, 640);
+            btnEditProduk.Name = "btnEditProduk";
+            btnEditProduk.Size = new Size(144, 40);
+            btnEditProduk.TabIndex = 6;
+            btnEditProduk.Text = "Edit Produk";
+            btnEditProduk.UseVisualStyleBackColor = false;
             // 
             // btnHapusBarang
             // 
+            btnHapusBarang.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnHapusBarang.BackColor = Color.White;
             btnHapusBarang.Cursor = Cursors.Hand;
             btnHapusBarang.FlatAppearance.BorderColor = Color.FromArgb(254, 202, 202);
             btnHapusBarang.FlatStyle = FlatStyle.Flat;
             btnHapusBarang.Font = new Font("Inter", 10F, FontStyle.Bold);
             btnHapusBarang.ForeColor = Color.FromArgb(220, 38, 38);
-            btnHapusBarang.Location = new Point(392, 152);
+            btnHapusBarang.Location = new Point(368, 640);
             btnHapusBarang.Name = "btnHapusBarang";
             btnHapusBarang.Size = new Size(120, 40);
-            btnHapusBarang.TabIndex = 19;
+            btnHapusBarang.TabIndex = 7;
             btnHapusBarang.Text = "Hapus";
             btnHapusBarang.UseVisualStyleBackColor = false;
-            // 
-            // btnBersihkanBarang
-            // 
-            btnBersihkanBarang.BackColor = Color.White;
-            btnBersihkanBarang.Cursor = Cursors.Hand;
-            btnBersihkanBarang.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
-            btnBersihkanBarang.FlatStyle = FlatStyle.Flat;
-            btnBersihkanBarang.Font = new Font("Inter", 10F);
-            btnBersihkanBarang.ForeColor = Color.FromArgb(107, 114, 128);
-            btnBersihkanBarang.Location = new Point(528, 152);
-            btnBersihkanBarang.Name = "btnBersihkanBarang";
-            btnBersihkanBarang.Size = new Size(120, 40);
-            btnBersihkanBarang.TabIndex = 20;
-            btnBersihkanBarang.Text = "Bersihkan";
-            btnBersihkanBarang.UseVisualStyleBackColor = false;
             // 
             // FormKatalog
             // 
@@ -594,36 +443,12 @@ namespace Sukimart
             Name = "FormKatalog";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Katalog Produk";
-            pnlDetail.BackColor = Color.White;
-            pnlDetail.Controls.Add(lblKode);
-            pnlDetail.Controls.Add(txtKode);
-            pnlDetail.Controls.Add(lblNamaBarang);
-            pnlDetail.Controls.Add(txtNamaBarang);
-            pnlDetail.Controls.Add(lblKategori);
-            pnlDetail.Controls.Add(cmbKategori);
-            pnlDetail.Controls.Add(lblHarga);
-            pnlDetail.Controls.Add(nudHarga);
-            pnlDetail.Controls.Add(lblStok);
-            pnlDetail.Controls.Add(nudStok);
-            pnlDetail.Controls.Add(lblStokMin);
-            pnlDetail.Controls.Add(nudStokMinimum);
-            pnlDetail.Controls.Add(btnSimpanBarang);
-            pnlDetail.Controls.Add(btnUbahBarang);
-            pnlDetail.Controls.Add(btnHapusBarang);
-            pnlDetail.Controls.Add(btnBersihkanBarang);
-            pnlDetail.Location = new Point(40, 464);
-            pnlDetail.Size = new Size(960, 216);
-            pnlDetail.TabIndex = 20;
-            pnlDetail.Name = "pnlDetail";
             pnlKiri.ResumeLayout(false);
             pnlKiri.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureLogo).EndInit();
             pnlKanan.ResumeLayout(false);
             pnlKanan.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)gridBarang).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nudHarga).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nudStok).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nudStokMinimum).EndInit();
             ResumeLayout(false);
         }
 
@@ -641,7 +466,6 @@ namespace Sukimart
         private Label lblNama;
         private Button btnKeluar;
         private Panel pnlKanan;
-        private Panel pnlDetail;
         private ReaLTaiizor.Controls.NightControlBox nightControlBox1;
         private Label lblJudulKatalog;
         private TextBox txtCari;
@@ -652,21 +476,8 @@ namespace Sukimart
         private DataGridViewTextBoxColumn colHarga;
         private DataGridViewTextBoxColumn colStok;
         private DataGridViewTextBoxColumn colStokMin;
-        private Label lblKode;
-        private TextBox txtKode;
-        private Label lblNamaBarang;
-        private TextBox txtNamaBarang;
-        private Label lblKategori;
-        private ComboBox cmbKategori;
-        private Label lblHarga;
-        private NumericUpDown nudHarga;
-        private Label lblStok;
-        private NumericUpDown nudStok;
-        private Label lblStokMin;
-        private NumericUpDown nudStokMinimum;
-        private Button btnSimpanBarang;
-        private Button btnUbahBarang;
+        private Button btnTambahItem;
+        private Button btnEditProduk;
         private Button btnHapusBarang;
-        private Button btnBersihkanBarang;
     }
 }

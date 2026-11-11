@@ -13,7 +13,8 @@ namespace Sukimart
         {
             InitializeComponent();
             UIHelper.InisialisasiForm(this);
-            MaximizeBox = false;
+            UIHelper.SusunTombolSidebar(pnlKiri);
+            MaximizeBox = true;
             btnDashboard.Click += (s, e) => Navigasi.BukaDashboard(this);
             btnKasir.Click += (s, e) => Navigasi.BukaKasir(this);
             btnKatalog.Click += (s, e) => Navigasi.BukaKatalog(this);
@@ -59,7 +60,7 @@ namespace Sukimart
 
         private static string NamaPeran(string peran)
         {
-            return peran == "admin" ? "Admin" : "Kasir";
+            return peran == "admin" ? "Admin" : (peran == "gudang" ? "Gudang" : "Kasir");
         }
 
         private void BersihkanForm()
@@ -92,7 +93,12 @@ namespace Sukimart
             penggunaTerpilih = akun.NamaPengguna;
             txtNamaPengguna.Text = akun.NamaPengguna;
             txtNamaPengguna.ReadOnly = true;
-            cmbPeran.SelectedIndex = akun.Peran == "admin" ? 0 : 1;
+            cmbPeran.SelectedIndex = akun.Peran switch
+            {
+                "admin" => 0,
+                "gudang" => 2,
+                _ => 1
+            };
             txtKataSandi.Text = "";
             txtKonfirmasi.Text = "";
             lblPetunjukSandi.Text = "Kosongkan jika kata sandi tidak diubah";
@@ -100,7 +106,12 @@ namespace Sukimart
 
         private string PeranDipilih()
         {
-            return cmbPeran.SelectedIndex == 0 ? "admin" : "kasir";
+            return cmbPeran.SelectedIndex switch
+            {
+                0 => "admin",
+                2 => "gudang",
+                _ => "kasir"
+            };
         }
 
         private bool ValidasiSandi(bool wajib)

@@ -294,7 +294,7 @@ namespace Sukimart
             nightControlBox1.DisableMaximizeColor = Color.FromArgb(105, 105, 105);
             nightControlBox1.DisableMinimizeColor = Color.FromArgb(105, 105, 105);
             nightControlBox1.EnableCloseColor = Color.FromArgb(160, 160, 160);
-            nightControlBox1.EnableMaximizeButton = false;
+            nightControlBox1.EnableMaximizeButton = true;
             nightControlBox1.EnableMaximizeColor = Color.FromArgb(160, 160, 160);
             nightControlBox1.EnableMinimizeButton = true;
             nightControlBox1.EnableMinimizeColor = Color.FromArgb(160, 160, 160);
@@ -329,6 +329,7 @@ namespace Sukimart
             pnlFilter.Controls.Add(dtpSelesai);
             pnlFilter.Controls.Add(btnFilter);
             pnlFilter.Controls.Add(btnReset);
+            pnlFilter.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             pnlFilter.Location = new Point(40, 112);
             pnlFilter.Name = "pnlFilter";
             pnlFilter.Size = new Size(960, 56);
@@ -423,6 +424,7 @@ namespace Sukimart
             pnlRingkasan.Controls.Add(lblValOmzet);
             pnlRingkasan.Controls.Add(lblStatRata);
             pnlRingkasan.Controls.Add(lblValRata);
+            pnlRingkasan.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             pnlRingkasan.Location = new Point(40, 184);
             pnlRingkasan.Name = "pnlRingkasan";
             pnlRingkasan.Size = new Size(960, 64);
@@ -531,6 +533,7 @@ namespace Sukimart
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             gridTransaksi.DefaultCellStyle = dataGridViewCellStyle2;
             gridTransaksi.EnableHeadersVisualStyles = false;
+            gridTransaksi.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             gridTransaksi.Location = new Point(40, 304);
             gridTransaksi.MultiSelect = false;
             gridTransaksi.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
@@ -597,6 +600,7 @@ namespace Sukimart
             lblDetailJudul.AutoSize = true;
             lblDetailJudul.Font = new Font("Inter", 12F, FontStyle.Bold);
             lblDetailJudul.ForeColor = Color.FromArgb(55, 65, 81);
+            lblDetailJudul.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblDetailJudul.Location = new Point(40, 496);
             lblDetailJudul.Name = "lblDetailJudul";
             lblDetailJudul.Size = new Size(223, 16);
@@ -629,6 +633,7 @@ namespace Sukimart
             dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
             gridDetail.DefaultCellStyle = dataGridViewCellStyle4;
             gridDetail.EnableHeadersVisualStyles = false;
+            gridDetail.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             gridDetail.Location = new Point(40, 528);
             gridDetail.MultiSelect = false;
             gridDetail.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
@@ -698,6 +703,7 @@ namespace Sukimart
             btnLihatStruk.FlatStyle = FlatStyle.Flat;
             btnLihatStruk.Font = new Font("Inter", 10F);
             btnLihatStruk.ForeColor = Color.FromArgb(55, 65, 81);
+            btnLihatStruk.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnLihatStruk.Location = new Point(856, 488);
             btnLihatStruk.Size = new Size(144, 32);
             btnLihatStruk.TabIndex = 20;

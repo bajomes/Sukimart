@@ -23,13 +23,19 @@ namespace Sukimart
             PeranAktif = string.IsNullOrEmpty(peran) ? "kasir" : peran;
             loginForm.Hide();
 
-            Form formAwal = (PeranAktif == "admin")
-                ? (Form)new FormDashboardAdmin()
-                : (Form)new FormDashboardKasir();
+            Form formAwal;
+            if (PeranAktif == "admin" || PeranAktif == "gudang")
+            {
+                formAwal = new FormDashboardAdmin();
+            }
+            else
+            {
+                formAwal = new FormDashboardKasir();
+            }
 
             formAwal.StartPosition = FormStartPosition.CenterScreen;
             formAwal.WindowState = FormWindowState.Normal;
-            formAwal.MaximizeBox = false;
+            formAwal.MaximizeBox = true;
             PasangHandlerTutup(formAwal);
             formAwal.Show();
         }
@@ -43,11 +49,22 @@ namespace Sukimart
 
             sedangBeralih = true;
 
+            bool sedangMaximized = formLama.WindowState == FormWindowState.Maximized;
+
             formBaru.StartPosition = FormStartPosition.Manual;
-            formBaru.Location = formLama.Location;
-            formBaru.Size = formLama.Size;
-            formBaru.WindowState = FormWindowState.Normal;
-            formBaru.MaximizeBox = false;
+            formBaru.Size = new Size(1280, 720);
+
+            if (sedangMaximized)
+            {
+                formBaru.WindowState = FormWindowState.Maximized;
+            }
+            else
+            {
+                formBaru.Location = formLama.Location;
+                formBaru.WindowState = FormWindowState.Normal;
+            }
+
+            formBaru.MaximizeBox = true;
 
             PasangHandlerTutup(formBaru);
 
@@ -73,7 +90,7 @@ namespace Sukimart
 
         public static void BukaDashboard(Form formSaatIni)
         {
-            if (PeranAktif == "admin")
+            if (PeranAktif == "admin" || PeranAktif == "gudang")
             {
                 if (formSaatIni is FormDashboardAdmin) return;
                 BeralihKe(new FormDashboardAdmin(), formSaatIni);
@@ -87,6 +104,12 @@ namespace Sukimart
 
         public static void BukaKasir(Form formSaatIni)
         {
+            if (PeranAktif == "gudang")
+            {
+                MessageBox.Show("Menu Kasir hanya dapat diakses oleh Admin dan Kasir.", "Akses Ditolak", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (formSaatIni is FormKasir) return;
             BeralihKe(new FormKasir(PeranAktif), formSaatIni);
         }
@@ -99,20 +122,26 @@ namespace Sukimart
 
         public static void BukaRiwayat(Form formSaatIni)
         {
+            if (PeranAktif == "gudang")
+            {
+                MessageBox.Show("Menu Riwayat Transaksi hanya dapat diakses oleh Admin dan Kasir.", "Akses Ditolak", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (formSaatIni is FormRiwayatTransaksi) return;
             BeralihKe(new FormRiwayatTransaksi(PeranAktif), formSaatIni);
         }
 
         public static void BukaGudang(Form formSaatIni)
         {
-            if (PeranAktif != "admin")
+            if (PeranAktif != "admin" && PeranAktif != "gudang")
             {
-                MessageBox.Show("Menu Gudang hanya dapat diakses oleh Admin.", "Akses Ditolak", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Menu Gudang hanya dapat diakses oleh Admin dan Petugas Gudang.", "Akses Ditolak", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (formSaatIni is FormGudang) return;
-            BeralihKe(new FormGudang("admin"), formSaatIni);
+            BeralihKe(new FormGudang(PeranAktif), formSaatIni);
         }
 
         public static void BukaLaporan(Form formSaatIni)
@@ -153,11 +182,8 @@ namespace Sukimart
 
             if (FormLoginUtama != null && !FormLoginUtama.IsDisposed)
             {
-                if (lokasiLama.HasValue)
-                {
-                    FormLoginUtama.StartPosition = FormStartPosition.Manual;
-                    FormLoginUtama.Location = lokasiLama.Value;
-                }
+                FormLoginUtama.StartPosition = FormStartPosition.CenterScreen;
+                UIHelper.PusatkanForm(FormLoginUtama);
                 FormLoginUtama.ResetInput();
                 FormLoginUtama.Show();
                 FormLoginUtama.BringToFront();

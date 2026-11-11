@@ -10,12 +10,38 @@ namespace Sukimart
         {
             InitializeComponent();
             UIHelper.InisialisasiForm(this);
-            MaximizeBox = false;
-            btnTransaksiBaru.Click += btnTransaksiBaru_Click;
-            btnKasir.Click += btnTransaksiBaru_Click;
+            MaximizeBox = true;
+            btnKasir.Click += (s, e) => Navigasi.BukaKasir(this);
+            btnKatalog.Click += btnKatalog_Click;
             btnRiwayat.Click += btnRiwayat_Click;
 
+            pnlKanan.Resize += (s, e) => AturTataLetakResponsif();
+            AturTataLetakResponsif();
+
             IsiDashboard();
+        }
+
+        private void AturTataLetakResponsif()
+        {
+            int margin = 40;
+            int lebarTersedia = pnlKanan.ClientSize.Width - (margin * 2);
+            if (lebarTersedia < 500) return;
+
+            int jarak = 24;
+            int lebarKartu = (lebarTersedia - 2 * jarak) / 3;
+
+            pnlTransaksi.Location = new Point(margin, 112);
+            pnlTransaksi.Size = new Size(lebarKartu, 112);
+
+            pnlTerjual.Location = new Point(margin + lebarKartu + jarak, 112);
+            pnlTerjual.Size = new Size(lebarKartu, 112);
+
+            pnlStok.Location = new Point(margin + 2 * (lebarKartu + jarak), 112);
+            pnlStok.Size = new Size(lebarKartu, 112);
+
+            int tinggiBawah = Math.Max(200, pnlKanan.ClientSize.Height - 320);
+            dataGridView1.Location = new Point(margin, 280);
+            dataGridView1.Size = new Size(lebarTersedia, tinggiBawah);
         }
 
         private void IsiDashboard()
@@ -131,11 +157,6 @@ namespace Sukimart
         private void btnRiwayat_Click(object? sender, EventArgs e)
         {
             Navigasi.BukaRiwayat(this);
-        }
-
-        private void btnTransaksiBaru_Click(object? sender, EventArgs e)
-        {
-            Navigasi.BukaKasir(this);
         }
     }
 }

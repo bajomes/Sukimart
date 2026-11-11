@@ -16,7 +16,8 @@ namespace Sukimart
             this.peran = string.IsNullOrEmpty(peran) ? "admin" : peran;
             InitializeComponent();
             UIHelper.InisialisasiForm(this);
-            MaximizeBox = false;
+            MaximizeBox = true;
+            UIHelper.RatakanTengah(colStok, colMinStok);
             gridGudang.AllowUserToResizeRows = false;
             cmbJenisStok.SelectedIndex = 0;
             SesuaikanPeran();
@@ -32,12 +33,24 @@ namespace Sukimart
                 btnLaporan.Visible = false;
                 btnPengguna.Visible = false;
             }
+            else if (this.peran == "gudang")
+            {
+                btnKasir.Visible = false;
+                btnRiwayat.Visible = false;
+                btnLaporan.Visible = false;
+                btnPengguna.Visible = false;
+                btnGudang.Visible = true;
+            }
             else
             {
+                btnKasir.Visible = true;
+                btnRiwayat.Visible = true;
                 btnGudang.Visible = true;
                 btnLaporan.Visible = true;
                 btnPengguna.Visible = true;
             }
+
+            UIHelper.SusunTombolSidebar(pnlKiri);
         }
 
         private void PasangEventHandlers()

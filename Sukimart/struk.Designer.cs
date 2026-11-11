@@ -310,6 +310,8 @@ namespace Sukimart
             Controls.Add(btnTutup);
             Controls.Add(btnCetak);
             FormBorderStyle = FormBorderStyle.None;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FormStruk";
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;

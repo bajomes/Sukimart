@@ -72,6 +72,29 @@ namespace Sukimart
             File.Move(fileSementara, lokasi, true);
         }
 
+        public static List<string> BacaKategori()
+        {
+            List<string> daftarKategori = BacaData<string>("kategori.json");
+            if (daftarKategori.Count == 0)
+            {
+                daftarKategori = new List<string> { "Makanan", "Minuman", "Perlengkapan", "Lainnya" };
+                foreach (Barang barang in BacaBarang())
+                {
+                    if (!string.IsNullOrWhiteSpace(barang.Kategori) && !daftarKategori.Contains(barang.Kategori, StringComparer.OrdinalIgnoreCase))
+                    {
+                        daftarKategori.Add(barang.Kategori);
+                    }
+                }
+                SimpanKategori(daftarKategori);
+            }
+            return daftarKategori;
+        }
+
+        public static void SimpanKategori(List<string> daftarKategori)
+        {
+            SimpanData("kategori.json", daftarKategori);
+        }
+
         public static List<Barang> BacaBarang()
         {
             return BacaData<Barang>("barang.json");
@@ -143,9 +166,11 @@ namespace Sukimart
         {
             Pengguna admin = new Pengguna { NamaPengguna = "admin", Peran = "admin", Dibuat = DateTime.Now };
             Pengguna kasir = new Pengguna { NamaPengguna = "kasir", Peran = "kasir", Dibuat = DateTime.Now };
+            Pengguna gudang = new Pengguna { NamaPengguna = "gudang", Peran = "gudang", Dibuat = DateTime.Now };
             KeamananSandi.IsiSandi(admin, "admin123");
             KeamananSandi.IsiSandi(kasir, "kasir123");
-            return new List<Pengguna> { admin, kasir };
+            KeamananSandi.IsiSandi(gudang, "gudang123");
+            return new List<Pengguna> { admin, kasir, gudang };
         }
 
         public static List<RiwayatStok> BacaRiwayatStok()
