@@ -25,21 +25,51 @@ namespace Sukimart
 
             if (barangEdit == null)
             {
+                // Mode tambah: isi kode otomatis (BRG001, BRG002, dst.)
+                txtKode.Text = GenerasiKodeBarang(daftarBarang);
                 MuatKategori("", false);
                 nudStokMinimum.Value = 5;
             }
             else
             {
+                // Mode edit: isi semua field dari data barang yang dipilih
                 Text = "Edit Produk";
                 lblJudul.Text = "Edit Produk";
                 btnSimpan.Text = "Simpan";
                 txtKode.Text = barangEdit.Kode;
+                txtKode.ReadOnly = true; // Kode tidak boleh diubah saat edit
                 txtNama.Text = barangEdit.Nama;
                 MuatKategori(barangEdit.Kategori, true);
                 nudHarga.Value = Math.Min(nudHarga.Maximum, Math.Max(0, barangEdit.Harga));
                 nudStokMinimum.Value = Math.Min(nudStokMinimum.Maximum, Math.Max(0, barangEdit.StokMinimum));
                 lblInfo.Text = $"Stok saat ini {barangEdit.Stok}. Ubah stok melalui menu Gudang.";
             }
+        }
+
+        /// <summary>
+        /// Membuat kode barang otomatis berikutnya.
+        /// Format: BRG001, BRG002, ... BRG999.
+        /// Mencari nomor tertinggi dari kode yang sudah ada lalu tambah 1.
+        /// </summary>
+        private static string GenerasiKodeBarang(List<Barang> daftarBarang)
+        {
+            int nomorTertinggi = 0;
+
+            foreach (Barang b in daftarBarang)
+            {
+                // Cek apakah kode berbentuk BRGxxx (3 huruf + 3 angka)
+                if (b.Kode.Length == 6 && b.Kode.StartsWith("BRG", StringComparison.OrdinalIgnoreCase))
+                {
+                    string bagianAngka = b.Kode.Substring(3);
+                    if (int.TryParse(bagianAngka, out int nomor) && nomor > nomorTertinggi)
+                    {
+                        nomorTertinggi = nomor;
+                    }
+                }
+            }
+
+            // Format: BRG001, BRG002, dst.
+            return "BRG" + (nomorTertinggi + 1).ToString("D3");
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

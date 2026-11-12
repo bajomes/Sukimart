@@ -52,10 +52,11 @@ namespace Sukimart
                 {
                     p.NamaPengguna,
                     Peran = NamaPeran(p.Peran),
+                    Status = p.Aktif ? "Aktif" : "Tidak Aktif",
                     Dibuat = p.Dibuat == default ? "-" : p.Dibuat.ToString("dd/MM/yyyy HH:mm", BudayaIndonesia)
                 }).ToList();
             gridPengguna.ClearSelection();
-            lblInfo.Text = $"{daftarPengguna.Count} pengguna";
+            lblInfo.Text = $"{daftarPengguna.Count} pengguna, {daftarPengguna.Count(p => p.Aktif)} aktif";
         }
 
         private static string NamaPeran(string peran)
@@ -69,6 +70,7 @@ namespace Sukimart
             txtNamaPengguna.Text = "";
             txtNamaPengguna.ReadOnly = false;
             cmbPeran.SelectedIndex = 1;
+            chkAktif.Checked = true;
             txtKataSandi.Text = "";
             txtKonfirmasi.Text = "";
             lblPetunjukSandi.Text = "Minimal 6 karakter";
@@ -99,6 +101,7 @@ namespace Sukimart
                 "gudang" => 2,
                 _ => 1
             };
+            chkAktif.Checked = akun.Aktif;
             txtKataSandi.Text = "";
             txtKonfirmasi.Text = "";
             lblPetunjukSandi.Text = "Kosongkan jika kata sandi tidak diubah";
@@ -183,7 +186,13 @@ namespace Sukimart
                 return;
             }
 
-            Pengguna akun = new Pengguna { NamaPengguna = nama, Peran = PeranDipilih(), Dibuat = DateTime.Now };
+            Pengguna akun = new Pengguna
+            {
+                NamaPengguna = nama,
+                Peran = PeranDipilih(),
+                Aktif = chkAktif.Checked,
+                Dibuat = DateTime.Now
+            };
             KeamananSandi.IsiSandi(akun, txtKataSandi.Text);
             daftarPengguna.Add(akun);
 
@@ -193,6 +202,7 @@ namespace Sukimart
                 return;
             }
 
+            CatatAktivitas($"TAMBAH PENGGUNA {akun.NamaPengguna}");
             MuatPengguna();
             BersihkanForm();
         }
@@ -207,15 +217,16 @@ namespace Sukimart
             }
 
             string peranBaru = PeranDipilih();
-            if (akun.Peran == "admin" && peranBaru != "admin" && daftarPengguna.Count(p => p.Peran == "admin") <= 1)
+            bool aktifBaru = chkAktif.Checked;
+            if (akun.Peran == "admin" && (peranBaru != "admin" || !aktifBaru) && daftarPengguna.Count(p => p.Peran == "admin" && p.Aktif) <= 1)
             {
-                Peringatan("Harus ada minimal satu akun Admin.", cmbPeran);
+                Peringatan("Harus ada minimal satu akun Admin yang aktif.", cmbPeran);
                 return;
             }
 
-            if (string.Equals(akun.NamaPengguna, Navigasi.PenggunaAktif, StringComparison.OrdinalIgnoreCase) && peranBaru != akun.Peran)
+            if (string.Equals(akun.NamaPengguna, Navigasi.PenggunaAktif, StringComparison.OrdinalIgnoreCase) && (peranBaru != akun.Peran || !aktifBaru))
             {
-                Peringatan("Peran akun yang sedang dipakai tidak dapat diubah.", cmbPeran);
+                Peringatan("Akun yang sedang dipakai tidak dapat diubah peran atau dinonaktifkan.", cmbPeran);
                 return;
             }
 
@@ -228,8 +239,10 @@ namespace Sukimart
             string hashLama = akun.HashSandi;
             string garamLama = akun.Garam;
             int iterasiLama = akun.Iterasi;
+            bool aktifLama = akun.Aktif;
 
             akun.Peran = peranBaru;
+            akun.Aktif = aktifBaru;
             if (txtKataSandi.Text.Length > 0)
             {
                 KeamananSandi.IsiSandi(akun, txtKataSandi.Text);
@@ -241,9 +254,11 @@ namespace Sukimart
                 akun.HashSandi = hashLama;
                 akun.Garam = garamLama;
                 akun.Iterasi = iterasiLama;
+                akun.Aktif = aktifLama;
                 return;
             }
 
+            CatatAktivitas($"UBAH PENGGUNA {akun.NamaPengguna}");
             MessageBox.Show("Data pengguna berhasil disimpan.", "Berhasil", MessageBoxButtons.OK, MessageBoxIcon.Information);
             MuatPengguna();
             BersihkanForm();
@@ -264,9 +279,9 @@ namespace Sukimart
                 return;
             }
 
-            if (akun.Peran == "admin" && daftarPengguna.Count(p => p.Peran == "admin") <= 1)
+            if (akun.Peran == "admin" && akun.Aktif && daftarPengguna.Count(p => p.Peran == "admin" && p.Aktif) <= 1)
             {
-                Peringatan("Harus ada minimal satu akun Admin.", gridPengguna);
+                Peringatan("Harus ada minimal satu akun Admin yang aktif.", gridPengguna);
                 return;
             }
 
@@ -283,8 +298,20 @@ namespace Sukimart
                 return;
             }
 
+            CatatAktivitas($"HAPUS PENGGUNA {akun.NamaPengguna}");
             MuatPengguna();
             BersihkanForm();
+        }
+
+        private static void CatatAktivitas(string aksi)
+        {
+            try
+            {
+                PenyimpananData.CatatAktivitas(Navigasi.PenggunaAktif, aksi);
+            }
+            catch
+            {
+            }
         }
     }
 }

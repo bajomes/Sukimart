@@ -10,6 +10,8 @@ namespace Sukimart
 {
     public partial class FormLogin : Form
     {
+        private int jumlahSandiSalah;
+
         public FormLogin()
         {
             InitializeComponent();
@@ -75,13 +77,28 @@ namespace Sukimart
                 return;
             }
 
+            if (!akun.Aktif)
+            {
+                lblUsnSalah.Text = "Akun ini tidak aktif";
+                return;
+            }
+
             if (!KeamananSandi.Cocok(akun, password))
             {
-                lblPassSalah.Text = "Kata sandi salah";
+                jumlahSandiSalah++;
+                lblPassSalah.Text = $"Kata sandi salah ({jumlahSandiSalah}/3)";
+
+                if (jumlahSandiSalah >= 3)
+                {
+                    MessageBox.Show("Akses ditolak karena kata sandi salah tiga kali.", "Akses Ditolak", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                }
                 return;
             }
 
             ResetErrorLabels();
+            jumlahSandiSalah = 0;
+            PenyimpananData.CatatAktivitas(akun.NamaPengguna, "LOGIN");
             Navigasi.MulaiSesi(this, akun.NamaPengguna, akun.Peran);
         }
 
@@ -96,6 +113,7 @@ namespace Sukimart
             txtPassword.Clear();
             txtUsername.Clear();
             ResetErrorLabels();
+            jumlahSandiSalah = 0;
             txtUsername.Focus();
         }
     }

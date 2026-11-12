@@ -525,7 +525,7 @@ namespace Sukimart
             btnRiwayatStok.Name = "btnRiwayatStok";
             btnRiwayatStok.Size = new Size(136, 32);
             btnRiwayatStok.TabIndex = 8;
-            btnRiwayatStok.Text = "Riwayat Stok";
+            btnRiwayatStok.Text = "Kartu Stok";
             btnRiwayatStok.UseVisualStyleBackColor = false;
             lblJenisStok.AutoSize = true;
             lblJenisStok.Font = new Font("Inter", 9F, FontStyle.Bold);

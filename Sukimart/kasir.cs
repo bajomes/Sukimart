@@ -608,7 +608,7 @@ namespace Sukimart
                                 Tanggal = DateTime.Now,
                                 KodeBarang = brg.Kode,
                                 NamaBarang = brg.Nama,
-                                Jenis = "Stok Keluar",
+                                Jenis = "TERJUAL",
                                 Jumlah = item.Jumlah,
                                 StokSebelum = stokSebelum,
                                 StokSesudah = brg.Stok,
@@ -622,6 +622,7 @@ namespace Sukimart
 
                 PenyimpananData.TambahTransaksi(trx, details);
                 PenyimpananData.SimpanBarang(daftarBarang);
+                PenyimpananData.CatatAktivitas(Navigasi.PenggunaAktif, $"TRANSAKSI {idTransaksi}");
 
                 try
                 {

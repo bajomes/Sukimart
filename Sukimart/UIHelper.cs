@@ -230,13 +230,46 @@ namespace Sukimart
             grid.ColumnAdded += (s, e) => RapikanKolom(e.Column);
         }
 
+        // Kolom mata uang: rata kanan (Harga, Total, Subtotal, dsb.)
+        private static readonly string[] KataKolomUang =
+            { "Harga", "Total", "Subtotal", "Omzet", "Bayar", "Kembalian" };
+
+        // Kolom angka biasa (Stok, Qty, Jumlah): rata tengah supaya rapi
+        private static readonly string[] KataKolomAngka =
+            { "Stok", "Qty", "Jumlah", "Terjual", "Min" };
+
         private static void RapikanKolom(DataGridViewColumn kolom)
         {
             if (kolom.InheritedAutoSizeMode == DataGridViewAutoSizeColumnMode.Fill)
             {
                 kolom.MinimumWidth = 64;
             }
+
+            string gabungan = (kolom.Name ?? "") + "|" + (kolom.DataPropertyName ?? "") + "|" + (kolom.HeaderText ?? "");
+
+            // Kolom mata uang: rata kanan, header pun rata kanan
+            foreach (string kata in KataKolomUang)
+            {
+                if (gabungan.IndexOf(kata, StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    kolom.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    kolom.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    return;
+                }
+            }
+
+            // Kolom angka stok/qty: rata tengah, header juga tengah
+            foreach (string kata in KataKolomAngka)
+            {
+                if (gabungan.IndexOf(kata, StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    kolom.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    kolom.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    return;
+                }
+            }
         }
+
 
         private static bool PerluGarisTepi(Control ctrl)
         {

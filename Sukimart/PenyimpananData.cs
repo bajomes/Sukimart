@@ -149,11 +149,14 @@ namespace Sukimart
         public static List<Pengguna> BacaPengguna()
         {
             List<Pengguna> daftarPengguna = BacaData<Pengguna>("pengguna.json");
+
+            // Hanya buat pengguna awal kalau file benar-benar kosong
             if (daftarPengguna.Count == 0)
             {
                 daftarPengguna = BuatPenggunaAwal();
                 SimpanPengguna(daftarPengguna);
             }
+
             return daftarPengguna;
         }
 
@@ -164,13 +167,32 @@ namespace Sukimart
 
         private static List<Pengguna> BuatPenggunaAwal()
         {
-            Pengguna admin = new Pengguna { NamaPengguna = "admin", Peran = "admin", Dibuat = DateTime.Now };
-            Pengguna kasir = new Pengguna { NamaPengguna = "kasir", Peran = "kasir", Dibuat = DateTime.Now };
-            Pengguna gudang = new Pengguna { NamaPengguna = "gudang", Peran = "gudang", Dibuat = DateTime.Now };
+            Pengguna admin = new Pengguna { NamaPengguna = "admin", NamaLengkap = "Administrator Suki MART", Peran = "admin", Aktif = true, Dibuat = DateTime.Now };
+            Pengguna kasir = new Pengguna { NamaPengguna = "kasir1", NamaLengkap = "Dewi Lestari", Peran = "kasir", Aktif = true, Dibuat = DateTime.Now };
+            Pengguna kasirNonaktif = new Pengguna { NamaPengguna = "kasir3", NamaLengkap = "Sari Wulandari", Peran = "kasir", Aktif = false, Dibuat = DateTime.Now };
+            Pengguna gudang = new Pengguna { NamaPengguna = "gudang1", NamaLengkap = "Budi Santoso", Peran = "gudang", Aktif = true, Dibuat = DateTime.Now };
             KeamananSandi.IsiSandi(admin, "admin123");
             KeamananSandi.IsiSandi(kasir, "kasir123");
+            KeamananSandi.IsiSandi(kasirNonaktif, "kasir123");
             KeamananSandi.IsiSandi(gudang, "gudang123");
-            return new List<Pengguna> { admin, kasir, gudang };
+            return new List<Pengguna> { admin, kasir, kasirNonaktif, gudang };
+        }
+
+        public static List<Aktivitas> BacaAktivitas()
+        {
+            return BacaData<Aktivitas>("log_aktivitas.json");
+        }
+
+        public static void CatatAktivitas(string namaPengguna, string aksi)
+        {
+            List<Aktivitas> daftarAktivitas = BacaAktivitas();
+            daftarAktivitas.Add(new Aktivitas
+            {
+                Tanggal = DateTime.Now,
+                NamaPengguna = namaPengguna,
+                Aksi = aksi
+            });
+            SimpanData("log_aktivitas.json", daftarAktivitas);
         }
 
         public static List<RiwayatStok> BacaRiwayatStok()
@@ -183,6 +205,53 @@ namespace Sukimart
             List<RiwayatStok> daftarRiwayat = BacaRiwayatStok();
             daftarRiwayat.Add(catatan);
             SimpanData("riwayat_stok.json", daftarRiwayat);
+        }
+
+        public static List<BarangMasuk> BacaBarangMasuk()
+        {
+            return BacaData<BarangMasuk>("barang_masuk.json");
+        }
+
+        public static void TambahBarangMasuk(BarangMasuk barangMasuk)
+        {
+            List<BarangMasuk> daftarBarangMasuk = BacaBarangMasuk();
+            daftarBarangMasuk.Add(barangMasuk);
+            SimpanData("barang_masuk.json", daftarBarangMasuk);
+        }
+
+        public static List<BarangKeluar> BacaBarangKeluar()
+        {
+            return BacaData<BarangKeluar>("barang_keluar.json");
+        }
+
+        public static void TambahBarangKeluar(BarangKeluar barangKeluar)
+        {
+            List<BarangKeluar> daftarBarangKeluar = BacaBarangKeluar();
+            daftarBarangKeluar.Add(barangKeluar);
+            SimpanData("barang_keluar.json", daftarBarangKeluar);
+        }
+
+        public static string BuatIdBarangMasuk()
+        {
+            return BuatIdBerikutnya(BacaBarangMasuk().Select(data => data.Id), "MSK");
+        }
+
+        public static string BuatIdBarangKeluar()
+        {
+            return BuatIdBerikutnya(BacaBarangKeluar().Select(data => data.Id), "KLR");
+        }
+
+        private static string BuatIdBerikutnya(IEnumerable<string> daftarId, string awalan)
+        {
+            int nomorTerbesar = 0;
+            foreach (string id in daftarId)
+            {
+                if (id.StartsWith(awalan, StringComparison.OrdinalIgnoreCase) && int.TryParse(id[awalan.Length..], out int nomor))
+                {
+                    nomorTerbesar = Math.Max(nomorTerbesar, nomor);
+                }
+            }
+            return awalan + (nomorTerbesar + 1).ToString("D3");
         }
 
         public static void TambahDetailTransaksi(List<DetailTransaksi> rincian)

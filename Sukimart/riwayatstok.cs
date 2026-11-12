@@ -5,9 +5,11 @@ namespace Sukimart
     public partial class FormRiwayatStok : Form
     {
         private static readonly CultureInfo BudayaIndonesia = new CultureInfo("id-ID");
+        private readonly string? kodeBarang;
 
-        public FormRiwayatStok()
+        public FormRiwayatStok(string? kodeBarang = null)
         {
+            this.kodeBarang = kodeBarang;
             InitializeComponent();
             UIHelper.InisialisasiForm(this);
             Paint += (s, e) =>
@@ -34,24 +36,41 @@ namespace Sukimart
         {
             try
             {
-                var daftar = PenyimpananData.BacaRiwayatStok()
+                List<RiwayatStok> daftar = PenyimpananData.BacaRiwayatStok();
+                Barang? barang = null;
+
+                if (!string.IsNullOrEmpty(kodeBarang))
+                {
+                    barang = PenyimpananData.BacaBarang().FirstOrDefault(data => data.Kode == kodeBarang);
+                    daftar = daftar.Where(data => data.KodeBarang == kodeBarang).ToList();
+                }
+
+                var riwayat = daftar
                     .OrderByDescending(r => r.Tanggal)
                     .ToList();
 
                 gridRiwayat.AutoGenerateColumns = false;
-                gridRiwayat.DataSource = daftar.Select(r => new
+                gridRiwayat.DataSource = riwayat.Select(r => new
                 {
                     Tanggal = r.Tanggal.ToString("dd/MM/yyyy HH:mm", BudayaIndonesia),
                     r.KodeBarang,
                     r.NamaBarang,
                     r.Jenis,
-                    JumlahFormat = (r.Jenis == "Stok Keluar" ? "−" : "+") + r.Jumlah.ToString("N0", BudayaIndonesia),
+                    JumlahFormat = (r.Jenis == "MASUK" || r.Jenis == "Stok Masuk" ? "+" : "−") + r.Jumlah.ToString("N0", BudayaIndonesia),
                     r.StokSesudah,
                     r.Keterangan,
                     r.Pengguna
                 }).ToList();
 
-                lblInfo.Text = daftar.Count == 0 ? "Belum ada catatan perubahan stok" : $"{daftar.Count} catatan";
+                if (barang != null)
+                {
+                    lblJudul.Text = $"Kartu Stok · {barang.Kode}";
+                    lblInfo.Text = $"{barang.Nama} · Stok saat ini: {barang.Stok:N0} · {riwayat.Count} catatan";
+                }
+                else
+                {
+                    lblInfo.Text = riwayat.Count == 0 ? "Belum ada catatan perubahan stok" : $"{riwayat.Count} catatan";
+                }
             }
             catch (Exception ex)
             {

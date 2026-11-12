@@ -191,6 +191,29 @@ namespace Sukimart
                 return;
             }
 
+            // Cek apakah barang pernah terjual (ada di detail transaksi)
+            List<DetailTransaksi> daftarDetail = PenyimpananData.BacaDetailTransaksi();
+            bool pernahTerjual = daftarDetail.Any(d => d.KodeBarang == barang.Kode);
+            if (pernahTerjual)
+            {
+                MessageBox.Show(
+                    $"Barang '{barang.Nama}' ({barang.Kode}) tidak dapat dihapus karena pernah terjual.\n" +
+                    "Data transaksi harus tetap terjaga.",
+                    "Tidak Dapat Dihapus", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Cek apakah barang pernah ada riwayat stok (barang masuk/keluar)
+            List<RiwayatStok> daftarRiwayat = PenyimpananData.BacaRiwayatStok();
+            bool adaRiwayat = daftarRiwayat.Any(r => r.KodeBarang == barang.Kode);
+            if (adaRiwayat)
+            {
+                MessageBox.Show(
+                    $"Barang '{barang.Nama}' ({barang.Kode}) tidak dapat dihapus karena sudah pernah dicatat masuk atau keluar di gudang.",
+                    "Tidak Dapat Dihapus", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             DialogResult konfirmasi = MessageBox.Show(
                 $"Apakah Anda yakin ingin menghapus barang '{barang.Nama}' ({barang.Kode})?",
                 "Konfirmasi Hapus",
@@ -210,7 +233,7 @@ namespace Sukimart
                 catch (Exception ex)
                 {
                     daftarBarang.Insert(posisi, barang);
-                    MessageBox.Show("Gagal menghapus barang dari JSON: " + ex.Message, "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Gagal menghapus barang: " + ex.Message, "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

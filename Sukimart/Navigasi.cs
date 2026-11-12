@@ -146,14 +146,14 @@ namespace Sukimart
 
         public static void BukaLaporan(Form formSaatIni)
         {
-            if (PeranAktif != "admin")
+            if (PeranAktif != "admin" && PeranAktif != "gudang")
             {
-                MessageBox.Show("Menu Laporan hanya dapat diakses oleh Admin.", "Akses Ditolak", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Menu Laporan hanya dapat diakses oleh Admin dan Petugas Gudang.", "Akses Ditolak", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (formSaatIni is FormLaporan) return;
-            BeralihKe(new FormLaporan("admin"), formSaatIni);
+            BeralihKe(new FormLaporan(PeranAktif), formSaatIni);
         }
 
         public static void BukaPengguna(Form formSaatIni)
@@ -171,6 +171,13 @@ namespace Sukimart
         public static void KeluarKeLogin(Form? formSaatIni)
         {
             sedangBeralih = true;
+            try
+            {
+                PenyimpananData.CatatAktivitas(PenggunaAktif, "LOGOUT");
+            }
+            catch
+            {
+            }
             Point? lokasiLama = null;
             if (formSaatIni != null && !formSaatIni.IsDisposed)
             {
