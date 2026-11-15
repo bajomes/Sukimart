@@ -46,6 +46,7 @@ namespace Sukimart
 
             gridPengguna.AutoGenerateColumns = false;
             gridPengguna.DataSource = daftarPengguna
+                .Where(p => !string.Equals(p.NamaPengguna, Navigasi.PenggunaAktif, StringComparison.OrdinalIgnoreCase))
                 .OrderBy(p => p.Peran == "admin" ? 0 : 1)
                 .ThenBy(p => p.NamaPengguna)
                 .Select(p => new
@@ -237,9 +238,9 @@ namespace Sukimart
                 return;
             }
 
-            if (string.Equals(akun.NamaPengguna, Navigasi.PenggunaAktif, StringComparison.OrdinalIgnoreCase) && (peranBaru != akun.Peran || !aktifBaru))
+            if (string.Equals(akun.NamaPengguna, Navigasi.PenggunaAktif, StringComparison.OrdinalIgnoreCase))
             {
-                Peringatan("Akun yang sedang dipakai tidak dapat diubah peran atau dinonaktifkan.", cmbPeran);
+                Peringatan("Akun yang sedang dipakai tidak dapat diedit.", cmbPeran);
                 return;
             }
 

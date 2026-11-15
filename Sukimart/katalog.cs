@@ -31,6 +31,7 @@ namespace Sukimart
             btnTambahItem.Visible = bolehKelola;
             btnEditProduk.Visible = bolehKelola;
             btnHapusBarang.Visible = bolehKelola;
+            btnKelolaKategori.Visible = bolehKelola;
             if (!bolehKelola)
             {
                 gridBarang.Height += btnTambahItem.Bottom - gridBarang.Bottom;
@@ -78,6 +79,7 @@ namespace Sukimart
             btnTambahItem.Click += BtnTambahItem_Click;
             btnEditProduk.Click += BtnEditProduk_Click;
             btnHapusBarang.Click += BtnHapusBarang_Click;
+            btnKelolaKategori.Click += BtnKelolaKategori_Click;
             gridBarang.CellDoubleClick += (s, e) =>
             {
                 if (e.RowIndex >= 0 && btnEditProduk.Visible)
@@ -139,12 +141,20 @@ namespace Sukimart
         private void BtnTambahItem_Click(object? sender, EventArgs e)
         {
             using FormTambahBarang formTambah = new FormTambahBarang(daftarBarang, null);
-            bool tersimpan = formTambah.ShowDialog(this) == DialogResult.OK;
+            bool tersimpan = formTambah.ShowDialog(this) == DialogResult.OK || !string.IsNullOrEmpty(formTambah.KodeTersimpan);
             MuatDataBarang();
-            if (tersimpan)
+            if (tersimpan && !string.IsNullOrEmpty(formTambah.KodeTersimpan))
             {
                 PilihBarang(formTambah.KodeTersimpan);
             }
+        }
+
+        private void BtnKelolaKategori_Click(object? sender, EventArgs e)
+        {
+            string kategoriAwal = BarangTerpilih()?.Kategori ?? "";
+            using FormKelolaKategori formKategori = new FormKelolaKategori(kategoriAwal);
+            formKategori.ShowDialog(this);
+            MuatDataBarang();
         }
 
         private void BtnEditProduk_Click(object? sender, EventArgs e)

@@ -21,7 +21,14 @@ namespace Sukimart
             };
             btnKelolaKategori.Click += BtnKelolaKategori_Click;
             btnSimpan.Click += BtnSimpan_Click;
-            btnBatal.Click += (s, e) => Close();
+            btnBatal.Click += (s, e) =>
+            {
+                if (!string.IsNullOrEmpty(KodeTersimpan))
+                {
+                    DialogResult = DialogResult.OK;
+                }
+                Close();
+            };
 
             if (barangEdit == null)
             {
@@ -76,6 +83,10 @@ namespace Sukimart
         {
             if (keyData == Keys.Escape)
             {
+                if (!string.IsNullOrEmpty(KodeTersimpan))
+                {
+                    DialogResult = DialogResult.OK;
+                }
                 Close();
                 return true;
             }
@@ -232,7 +243,12 @@ namespace Sukimart
 
             MessageBox.Show($"Barang '{nama}' berhasil ditambahkan. Isi stoknya melalui menu Gudang.", "Berhasil", MessageBoxButtons.OK, MessageBoxIcon.Information);
             KodeTersimpan = kode;
-            DialogResult = DialogResult.OK;
+
+            txtKode.Text = GenerasiKodeBarang(daftarBarang);
+            txtNama.Clear();
+            nudHarga.Value = 0;
+            nudStokMinimum.Value = 5;
+            txtNama.Focus();
         }
 
         private void UbahBarang(Barang barang, string kode, string nama, string kategori, int harga, int stokMinimum)
