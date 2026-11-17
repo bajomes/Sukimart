@@ -134,6 +134,52 @@ namespace Sukimart
                 daftarDetail.AddRange(rincian);
                 SimpanDetailTransaksi(daftarDetail);
             }
+
+            SimpanStruk(transaksi, rincian);
+        }
+
+        public static void SimpanStruk(Transaksi transaksi, List<DetailTransaksi>? rincian)
+        {
+            try
+            {
+                string folderData = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    "Sukimart", "struk");
+                Directory.CreateDirectory(folderData);
+
+                string lokasiFile = Path.Combine(folderData, $"{transaksi.Id}.json");
+                var dataStruk = new
+                {
+                    no_transaksi = transaksi.Id,
+                    tanggal = transaksi.Tanggal.ToString("yyyy-MM-dd"),
+                    waktu = transaksi.Tanggal.ToString("HH:mm:ss"),
+                    kasir = transaksi.Kasir,
+                    total = transaksi.Total,
+                    bayar = transaksi.Bayar,
+                    kembalian = transaksi.Kembalian,
+                    item = (rincian ?? new List<DetailTransaksi>()).Select(r => new
+                    {
+                        kode_barang = r.KodeBarang,
+                        nama_barang = r.NamaBarang,
+                        harga = r.Harga,
+                        jumlah = r.Jumlah,
+                        subtotal = r.Subtotal
+                    }).ToList()
+                };
+
+                string json = JsonSerializer.Serialize(dataStruk, opsiJson);
+                File.WriteAllText(lokasiFile, json);
+
+                // Simpan juga ke folder proyek/struk jika aplikasi berjalan di folder proyek
+                try
+                {
+                    string folderProyekStruk = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "struk");
+                    Directory.CreateDirectory(folderProyekStruk);
+                    File.WriteAllText(Path.Combine(folderProyekStruk, $"{transaksi.Id}.json"), json);
+                }
+                catch { }
+            }
+            catch { }
         }
 
         public static List<DetailTransaksi> BacaDetailTransaksi()
@@ -180,19 +226,81 @@ namespace Sukimart
 
         public static List<Aktivitas> BacaAktivitas()
         {
-            return BacaData<Aktivitas>("log_aktivitas.json");
+            List<Aktivitas> daftar = BacaData<Aktivitas>("log_aktivitas.json");
+            bool adaMigrasi = false;
+            foreach (var a in daftar)
+            {
+                if (string.IsNullOrWhiteSpace(a.JenisAktivitas))
+                {
+                    a.JenisAktivitas = TentukanJenisAktivitas(a.Aksi);
+                    adaMigrasi = true;
+                }
+
+                if (!string.IsNullOrEmpty(a.Aksi) && a.Aksi.StartsWith("Aktivitas: Mengganti Kata Sandi", StringComparison.OrdinalIgnoreCase))
+                {
+                    a.Aksi = "Pengguna berhasil mengganti kata sandi akunnya sendiri.";
+                    adaMigrasi = true;
+                }
+            }
+
+            if (adaMigrasi)
+            {
+                try
+                {
+                    SimpanData("log_aktivitas.json", daftar);
+                }
+                catch { }
+            }
+
+            return daftar;
         }
 
-        public static void CatatAktivitas(string namaPengguna, string aksi)
+        public static void CatatAktivitas(string namaPengguna, string jenisAktivitas, string aksi)
         {
             List<Aktivitas> daftarAktivitas = BacaAktivitas();
             daftarAktivitas.Add(new Aktivitas
             {
                 Tanggal = DateTime.Now,
-                NamaPengguna = namaPengguna,
-                Aksi = aksi
+                NamaPengguna = string.IsNullOrWhiteSpace(namaPengguna) ? "sistem" : namaPengguna,
+                JenisAktivitas = string.IsNullOrWhiteSpace(jenisAktivitas) ? TentukanJenisAktivitas(aksi) : jenisAktivitas,
+                Aksi = aksi ?? ""
             });
             SimpanData("log_aktivitas.json", daftarAktivitas);
+        }
+
+        public static void CatatAktivitas(string namaPengguna, string aksi)
+        {
+            string jenis = TentukanJenisAktivitas(aksi);
+            CatatAktivitas(namaPengguna, jenis, aksi);
+        }
+
+        public static void BersihkanAktivitas()
+        {
+            SimpanData("log_aktivitas.json", new List<Aktivitas>());
+        }
+
+        public static string TentukanJenisAktivitas(string aksi)
+        {
+            if (string.IsNullOrWhiteSpace(aksi)) return "Umum";
+            string a = aksi.Trim();
+            if (a.StartsWith("LOGIN GAGAL", StringComparison.OrdinalIgnoreCase)) return "Login Gagal";
+            if (a.StartsWith("LOGIN", StringComparison.OrdinalIgnoreCase)) return "Login";
+            if (a.StartsWith("LOGOUT", StringComparison.OrdinalIgnoreCase)) return "Logout";
+            if (a.StartsWith("TAMBAH BARANG", StringComparison.OrdinalIgnoreCase)) return "Tambah Barang";
+            if (a.StartsWith("UBAH BARANG", StringComparison.OrdinalIgnoreCase)) return "Ubah Barang";
+            if (a.StartsWith("HAPUS BARANG", StringComparison.OrdinalIgnoreCase)) return "Hapus Barang";
+            if (a.StartsWith("TAMBAH KATEGORI", StringComparison.OrdinalIgnoreCase)) return "Tambah Kategori";
+            if (a.StartsWith("UBAH KATEGORI", StringComparison.OrdinalIgnoreCase)) return "Ubah Kategori";
+            if (a.StartsWith("HAPUS KATEGORI", StringComparison.OrdinalIgnoreCase)) return "Hapus Kategori";
+            if (a.StartsWith("TAMBAH PENGGUNA", StringComparison.OrdinalIgnoreCase) || a.StartsWith("TAMBAH AKUN", StringComparison.OrdinalIgnoreCase)) return "Tambah Akun";
+            if (a.StartsWith("UBAH PASSWORD", StringComparison.OrdinalIgnoreCase) || a.StartsWith("UBAH KATA SANDI", StringComparison.OrdinalIgnoreCase) || a.StartsWith("AKTIVITAS: MENGGANTI KATA SANDI", StringComparison.OrdinalIgnoreCase) || a.StartsWith("MENGGANTI KATA SANDI", StringComparison.OrdinalIgnoreCase)) return "Ubah Password";
+            if (a.StartsWith("UBAH NAMA", StringComparison.OrdinalIgnoreCase) || a.StartsWith("UBAH PROFIL", StringComparison.OrdinalIgnoreCase)) return "Ubah Nama";
+            if (a.StartsWith("UBAH PENGGUNA", StringComparison.OrdinalIgnoreCase) || a.StartsWith("UBAH AKUN", StringComparison.OrdinalIgnoreCase)) return "Ubah Akun";
+            if (a.StartsWith("HAPUS PENGGUNA", StringComparison.OrdinalIgnoreCase) || a.StartsWith("HAPUS AKUN", StringComparison.OrdinalIgnoreCase)) return "Hapus Akun";
+            if (a.StartsWith("TRANSAKSI", StringComparison.OrdinalIgnoreCase)) return "Transaksi";
+            if (a.StartsWith("Masuk", StringComparison.OrdinalIgnoreCase) || a.StartsWith("STOK MASUK", StringComparison.OrdinalIgnoreCase)) return "Stok Masuk";
+            if (a.StartsWith("Keluar", StringComparison.OrdinalIgnoreCase) || a.StartsWith("STOK KELUAR", StringComparison.OrdinalIgnoreCase)) return "Stok Keluar";
+            return "Umum";
         }
 
         public static List<RiwayatStok> BacaRiwayatStok()

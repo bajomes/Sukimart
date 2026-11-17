@@ -227,6 +227,15 @@ namespace Sukimart
                 {
                     daftarBarang.Remove(barang);
                     PenyimpananData.SimpanBarang(daftarBarang);
+                    try
+                    {
+                        PenyimpananData.CatatAktivitas(
+                            Navigasi.PenggunaAktif,
+                            "Hapus Barang",
+                            $"Menghapus barang '{barang.Nama}' ({barang.Kode}) dari katalog (Kategori: {barang.Kategori}, Stok: {barang.Stok})."
+                        );
+                    }
+                    catch { }
                     MessageBox.Show("Barang berhasil dihapus.", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MuatDataBarang();
                 }

@@ -74,12 +74,22 @@ namespace Sukimart
             if (akun == null)
             {
                 lblUsnSalah.Text = "Nama pengguna tidak ditemukan";
+                try
+                {
+                    PenyimpananData.CatatAktivitas(username, "Login Gagal", $"Percobaan masuk gagal: Nama pengguna '{username}' tidak ditemukan.");
+                }
+                catch { }
                 return;
             }
 
             if (!akun.Aktif)
             {
                 lblUsnSalah.Text = "Akun ini tidak aktif";
+                try
+                {
+                    PenyimpananData.CatatAktivitas(username, "Login Gagal", $"Percobaan masuk gagal: Akun '{username}' berstatus nonaktif.");
+                }
+                catch { }
                 return;
             }
 
@@ -87,6 +97,11 @@ namespace Sukimart
             {
                 jumlahSandiSalah++;
                 lblPassSalah.Text = $"Kata sandi salah ({jumlahSandiSalah}/3)";
+                try
+                {
+                    PenyimpananData.CatatAktivitas(username, "Login Gagal", $"Percobaan masuk gagal: Kata sandi salah untuk pengguna '{username}' ({jumlahSandiSalah}/3).");
+                }
+                catch { }
 
                 if (jumlahSandiSalah >= 3)
                 {
@@ -98,7 +113,11 @@ namespace Sukimart
 
             ResetErrorLabels();
             jumlahSandiSalah = 0;
-            PenyimpananData.CatatAktivitas(akun.NamaPengguna, "LOGIN");
+            try
+            {
+                PenyimpananData.CatatAktivitas(akun.NamaPengguna, "Login", $"Pengguna '{akun.NamaPengguna}' ({akun.Peran}) berhasil masuk ke sistem.");
+            }
+            catch { }
             Navigasi.MulaiSesi(this, akun.NamaPengguna, akun.Peran);
         }
 

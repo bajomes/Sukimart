@@ -550,7 +550,7 @@ namespace Sukimart
             // colId
             // 
             colId.DataPropertyName = "Id";
-            colId.FillWeight = 110F;
+            colId.FillWeight = 170F;
             colId.HeaderText = "No. Faktur";
             colId.Name = "colId";
             colId.ReadOnly = true;
@@ -566,7 +566,7 @@ namespace Sukimart
             // colKasir
             // 
             colKasir.DataPropertyName = "Kasir";
-            colKasir.FillWeight = 80F;
+            colKasir.FillWeight = 70F;
             colKasir.HeaderText = "Kasir";
             colKasir.Name = "colKasir";
             colKasir.ReadOnly = true;

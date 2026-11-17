@@ -161,6 +161,12 @@ namespace Sukimart
             }
 
             lblNilaiStok.Text = lstStokMenipis.Items.Count.ToString();
+
+            // Tampilkan pesan jika semua stok aman
+            if (lstStokMenipis.Items.Count == 0)
+            {
+                lstStokMenipis.Items.Add("✅ Semua stok dalam batas aman");
+            }
         }
 
         private void IsiTransaksiTerbaru(List<Transaksi> daftarTransaksi)
@@ -187,6 +193,16 @@ namespace Sukimart
                 .ToList();
 
             UIHelper.TerapkanWarnaGrid(dataGridView1);
+
+            // Atur lebar kolom Nomor agar tidak terpotong
+            if (dataGridView1.Columns.Contains("Nomor"))
+                dataGridView1.Columns["Nomor"].FillWeight = 170F;
+            if (dataGridView1.Columns.Contains("Tanggal"))
+                dataGridView1.Columns["Tanggal"].FillWeight = 115F;
+            if (dataGridView1.Columns.Contains("Kasir"))
+                dataGridView1.Columns["Kasir"].FillWeight = 75F;
+            if (dataGridView1.Columns.Contains("Total"))
+                dataGridView1.Columns["Total"].FillWeight = 90F;
         }
 
         private void button1_Click(object? sender, EventArgs e)

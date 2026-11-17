@@ -92,20 +92,199 @@ namespace Sukimart
                 return;
             }
 
-            int y = 112; // Mulai tepat di bawah logo aplikasi
-            int jarak = 8; // Jarak seragam antar-tombol
+            PastikanTombolLogAktivitas(pnlKiri);
 
-            string[] urutanTombol = { "btnDashboard", "btnKasir", "btnKatalog", "btnRiwayat", "btnGudang", "btnLaporan", "btnPengguna" };
+            // Dapatkan tombol acuan (seperti btnPengguna atau btnDashboard) untuk memastikan ukuran & padding seragam
+            Control[] acuanArr = pnlKiri.Controls.Find("btnPengguna", false);
+            if (acuanArr.Length == 0) acuanArr = pnlKiri.Controls.Find("btnDashboard", false);
+            Button? acuan = acuanArr.Length > 0 ? acuanArr[0] as Button : null;
+
+            int x = acuan != null ? acuan.Location.X : 16;
+            int lebar = acuan != null ? acuan.Width : 208;
+            int tinggi = acuan != null ? acuan.Height : 40;
+            Padding padding = acuan != null ? acuan.Padding : new Padding(16, 0, 0, 0);
+
+            Control[] btnDashArr = pnlKiri.Controls.Find("btnDashboard", false);
+            int y = btnDashArr.Length > 0 ? btnDashArr[0].Location.Y : 112;
+            int jarak = 8;
+            if (tinggi != 40)
+            {
+                jarak = Math.Max(6, (int)Math.Round(tinggi * 0.2));
+            }
+
+            string[] urutanTombol = { "btnDashboard", "btnKasir", "btnKatalog", "btnRiwayat", "btnGudang", "btnLaporan", "btnPengguna", "btnLogAktivitas" };
 
             foreach (string nama in urutanTombol)
             {
                 Control[] ditemukan = pnlKiri.Controls.Find(nama, false);
                 if (ditemukan.Length > 0 && ditemukan[0] is Button btn && btn.Visible)
                 {
-                    btn.Location = new Point(btn.Location.X, y);
+                    btn.Size = new Size(lebar, tinggi);
+                    btn.Padding = padding;
+                    btn.Location = new Point(x, y);
+                    btn.FlatAppearance.BorderSize = 0;
+                    btn.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
+                    btn.FlatStyle = FlatStyle.Flat;
+                    btn.UseVisualStyleBackColor = false;
                     y += btn.Height + jarak;
                 }
             }
+
+            PastikanTombolBawah(pnlKiri);
+        }
+
+        public static void PastikanTombolBawah(Panel pnlKiri)
+        {
+            if (pnlKiri == null) return;
+
+            Form? formInduk = pnlKiri.FindForm();
+            if (formInduk is FormLogin) return;
+
+            Control[] acuanArr = pnlKiri.Controls.Find("btnPengguna", false);
+            if (acuanArr.Length == 0) acuanArr = pnlKiri.Controls.Find("btnDashboard", false);
+            Button? acuan = acuanArr.Length > 0 ? acuanArr[0] as Button : null;
+
+            int x = acuan != null ? acuan.Location.X : 16;
+            int lebar = acuan != null ? acuan.Width : 208;
+            int tinggi = acuan != null ? acuan.Height : 40;
+            Padding padding = acuan != null ? acuan.Padding : new Padding(16, 0, 0, 0);
+            float ukuranFont = acuan != null ? acuan.Font.SizeInPoints : 10F;
+            int jarak = tinggi != 40 ? Math.Max(6, (int)Math.Round(tinggi * 0.2)) : 8;
+
+            // Cari tombol Keluar
+            Control[] keluarArr = pnlKiri.Controls.Find("btnKeluar", false);
+            if (keluarArr.Length == 0) keluarArr = pnlKiri.Controls.Find("btnKeluarBenar", false);
+            Button? btnKeluar = keluarArr.Length > 0 ? keluarArr[0] as Button : null;
+
+            if (btnKeluar != null)
+            {
+                btnKeluar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+                btnKeluar.Size = new Size(lebar, tinggi);
+                btnKeluar.Padding = padding;
+                btnKeluar.Location = new Point(x, btnKeluar.Location.Y);
+                btnKeluar.Font = FontInter.Buat(ukuranFont, FontStyle.Regular);
+            }
+
+            // Cari atau buat tombol Ganti Kata Sandi
+            Control[] gantiArr = pnlKiri.Controls.Find("btnGantiSandi", false);
+            Button btnGanti;
+            if (gantiArr.Length > 0 && gantiArr[0] is Button btnAda)
+            {
+                btnGanti = btnAda;
+            }
+            else
+            {
+                btnGanti = new Button
+                {
+                    Name = "btnGantiSandi",
+                    Text = "Ganti Kata Sandi",
+                    Cursor = Cursors.Hand,
+                    FlatStyle = FlatStyle.Flat,
+                    BackColor = Color.White,
+                    ForeColor = Color.FromArgb(75, 85, 99),
+                    TextAlign = ContentAlignment.MiddleLeft,
+                    UseVisualStyleBackColor = false,
+                    Anchor = AnchorStyles.Bottom | AnchorStyles.Left
+                };
+                btnGanti.FlatAppearance.BorderSize = 0;
+                btnGanti.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
+
+                btnGanti.Click += (s, e) =>
+                {
+                    Form? f = btnGanti.FindForm();
+                    if (f != null)
+                    {
+                        Navigasi.BukaGantiKataSandi(f);
+                    }
+                };
+
+                pnlKiri.Controls.Add(btnGanti);
+            }
+
+            btnGanti.Size = new Size(lebar, tinggi);
+            btnGanti.Padding = padding;
+            btnGanti.Font = FontInter.Buat(ukuranFont, FontStyle.Regular);
+            btnGanti.Visible = true;
+
+            if (btnKeluar != null)
+            {
+                int yGanti = btnKeluar.Location.Y - tinggi - jarak;
+                btnGanti.Location = new Point(x, yGanti);
+                btnGanti.BringToFront();
+                btnKeluar.BringToFront();
+            }
+        }
+
+        public static void PastikanTombolLogAktivitas(Panel pnlKiri)
+        {
+            if (pnlKiri == null) return;
+
+            Form? formInduk = pnlKiri.FindForm();
+            bool isAdmin = string.Equals(Navigasi.PeranAktif, "admin", StringComparison.OrdinalIgnoreCase);
+
+            Control[] acuanArr = pnlKiri.Controls.Find("btnPengguna", false);
+            if (acuanArr.Length == 0) acuanArr = pnlKiri.Controls.Find("btnDashboard", false);
+            Button? acuan = acuanArr.Length > 0 ? acuanArr[0] as Button : null;
+
+            int lebar = acuan != null ? acuan.Width : 208;
+            int tinggi = acuan != null ? acuan.Height : 40;
+            int x = acuan != null ? acuan.Location.X : 16;
+            Padding padding = acuan != null ? acuan.Padding : new Padding(16, 0, 0, 0);
+            float ukuranFont = acuan != null ? acuan.Font.SizeInPoints : 10F;
+
+            Control[] ditemukan = pnlKiri.Controls.Find("btnLogAktivitas", false);
+            if (ditemukan.Length > 0 && ditemukan[0] is Button btnAda)
+            {
+                btnAda.Visible = isAdmin;
+                btnAda.Size = new Size(lebar, tinggi);
+                btnAda.Padding = padding;
+                btnAda.Location = new Point(x, btnAda.Location.Y);
+                btnAda.FlatAppearance.BorderSize = 0;
+                btnAda.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
+                btnAda.FlatStyle = FlatStyle.Flat;
+                btnAda.UseVisualStyleBackColor = false;
+                if (formInduk is FormLogAktivitas)
+                {
+                    btnAda.BackColor = Color.FromArgb(255, 196, 0);
+                    btnAda.Font = FontInter.Buat(ukuranFont, FontStyle.Bold);
+                }
+                else
+                {
+                    btnAda.BackColor = Color.White;
+                    btnAda.Font = FontInter.Buat(ukuranFont, FontStyle.Regular);
+                }
+                return;
+            }
+
+            Button btnLog = new Button
+            {
+                Name = "btnLogAktivitas",
+                Text = "Log Aktivitas",
+                Size = new Size(lebar, tinggi),
+                Location = new Point(x, 448),
+                Cursor = Cursors.Hand,
+                FlatStyle = FlatStyle.Flat,
+                Font = (formInduk is FormLogAktivitas) ? FontInter.Buat(ukuranFont, FontStyle.Bold) : FontInter.Buat(ukuranFont, FontStyle.Regular),
+                BackColor = (formInduk is FormLogAktivitas) ? Color.FromArgb(255, 196, 0) : Color.White,
+                ForeColor = Color.FromArgb(31, 41, 55),
+                Padding = padding,
+                TextAlign = ContentAlignment.MiddleLeft,
+                UseVisualStyleBackColor = false,
+                Visible = isAdmin
+            };
+            btnLog.FlatAppearance.BorderSize = 0;
+            btnLog.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
+
+            btnLog.Click += (s, e) =>
+            {
+                Form? f = btnLog.FindForm();
+                if (f != null)
+                {
+                    Navigasi.BukaLogAktivitas(f);
+                }
+            };
+
+            pnlKiri.Controls.Add(btnLog);
         }
 
         public static void RatakanTengah(params DataGridViewColumn[] daftarKolom)

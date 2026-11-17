@@ -217,6 +217,11 @@ namespace Sukimart
             try
             {
                 PenyimpananData.SimpanBarang(daftarBarang);
+                PenyimpananData.CatatAktivitas(
+                    Navigasi.PenggunaAktif,
+                    "Tambah Barang",
+                    $"Menambahkan barang baru '{nama}' ({kode}) | Kategori: {kategori} | Harga: Rp {harga:N0} | Stok Minimum: {stokMinimum}."
+                );
             }
             catch (Exception ex)
             {
@@ -247,6 +252,19 @@ namespace Sukimart
             try
             {
                 PenyimpananData.SimpanBarang(daftarBarang);
+
+                List<string> perubahan = new List<string>();
+                if (namaLama != nama) perubahan.Add($"Nama: '{namaLama}' -> '{nama}'");
+                if (kategoriLama != kategori) perubahan.Add($"Kategori: '{kategoriLama}' -> '{kategori}'");
+                if (hargaLama != harga) perubahan.Add($"Harga: Rp {hargaLama:N0} -> Rp {harga:N0}");
+                if (stokMinimumLama != stokMinimum) perubahan.Add($"Stok Min: {stokMinimumLama} -> {stokMinimum}");
+                string detail = perubahan.Count > 0 ? string.Join(", ", perubahan) : "Data diperbarui tanpa perubahan atribut";
+
+                PenyimpananData.CatatAktivitas(
+                    Navigasi.PenggunaAktif,
+                    "Ubah Barang",
+                    $"Memperbarui data barang '{nama}' ({kode}): {detail}."
+                );
             }
             catch (Exception ex)
             {

@@ -168,6 +168,45 @@ namespace Sukimart
             BeralihKe(new FormPengguna(), formSaatIni);
         }
 
+        public static void BukaLogAktivitas(Form formSaatIni)
+        {
+            if (PeranAktif != "admin")
+            {
+                MessageBox.Show("Menu Log Aktivitas hanya dapat diakses oleh Admin.", "Akses Ditolak", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (formSaatIni is FormLogAktivitas) return;
+            BeralihKe(new FormLogAktivitas(), formSaatIni);
+        }
+
+        public static void BukaGantiKataSandi(Form? formSaatIni)
+        {
+            using FormGantiKataSandi formGanti = new FormGantiKataSandi();
+            if (formSaatIni != null && !formSaatIni.IsDisposed)
+            {
+                formGanti.ShowDialog(formSaatIni);
+            }
+            else
+            {
+                formGanti.ShowDialog();
+            }
+        }
+
+        public static void KonfirmasiDanKeluar(Form? formSaatIni)
+        {
+            DialogResult hasil = MessageBox.Show(
+                "Apakah yakin ingin keluar akun?",
+                "Konfirmasi Keluar",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (hasil == DialogResult.Yes)
+            {
+                KeluarKeLogin(formSaatIni);
+            }
+        }
+
         public static void KeluarKeLogin(Form? formSaatIni)
         {
             sedangBeralih = true;

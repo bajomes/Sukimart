@@ -13,6 +13,7 @@ namespace Sukimart
         private readonly DateTimePicker dtpMulai = new DateTimePicker();
         private readonly DateTimePicker dtpSelesai = new DateTimePicker();
         private readonly Button btnTerapkanTanggal = new Button();
+        private readonly Button btnSimpanJson = new Button();
         private readonly Label lblRingkasan = new Label();
         private string jenisLaporan = "penjualan";
 
@@ -47,6 +48,7 @@ namespace Sukimart
             pnlKanan.Controls.Add(dtpMulai);
             pnlKanan.Controls.Add(dtpSelesai);
             pnlKanan.Controls.Add(btnTerapkanTanggal);
+            pnlKanan.Controls.Add(btnSimpanJson);
             pnlKanan.Controls.Add(lblRingkasan);
             AturTombolMode(btnPenjualan, "Penjualan", new Point(40, 248), true, 120);
             AturTombolMode(btnGudangReport, "Inventaris Gudang", new Point(168, 248), false, 152);
@@ -60,6 +62,16 @@ namespace Sukimart
             btnTerapkanTanggal.Location = new Point(588, 248);
             btnTerapkanTanggal.Size = new Size(108, 32);
             btnTerapkanTanggal.Text = "Terapkan";
+
+            btnSimpanJson.BackColor = Color.White;
+            btnSimpanJson.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
+            btnSimpanJson.FlatStyle = FlatStyle.Flat;
+            btnSimpanJson.Font = FontInter.Buat(9.5F, FontStyle.Bold);
+            btnSimpanJson.ForeColor = Color.FromArgb(55, 65, 81);
+            btnSimpanJson.Location = new Point(704, 248);
+            btnSimpanJson.Size = new Size(128, 32);
+            btnSimpanJson.Text = "💾 Simpan JSON";
+            btnSimpanJson.Click += (s, e) => SimpanLaporanKeJson();
             lblRingkasan.Font = FontInter.Buat(9F);
             lblRingkasan.ForeColor = Color.FromArgb(75, 85, 99);
             lblRingkasan.Location = new Point(40, 292);
@@ -199,6 +211,14 @@ namespace Sukimart
             lblRingkasan.Text = BuatRingkasanPenjualan(transaksi, detail);
             AturKolomLaporan();
             gridLaporan.DataSource = transaksi.OrderByDescending(data => data.Tanggal).Select(data => new { Faktur = data.Id, Waktu = data.Tanggal.ToString("dd/MM/yyyy HH:mm"), data.Kasir, Item = detail.Where(rincian => rincian.IdTransaksi == data.Id).Sum(rincian => rincian.Jumlah), Total = "Rp " + data.Total.ToString("N0", BudayaIndonesia) }).ToList();
+
+            // Atur lebar kolom Faktur agar tidak terpotong
+            if (gridLaporan.Columns.Contains("Faktur"))
+                gridLaporan.Columns["Faktur"].FillWeight = 175F;
+            if (gridLaporan.Columns.Contains("Waktu"))
+                gridLaporan.Columns["Waktu"].FillWeight = 110F;
+            if (gridLaporan.Columns.Contains("Kasir"))
+                gridLaporan.Columns["Kasir"].FillWeight = 75F;
         }
 
         private void TerapkanLaporanGudang()
@@ -239,6 +259,94 @@ namespace Sukimart
             string barangTerlaris = string.Join(", ", detail.GroupBy(data => new { data.KodeBarang, data.NamaBarang }).OrderByDescending(grup => grup.Sum(data => data.Jumlah)).ThenBy(grup => grup.Key.KodeBarang).Take(5).Select(grup => $"{grup.Key.KodeBarang} ({grup.Sum(data => data.Jumlah)})"));
             string perKasir = string.Join(", ", transaksi.GroupBy(data => data.Kasir).OrderBy(grup => grup.Key).Select(grup => $"{grup.Key}: Rp {grup.Sum(data => data.Total).ToString("N0", BudayaIndonesia)}"));
             return $"5 barang terlaris: {(barangTerlaris.Length == 0 ? "Tidak ada data" : barangTerlaris)}\nPenjualan per kasir: {(perKasir.Length == 0 ? "Tidak ada data" : perKasir)}";
+        }
+
+        private void SimpanLaporanKeJson()
+        {
+            try
+            {
+                DateTime mulai = dtpMulai.Value.Date;
+                DateTime selesai = dtpSelesai.Value.Date.AddDays(1).AddTicks(-1);
+
+                if (mulai > selesai)
+                {
+                    MessageBox.Show("Tanggal awal tidak boleh lebih besar dari tanggal akhir.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                string folderLaporan = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    "Sukimart", "laporan");
+                Directory.CreateDirectory(folderLaporan);
+
+                string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+                string namaFile = jenisLaporan == "penjualan"
+                    ? $"laporan_penjualan_{timestamp}.json"
+                    : $"laporan_gudang_{timestamp}.json";
+                string lokasi = Path.Combine(folderLaporan, namaFile);
+
+                object kontenLaporan;
+                if (jenisLaporan == "penjualan")
+                {
+                    List<Transaksi> transaksi = semuaTransaksi.Where(data => data.Tanggal >= mulai && data.Tanggal <= selesai).ToList();
+                    kontenLaporan = new
+                    {
+                        jenis = "Laporan Penjualan",
+                        periode_mulai = mulai.ToString("yyyy-MM-dd"),
+                        periode_selesai = selesai.ToString("yyyy-MM-dd"),
+                        dibuat_pada = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                        dibuat_oleh = Navigasi.PenggunaAktif,
+                        jumlah_transaksi = transaksi.Count,
+                        total_omzet = transaksi.Sum(t => t.Total),
+                        ringkasan = BuatRingkasanPenjualan(transaksi, semuaDetail),
+                        transaksi = transaksi.Select(t => new
+                        {
+                            no_transaksi = t.Id,
+                            tanggal = t.Tanggal.ToString("yyyy-MM-dd HH:mm"),
+                            kasir = t.Kasir,
+                            total = t.Total
+                        })
+                    };
+                }
+                else
+                {
+                    List<Barang> barang = PenyimpananData.BacaBarang();
+                    List<BarangMasuk> masuk = PenyimpananData.BacaBarangMasuk().Where(data => data.Tanggal >= mulai && data.Tanggal <= selesai).ToList();
+                    List<BarangKeluar> keluar = PenyimpananData.BacaBarangKeluar().Where(data => data.Tanggal >= mulai && data.Tanggal <= selesai).ToList();
+                    kontenLaporan = new
+                    {
+                        jenis = "Laporan Stok dan Aktivitas Gudang",
+                        periode_mulai = mulai.ToString("yyyy-MM-dd"),
+                        periode_selesai = selesai.ToString("yyyy-MM-dd"),
+                        dibuat_pada = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                        dibuat_oleh = Navigasi.PenggunaAktif,
+                        total_jenis_barang = barang.Count,
+                        total_unit_masuk = masuk.Sum(m => m.Jumlah),
+                        total_unit_keluar = keluar.Sum(k => k.Jumlah),
+                        barang_masuk = masuk,
+                        barang_keluar = keluar,
+                        daftar_stok = barang
+                    };
+                }
+
+                string json = System.Text.Json.JsonSerializer.Serialize(kontenLaporan, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(lokasi, json);
+
+                try
+                {
+                    string folderProyekLaporan = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "laporan");
+                    Directory.CreateDirectory(folderProyekLaporan);
+                    File.WriteAllText(Path.Combine(folderProyekLaporan, namaFile), json);
+                }
+                catch { }
+
+                PenyimpananData.CatatAktivitas(Navigasi.PenggunaAktif, $"Simpan laporan ke {namaFile}");
+                MessageBox.Show($"Laporan berhasil disimpan ke file JSON:\n{namaFile}\n\nLokasi: {folderLaporan}", "Laporan Tersimpan", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal menyimpan laporan ke JSON: " + ex.Message, "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

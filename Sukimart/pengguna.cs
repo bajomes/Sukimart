@@ -21,7 +21,7 @@ namespace Sukimart
             btnRiwayat.Click += (s, e) => Navigasi.BukaRiwayat(this);
             btnGudang.Click += (s, e) => Navigasi.BukaGudang(this);
             btnLaporan.Click += (s, e) => Navigasi.BukaLaporan(this);
-            btnKeluar.Click += (s, e) => Navigasi.KeluarKeLogin(this);
+            btnKeluar.Click += (s, e) => Navigasi.KonfirmasiDanKeluar(this);
             btnTambah.Click += BtnTambah_Click;
             btnSimpan.Click += BtnSimpan_Click;
             btnHapus.Click += BtnHapus_Click;
@@ -46,11 +46,13 @@ namespace Sukimart
 
             gridPengguna.AutoGenerateColumns = false;
             gridPengguna.DataSource = daftarPengguna
+                .Where(p => !string.Equals(p.NamaPengguna, Navigasi.PenggunaAktif, StringComparison.OrdinalIgnoreCase))
                 .OrderBy(p => p.Peran == "admin" ? 0 : 1)
                 .ThenBy(p => p.NamaPengguna)
                 .Select(p => new
                 {
                     p.NamaPengguna,
+                    NamaLengkap = string.IsNullOrWhiteSpace(p.NamaLengkap) ? "-" : p.NamaLengkap,
                     Peran = NamaPeran(p.Peran),
                     Status = p.Aktif ? "Aktif" : "Tidak Aktif",
                     Dibuat = p.Dibuat == default ? "-" : p.Dibuat.ToString("dd/MM/yyyy HH:mm", BudayaIndonesia)
@@ -69,6 +71,7 @@ namespace Sukimart
             penggunaTerpilih = null;
             txtNamaPengguna.Text = "";
             txtNamaPengguna.ReadOnly = false;
+            txtNamaLengkap.Text = "";
             cmbPeran.SelectedIndex = 1;
             chkAktif.Checked = true;
             txtKataSandi.Text = "";
@@ -95,6 +98,7 @@ namespace Sukimart
             penggunaTerpilih = akun.NamaPengguna;
             txtNamaPengguna.Text = akun.NamaPengguna;
             txtNamaPengguna.ReadOnly = true;
+            txtNamaLengkap.Text = akun.NamaLengkap ?? "";
             cmbPeran.SelectedIndex = akun.Peran switch
             {
                 "admin" => 0,
@@ -189,6 +193,7 @@ namespace Sukimart
             Pengguna akun = new Pengguna
             {
                 NamaPengguna = nama,
+                NamaLengkap = txtNamaLengkap.Text.Trim(),
                 Peran = PeranDipilih(),
                 Aktif = chkAktif.Checked,
                 Dibuat = DateTime.Now
@@ -202,7 +207,16 @@ namespace Sukimart
                 return;
             }
 
-            CatatAktivitas($"TAMBAH PENGGUNA {akun.NamaPengguna}");
+            try
+            {
+                PenyimpananData.CatatAktivitas(
+                    Navigasi.PenggunaAktif,
+                    "Tambah Akun",
+                    $"Menambahkan akun pengguna baru: '{akun.NamaPengguna}' (Nama: '{akun.NamaLengkap}', Peran: {NamaPeran(akun.Peran)}, Status: {(akun.Aktif ? "Aktif" : "Nonaktif")})."
+                );
+            }
+            catch { }
+
             MuatPengguna();
             BersihkanForm();
         }
@@ -224,9 +238,9 @@ namespace Sukimart
                 return;
             }
 
-            if (string.Equals(akun.NamaPengguna, Navigasi.PenggunaAktif, StringComparison.OrdinalIgnoreCase) && (peranBaru != akun.Peran || !aktifBaru))
+            if (string.Equals(akun.NamaPengguna, Navigasi.PenggunaAktif, StringComparison.OrdinalIgnoreCase))
             {
-                Peringatan("Akun yang sedang dipakai tidak dapat diubah peran atau dinonaktifkan.", cmbPeran);
+                Peringatan("Akun yang sedang dipakai tidak dapat diedit.", cmbPeran);
                 return;
             }
 
@@ -236,20 +250,25 @@ namespace Sukimart
             }
 
             string peranLama = akun.Peran;
+            string namaLengkapLama = akun.NamaLengkap ?? "";
+            string namaLengkapBaru = txtNamaLengkap.Text.Trim();
             string hashLama = akun.HashSandi;
             string garamLama = akun.Garam;
             int iterasiLama = akun.Iterasi;
             bool aktifLama = akun.Aktif;
+            bool sandiDiubah = txtKataSandi.Text.Length > 0;
 
+            akun.NamaLengkap = namaLengkapBaru;
             akun.Peran = peranBaru;
             akun.Aktif = aktifBaru;
-            if (txtKataSandi.Text.Length > 0)
+            if (sandiDiubah)
             {
                 KeamananSandi.IsiSandi(akun, txtKataSandi.Text);
             }
 
             if (!Simpan())
             {
+                akun.NamaLengkap = namaLengkapLama;
                 akun.Peran = peranLama;
                 akun.HashSandi = hashLama;
                 akun.Garam = garamLama;
@@ -258,7 +277,51 @@ namespace Sukimart
                 return;
             }
 
-            CatatAktivitas($"UBAH PENGGUNA {akun.NamaPengguna}");
+            // Catat perubahan sandi jika ada
+            if (sandiDiubah)
+            {
+                try
+                {
+                    PenyimpananData.CatatAktivitas(
+                        Navigasi.PenggunaAktif,
+                        "Ubah Password",
+                        $"Mengubah kata sandi untuk akun pengguna '{akun.NamaPengguna}'."
+                    );
+                }
+                catch { }
+            }
+
+            // Catat perubahan nama lengkap jika ada
+            if (!string.Equals(namaLengkapLama, namaLengkapBaru, StringComparison.Ordinal))
+            {
+                try
+                {
+                    PenyimpananData.CatatAktivitas(
+                        Navigasi.PenggunaAktif,
+                        "Ubah Nama",
+                        $"Mengubah nama pengguna '{akun.NamaPengguna}' dari '{namaLengkapLama}' menjadi '{namaLengkapBaru}'."
+                    );
+                }
+                catch { }
+            }
+
+            // Catat perubahan peran atau status jika ada
+            List<string> perubahanLain = new List<string>();
+            if (peranLama != peranBaru) perubahanLain.Add($"Peran: {NamaPeran(peranLama)} -> {NamaPeran(peranBaru)}");
+            if (aktifLama != aktifBaru) perubahanLain.Add($"Status: {(aktifLama ? "Aktif" : "Nonaktif")} -> {(aktifBaru ? "Aktif" : "Nonaktif")}");
+            if (perubahanLain.Count > 0)
+            {
+                try
+                {
+                    PenyimpananData.CatatAktivitas(
+                        Navigasi.PenggunaAktif,
+                        "Ubah Akun",
+                        $"Mengubah profil akun '{akun.NamaPengguna}': {string.Join(", ", perubahanLain)}."
+                    );
+                }
+                catch { }
+            }
+
             MessageBox.Show("Data pengguna berhasil disimpan.", "Berhasil", MessageBoxButtons.OK, MessageBoxIcon.Information);
             MuatPengguna();
             BersihkanForm();
@@ -298,20 +361,18 @@ namespace Sukimart
                 return;
             }
 
-            CatatAktivitas($"HAPUS PENGGUNA {akun.NamaPengguna}");
-            MuatPengguna();
-            BersihkanForm();
-        }
-
-        private static void CatatAktivitas(string aksi)
-        {
             try
             {
-                PenyimpananData.CatatAktivitas(Navigasi.PenggunaAktif, aksi);
+                PenyimpananData.CatatAktivitas(
+                    Navigasi.PenggunaAktif,
+                    "Hapus Akun",
+                    $"Menghapus akun pengguna: '{akun.NamaPengguna}' (Peran: {NamaPeran(akun.Peran)})."
+                );
             }
-            catch
-            {
-            }
+            catch { }
+
+            MuatPengguna();
+            BersihkanForm();
         }
     }
 }

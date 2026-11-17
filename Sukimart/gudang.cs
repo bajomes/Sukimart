@@ -100,11 +100,13 @@ namespace Sukimart
             lblPemasok.Font = FontInter.Buat(9F, FontStyle.Bold);
             lblPemasok.ForeColor = Color.FromArgb(75, 85, 99);
             lblPemasok.Location = new Point(608, 24);
+            lblPemasok.Text = "Pemasok (Wajib)";
 
             txtPemasok.Font = FontInter.Buat(10F);
             txtPemasok.Location = new Point(608, 48);
             txtPemasok.MaxLength = 100;
             txtPemasok.Size = new Size(184, 23);
+            txtPemasok.PlaceholderText = "Contoh: CV Sumber Pangan";
 
             lblAlasan.AutoSize = true;
             lblAlasan.Font = FontInter.Buat(9F, FontStyle.Bold);
@@ -114,7 +116,7 @@ namespace Sukimart
 
             cmbAlasan.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbAlasan.Font = FontInter.Buat(10F);
-            cmbAlasan.Items.AddRange(new object[] { "RUSAK", "KEDALUWARSA", "DIKEMBALIKAN", "LAINNYA" });
+            cmbAlasan.Items.AddRange(new object[] { "RUSAK", "KADALUARSA", "RETUR", "LAINNYA" });
             cmbAlasan.Location = new Point(608, 48);
             cmbAlasan.Size = new Size(184, 24);
 
