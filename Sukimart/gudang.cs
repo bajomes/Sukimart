@@ -67,7 +67,7 @@ namespace Sukimart
             btnGudang.Click += (s, e) => { /* Sedang di form gudang */ };
             btnLaporan.Click += (s, e) => Navigasi.BukaLaporan(this);
             btnPengguna.Click += (s, e) => Navigasi.BukaPengguna(this);
-            btnKeluar.Click += (s, e) => Navigasi.KeluarKeLogin(this);
+            btnKeluar.Click += (s, e) => Navigasi.KonfirmasiDanKeluar(this);
 
             txtCariGudang.TextChanged += (s, e) => FilterDaftarGudang();
             btnFilterMenipis.Click += (s, e) => { hanyaMenipis = true; FilterDaftarGudang(); };

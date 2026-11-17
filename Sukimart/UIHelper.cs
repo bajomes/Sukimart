@@ -129,6 +129,90 @@ namespace Sukimart
                     y += btn.Height + jarak;
                 }
             }
+
+            PastikanTombolBawah(pnlKiri);
+        }
+
+        public static void PastikanTombolBawah(Panel pnlKiri)
+        {
+            if (pnlKiri == null) return;
+
+            Form? formInduk = pnlKiri.FindForm();
+            if (formInduk is FormLogin) return;
+
+            Control[] acuanArr = pnlKiri.Controls.Find("btnPengguna", false);
+            if (acuanArr.Length == 0) acuanArr = pnlKiri.Controls.Find("btnDashboard", false);
+            Button? acuan = acuanArr.Length > 0 ? acuanArr[0] as Button : null;
+
+            int x = acuan != null ? acuan.Location.X : 16;
+            int lebar = acuan != null ? acuan.Width : 208;
+            int tinggi = acuan != null ? acuan.Height : 40;
+            Padding padding = acuan != null ? acuan.Padding : new Padding(16, 0, 0, 0);
+            float ukuranFont = acuan != null ? acuan.Font.SizeInPoints : 10F;
+            int jarak = tinggi != 40 ? Math.Max(6, (int)Math.Round(tinggi * 0.2)) : 8;
+
+            // Cari tombol Keluar
+            Control[] keluarArr = pnlKiri.Controls.Find("btnKeluar", false);
+            if (keluarArr.Length == 0) keluarArr = pnlKiri.Controls.Find("btnKeluarBenar", false);
+            Button? btnKeluar = keluarArr.Length > 0 ? keluarArr[0] as Button : null;
+
+            if (btnKeluar != null)
+            {
+                btnKeluar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+                btnKeluar.Size = new Size(lebar, tinggi);
+                btnKeluar.Padding = padding;
+                btnKeluar.Location = new Point(x, btnKeluar.Location.Y);
+                btnKeluar.Font = FontInter.Buat(ukuranFont, FontStyle.Regular);
+            }
+
+            // Cari atau buat tombol Ganti Kata Sandi
+            Control[] gantiArr = pnlKiri.Controls.Find("btnGantiSandi", false);
+            Button btnGanti;
+            if (gantiArr.Length > 0 && gantiArr[0] is Button btnAda)
+            {
+                btnGanti = btnAda;
+            }
+            else
+            {
+                btnGanti = new Button
+                {
+                    Name = "btnGantiSandi",
+                    Text = "Ganti Kata Sandi",
+                    Cursor = Cursors.Hand,
+                    FlatStyle = FlatStyle.Flat,
+                    BackColor = Color.White,
+                    ForeColor = Color.FromArgb(75, 85, 99),
+                    TextAlign = ContentAlignment.MiddleLeft,
+                    UseVisualStyleBackColor = false,
+                    Anchor = AnchorStyles.Bottom | AnchorStyles.Left
+                };
+                btnGanti.FlatAppearance.BorderSize = 0;
+                btnGanti.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
+
+                btnGanti.Click += (s, e) =>
+                {
+                    Form? f = btnGanti.FindForm();
+                    if (f != null)
+                    {
+                        Navigasi.BukaGantiKataSandi(f);
+                    }
+                };
+
+                pnlKiri.Controls.Add(btnGanti);
+            }
+
+            btnGanti.Size = new Size(lebar, tinggi);
+            btnGanti.Padding = padding;
+            btnGanti.Font = FontInter.Buat(ukuranFont, FontStyle.Regular);
+            btnGanti.Visible = true;
+
+            if (btnKeluar != null)
+            {
+                int yGanti = btnKeluar.Location.Y - tinggi - jarak;
+                btnGanti.Location = new Point(x, yGanti);
+                btnGanti.BringToFront();
+                btnKeluar.BringToFront();
+            }
         }
 
         public static void PastikanTombolLogAktivitas(Panel pnlKiri)
@@ -256,6 +340,12 @@ namespace Sukimart
 
             // Pasang drag dan tema grid secara menyeluruh ke semua kontrol di form
             PasangRekursif(form, form);
+
+            Control[] pnlKiriArr = form.Controls.Find("pnlKiri", true);
+            if (pnlKiriArr.Length > 0 && pnlKiriArr[0] is Panel pnlKiri && !(form is FormLogin))
+            {
+                SusunTombolSidebar(pnlKiri);
+            }
         }
 
         private static void PasangRekursif(Form targetForm, Control induk)

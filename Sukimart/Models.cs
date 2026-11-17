@@ -60,9 +60,33 @@ namespace Sukimart
     public class Aktivitas
     {
         public DateTime Tanggal { get; set; } = DateTime.Now;
+
+        [System.Text.Json.Serialization.JsonIgnore]
+        public DateTime Waktu
+        {
+            get => Tanggal;
+            set => Tanggal = value;
+        }
+
         public string NamaPengguna { get; set; } = "";
+
+        [System.Text.Json.Serialization.JsonIgnore]
+        public string Pengguna
+        {
+            get => NamaPengguna;
+            set => NamaPengguna = value;
+        }
+
         public string JenisAktivitas { get; set; } = "Umum";
+
         public string Aksi { get; set; } = "";
+
+        [System.Text.Json.Serialization.JsonIgnore]
+        public string DetailAktivitas
+        {
+            get => Aksi;
+            set => Aksi = value;
+        }
     }
 
     public class RiwayatStok

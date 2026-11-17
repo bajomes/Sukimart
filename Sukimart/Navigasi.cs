@@ -180,6 +180,33 @@ namespace Sukimart
             BeralihKe(new FormLogAktivitas(), formSaatIni);
         }
 
+        public static void BukaGantiKataSandi(Form? formSaatIni)
+        {
+            using FormGantiKataSandi formGanti = new FormGantiKataSandi();
+            if (formSaatIni != null && !formSaatIni.IsDisposed)
+            {
+                formGanti.ShowDialog(formSaatIni);
+            }
+            else
+            {
+                formGanti.ShowDialog();
+            }
+        }
+
+        public static void KonfirmasiDanKeluar(Form? formSaatIni)
+        {
+            DialogResult hasil = MessageBox.Show(
+                "Apakah yakin ingin keluar akun?",
+                "Konfirmasi Keluar",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (hasil == DialogResult.Yes)
+            {
+                KeluarKeLogin(formSaatIni);
+            }
+        }
+
         public static void KeluarKeLogin(Form? formSaatIni)
         {
             sedangBeralih = true;
@@ -198,6 +225,9 @@ namespace Sukimart
                 formSaatIni.Close();
                 formSaatIni.Dispose();
             }
+
+            PenggunaAktif = "kasir";
+            PeranAktif = "kasir";
 
             if (FormLoginUtama != null && !FormLoginUtama.IsDisposed)
             {

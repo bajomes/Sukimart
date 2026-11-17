@@ -197,7 +197,7 @@ namespace Sukimart
 
         private void button1_Click(object? sender, EventArgs e)
         {
-            Navigasi.KeluarKeLogin(this);
+            Navigasi.KonfirmasiDanKeluar(this);
         }
 
         private void btnKatalog_Click(object? sender, EventArgs e)

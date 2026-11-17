@@ -30,6 +30,17 @@ namespace Sukimart
 
             UIHelper.RatakanTengah(colNo, colWaktu, colPengguna, colJenis);
             gridLog.AllowUserToResizeRows = false;
+            colNo.FillWeight = 50F;
+            colNo.MinimumWidth = 45;
+            colWaktu.FillWeight = 160F;
+            colWaktu.MinimumWidth = 150;
+            colPengguna.FillWeight = 110F;
+            colPengguna.MinimumWidth = 90;
+            colJenis.FillWeight = 130F;
+            colJenis.MinimumWidth = 110;
+            colAksi.FillWeight = 350F;
+            colAksi.MinimumWidth = 250;
+            colAksi.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
 
             PasangNavigasi();
             InisialisasiFilter();
@@ -50,7 +61,7 @@ namespace Sukimart
             btnLaporan.Click += (s, e) => Navigasi.BukaLaporan(this);
             btnPengguna.Click += (s, e) => Navigasi.BukaPengguna(this);
             btnLogAktivitas.Click += (s, e) => { /* Sedang di form Log Aktivitas */ };
-            btnKeluar.Click += (s, e) => Navigasi.KeluarKeLogin(this);
+            btnKeluar.Click += (s, e) => Navigasi.KonfirmasiDanKeluar(this);
 
             btnSegarkan.Click += (s, e) => MuatLogAktivitas();
             btnBersihkan.Click += (s, e) => BersihkanLog();
@@ -190,17 +201,32 @@ namespace Sukimart
             // Tampilkan dengan format waktu yang presisi hingga detik
             int nomor = 1;
             gridLog.AutoGenerateColumns = false;
-            gridLog.DataSource = daftarTerfilter.Select(a => new
+            gridLog.DataSource = daftarTerfilter.Select(a =>
             {
-                No = nomor++,
-                Waktu = a.Tanggal.ToString("dd/MM/yyyy HH:mm:ss", BudayaIndonesia),
-                Pengguna = string.IsNullOrEmpty(a.NamaPengguna) ? "sistem" : a.NamaPengguna,
-                Jenis = string.IsNullOrEmpty(a.JenisAktivitas) ? PenyimpananData.TentukanJenisAktivitas(a.Aksi) : a.JenisAktivitas,
-                Aksi = a.Aksi
+                string aksiBersih = BersihkanDetailAksi(a.Aksi);
+                return new
+                {
+                    No = nomor++,
+                    Waktu = a.Tanggal.ToString("dd/MM/yyyy HH:mm:ss", BudayaIndonesia),
+                    Pengguna = string.IsNullOrEmpty(a.NamaPengguna) ? "sistem" : a.NamaPengguna,
+                    Jenis = string.IsNullOrEmpty(a.JenisAktivitas) ? PenyimpananData.TentukanJenisAktivitas(a.Aksi) : a.JenisAktivitas,
+                    Aksi = aksiBersih,
+                    DetailAktivitas = aksiBersih
+                };
             }).ToList();
 
             gridLog.ClearSelection();
             lblStatusTabel.Text = $"Menampilkan {daftarTerfilter.Count} dari total {daftarAktivitas.Count} aktivitas tercatat.";
+        }
+
+        private static string BersihkanDetailAksi(string? aksi)
+        {
+            if (string.IsNullOrWhiteSpace(aksi)) return "-";
+            if (aksi.StartsWith("Aktivitas: Mengganti Kata Sandi", StringComparison.OrdinalIgnoreCase))
+            {
+                return "Pengguna berhasil mengganti kata sandi akunnya sendiri.";
+            }
+            return aksi;
         }
 
         private void GridLog_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
@@ -212,11 +238,12 @@ namespace Sukimart
 
             var item = daftarTerfilter[e.RowIndex];
             string waktuPresisi = item.Tanggal.ToString("dddd, dd MMMM yyyy HH:mm:ss", BudayaIndonesia);
+            string aksiBersih = BersihkanDetailAksi(item.Aksi);
             string pesan = $"Rincian Log Aktivitas:\n\n" +
                            $"• Waktu Presisi: {waktuPresisi}\n" +
                            $"• Akun Pengguna: {item.NamaPengguna}\n" +
                            $"• Jenis Aktivitas: {item.JenisAktivitas}\n\n" +
-                           $"• Keterangan Lengkap:\n{item.Aksi}";
+                           $"• Keterangan Lengkap:\n{aksiBersih}";
 
             MessageBox.Show(pesan, "Detail Aktivitas", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }

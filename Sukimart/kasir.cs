@@ -68,7 +68,7 @@ namespace Sukimart
             btnLaporan.Click += (s, e) => Navigasi.BukaLaporan(this);
             btnPengguna.Click += (s, e) => Navigasi.BukaPengguna(this);
             btnLogAktivitas.Click += (s, e) => Navigasi.BukaLogAktivitas(this);
-            btnKeluar.Click += (s, e) => Navigasi.KeluarKeLogin(this);
+            btnKeluar.Click += (s, e) => Navigasi.KonfirmasiDanKeluar(this);
 
             btnTambahKeranjang.Click += BtnTambahKeranjang_Click;
             gridKeranjang.CellClick += GridKeranjang_CellClick;

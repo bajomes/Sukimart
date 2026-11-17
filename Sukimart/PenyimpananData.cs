@@ -181,13 +181,32 @@ namespace Sukimart
         public static List<Aktivitas> BacaAktivitas()
         {
             List<Aktivitas> daftar = BacaData<Aktivitas>("log_aktivitas.json");
+            bool adaMigrasi = false;
             foreach (var a in daftar)
             {
                 if (string.IsNullOrWhiteSpace(a.JenisAktivitas))
                 {
                     a.JenisAktivitas = TentukanJenisAktivitas(a.Aksi);
+                    adaMigrasi = true;
+                }
+
+                // Normalisasi catatan log lama pergantian password mandiri yang bertumpuk
+                if (!string.IsNullOrEmpty(a.Aksi) && a.Aksi.StartsWith("Aktivitas: Mengganti Kata Sandi", StringComparison.OrdinalIgnoreCase))
+                {
+                    a.Aksi = "Pengguna berhasil mengganti kata sandi akunnya sendiri.";
+                    adaMigrasi = true;
                 }
             }
+
+            if (adaMigrasi)
+            {
+                try
+                {
+                    SimpanData("log_aktivitas.json", daftar);
+                }
+                catch { }
+            }
+
             return daftar;
         }
 
@@ -229,7 +248,7 @@ namespace Sukimart
             if (a.StartsWith("UBAH KATEGORI", StringComparison.OrdinalIgnoreCase)) return "Ubah Kategori";
             if (a.StartsWith("HAPUS KATEGORI", StringComparison.OrdinalIgnoreCase)) return "Hapus Kategori";
             if (a.StartsWith("TAMBAH PENGGUNA", StringComparison.OrdinalIgnoreCase) || a.StartsWith("TAMBAH AKUN", StringComparison.OrdinalIgnoreCase)) return "Tambah Akun";
-            if (a.StartsWith("UBAH PASSWORD", StringComparison.OrdinalIgnoreCase) || a.StartsWith("UBAH KATA SANDI", StringComparison.OrdinalIgnoreCase)) return "Ubah Password";
+            if (a.StartsWith("UBAH PASSWORD", StringComparison.OrdinalIgnoreCase) || a.StartsWith("UBAH KATA SANDI", StringComparison.OrdinalIgnoreCase) || a.StartsWith("AKTIVITAS: MENGGANTI KATA SANDI", StringComparison.OrdinalIgnoreCase) || a.StartsWith("MENGGANTI KATA SANDI", StringComparison.OrdinalIgnoreCase)) return "Ubah Password";
             if (a.StartsWith("UBAH NAMA", StringComparison.OrdinalIgnoreCase) || a.StartsWith("UBAH PROFIL", StringComparison.OrdinalIgnoreCase)) return "Ubah Nama";
             if (a.StartsWith("UBAH PENGGUNA", StringComparison.OrdinalIgnoreCase) || a.StartsWith("UBAH AKUN", StringComparison.OrdinalIgnoreCase)) return "Ubah Akun";
             if (a.StartsWith("HAPUS PENGGUNA", StringComparison.OrdinalIgnoreCase) || a.StartsWith("HAPUS AKUN", StringComparison.OrdinalIgnoreCase)) return "Hapus Akun";
