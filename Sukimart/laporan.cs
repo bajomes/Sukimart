@@ -139,7 +139,7 @@ namespace Sukimart
             btnRiwayat.Click += (s, e) => Navigasi.BukaRiwayat(this);
             btnGudang.Click += (s, e) => Navigasi.BukaGudang(this);
             btnPengguna.Click += (s, e) => Navigasi.BukaPengguna(this);
-            btnKeluar.Click += (s, e) => Navigasi.KeluarKeLogin(this);
+            btnKeluar.Click += (s, e) => Navigasi.KonfirmasiDanKeluar(this);
             btnHariIni.Click += (s, e) => AturTanggal(DateTime.Today, DateTime.Today);
             btnBulanIni.Click += (s, e) => AturTanggal(new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1), DateTime.Today);
             btnSemuaWaktu.Click += (s, e) => AturTanggal(DateTime.Today.AddYears(-10), DateTime.Today);

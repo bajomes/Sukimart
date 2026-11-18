@@ -300,7 +300,7 @@ namespace Sukimart
             nightControlBox1.BackColor = Color.Transparent;
             nightControlBox1.CloseHoverColor = Color.FromArgb(199, 80, 80);
             nightControlBox1.CloseHoverForeColor = Color.White;
-            nightControlBox1.DefaultLocation = true;
+            nightControlBox1.DefaultLocation = false;
             nightControlBox1.DisableMaximizeColor = Color.FromArgb(105, 105, 105);
             nightControlBox1.DisableMinimizeColor = Color.FromArgb(105, 105, 105);
             nightControlBox1.EnableCloseColor = Color.FromArgb(160, 160, 160);
@@ -339,7 +339,7 @@ namespace Sukimart
             pnlFilter.Controls.Add(cmbFilterJenis);
             pnlFilter.Controls.Add(lblFilterJenis);
             pnlFilter.Controls.Add(txtCari);
-            pnlFilter.Location = new Point(40, 96);
+            pnlFilter.Location = new Point(40, 112);
             pnlFilter.Name = "pnlFilter";
             pnlFilter.Size = new Size(960, 56);
             pnlFilter.TabIndex = 7;
@@ -351,11 +351,11 @@ namespace Sukimart
             btnBersihkan.Cursor = Cursors.Hand;
             btnBersihkan.FlatAppearance.BorderSize = 0;
             btnBersihkan.FlatStyle = FlatStyle.Flat;
-            btnBersihkan.Font = new Font("Inter", 8.5F, FontStyle.Bold);
+            btnBersihkan.Font = new Font("Inter", 9.5F, FontStyle.Bold);
             btnBersihkan.ForeColor = Color.FromArgb(153, 27, 27);
-            btnBersihkan.Location = new Point(832, 12);
+            btnBersihkan.Location = new Point(836, 12);
             btnBersihkan.Name = "btnBersihkan";
-            btnBersihkan.Size = new Size(112, 32);
+            btnBersihkan.Size = new Size(108, 32);
             btnBersihkan.TabIndex = 7;
             btnBersihkan.Text = "Bersihkan log";
             btnBersihkan.UseVisualStyleBackColor = false;
@@ -367,11 +367,11 @@ namespace Sukimart
             btnSegarkan.Cursor = Cursors.Hand;
             btnSegarkan.FlatAppearance.BorderSize = 0;
             btnSegarkan.FlatStyle = FlatStyle.Flat;
-            btnSegarkan.Font = new Font("Inter", 9F, FontStyle.Bold);
+            btnSegarkan.Font = new Font("Inter", 9.5F, FontStyle.Bold);
             btnSegarkan.ForeColor = Color.FromArgb(55, 65, 81);
-            btnSegarkan.Location = new Point(738, 12);
+            btnSegarkan.Location = new Point(736, 12);
             btnSegarkan.Name = "btnSegarkan";
-            btnSegarkan.Size = new Size(86, 32);
+            btnSegarkan.Size = new Size(92, 32);
             btnSegarkan.TabIndex = 5;
             btnSegarkan.Text = "Refresh";
             btnSegarkan.UseVisualStyleBackColor = false;
@@ -379,53 +379,53 @@ namespace Sukimart
             // cmbFilterWaktu
             // 
             cmbFilterWaktu.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbFilterWaktu.Font = new Font("Inter", 9F);
+            cmbFilterWaktu.Font = new Font("Inter", 9.5F);
             cmbFilterWaktu.FormattingEnabled = true;
             cmbFilterWaktu.Items.AddRange(new object[] { "Semua Waktu", "Hari Ini", "7 Hari Terakhir", "30 Hari Terakhir" });
-            cmbFilterWaktu.Location = new Point(524, 16);
+            cmbFilterWaktu.Location = new Point(574, 16);
             cmbFilterWaktu.Name = "cmbFilterWaktu";
-            cmbFilterWaktu.Size = new Size(130, 26);
+            cmbFilterWaktu.Size = new Size(140, 24);
             cmbFilterWaktu.TabIndex = 4;
             // 
             // lblFilterWaktu
             // 
             lblFilterWaktu.AutoSize = true;
-            lblFilterWaktu.Font = new Font("Inter", 8.5F);
+            lblFilterWaktu.Font = new Font("Inter", 9F);
             lblFilterWaktu.ForeColor = Color.FromArgb(75, 85, 99);
-            lblFilterWaktu.Location = new Point(462, 20);
+            lblFilterWaktu.Location = new Point(514, 20);
             lblFilterWaktu.Name = "lblFilterWaktu";
-            lblFilterWaktu.Size = new Size(63, 18);
+            lblFilterWaktu.Size = new Size(56, 16);
             lblFilterWaktu.TabIndex = 3;
             lblFilterWaktu.Text = "Periode:";
             // 
             // cmbFilterJenis
             // 
             cmbFilterJenis.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbFilterJenis.Font = new Font("Inter", 9F);
+            cmbFilterJenis.Font = new Font("Inter", 9.5F);
             cmbFilterJenis.FormattingEnabled = true;
-            cmbFilterJenis.Location = new Point(316, 16);
+            cmbFilterJenis.Location = new Point(358, 16);
             cmbFilterJenis.Name = "cmbFilterJenis";
-            cmbFilterJenis.Size = new Size(130, 26);
+            cmbFilterJenis.Size = new Size(140, 24);
             cmbFilterJenis.TabIndex = 2;
             // 
             // lblFilterJenis
             // 
             lblFilterJenis.AutoSize = true;
-            lblFilterJenis.Font = new Font("Inter", 8.5F);
+            lblFilterJenis.Font = new Font("Inter", 9F);
             lblFilterJenis.ForeColor = Color.FromArgb(75, 85, 99);
-            lblFilterJenis.Location = new Point(272, 20);
+            lblFilterJenis.Location = new Point(312, 20);
             lblFilterJenis.Name = "lblFilterJenis";
-            lblFilterJenis.Size = new Size(47, 18);
+            lblFilterJenis.Size = new Size(42, 16);
             lblFilterJenis.TabIndex = 1;
             lblFilterJenis.Text = "Jenis:";
             // 
             // txtCari
             // 
-            txtCari.Font = new Font("Inter", 9F);
+            txtCari.Font = new Font("Inter", 10F);
             txtCari.Location = new Point(16, 16);
             txtCari.Name = "txtCari";
             txtCari.PlaceholderText = "Cari kata kunci, akun, detail...";
-            txtCari.Size = new Size(240, 24);
+            txtCari.Size = new Size(280, 24);
             txtCari.TabIndex = 0;
             // 
             // gridLog
@@ -459,7 +459,7 @@ namespace Sukimart
             gridLog.DefaultCellStyle = dataGridViewCellStyle2;
             gridLog.EnableHeadersVisualStyles = false;
             gridLog.GridColor = Color.FromArgb(229, 231, 235);
-            gridLog.Location = new Point(40, 168);
+            gridLog.Location = new Point(40, 180);
             gridLog.MultiSelect = false;
             gridLog.Name = "gridLog";
             gridLog.ReadOnly = true;
@@ -467,7 +467,7 @@ namespace Sukimart
             gridLog.RowHeadersWidth = 51;
             gridLog.RowTemplate.Height = 36;
             gridLog.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            gridLog.Size = new Size(960, 480);
+            gridLog.Size = new Size(960, 472);
             gridLog.TabIndex = 8;
             // 
             // colNo

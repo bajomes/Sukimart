@@ -353,8 +353,47 @@ namespace Sukimart
                 }
             };
 
+            // Kunci posisi NightControlBox agar tidak miring/terpotong di display scale 125% / DPI tinggi
+            PerbaikiNightControlBox(form);
+
             // Pasang drag dan tema grid secara menyeluruh ke semua kontrol di form
             PasangRekursif(form, form);
+        }
+
+        public static void PerbaikiNightControlBox(Form form)
+        {
+            if (form == null) return;
+            AturNightControlBoxRekursif(form);
+        }
+
+        private static void AturNightControlBoxRekursif(Control parent)
+        {
+            foreach (Control child in parent.Controls)
+            {
+                if (child is ReaLTaiizor.Controls.NightControlBox ncb)
+                {
+                    ncb.DefaultLocation = false;
+                    ncb.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+                    if (ncb.Parent != null)
+                    {
+                        ncb.Location = new Point(ncb.Parent.ClientSize.Width - ncb.Width, 0);
+                        ncb.Parent.Resize += (s, e) =>
+                        {
+                            if (ncb.Parent != null)
+                            {
+                                ncb.Location = new Point(ncb.Parent.ClientSize.Width - ncb.Width, 0);
+                                ncb.BringToFront();
+                            }
+                        };
+                    }
+                    ncb.BringToFront();
+                }
+
+                if (child.HasChildren)
+                {
+                    AturNightControlBoxRekursif(child);
+                }
+            }
         }
 
         private static void PasangRekursif(Form targetForm, Control induk)

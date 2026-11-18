@@ -119,6 +119,16 @@ namespace Sukimart
                 daftarKategori.Add(namaBaru);
                 PenyimpananData.SimpanKategori(daftarKategori);
 
+                try
+                {
+                    PenyimpananData.CatatAktivitas(
+                        Navigasi.PenggunaAktif,
+                        "Tambah Kategori",
+                        $"Menambahkan kategori baru '{namaBaru}'."
+                    );
+                }
+                catch { }
+
                 MessageBox.Show($"Kategori baru '{namaBaru}' berhasil ditambahkan!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MuatData(namaBaru);
             }
@@ -193,6 +203,16 @@ namespace Sukimart
                     PenyimpananData.SimpanBarang(daftarBarang);
                 }
 
+                try
+                {
+                    PenyimpananData.CatatAktivitas(
+                        Navigasi.PenggunaAktif,
+                        "Ubah Kategori",
+                        $"Mengubah nama kategori dari '{namaLama}' menjadi '{namaBaru}' ({terpengaruh} barang diperbarui)."
+                    );
+                }
+                catch { }
+
                 MessageBox.Show(
                     $"Nama kategori berhasil diubah menjadi '{namaBaru}'!\nSebanyak {terpengaruh} barang di katalog telah disesuaikan.",
                     "Sukses",
@@ -255,6 +275,16 @@ namespace Sukimart
 
                 daftarKategori.RemoveAll(k => k.Equals(namaHapus, StringComparison.OrdinalIgnoreCase));
                 PenyimpananData.SimpanKategori(daftarKategori);
+
+                try
+                {
+                    PenyimpananData.CatatAktivitas(
+                        Navigasi.PenggunaAktif,
+                        "Hapus Kategori",
+                        $"Menghapus kategori '{namaHapus}'."
+                    );
+                }
+                catch { }
 
                 MessageBox.Show($"Kategori '{namaHapus}' berhasil dihapus.", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MuatData();

@@ -55,6 +55,7 @@ namespace Sukimart
             btnTambahItem = new Button();
             btnEditProduk = new Button();
             btnHapusBarang = new Button();
+            btnKelolaKategori = new Button();
             pnlKiri.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureLogo).BeginInit();
             pnlKanan.SuspendLayout();
@@ -251,6 +252,7 @@ namespace Sukimart
             pnlKanan.Controls.Add(btnTambahItem);
             pnlKanan.Controls.Add(btnEditProduk);
             pnlKanan.Controls.Add(btnHapusBarang);
+            pnlKanan.Controls.Add(btnKelolaKategori);
             pnlKanan.Dock = DockStyle.Fill;
             pnlKanan.Location = new Point(240, 0);
             pnlKanan.Name = "pnlKanan";
@@ -263,7 +265,7 @@ namespace Sukimart
             nightControlBox1.BackColor = Color.Transparent;
             nightControlBox1.CloseHoverColor = Color.FromArgb(199, 80, 80);
             nightControlBox1.CloseHoverForeColor = Color.White;
-            nightControlBox1.DefaultLocation = true;
+            nightControlBox1.DefaultLocation = false;
             nightControlBox1.DisableMaximizeColor = Color.FromArgb(105, 105, 105);
             nightControlBox1.DisableMinimizeColor = Color.FromArgb(105, 105, 105);
             nightControlBox1.EnableCloseColor = Color.FromArgb(160, 160, 160);
@@ -432,6 +434,23 @@ namespace Sukimart
             btnHapusBarang.Text = "Hapus";
             btnHapusBarang.UseVisualStyleBackColor = false;
             // 
+            // btnKelolaKategori
+            // 
+            btnKelolaKategori.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnKelolaKategori.BackColor = Color.White;
+            btnKelolaKategori.Cursor = Cursors.Hand;
+            btnKelolaKategori.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
+            btnKelolaKategori.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
+            btnKelolaKategori.FlatStyle = FlatStyle.Flat;
+            btnKelolaKategori.Font = new Font("Inter", 10F, FontStyle.Bold);
+            btnKelolaKategori.ForeColor = Color.FromArgb(55, 65, 81);
+            btnKelolaKategori.Location = new Point(504, 640);
+            btnKelolaKategori.Name = "btnKelolaKategori";
+            btnKelolaKategori.Size = new Size(150, 40);
+            btnKelolaKategori.TabIndex = 8;
+            btnKelolaKategori.Text = "Kelola Kategori";
+            btnKelolaKategori.UseVisualStyleBackColor = false;
+            // 
             // FormKatalog
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -479,5 +498,6 @@ namespace Sukimart
         private Button btnTambahItem;
         private Button btnEditProduk;
         private Button btnHapusBarang;
+        private Button btnKelolaKategori;
     }
 }

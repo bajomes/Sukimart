@@ -61,6 +61,12 @@ namespace Sukimart
 
         private void AturTataLetakResponsif()
         {
+            if (nightControlBox1 != null)
+            {
+                nightControlBox1.Location = new Point(pnlKanan.ClientSize.Width - nightControlBox1.Width, 0);
+                nightControlBox1.BringToFront();
+            }
+
             int margin = 40;
             int lebarTersedia = pnlKanan.ClientSize.Width - (margin * 2);
             if (lebarTersedia < 500) return;
@@ -207,7 +213,7 @@ namespace Sukimart
 
         private void button1_Click(object? sender, EventArgs e)
         {
-            Navigasi.KeluarKeLogin(this);
+            Navigasi.KonfirmasiDanKeluar(this);
         }
 
         private void btnKatalog_Click(object? sender, EventArgs e)

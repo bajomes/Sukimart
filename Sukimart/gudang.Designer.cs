@@ -276,7 +276,7 @@ namespace Sukimart
             nightControlBox1.BackColor = Color.Transparent;
             nightControlBox1.CloseHoverColor = Color.FromArgb(199, 80, 80);
             nightControlBox1.CloseHoverForeColor = Color.White;
-            nightControlBox1.DefaultLocation = true;
+            nightControlBox1.DefaultLocation = false;
             nightControlBox1.DisableMaximizeColor = Color.FromArgb(105, 105, 105);
             nightControlBox1.DisableMinimizeColor = Color.FromArgb(105, 105, 105);
             nightControlBox1.EnableCloseColor = Color.FromArgb(160, 160, 160);

@@ -67,7 +67,7 @@ namespace Sukimart
             btnGudang.Click += (s, e) => { /* Sedang di form gudang */ };
             btnLaporan.Click += (s, e) => Navigasi.BukaLaporan(this);
             btnPengguna.Click += (s, e) => Navigasi.BukaPengguna(this);
-            btnKeluar.Click += (s, e) => Navigasi.KeluarKeLogin(this);
+            btnKeluar.Click += (s, e) => Navigasi.KonfirmasiDanKeluar(this);
 
             txtCariGudang.TextChanged += (s, e) => FilterDaftarGudang();
             btnFilterMenipis.Click += (s, e) => { hanyaMenipis = true; FilterDaftarGudang(); };
@@ -333,7 +333,11 @@ namespace Sukimart
                     Keterangan = stokKeluar ? $"{id} · {alasan}" : $"{id} · {pemasok}",
                     Pengguna = Navigasi.PenggunaAktif
                 });
-                PenyimpananData.CatatAktivitas(Navigasi.PenggunaAktif, $"{jenis} {id} {barangTerpilih.Kode} {jumlah}");
+                string jenisLog = stokKeluar ? "Stok Keluar" : "Stok Masuk";
+                string detailLog = stokKeluar
+                    ? $"{jenis} {id}: '{barangTerpilih.Nama}' ({barangTerpilih.Kode}) keluar sejumlah -{jumlah}. Alasan: '{alasan}'. Stok: {stokSebelum} -> {stokSesudah}."
+                    : $"{jenis} {id}: '{barangTerpilih.Nama}' ({barangTerpilih.Kode}) masuk sejumlah +{jumlah} dari '{pemasok}'. Stok: {stokSebelum} -> {stokSesudah}.";
+                PenyimpananData.CatatAktivitas(Navigasi.PenggunaAktif, jenisLog, detailLog);
             }
             catch (Exception ex)
             {

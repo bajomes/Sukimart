@@ -64,7 +64,7 @@ namespace Sukimart
             btnGudang.Click += (s, e) => Navigasi.BukaGudang(this);
             btnLaporan.Click += (s, e) => Navigasi.BukaLaporan(this);
             btnPengguna.Click += (s, e) => Navigasi.BukaPengguna(this);
-            btnKeluar.Click += (s, e) => Navigasi.KeluarKeLogin(this);
+            btnKeluar.Click += (s, e) => Navigasi.KonfirmasiDanKeluar(this);
 
             btnTambahKeranjang.Click += BtnTambahKeranjang_Click;
             gridKeranjang.CellClick += GridKeranjang_CellClick;
@@ -622,7 +622,7 @@ namespace Sukimart
 
                 PenyimpananData.TambahTransaksi(trx, details);
                 PenyimpananData.SimpanBarang(daftarBarang);
-                PenyimpananData.CatatAktivitas(Navigasi.PenggunaAktif, $"TRANSAKSI {idTransaksi}");
+                PenyimpananData.CatatAktivitas(Navigasi.PenggunaAktif, "Transaksi", $"Transaksi kasir {idTransaksi} selesai: Total Rp {trx.Total:N0}, Bayar Rp {trx.Bayar:N0}, Kembalian Rp {trx.Kembalian:N0} ({details.Count} jenis barang).");
 
                 try
                 {

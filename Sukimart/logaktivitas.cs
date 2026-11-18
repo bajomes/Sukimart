@@ -119,8 +119,8 @@ namespace Sukimart
 
             lblJudul.Location = new Point(margin, 32);
 
-            // Panel filter tepat di bawah judul
-            pnlFilter.Location = new Point(margin, 96);
+            // Panel filter tepat di bawah judul pada Y = 112
+            pnlFilter.Location = new Point(margin, 112);
             pnlFilter.Size = new Size(lebarTersedia, 56);
 
             // Posisikan tombol Refresh dan Bersihkan log di kanan secara presisi agar tidak menumpuk
@@ -128,8 +128,8 @@ namespace Sukimart
             btnSegarkan.Location = new Point(btnBersihkan.Left - btnSegarkan.Width - 8, 12);
 
             // Grid di bawah panel filter
-            int yGrid = pnlFilter.Bottom + 16;
-            int tinggiGrid = Math.Max(200, pnlKanan.ClientSize.Height - yGrid - 48);
+            int yGrid = pnlFilter.Bottom + 12;
+            int tinggiGrid = Math.Max(200, pnlKanan.ClientSize.Height - yGrid - 68);
             gridLog.Location = new Point(margin, yGrid);
             gridLog.Size = new Size(lebarTersedia, tinggiGrid);
 

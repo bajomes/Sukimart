@@ -27,9 +27,39 @@ namespace Sukimart
             btnHapus.Click += BtnHapus_Click;
             btnBersihkan.Click += (s, e) => BersihkanForm();
             gridPengguna.CellClick += GridPengguna_CellClick;
+            pnlKanan.Resize += (s, e) => AturTataLetakResponsif();
+            AturTataLetakResponsif();
             Shown += (s, e) => gridPengguna.ClearSelection();
             MuatPengguna();
             BersihkanForm();
+        }
+
+        private void AturTataLetakResponsif()
+        {
+            int margin = 40;
+            int gap = 24;
+            int lebarTersedia = pnlKanan.ClientSize.Width - (margin * 2);
+            if (lebarTersedia < 500) return;
+
+            if (nightControlBox1 != null)
+            {
+                nightControlBox1.Location = new Point(pnlKanan.ClientSize.Width - nightControlBox1.Width, 0);
+                nightControlBox1.BringToFront();
+            }
+
+            lblJudul.Location = new Point(margin, 32);
+            lblInfo.Location = new Point(margin, 72);
+
+            int lebarForm = 336;
+            int lebarGrid = lebarTersedia - lebarForm - gap;
+            int yKonten = 112;
+            int tinggiKonten = Math.Max(300, pnlKanan.ClientSize.Height - yKonten - margin);
+
+            gridPengguna.Location = new Point(margin, yKonten);
+            gridPengguna.Size = new Size(lebarGrid, tinggiKonten);
+
+            pnlForm.Location = new Point(gridPengguna.Right + gap, yKonten);
+            pnlForm.Size = new Size(lebarForm, tinggiKonten);
         }
 
         private void MuatPengguna()

@@ -212,7 +212,7 @@ namespace Sukimart
             sedangBeralih = true;
             try
             {
-                PenyimpananData.CatatAktivitas(PenggunaAktif, "LOGOUT");
+                PenyimpananData.CatatAktivitas(PenggunaAktif, "Logout", $"Pengguna '{PenggunaAktif}' ({PeranAktif}) keluar dari sistem.");
             }
             catch
             {
