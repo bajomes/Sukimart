@@ -8,15 +8,19 @@ namespace Sukimart
         {
             InitializeComponent();
             UIHelper.InisialisasiForm(this);
+        }
 
-            Paint += (s, e) =>
-            {
-                using Pen pena = new Pen(UIHelper.WarnaGarisTepi);
-                e.Graphics.DrawRectangle(pena, 0, 0, ClientSize.Width - 1, ClientSize.Height - 1);
-            };
+        // Menggambar garis batas (border) di sekeliling jendela dialog
+        private void FormGantiKataSandi_Paint(object? sender, PaintEventArgs e)
+        {
+            using Pen pena = new Pen(UIHelper.WarnaGarisTepi);
+            e.Graphics.DrawRectangle(pena, 0, 0, ClientSize.Width - 1, ClientSize.Height - 1);
+        }
 
-            btnBatal.Click += (s, e) => Close();
-            btnSimpan.Click += BtnSimpan_Click;
+        // Menutup formulir dialog ganti kata sandi tanpa menyimpan
+        private void btnBatal_Click(object? sender, EventArgs e)
+        {
+            Close();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -126,7 +130,8 @@ namespace Sukimart
             return true;
         }
 
-        private void BtnSimpan_Click(object? sender, EventArgs e)
+        // Memvalidasi data input dan menyimpan kata sandi baru (PBKDF2) serta mencatat log audit
+        private void btnSimpan_Click(object? sender, EventArgs e)
         {
             string sandiLama = txtSandiLama.Text;
             string sandiBaru = txtSandiBaru.Text;

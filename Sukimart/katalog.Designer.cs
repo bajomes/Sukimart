@@ -49,6 +49,7 @@ namespace Sukimart
             colKode = new DataGridViewTextBoxColumn();
             colNama = new DataGridViewTextBoxColumn();
             colKategori = new DataGridViewTextBoxColumn();
+            colHargaBeli = new DataGridViewTextBoxColumn();
             colHarga = new DataGridViewTextBoxColumn();
             colStok = new DataGridViewTextBoxColumn();
             colStokMin = new DataGridViewTextBoxColumn();
@@ -56,6 +57,8 @@ namespace Sukimart
             btnEditProduk = new Button();
             btnHapusBarang = new Button();
             btnKelolaKategori = new Button();
+            btnTabAktif = new Button();
+            btnTabNonaktif = new Button();
             pnlKiri.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureLogo).BeginInit();
             pnlKanan.SuspendLayout();
@@ -98,6 +101,7 @@ namespace Sukimart
             btnKeluar.TabIndex = 11;
             btnKeluar.Text = "Keluar";
             btnKeluar.UseVisualStyleBackColor = false;
+            btnKeluar.Click += btnKeluar_Click;
             // 
             // btnLaporan
             // 
@@ -116,6 +120,10 @@ namespace Sukimart
             btnLaporan.Text = "Laporan";
             btnLaporan.TextAlign = ContentAlignment.MiddleLeft;
             btnLaporan.UseVisualStyleBackColor = false;
+            btnLaporan.Click += btnLaporan_Click;
+            // 
+            // btnPengguna
+            // 
             btnPengguna.BackColor = Color.White;
             btnPengguna.Cursor = Cursors.Hand;
             btnPengguna.FlatAppearance.BorderSize = 0;
@@ -131,6 +139,7 @@ namespace Sukimart
             btnPengguna.Text = "Pengguna";
             btnPengguna.TextAlign = ContentAlignment.MiddleLeft;
             btnPengguna.UseVisualStyleBackColor = false;
+            btnPengguna.Click += btnPengguna_Click;
             // 
             // btnGudang
             // 
@@ -149,6 +158,7 @@ namespace Sukimart
             btnGudang.Text = "Gudang";
             btnGudang.TextAlign = ContentAlignment.MiddleLeft;
             btnGudang.UseVisualStyleBackColor = false;
+            btnGudang.Click += btnGudang_Click;
             // 
             // btnRiwayat
             // 
@@ -167,6 +177,7 @@ namespace Sukimart
             btnRiwayat.Text = "Riwayat Transaksi";
             btnRiwayat.TextAlign = ContentAlignment.MiddleLeft;
             btnRiwayat.UseVisualStyleBackColor = false;
+            btnRiwayat.Click += btnRiwayat_Click;
             // 
             // btnKatalog
             // 
@@ -185,6 +196,7 @@ namespace Sukimart
             btnKatalog.Text = "Katalog Produk";
             btnKatalog.TextAlign = ContentAlignment.MiddleLeft;
             btnKatalog.UseVisualStyleBackColor = false;
+            btnKatalog.Click += btnKatalog_Click;
             // 
             // btnKasir
             // 
@@ -203,6 +215,7 @@ namespace Sukimart
             btnKasir.Text = "Kasir / POS";
             btnKasir.TextAlign = ContentAlignment.MiddleLeft;
             btnKasir.UseVisualStyleBackColor = false;
+            btnKasir.Click += btnKasir_Click;
             // 
             // btnDashboard
             // 
@@ -221,6 +234,7 @@ namespace Sukimart
             btnDashboard.Text = "Dashboard";
             btnDashboard.TextAlign = ContentAlignment.MiddleLeft;
             btnDashboard.UseVisualStyleBackColor = false;
+            btnDashboard.Click += btnDashboard_Click;
             // 
             // pictureLogo
             // 
@@ -248,6 +262,8 @@ namespace Sukimart
             pnlKanan.Controls.Add(nightControlBox1);
             pnlKanan.Controls.Add(lblJudulKatalog);
             pnlKanan.Controls.Add(txtCari);
+            pnlKanan.Controls.Add(btnTabAktif);
+            pnlKanan.Controls.Add(btnTabNonaktif);
             pnlKanan.Controls.Add(gridBarang);
             pnlKanan.Controls.Add(btnTambahItem);
             pnlKanan.Controls.Add(btnEditProduk);
@@ -301,8 +317,43 @@ namespace Sukimart
             txtCari.Location = new Point(40, 116);
             txtCari.Name = "txtCari";
             txtCari.PlaceholderText = "Cari berdasarkan nama, kode, atau kategori barang...";
-            txtCari.Size = new Size(960, 24);
+            txtCari.Size = new Size(712, 24);
             txtCari.TabIndex = 3;
+            txtCari.TextChanged += txtCari_TextChanged;
+            // 
+            // btnTabAktif
+            // 
+            btnTabAktif.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnTabAktif.BackColor = Color.FromArgb(255, 196, 0);
+            btnTabAktif.Cursor = Cursors.Hand;
+            btnTabAktif.FlatAppearance.BorderSize = 0;
+            btnTabAktif.FlatStyle = FlatStyle.Flat;
+            btnTabAktif.Font = new Font("Inter", 9.5F, FontStyle.Bold);
+            btnTabAktif.ForeColor = Color.FromArgb(31, 41, 55);
+            btnTabAktif.Location = new Point(768, 112);
+            btnTabAktif.Name = "btnTabAktif";
+            btnTabAktif.Size = new Size(112, 32);
+            btnTabAktif.TabIndex = 9;
+            btnTabAktif.Text = "Barang Aktif";
+            btnTabAktif.UseVisualStyleBackColor = false;
+            btnTabAktif.Click += btnTabAktif_Click;
+            // 
+            // btnTabNonaktif
+            // 
+            btnTabNonaktif.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnTabNonaktif.BackColor = Color.White;
+            btnTabNonaktif.Cursor = Cursors.Hand;
+            btnTabNonaktif.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
+            btnTabNonaktif.FlatStyle = FlatStyle.Flat;
+            btnTabNonaktif.Font = new Font("Inter", 9.5F);
+            btnTabNonaktif.ForeColor = Color.FromArgb(107, 114, 128);
+            btnTabNonaktif.Location = new Point(888, 112);
+            btnTabNonaktif.Name = "btnTabNonaktif";
+            btnTabNonaktif.Size = new Size(112, 32);
+            btnTabNonaktif.TabIndex = 10;
+            btnTabNonaktif.Text = "Nonaktif";
+            btnTabNonaktif.UseVisualStyleBackColor = false;
+            btnTabNonaktif.Click += btnTabNonaktif_Click;
             // 
             // gridBarang
             // 
@@ -321,7 +372,7 @@ namespace Sukimart
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             gridBarang.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             gridBarang.ColumnHeadersHeight = 40;
-            gridBarang.Columns.AddRange(new DataGridViewColumn[] { colKode, colNama, colKategori, colHarga, colStok, colStokMin });
+            gridBarang.Columns.AddRange(new DataGridViewColumn[] { colKode, colNama, colKategori, colHargaBeli, colHarga, colStok, colStokMin });
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = SystemColors.Window;
             dataGridViewCellStyle2.Font = new Font("Inter", 10F);
@@ -367,6 +418,14 @@ namespace Sukimart
             colKategori.Name = "colKategori";
             colKategori.ReadOnly = true;
             // 
+            // colHargaBeli
+            // 
+            colHargaBeli.DataPropertyName = "HargaBeliFormat";
+            colHargaBeli.FillWeight = 95F;
+            colHargaBeli.HeaderText = "Harga Beli (Rp)";
+            colHargaBeli.Name = "colHargaBeli";
+            colHargaBeli.ReadOnly = true;
+            // 
             // colHarga
             // 
             colHarga.DataPropertyName = "HargaFormat";
@@ -404,6 +463,10 @@ namespace Sukimart
             btnTambahItem.TabIndex = 5;
             btnTambahItem.Text = "+ Tambah Item";
             btnTambahItem.UseVisualStyleBackColor = false;
+            btnTambahItem.Click += btnTambahItem_Click;
+            // 
+            // btnEditProduk
+            // 
             btnEditProduk.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnEditProduk.BackColor = Color.White;
             btnEditProduk.Cursor = Cursors.Hand;
@@ -417,6 +480,7 @@ namespace Sukimart
             btnEditProduk.TabIndex = 6;
             btnEditProduk.Text = "Edit Produk";
             btnEditProduk.UseVisualStyleBackColor = false;
+            btnEditProduk.Click += btnEditProduk_Click;
             // 
             // btnHapusBarang
             // 
@@ -433,6 +497,7 @@ namespace Sukimart
             btnHapusBarang.TabIndex = 7;
             btnHapusBarang.Text = "Hapus";
             btnHapusBarang.UseVisualStyleBackColor = false;
+            btnHapusBarang.Click += btnHapusBarang_Click;
             // 
             // btnKelolaKategori
             // 
@@ -450,6 +515,7 @@ namespace Sukimart
             btnKelolaKategori.TabIndex = 8;
             btnKelolaKategori.Text = "Kelola Kategori";
             btnKelolaKategori.UseVisualStyleBackColor = false;
+            btnKelolaKategori.Click += btnKelolaKategori_Click;
             // 
             // FormKatalog
             // 
@@ -492,6 +558,7 @@ namespace Sukimart
         private DataGridViewTextBoxColumn colKode;
         private DataGridViewTextBoxColumn colNama;
         private DataGridViewTextBoxColumn colKategori;
+        private DataGridViewTextBoxColumn colHargaBeli;
         private DataGridViewTextBoxColumn colHarga;
         private DataGridViewTextBoxColumn colStok;
         private DataGridViewTextBoxColumn colStokMin;
@@ -499,5 +566,7 @@ namespace Sukimart
         private Button btnEditProduk;
         private Button btnHapusBarang;
         private Button btnKelolaKategori;
+        private Button btnTabAktif;
+        private Button btnTabNonaktif;
     }
 }

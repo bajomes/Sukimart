@@ -1,5 +1,10 @@
 namespace Sukimart
 {
+    /// <summary>
+    /// FormTambahBarang: Dialog formulir untuk menambah barang baru ke katalog atau mengedit data barang yang sudah ada.
+    /// Mendukung input Harga Beli (modal), Harga Jual, dan batas stok minimum.
+    /// Kode barang digenerate secara otomatis (BRG001, BRG002, dst.) pada mode tambah.
+    /// </summary>
     public partial class FormTambahBarang : Form
     {
         private readonly List<Barang> daftarBarang;
@@ -14,27 +19,13 @@ namespace Sukimart
             this.daftarBarang = daftarBarang;
             this.barangEdit = barangEdit;
 
-            Paint += (s, e) =>
-            {
-                using Pen pena = new Pen(UIHelper.WarnaGarisTepi);
-                e.Graphics.DrawRectangle(pena, 0, 0, ClientSize.Width - 1, ClientSize.Height - 1);
-            };
-            btnKelolaKategori.Click += BtnKelolaKategori_Click;
-            btnSimpan.Click += BtnSimpan_Click;
-            btnBatal.Click += (s, e) =>
-            {
-                if (!string.IsNullOrEmpty(KodeTersimpan))
-                {
-                    DialogResult = DialogResult.OK;
-                }
-                Close();
-            };
-
             if (barangEdit == null)
             {
                 // Mode tambah: isi kode otomatis (BRG001, BRG002, dst.)
                 txtKode.Text = GenerasiKodeBarang(daftarBarang);
                 MuatKategori("", false);
+                nudHargaBeli.Value = 0;
+                nudHarga.Value = 0;
                 nudStokMinimum.Value = 5;
             }
             else
@@ -47,10 +38,28 @@ namespace Sukimart
                 txtKode.ReadOnly = true; // Kode tidak boleh diubah saat edit
                 txtNama.Text = barangEdit.Nama;
                 MuatKategori(barangEdit.Kategori, true);
+                nudHargaBeli.Value = Math.Min(nudHargaBeli.Maximum, Math.Max(0, barangEdit.HargaBeli));
                 nudHarga.Value = Math.Min(nudHarga.Maximum, Math.Max(0, barangEdit.Harga));
                 nudStokMinimum.Value = Math.Min(nudStokMinimum.Maximum, Math.Max(0, barangEdit.StokMinimum));
                 lblInfo.Text = $"Stok saat ini {barangEdit.Stok}. Ubah stok melalui menu Gudang.";
             }
+        }
+
+        // Menggambar garis batas (border) di sekeliling jendela dialog
+        private void FormTambahBarang_Paint(object? sender, PaintEventArgs e)
+        {
+            using Pen pena = new Pen(UIHelper.WarnaGarisTepi);
+            e.Graphics.DrawRectangle(pena, 0, 0, ClientSize.Width - 1, ClientSize.Height - 1);
+        }
+
+        // Menutup formulir dialog; jika sudah ada produk baru yang berhasil disimpan, kembalikan DialogResult.OK
+        private void btnBatal_Click(object? sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(KodeTersimpan))
+            {
+                DialogResult = DialogResult.OK;
+            }
+            Close();
         }
 
         /// <summary>
@@ -127,7 +136,8 @@ namespace Sukimart
             }
         }
 
-        private void BtnKelolaKategori_Click(object? sender, EventArgs e)
+        // Membuka jendela dialog kelola kategori produk
+        private void btnKelolaKategori_Click(object? sender, EventArgs e)
         {
             string kategoriSekarang = cmbKategori.SelectedItem?.ToString() ?? "";
             using (FormKelolaKategori formKategori = new FormKelolaKategori(kategoriSekarang))
@@ -167,12 +177,14 @@ namespace Sukimart
             }
         }
 
-        private void BtnSimpan_Click(object? sender, EventArgs e)
+        // Memvalidasi data masukan dan menyimpan produk baru / perubahan produk (Kasus Uji 10, 11, 12)
+        private void btnSimpan_Click(object? sender, EventArgs e)
         {
             string kode = txtKode.Text.Trim();
             string nama = txtNama.Text.Trim();
             string kategori = cmbKategori.SelectedItem?.ToString() ?? "Lainnya";
-            int harga = (int)nudHarga.Value;
+            int hargaBeli = (int)nudHargaBeli.Value;
+            int hargaJual = (int)nudHarga.Value;
             int stokMinimum = (int)nudStokMinimum.Value;
 
             if (string.IsNullOrWhiteSpace(kode))
@@ -195,7 +207,14 @@ namespace Sukimart
                 return;
             }
 
-            if (harga <= 0)
+            if (hargaBeli < 0)
+            {
+                Peringatan("Harga beli tidak boleh bernilai negatif.", nudHargaBeli);
+                nudHargaBeli.Focus();
+                return;
+            }
+
+            if (hargaJual <= 0)
             {
                 Peringatan("Harga jual harus lebih dari 0.", nudHarga);
                 nudHarga.Select(0, nudHarga.Text.Length);
@@ -204,24 +223,26 @@ namespace Sukimart
 
             if (barangEdit == null)
             {
-                TambahBarang(kode, nama, kategori, harga, stokMinimum);
+                TambahBarang(kode, nama, kategori, hargaBeli, hargaJual, stokMinimum);
             }
             else
             {
-                UbahBarang(barangEdit, kode, nama, kategori, harga, stokMinimum);
+                UbahBarang(barangEdit, kode, nama, kategori, hargaBeli, hargaJual, stokMinimum);
             }
         }
 
-        private void TambahBarang(string kode, string nama, string kategori, int harga, int stokMinimum)
+        private void TambahBarang(string kode, string nama, string kategori, int hargaBeli, int hargaJual, int stokMinimum)
         {
             Barang baru = new Barang
             {
                 Kode = kode,
                 Nama = nama,
                 Kategori = kategori,
-                Harga = harga,
+                HargaBeli = hargaBeli,
+                Harga = hargaJual,
                 Stok = 0,
-                StokMinimum = stokMinimum
+                StokMinimum = stokMinimum,
+                Aktif = true
             };
 
             daftarBarang.Add(baru);
@@ -231,7 +252,7 @@ namespace Sukimart
                 PenyimpananData.CatatAktivitas(
                     Navigasi.PenggunaAktif,
                     "Tambah Barang",
-                    $"Menambahkan barang baru '{nama}' ({kode}) | Kategori: {kategori} | Harga: Rp {harga:N0} | Stok Minimum: {stokMinimum}."
+                    $"Menambahkan barang baru '{nama}' ({kode}) | Kategori: {kategori} | Harga Beli: Rp {hargaBeli:N0} | Harga Jual: Rp {hargaJual:N0} | Stok Minimum: {stokMinimum}."
                 );
             }
             catch (Exception ex)
@@ -249,18 +270,20 @@ namespace Sukimart
             txtNama.Focus();
         }
 
-        private void UbahBarang(Barang barang, string kode, string nama, string kategori, int harga, int stokMinimum)
+        private void UbahBarang(Barang barang, string kode, string nama, string kategori, int hargaBeli, int hargaJual, int stokMinimum)
         {
             string kodeLama = barang.Kode;
             string namaLama = barang.Nama;
             string kategoriLama = barang.Kategori;
-            int hargaLama = barang.Harga;
+            int hargaBeliLama = barang.HargaBeli;
+            int hargaJualLama = barang.Harga;
             int stokMinimumLama = barang.StokMinimum;
 
             barang.Kode = kode;
             barang.Nama = nama;
             barang.Kategori = kategori;
-            barang.Harga = harga;
+            barang.HargaBeli = hargaBeli;
+            barang.Harga = hargaJual;
             barang.StokMinimum = stokMinimum;
 
             try
@@ -270,7 +293,8 @@ namespace Sukimart
                 List<string> perubahan = new List<string>();
                 if (namaLama != nama) perubahan.Add($"Nama: '{namaLama}' -> '{nama}'");
                 if (kategoriLama != kategori) perubahan.Add($"Kategori: '{kategoriLama}' -> '{kategori}'");
-                if (hargaLama != harga) perubahan.Add($"Harga: Rp {hargaLama:N0} -> Rp {harga:N0}");
+                if (hargaBeliLama != hargaBeli) perubahan.Add($"Harga Beli: Rp {hargaBeliLama:N0} -> Rp {hargaBeli:N0}");
+                if (hargaJualLama != hargaJual) perubahan.Add($"Harga Jual: Rp {hargaJualLama:N0} -> Rp {hargaJual:N0}");
                 if (stokMinimumLama != stokMinimum) perubahan.Add($"Stok Min: {stokMinimumLama} -> {stokMinimum}");
                 string detail = perubahan.Count > 0 ? string.Join(", ", perubahan) : "Data diperbarui tanpa perubahan atribut";
 
@@ -285,7 +309,8 @@ namespace Sukimart
                 barang.Kode = kodeLama;
                 barang.Nama = namaLama;
                 barang.Kategori = kategoriLama;
-                barang.Harga = hargaLama;
+                barang.HargaBeli = hargaBeliLama;
+                barang.Harga = hargaJualLama;
                 barang.StokMinimum = stokMinimumLama;
                 MessageBox.Show("Gagal memperbarui data barang: " + ex.Message, "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

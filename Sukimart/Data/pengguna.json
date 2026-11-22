@@ -1,0 +1,52 @@
+﻿[
+    {
+        "namaPengguna":  "admin",
+        "namaLengkap":  "Administrator Suki MART",
+        "peran":  "admin",
+        "aktif":  true,
+        "hashSandi":  "CKu4u0abIDCO9yJV68TCos+I++0kviqh5QB/HqPWG5g=",
+        "garam":  "xsHJbqYD4dRTPIFbgvT5Bw==",
+        "iterasi":  100000,
+        "dibuat":  "2026-11-01T08:00:00"
+    },
+    {
+        "namaPengguna":  "kasir1",
+        "namaLengkap":  "Dewi Lestari",
+        "peran":  "kasir",
+        "aktif":  true,
+        "hashSandi":  "jsmVQRC2QyQi1rD4S6HpDp+S55DQmz18TUtyS+Qrn2g=",
+        "garam":  "Z8nempXbDOEmq3g3H3v3Og==",
+        "iterasi":  100000,
+        "dibuat":  "2026-11-01T08:00:00"
+    },
+    {
+        "namaPengguna":  "kasir2",
+        "namaLengkap":  "Rian Saputra",
+        "peran":  "kasir",
+        "aktif":  true,
+        "hashSandi":  "CaqB0rGGFAHPnKXxUorOQhb/j3fXgkU2ZFNBsbIZ27w=",
+        "garam":  "rgwf898TsN3GdhsNKBbhnQ==",
+        "iterasi":  100000,
+        "dibuat":  "2026-11-01T08:00:00"
+    },
+    {
+        "namaPengguna":  "kasir3",
+        "namaLengkap":  "Sari Wulandari",
+        "peran":  "kasir",
+        "aktif":  false,
+        "hashSandi":  "/DSYFEqQuJif2/+83R1Pw4CAf/5rOKKoE1vquH38Zvg=",
+        "garam":  "6OwjLB9+2m+d3RVahe5Zjg==",
+        "iterasi":  100000,
+        "dibuat":  "2026-11-01T08:00:00"
+    },
+    {
+        "namaPengguna":  "gudang1",
+        "namaLengkap":  "Budi Santoso",
+        "peran":  "gudang",
+        "aktif":  true,
+        "hashSandi":  "3rEwzE2mHBIAJxhAZlPSKbi7C8QhDlWF9a3mKGEAOWw=",
+        "garam":  "NQpH1zEznAT+Dw097KNGjA==",
+        "iterasi":  100000,
+        "dibuat":  "2026-11-01T08:00:00"
+    }
+]

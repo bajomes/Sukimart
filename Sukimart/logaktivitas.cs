@@ -7,16 +7,28 @@ using System.Windows.Forms;
 
 namespace Sukimart
 {
+    /// <summary>
+    /// FormLogAktivitas: Formulir untuk memantau audit trail dan catatan riwayat aktivitas sistem
+    /// (Fitur Esensial E5: log_aktivitas.json).
+    /// Mencatat waktu login/logout, penambahan/perubahan/penghapusan barang dan kategori,
+    /// mutasi stok masuk/keluar di gudang, dan transaksi penjualan kasir.
+    /// </summary>
     public partial class FormLogAktivitas : Form
     {
+        // Format tanggal budaya Indonesia (dd/MM/yyyy HH:mm:ss)
         private static readonly CultureInfo BudayaIndonesia = new CultureInfo("id-ID");
+
+        // Daftar seluruh aktivitas yang dibaca dari log_aktivitas.json
         private List<Aktivitas> daftarAktivitas = new List<Aktivitas>();
+
+        // Daftar aktivitas yang telah difilter berdasarkan kata kunci, jenis, dan periode
         private List<Aktivitas> daftarTerfilter = new List<Aktivitas>();
 
         public FormLogAktivitas()
         {
             InitializeComponent();
 
+            // Proteksi hak akses: Menu log aktivitas hanya untuk Administrator
             if (Navigasi.PeranAktif != "admin")
             {
                 MessageBox.Show("Menu Log Aktivitas hanya dapat diakses oleh Admin.", "Akses Ditolak", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -28,6 +40,7 @@ namespace Sukimart
             UIHelper.SusunTombolSidebar(pnlKiri);
             MaximizeBox = true;
 
+            // Atur perataan teks dan proporsi kolom DataGridView
             UIHelper.RatakanTengah(colNo, colWaktu, colPengguna, colJenis);
             gridLog.AllowUserToResizeRows = false;
             colNo.FillWeight = 50F;
@@ -42,37 +55,26 @@ namespace Sukimart
             colAksi.MinimumWidth = 250;
             colAksi.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
 
-            PasangNavigasi();
+            gridLog.CellDoubleClick += GridLog_CellDoubleClick;
+
+            // Isi pilihan filter jenis aktivitas dan periode
             InisialisasiFilter();
 
+            // Tangani event resize agar tampilan tetap responsif
             pnlKanan.Resize += (s, e) => AturTataLetakResponsif();
             AturTataLetakResponsif();
 
+            // Muat data dari berkas log_aktivitas.json
             MuatLogAktivitas();
         }
 
-        private void PasangNavigasi()
-        {
-            btnDashboard.Click += (s, e) => Navigasi.BukaDashboard(this);
-            btnKasir.Click += (s, e) => Navigasi.BukaKasir(this);
-            btnKatalog.Click += (s, e) => Navigasi.BukaKatalog(this);
-            btnRiwayat.Click += (s, e) => Navigasi.BukaRiwayat(this);
-            btnGudang.Click += (s, e) => Navigasi.BukaGudang(this);
-            btnLaporan.Click += (s, e) => Navigasi.BukaLaporan(this);
-            btnPengguna.Click += (s, e) => Navigasi.BukaPengguna(this);
-            btnLogAktivitas.Click += (s, e) => { /* Sedang di form Log Aktivitas */ };
-            btnKeluar.Click += (s, e) => Navigasi.KonfirmasiDanKeluar(this);
+        // =========================================================================
+        // PENGATURAN TATA LETAK RESPONSIF & FILTER
+        // =========================================================================
 
-            btnSegarkan.Click += (s, e) => MuatLogAktivitas();
-            btnBersihkan.Click += (s, e) => BersihkanLog();
-
-            txtCari.TextChanged += (s, e) => TerapkanFilter();
-            cmbFilterJenis.SelectedIndexChanged += (s, e) => TerapkanFilter();
-            cmbFilterWaktu.SelectedIndexChanged += (s, e) => TerapkanFilter();
-
-            gridLog.CellDoubleClick += GridLog_CellDoubleClick;
-        }
-
+        /// <summary>
+        /// Mengisi pilihan jenis aktivitas dan periode waktu ke dalam dropdown filter.
+        /// </summary>
         private void InisialisasiFilter()
         {
             cmbFilterJenis.Items.Clear();
@@ -105,6 +107,9 @@ namespace Sukimart
             }
         }
 
+        /// <summary>
+        /// Menyesuaikan tata letak panel filter, tombol refresh/bersihkan, dan tabel log.
+        /// </summary>
         private void AturTataLetakResponsif()
         {
             int margin = 40;
@@ -118,8 +123,9 @@ namespace Sukimart
             }
 
             lblJudul.Location = new Point(margin, 32);
+            lblStatusTabel.Location = new Point(margin, 72);
 
-            // Panel filter tepat di bawah judul pada Y = 112
+            // Panel filter tepat di bawah subjudul pada Y = 112
             pnlFilter.Location = new Point(margin, 112);
             pnlFilter.Size = new Size(lebarTersedia, 56);
 
@@ -127,15 +133,104 @@ namespace Sukimart
             btnBersihkan.Location = new Point(pnlFilter.ClientSize.Width - btnBersihkan.Width - 16, 12);
             btnSegarkan.Location = new Point(btnBersihkan.Left - btnSegarkan.Width - 8, 12);
 
-            // Grid di bawah panel filter
+            // Grid di bawah panel filter (Y = 180) dan berakhir di Y = 680 agar sejajar dengan formulir lain
             int yGrid = pnlFilter.Bottom + 12;
-            int tinggiGrid = Math.Max(200, pnlKanan.ClientSize.Height - yGrid - 68);
+            int tinggiGrid = Math.Max(200, pnlKanan.ClientSize.Height - yGrid - 40);
             gridLog.Location = new Point(margin, yGrid);
             gridLog.Size = new Size(lebarTersedia, tinggiGrid);
-
-            lblStatusTabel.Location = new Point(margin, gridLog.Bottom + 8);
         }
 
+        // =========================================================================
+        // EVENT HANDLER NAVIGASI SIDEBAR
+        // (Tersambung langsung dengan Designer via Event Click)
+        // =========================================================================
+
+        private void btnDashboard_Click(object? sender, EventArgs e)
+        {
+            Navigasi.BukaDashboard(this);
+        }
+
+        private void btnKasir_Click(object? sender, EventArgs e)
+        {
+            Navigasi.BukaKasir(this);
+        }
+
+        private void btnKatalog_Click(object? sender, EventArgs e)
+        {
+            Navigasi.BukaKatalog(this);
+        }
+
+        private void btnRiwayat_Click(object? sender, EventArgs e)
+        {
+            Navigasi.BukaRiwayat(this);
+        }
+
+        private void btnGudang_Click(object? sender, EventArgs e)
+        {
+            Navigasi.BukaGudang(this);
+        }
+
+        private void btnLaporan_Click(object? sender, EventArgs e)
+        {
+            Navigasi.BukaLaporan(this);
+        }
+
+        private void btnPengguna_Click(object? sender, EventArgs e)
+        {
+            Navigasi.BukaPengguna(this);
+        }
+
+        private void btnLogAktivitas_Click(object? sender, EventArgs e)
+        {
+            // Sedang di form log aktivitas
+        }
+
+        private void btnKeluar_Click(object? sender, EventArgs e)
+        {
+            Navigasi.KonfirmasiDanKeluar(this);
+        }
+
+        // =========================================================================
+        // EVENT HANDLER FILTER & AKSI LOG
+        // =========================================================================
+
+        // Tombol Refresh: Membaca ulang log dari file log_aktivitas.json
+        private void btnSegarkan_Click(object? sender, EventArgs e)
+        {
+            MuatLogAktivitas();
+        }
+
+        // Tombol Bersihkan Log: Menghapus seluruh riwayat log dengan konfirmasi
+        private void btnBersihkan_Click(object? sender, EventArgs e)
+        {
+            BersihkanLog();
+        }
+
+        // Pencarian live saat mengetik kata kunci
+        private void txtCari_TextChanged(object? sender, EventArgs e)
+        {
+            TerapkanFilter();
+        }
+
+        // Filter saat jenis aktivitas dipilih
+        private void cmbFilterJenis_SelectedIndexChanged(object? sender, EventArgs e)
+        {
+            TerapkanFilter();
+        }
+
+        // Filter saat rentang waktu dipilih
+        private void cmbFilterWaktu_SelectedIndexChanged(object? sender, EventArgs e)
+        {
+            TerapkanFilter();
+        }
+
+        // =========================================================================
+        // LOGIKA PENYARINGAN & PENGOLAHAN DATA
+        // =========================================================================
+
+        /// <summary>
+        /// Memuat riwayat aktivitas dari penyimpanan data log_aktivitas.json.
+        /// </summary>
         public void MuatLogAktivitas()
         {
             try
@@ -150,6 +245,9 @@ namespace Sukimart
             }
         }
 
+        /// <summary>
+        /// Menerapkan kombinasi filter kata kunci, jenis aktivitas, dan periode waktu.
+        /// </summary>
         private void TerapkanFilter()
         {
             string keyword = txtCari.Text.Trim().ToLowerInvariant();
@@ -167,13 +265,13 @@ namespace Sukimart
             daftarTerfilter = daftarAktivitas
                 .Where(a =>
                 {
-                    // Filter Waktu
+                    // Filter rentang waktu
                     if (indexWaktu > 0 && a.Tanggal < batasWaktu)
                     {
                         return false;
                     }
 
-                    // Filter Jenis Aktivitas
+                    // Filter jenis aktivitas
                     if (jenisPilihan != "Semua Jenis")
                     {
                         if (!string.Equals(a.JenisAktivitas, jenisPilihan, StringComparison.OrdinalIgnoreCase))
@@ -182,7 +280,7 @@ namespace Sukimart
                         }
                     }
 
-                    // Filter Pencarian Teks
+                    // Filter kata kunci pencarian (username, jenis, detail keterangan, atau tanggal)
                     if (!string.IsNullOrEmpty(keyword))
                     {
                         bool cocokUser = (a.NamaPengguna ?? "").ToLowerInvariant().Contains(keyword);
@@ -201,7 +299,7 @@ namespace Sukimart
                 .OrderByDescending(a => a.Tanggal)
                 .ToList();
 
-            // Tampilkan dengan format waktu yang presisi hingga detik
+            // Tampilkan ke DataGridView dengan format waktu presisi hingga detik
             int nomor = 1;
             gridLog.AutoGenerateColumns = false;
             gridLog.DataSource = daftarTerfilter.Select(a =>
@@ -222,6 +320,9 @@ namespace Sukimart
             lblStatusTabel.Text = $"Menampilkan {daftarTerfilter.Count} dari total {daftarAktivitas.Count} aktivitas tercatat.";
         }
 
+        /// <summary>
+        /// Membersihkan format teks pesan aksi agar lebih mudah dibaca.
+        /// </summary>
         private static string BersihkanDetailAksi(string? aksi)
         {
             if (string.IsNullOrWhiteSpace(aksi)) return "-";
@@ -232,6 +333,9 @@ namespace Sukimart
             return aksi;
         }
 
+        /// <summary>
+        /// Menampilkan kotak pesan detail saat baris log diklik dua kali.
+        /// </summary>
         private void GridLog_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || e.RowIndex >= daftarTerfilter.Count)
@@ -251,6 +355,9 @@ namespace Sukimart
             MessageBox.Show(pesan, "Detail Aktivitas", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        /// <summary>
+        /// Mengosongkan file log_aktivitas.json dan mencatat aktivitas pembersihan.
+        /// </summary>
         private void BersihkanLog()
         {
             if (Navigasi.PeranAktif != "admin")

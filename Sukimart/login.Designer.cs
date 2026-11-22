@@ -134,6 +134,8 @@ namespace Sukimart
             txtPassword.Size = new Size(400, 25);
             txtPassword.TabIndex = 4;
             txtPassword.UseSystemPasswordChar = true;
+            txtPassword.TextChanged += txtPassword_TextChanged;
+            txtPassword.KeyDown += txtPassword_KeyDown;
             // 
             // txtUsername
             // 
@@ -145,6 +147,8 @@ namespace Sukimart
             txtUsername.PlaceholderText = "Masukkan nama pengguna";
             txtUsername.Size = new Size(400, 25);
             txtUsername.TabIndex = 3;
+            txtUsername.TextChanged += txtUsername_TextChanged;
+            txtUsername.KeyDown += txtUsername_KeyDown;
             // 
             // lblJudul
             // 

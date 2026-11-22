@@ -77,6 +77,7 @@ namespace Sukimart
             gridRiwayat.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             gridRiwayat.Size = new Size(832, 404);
             gridRiwayat.TabIndex = 1;
+            gridRiwayat.CellFormatting += gridRiwayat_CellFormatting;
             colTanggal.DataPropertyName = "Tanggal";
             colTanggal.FillWeight = 150F;
             colTanggal.HeaderText = "Tanggal";
@@ -138,6 +139,10 @@ namespace Sukimart
             btnTutup.TabIndex = 2;
             btnTutup.Text = "Tutup";
             btnTutup.UseVisualStyleBackColor = false;
+            btnTutup.Click += btnTutup_Click;
+            // 
+            // FormRiwayatStok
+            // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(247, 247, 245);
@@ -153,6 +158,7 @@ namespace Sukimart
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Riwayat Stok";
+            Paint += FormRiwayatStok_Paint;
             ((System.ComponentModel.ISupportInitialize)gridRiwayat).EndInit();
             ResumeLayout(false);
             PerformLayout();

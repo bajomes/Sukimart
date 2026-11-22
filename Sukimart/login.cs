@@ -16,12 +16,33 @@ namespace Sukimart
         {
             InitializeComponent();
             UIHelper.InisialisasiForm(this);
-            txtUsername.TextChanged += (s, e) => lblUsnSalah.Text = "";
-            txtPassword.TextChanged += (s, e) => lblPassSalah.Text = "";
-            txtUsername.KeyDown += TxtInput_KeyDown;
-            txtPassword.KeyDown += TxtInput_KeyDown;
         }
 
+        // Menghapus pesan kesalahan username saat pengguna mulai mengetik kembali
+        private void txtUsername_TextChanged(object? sender, EventArgs e)
+        {
+            lblUsnSalah.Text = "";
+        }
+
+        // Menghapus pesan kesalahan kata sandi saat pengguna mulai mengetik kembali
+        private void txtPassword_TextChanged(object? sender, EventArgs e)
+        {
+            lblPassSalah.Text = "";
+        }
+
+        // Menekan Enter pada kolom nama pengguna langsung memicu tombol Masuk
+        private void txtUsername_KeyDown(object? sender, KeyEventArgs e)
+        {
+            TxtInput_KeyDown(sender, e);
+        }
+
+        // Menekan Enter pada kolom kata sandi langsung memicu tombol Masuk
+        private void txtPassword_KeyDown(object? sender, KeyEventArgs e)
+        {
+            TxtInput_KeyDown(sender, e);
+        }
+
+        // Pintasan keyboard: Tombol Enter menjalankan proses login
         private void TxtInput_KeyDown(object? sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -32,6 +53,7 @@ namespace Sukimart
             }
         }
 
+        // Memproses autentikasi pengguna, validasi status aktif, verifikasi hash PBKDF2, dan batasan 3 kali percobaan (Kasus Uji 1 & 2)
         private void btnMasuk_Click(object sender, EventArgs e)
         {
             lblUsnSalah.Text = "";
@@ -42,12 +64,14 @@ namespace Sukimart
 
             bool adaError = false;
 
+            // Validasi: Nama pengguna wajib diisi
             if (string.IsNullOrEmpty(username))
             {
                 lblUsnSalah.Text = "Nama pengguna wajib diisi";
                 adaError = true;
             }
 
+            // Validasi: Kata sandi wajib diisi
             if (string.IsNullOrEmpty(password))
             {
                 lblPassSalah.Text = "Kata sandi wajib diisi";
@@ -62,6 +86,7 @@ namespace Sukimart
             Pengguna? akun;
             try
             {
+                // Cari akun berdasarkan nama pengguna tanpa membedakan huruf besar/kecil (case-insensitive)
                 akun = PenyimpananData.BacaPengguna()
                     .FirstOrDefault(p => string.Equals(p.NamaPengguna, username, StringComparison.OrdinalIgnoreCase));
             }
@@ -71,6 +96,7 @@ namespace Sukimart
                 return;
             }
 
+            // Validasi: Akun tidak ditemukan
             if (akun == null)
             {
                 lblUsnSalah.Text = "Nama pengguna tidak ditemukan";
@@ -82,6 +108,7 @@ namespace Sukimart
                 return;
             }
 
+            // Validasi: Status akun harus aktif (Kasus Uji 2)
             if (!akun.Aktif)
             {
                 lblUsnSalah.Text = "Akun ini tidak aktif";
@@ -93,6 +120,7 @@ namespace Sukimart
                 return;
             }
 
+            // Validasi keamanan: Cocokkan hash password PBKDF2 (Kasus Uji 1)
             if (!KeamananSandi.Cocok(akun, password))
             {
                 jumlahSandiSalah++;
@@ -103,6 +131,7 @@ namespace Sukimart
                 }
                 catch { }
 
+                // Kasus Uji 1: Jika kata sandi salah 3 kali, aplikasi akan tertutup demi keamanan
                 if (jumlahSandiSalah >= 3)
                 {
                     MessageBox.Show("Akses ditolak karena kata sandi salah tiga kali.", "Akses Ditolak", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -111,6 +140,7 @@ namespace Sukimart
                 return;
             }
 
+            // Berhasil login: reset counter percobaan salah dan buka sesi baru sesuai peran pengguna
             ResetErrorLabels();
             jumlahSandiSalah = 0;
             try

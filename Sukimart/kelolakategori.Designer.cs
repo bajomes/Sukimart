@@ -156,6 +156,7 @@ namespace Sukimart
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Kelola Kategori";
+            Paint += FormKelolaKategori_Paint;
             ResumeLayout(false);
             PerformLayout();
         }

@@ -151,6 +151,7 @@ namespace Sukimart
             btnBatal.TabIndex = 9;
             btnBatal.Text = "Batal";
             btnBatal.UseVisualStyleBackColor = false;
+            btnBatal.Click += btnBatal_Click;
             // 
             // btnSimpan
             // 
@@ -167,6 +168,7 @@ namespace Sukimart
             btnSimpan.TabIndex = 10;
             btnSimpan.Text = "Simpan Perubahan";
             btnSimpan.UseVisualStyleBackColor = false;
+            btnSimpan.Click += btnSimpan_Click;
             // 
             // FormGantiKataSandi
             // 
@@ -194,6 +196,7 @@ namespace Sukimart
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Ganti Kata Sandi";
+            Paint += FormGantiKataSandi_Paint;
             ResumeLayout(false);
             PerformLayout();
         }

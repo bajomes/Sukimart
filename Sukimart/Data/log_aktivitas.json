@@ -1,0 +1,26 @@
+[
+    {
+        "tanggal":  "2026-11-02T09:00:03",
+        "aksi":  "LOGIN",
+        "jenisAktivitas":  "Login",
+        "namaPengguna":  "kasir1"
+    },
+    {
+        "tanggal":  "2026-11-02T09:10:25",
+        "aksi":  "TRANSAKSI TRX001",
+        "jenisAktivitas":  "Transaksi",
+        "namaPengguna":  "kasir1"
+    },
+    {
+        "tanggal":  "2026-11-03T08:15:40",
+        "aksi":  "BARANG KELUAR KLR001 BRG005 6",
+        "jenisAktivitas":  "Stok Keluar",
+        "namaPengguna":  "gudang1"
+    },
+    {
+        "tanggal":  "2026-11-04T16:40:55",
+        "aksi":  "TRANSAKSI TRX004",
+        "jenisAktivitas":  "Transaksi",
+        "namaPengguna":  "kasir2"
+    }
+]

@@ -65,6 +65,8 @@ namespace Sukimart
             lblJudul = new Label();
             lblPilihBarang = new Label();
             cmbBarang = new ComboBox();
+            flowKategori = new FlowLayoutPanel();
+            flowProduk = new FlowLayoutPanel();
             lblJumlah = new Label();
             nudJumlah = new NumericUpDown();
             btnTambahKeranjang = new Button();
@@ -132,6 +134,7 @@ namespace Sukimart
             btnKeluar.Text = "Keluar";
             btnKeluar.TextAlign = ContentAlignment.MiddleLeft;
             btnKeluar.UseVisualStyleBackColor = false;
+            btnKeluar.Click += btnKeluar_Click;
             // 
             // btnLaporan
             // 
@@ -150,6 +153,10 @@ namespace Sukimart
             btnLaporan.Text = "Laporan";
             btnLaporan.TextAlign = ContentAlignment.MiddleLeft;
             btnLaporan.UseVisualStyleBackColor = false;
+            btnLaporan.Click += btnLaporan_Click;
+            // 
+            // btnPengguna
+            // 
             btnPengguna.BackColor = Color.White;
             btnPengguna.Cursor = Cursors.Hand;
             btnPengguna.FlatAppearance.BorderSize = 0;
@@ -165,6 +172,7 @@ namespace Sukimart
             btnPengguna.Text = "Pengguna";
             btnPengguna.TextAlign = ContentAlignment.MiddleLeft;
             btnPengguna.UseVisualStyleBackColor = false;
+            btnPengguna.Click += btnPengguna_Click;
             // 
             // btnGudang
             // 
@@ -183,6 +191,7 @@ namespace Sukimart
             btnGudang.Text = "Gudang";
             btnGudang.TextAlign = ContentAlignment.MiddleLeft;
             btnGudang.UseVisualStyleBackColor = false;
+            btnGudang.Click += btnGudang_Click;
             // 
             // btnRiwayat
             // 
@@ -201,6 +210,7 @@ namespace Sukimart
             btnRiwayat.Text = "Riwayat Transaksi";
             btnRiwayat.TextAlign = ContentAlignment.MiddleLeft;
             btnRiwayat.UseVisualStyleBackColor = false;
+            btnRiwayat.Click += btnRiwayat_Click;
             // 
             // btnKatalog
             // 
@@ -219,6 +229,7 @@ namespace Sukimart
             btnKatalog.Text = "Katalog Produk";
             btnKatalog.TextAlign = ContentAlignment.MiddleLeft;
             btnKatalog.UseVisualStyleBackColor = false;
+            btnKatalog.Click += btnKatalog_Click;
             // 
             // btnKasir
             // 
@@ -237,6 +248,7 @@ namespace Sukimart
             btnKasir.Text = "Kasir / POS";
             btnKasir.TextAlign = ContentAlignment.MiddleLeft;
             btnKasir.UseVisualStyleBackColor = false;
+            btnKasir.Click += btnKasir_Click;
             // 
             // btnDashboard
             // 
@@ -255,6 +267,7 @@ namespace Sukimart
             btnDashboard.Text = "Dashboard";
             btnDashboard.TextAlign = ContentAlignment.MiddleLeft;
             btnDashboard.UseVisualStyleBackColor = false;
+            btnDashboard.Click += btnDashboard_Click;
             // 
             // pictureLogo
             // 
@@ -283,6 +296,8 @@ namespace Sukimart
             pnlKanan.Controls.Add(lblJudul);
             pnlKanan.Controls.Add(lblPilihBarang);
             pnlKanan.Controls.Add(cmbBarang);
+            pnlKanan.Controls.Add(flowKategori);
+            pnlKanan.Controls.Add(flowProduk);
             pnlKanan.Controls.Add(lblJumlah);
             pnlKanan.Controls.Add(nudJumlah);
             pnlKanan.Controls.Add(btnTambahKeranjang);
@@ -353,6 +368,7 @@ namespace Sukimart
             cmbBarang.Name = "cmbBarang";
             cmbBarang.Size = new Size(448, 25);
             cmbBarang.TabIndex = 4;
+            cmbBarang.TextChanged += cmbBarang_TextChanged;
             // 
             // lblJumlah
             // 
@@ -378,6 +394,7 @@ namespace Sukimart
             nudJumlah.Size = new Size(64, 24);
             nudJumlah.TabIndex = 6;
             nudJumlah.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            nudJumlah.KeyDown += nudJumlah_KeyDown;
             // 
             // btnTambahKeranjang
             // 
@@ -394,6 +411,26 @@ namespace Sukimart
             btnTambahKeranjang.TabIndex = 7;
             btnTambahKeranjang.Text = "+ Tambah";
             btnTambahKeranjang.UseVisualStyleBackColor = false;
+            btnTambahKeranjang.Click += btnTambahKeranjang_Click;
+            // 
+            // flowKategori - Baris filter tombol kategori produk
+            // 
+            flowKategori.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            flowKategori.AutoScroll = true;
+            flowKategori.Location = new Point(40, 176);
+            flowKategori.Name = "flowKategori";
+            flowKategori.Size = new Size(632, 40);
+            flowKategori.TabIndex = 8;
+            flowKategori.WrapContents = false;
+            // 
+            // flowProduk - Area kartu produk visual (KartuProduk)
+            // 
+            flowProduk.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            flowProduk.AutoScroll = true;
+            flowProduk.Location = new Point(40, 224);
+            flowProduk.Name = "flowProduk";
+            flowProduk.Size = new Size(632, 200);
+            flowProduk.TabIndex = 9;
             // 
             // gridKeranjang
             // 
@@ -422,7 +459,7 @@ namespace Sukimart
             gridKeranjang.DefaultCellStyle = dataGridViewCellStyle2;
             gridKeranjang.EnableHeadersVisualStyles = false;
             gridKeranjang.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            gridKeranjang.Location = new Point(40, 176);
+            gridKeranjang.Location = new Point(40, 432);
             gridKeranjang.MultiSelect = false;
             gridKeranjang.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             gridKeranjang.GridColor = Color.FromArgb(229, 231, 235);
@@ -432,8 +469,11 @@ namespace Sukimart
             gridKeranjang.RowHeadersVisible = false;
             gridKeranjang.RowTemplate.Height = 36;
             gridKeranjang.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            gridKeranjang.Size = new Size(632, 464);
+            gridKeranjang.Size = new Size(632, 200);
             gridKeranjang.TabIndex = 9;
+            gridKeranjang.CellClick += gridKeranjang_CellClick;
+            gridKeranjang.CellMouseEnter += gridKeranjang_CellMouseEnter;
+            gridKeranjang.CellMouseLeave += gridKeranjang_CellMouseLeave;
             // 
             // colKode
             // 
@@ -559,6 +599,7 @@ namespace Sukimart
             btnUangPas.TabIndex = 12;
             btnUangPas.Text = "Uang Pas";
             btnUangPas.UseVisualStyleBackColor = false;
+            btnUangPas.Click += btnUangPas_Click;
             // 
             // nudBayar
             // 
@@ -570,6 +611,11 @@ namespace Sukimart
             nudBayar.Size = new Size(256, 30);
             nudBayar.TabIndex = 4;
             nudBayar.ThousandsSeparator = true;
+            nudBayar.ValueChanged += nudBayar_ValueChanged;
+            nudBayar.KeyUp += nudBayar_KeyUp;
+            nudBayar.Enter += nudBayar_Enter;
+            nudBayar.Click += nudBayar_Click;
+            nudBayar.KeyDown += nudBayar_KeyDown;
             // 
             // lblKembalianLabel
             // 
@@ -607,6 +653,7 @@ namespace Sukimart
             btnProsesBayar.TabIndex = 7;
             btnProsesBayar.Text = "Bayar";
             btnProsesBayar.UseVisualStyleBackColor = false;
+            btnProsesBayar.Click += btnProsesBayar_Click;
             // 
             // btnBatalKeranjang
             // 
@@ -622,6 +669,7 @@ namespace Sukimart
             btnBatalKeranjang.TabIndex = 8;
             btnBatalKeranjang.Text = "Kosongkan Keranjang";
             btnBatalKeranjang.UseVisualStyleBackColor = false;
+            btnBatalKeranjang.Click += btnBatalKeranjang_Click;
             // 
             // FormKasir
             // 
@@ -634,6 +682,7 @@ namespace Sukimart
             Name = "FormKasir";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Kasir / POS";
+            Shown += FormKasir_Shown;
             colHapus.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             colHapus.DataPropertyName = "Hapus";
             colHapus.HeaderText = "";
@@ -695,6 +744,7 @@ namespace Sukimart
             btnUang100.Text = "+100.000";
             btnUang100.UseVisualStyleBackColor = false;
             btnUang100.Name = "btnUang100";
+            btnUang100.Click += btnUang100_Click;
             btnUang50.BackColor = Color.FromArgb(243, 244, 246);
             btnUang50.Cursor = Cursors.Hand;
             btnUang50.FlatAppearance.BorderSize = 0;
@@ -708,6 +758,7 @@ namespace Sukimart
             btnUang50.Text = "+50.000";
             btnUang50.UseVisualStyleBackColor = false;
             btnUang50.Name = "btnUang50";
+            btnUang50.Click += btnUang50_Click;
             lblPintasanJudul.AutoSize = true;
             lblPintasanJudul.BackColor = Color.Transparent;
             lblPintasanJudul.Font = new Font("Inter", 9F, FontStyle.Bold);
@@ -808,6 +859,7 @@ namespace Sukimart
             btnUang10.Text = "+10.000";
             btnUang10.UseVisualStyleBackColor = false;
             btnUang10.Name = "btnUang10";
+            btnUang10.Click += btnUang10_Click;
             btnUang20.BackColor = Color.FromArgb(243, 244, 246);
             btnUang20.Cursor = Cursors.Hand;
             btnUang20.FlatAppearance.BorderSize = 0;
@@ -820,6 +872,7 @@ namespace Sukimart
             btnUang20.Text = "+20.000";
             btnUang20.UseVisualStyleBackColor = false;
             btnUang20.Name = "btnUang20";
+            btnUang20.Click += btnUang20_Click;
             btnNolkanBayar.BackColor = Color.FromArgb(243, 244, 246);
             btnNolkanBayar.Cursor = Cursors.Hand;
             btnNolkanBayar.FlatAppearance.BorderSize = 0;
@@ -832,6 +885,7 @@ namespace Sukimart
             btnNolkanBayar.Text = "Hapus";
             btnNolkanBayar.UseVisualStyleBackColor = false;
             btnNolkanBayar.Name = "btnNolkanBayar";
+            btnNolkanBayar.Click += btnNolkanBayar_Click;
             pnlKiri.ResumeLayout(false);
             pnlKiri.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureLogo).EndInit();
@@ -882,6 +936,8 @@ namespace Sukimart
         private Label lblJudul;
         private Label lblPilihBarang;
         private ComboBox cmbBarang;
+        private FlowLayoutPanel flowKategori;
+        private FlowLayoutPanel flowProduk;
         private Label lblJumlah;
         private NumericUpDown nudJumlah;
         private Button btnTambahKeranjang;

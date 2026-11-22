@@ -122,6 +122,7 @@ namespace Sukimart
             btnKeluar.TabIndex = 11;
             btnKeluar.Text = "Keluar";
             btnKeluar.UseVisualStyleBackColor = false;
+            btnKeluar.Click += btnKeluar_Click;
             // 
             // btnLaporan
             // 
@@ -140,6 +141,7 @@ namespace Sukimart
             btnLaporan.Text = "Laporan";
             btnLaporan.TextAlign = ContentAlignment.MiddleLeft;
             btnLaporan.UseVisualStyleBackColor = false;
+            btnLaporan.Click += btnLaporan_Click;
             btnPengguna.BackColor = Color.White;
             btnPengguna.Cursor = Cursors.Hand;
             btnPengguna.FlatAppearance.BorderSize = 0;
@@ -155,6 +157,7 @@ namespace Sukimart
             btnPengguna.Text = "Pengguna";
             btnPengguna.TextAlign = ContentAlignment.MiddleLeft;
             btnPengguna.UseVisualStyleBackColor = false;
+            btnPengguna.Click += btnPengguna_Click;
             // 
             // btnGudang
             // 
@@ -173,6 +176,7 @@ namespace Sukimart
             btnGudang.Text = "Gudang";
             btnGudang.TextAlign = ContentAlignment.MiddleLeft;
             btnGudang.UseVisualStyleBackColor = false;
+            btnGudang.Click += btnGudang_Click;
             // 
             // btnRiwayat
             // 
@@ -191,6 +195,7 @@ namespace Sukimart
             btnRiwayat.Text = "Riwayat Transaksi";
             btnRiwayat.TextAlign = ContentAlignment.MiddleLeft;
             btnRiwayat.UseVisualStyleBackColor = false;
+            btnRiwayat.Click += btnRiwayat_Click;
             // 
             // btnKatalog
             // 
@@ -209,6 +214,7 @@ namespace Sukimart
             btnKatalog.Text = "Katalog Produk";
             btnKatalog.TextAlign = ContentAlignment.MiddleLeft;
             btnKatalog.UseVisualStyleBackColor = false;
+            btnKatalog.Click += btnKatalog_Click;
             // 
             // btnKasir
             // 
@@ -227,6 +233,7 @@ namespace Sukimart
             btnKasir.Text = "Kasir / POS";
             btnKasir.TextAlign = ContentAlignment.MiddleLeft;
             btnKasir.UseVisualStyleBackColor = false;
+            btnKasir.Click += btnKasir_Click;
             // 
             // btnDashboard
             // 
@@ -245,6 +252,7 @@ namespace Sukimart
             btnDashboard.Text = "Dashboard";
             btnDashboard.TextAlign = ContentAlignment.MiddleLeft;
             btnDashboard.UseVisualStyleBackColor = false;
+            btnDashboard.Click += btnDashboard_Click;
             // 
             // pictureLogo
             // 
@@ -343,6 +351,7 @@ namespace Sukimart
             txtCari.PlaceholderText = "Cari ID Transaksi atau Kasir...";
             txtCari.Size = new Size(280, 23);
             txtCari.TabIndex = 0;
+            txtCari.TextChanged += txtCari_TextChanged;
             // 
             // lblDari
             // 
@@ -398,6 +407,7 @@ namespace Sukimart
             btnFilter.TabIndex = 5;
             btnFilter.Text = "Filter";
             btnFilter.UseVisualStyleBackColor = false;
+            btnFilter.Click += btnFilter_Click;
             // 
             // btnReset
             // 
@@ -413,6 +423,7 @@ namespace Sukimart
             btnReset.TabIndex = 6;
             btnReset.Text = "Reset";
             btnReset.UseVisualStyleBackColor = false;
+            btnReset.Click += btnReset_Click;
             // 
             // pnlRingkasan
             // 
@@ -429,6 +440,7 @@ namespace Sukimart
             pnlRingkasan.Name = "pnlRingkasan";
             pnlRingkasan.Size = new Size(960, 64);
             pnlRingkasan.TabIndex = 4;
+            pnlRingkasan.Resize += pnlRingkasan_Resize;
             // 
             // lblStatTransaksi
             // 
@@ -546,6 +558,8 @@ namespace Sukimart
             gridTransaksi.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             gridTransaksi.Size = new Size(960, 176);
             gridTransaksi.TabIndex = 6;
+            gridTransaksi.SelectionChanged += gridTransaksi_SelectionChanged;
+            gridTransaksi.CellDoubleClick += gridTransaksi_CellDoubleClick;
             // 
             // colId
             // 
@@ -710,6 +724,7 @@ namespace Sukimart
             btnLihatStruk.Text = "Lihat Struk";
             btnLihatStruk.UseVisualStyleBackColor = false;
             btnLihatStruk.Name = "btnLihatStruk";
+            btnLihatStruk.Click += btnLihatStruk_Click;
             pnlKiri.ResumeLayout(false);
             pnlKiri.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureLogo).EndInit();

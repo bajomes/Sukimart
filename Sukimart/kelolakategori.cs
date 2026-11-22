@@ -27,12 +27,14 @@ namespace Sukimart
                 return;
             }
             UIHelper.InisialisasiForm(this);
-            Paint += (s, e) =>
-            {
-                using Pen pena = new Pen(UIHelper.WarnaGarisTepi);
-                e.Graphics.DrawRectangle(pena, 0, 0, ClientSize.Width - 1, ClientSize.Height - 1);
-            };
             MuatData(kategoriAwal);
+        }
+
+        // Menggambar garis batas (border) di sekeliling jendela dialog
+        private void FormKelolaKategori_Paint(object? sender, PaintEventArgs e)
+        {
+            using Pen pena = new Pen(UIHelper.WarnaGarisTepi);
+            e.Graphics.DrawRectangle(pena, 0, 0, ClientSize.Width - 1, ClientSize.Height - 1);
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -46,6 +48,7 @@ namespace Sukimart
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
+        // Menutup formulir dialog kelola kategori dan mengembalikan DialogResult.OK
         private void BtnTutup_Click(object? sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
@@ -96,6 +99,7 @@ namespace Sukimart
             lblInfo.Text = $"Kategori '{terpilih}' saat ini digunakan oleh {pemakai} barang di katalog.";
         }
 
+        // Menambah kategori baru dengan validasi tidak boleh duplikat (Kasus Uji 11)
         private void BtnTambah_Click(object? sender, EventArgs e)
         {
             string namaBaru = txtNamaKategori.Text.Trim();
@@ -138,6 +142,7 @@ namespace Sukimart
             }
         }
 
+        // Mengubah nama kategori dan otomatis memperbarui semua produk yang terkait
         private void BtnGantiNama_Click(object? sender, EventArgs e)
         {
             if (lstKategori.SelectedItem == null)
@@ -227,6 +232,7 @@ namespace Sukimart
             }
         }
 
+        // Menghapus kategori; barang yang memakai kategori ini otomatis dialihkan ke kategori 'Lainnya'
         private void BtnHapus_Click(object? sender, EventArgs e)
         {
             if (lstKategori.SelectedItem == null)

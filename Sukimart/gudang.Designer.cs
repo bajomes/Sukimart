@@ -65,6 +65,10 @@ namespace Sukimart
             cmbJenisStok = new ComboBox();
             lblKeterangan = new Label();
             txtKeterangan = new TextBox();
+            lblPemasok = new Label();
+            txtPemasok = new TextBox();
+            lblAlasan = new Label();
+            cmbAlasan = new ComboBox();
             pnlKiri.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureLogo).BeginInit();
             pnlKanan.SuspendLayout();
@@ -109,6 +113,7 @@ namespace Sukimart
             btnKeluar.TabIndex = 11;
             btnKeluar.Text = "Keluar";
             btnKeluar.UseVisualStyleBackColor = false;
+            btnKeluar.Click += btnKeluar_Click;
             // 
             // btnLaporan
             // 
@@ -127,6 +132,10 @@ namespace Sukimart
             btnLaporan.Text = "Laporan";
             btnLaporan.TextAlign = ContentAlignment.MiddleLeft;
             btnLaporan.UseVisualStyleBackColor = false;
+            btnLaporan.Click += btnLaporan_Click;
+            // 
+            // btnPengguna
+            // 
             btnPengguna.BackColor = Color.White;
             btnPengguna.Cursor = Cursors.Hand;
             btnPengguna.FlatAppearance.BorderSize = 0;
@@ -142,6 +151,7 @@ namespace Sukimart
             btnPengguna.Text = "Pengguna";
             btnPengguna.TextAlign = ContentAlignment.MiddleLeft;
             btnPengguna.UseVisualStyleBackColor = false;
+            btnPengguna.Click += btnPengguna_Click;
             // 
             // btnGudang
             // 
@@ -160,6 +170,7 @@ namespace Sukimart
             btnGudang.Text = "Gudang";
             btnGudang.TextAlign = ContentAlignment.MiddleLeft;
             btnGudang.UseVisualStyleBackColor = false;
+            btnGudang.Click += btnGudang_Click;
             // 
             // btnRiwayat
             // 
@@ -178,6 +189,7 @@ namespace Sukimart
             btnRiwayat.Text = "Riwayat Transaksi";
             btnRiwayat.TextAlign = ContentAlignment.MiddleLeft;
             btnRiwayat.UseVisualStyleBackColor = false;
+            btnRiwayat.Click += btnRiwayat_Click;
             // 
             // btnKatalog
             // 
@@ -196,6 +208,7 @@ namespace Sukimart
             btnKatalog.Text = "Katalog Produk";
             btnKatalog.TextAlign = ContentAlignment.MiddleLeft;
             btnKatalog.UseVisualStyleBackColor = false;
+            btnKatalog.Click += btnKatalog_Click;
             // 
             // btnKasir
             // 
@@ -214,6 +227,7 @@ namespace Sukimart
             btnKasir.Text = "Kasir / POS";
             btnKasir.TextAlign = ContentAlignment.MiddleLeft;
             btnKasir.UseVisualStyleBackColor = false;
+            btnKasir.Click += btnKasir_Click;
             // 
             // btnDashboard
             // 
@@ -232,6 +246,7 @@ namespace Sukimart
             btnDashboard.Text = "Dashboard";
             btnDashboard.TextAlign = ContentAlignment.MiddleLeft;
             btnDashboard.UseVisualStyleBackColor = false;
+            btnDashboard.Click += btnDashboard_Click;
             // 
             // pictureLogo
             // 
@@ -313,6 +328,7 @@ namespace Sukimart
             txtCariGudang.PlaceholderText = "Cari kode, nama, atau kategori produk...";
             txtCariGudang.Size = new Size(504, 23);
             txtCariGudang.TabIndex = 3;
+            txtCariGudang.TextChanged += txtCariGudang_TextChanged;
             // 
             // btnFilterMenipis
             // 
@@ -329,6 +345,7 @@ namespace Sukimart
             btnFilterMenipis.TabIndex = 4;
             btnFilterMenipis.Text = "Stok Menipis";
             btnFilterMenipis.UseVisualStyleBackColor = false;
+            btnFilterMenipis.Click += btnFilterMenipis_Click;
             // 
             // btnSemuaStok
             // 
@@ -345,6 +362,7 @@ namespace Sukimart
             btnSemuaStok.TabIndex = 5;
             btnSemuaStok.Text = "Semua Stok";
             btnSemuaStok.UseVisualStyleBackColor = false;
+            btnSemuaStok.Click += btnSemuaStok_Click;
             // 
             // gridGudang
             // 
@@ -385,6 +403,7 @@ namespace Sukimart
             gridGudang.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             gridGudang.Size = new Size(960, 392);
             gridGudang.TabIndex = 6;
+            gridGudang.SelectionChanged += gridGudang_SelectionChanged;
             // 
             // colKode
             // 
@@ -446,6 +465,10 @@ namespace Sukimart
             pnlRestock.Controls.Add(cmbJenisStok);
             pnlRestock.Controls.Add(lblKeterangan);
             pnlRestock.Controls.Add(txtKeterangan);
+            pnlRestock.Controls.Add(lblPemasok);
+            pnlRestock.Controls.Add(txtPemasok);
+            pnlRestock.Controls.Add(lblAlasan);
+            pnlRestock.Controls.Add(cmbAlasan);
             pnlRestock.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pnlRestock.Location = new Point(40, 576);
             pnlRestock.Name = "pnlRestock";
@@ -511,6 +534,7 @@ namespace Sukimart
             btnSimpanStok.TabIndex = 6;
             btnSimpanStok.Text = "Simpan";
             btnSimpanStok.UseVisualStyleBackColor = false;
+            btnSimpanStok.Click += btnSimpanStok_Click;
             // 
             // FormGudang
             // 
@@ -527,6 +551,7 @@ namespace Sukimart
             btnRiwayatStok.TabIndex = 8;
             btnRiwayatStok.Text = "Kartu Stok";
             btnRiwayatStok.UseVisualStyleBackColor = false;
+            btnRiwayatStok.Click += btnRiwayatStok_Click;
             lblJenisStok.AutoSize = true;
             lblJenisStok.Font = new Font("Inter", 9F, FontStyle.Bold);
             lblJenisStok.ForeColor = Color.FromArgb(75, 85, 99);
@@ -542,6 +567,51 @@ namespace Sukimart
             cmbJenisStok.Name = "cmbJenisStok";
             cmbJenisStok.Size = new Size(136, 24);
             cmbJenisStok.TabIndex = 3;
+            cmbJenisStok.SelectedIndexChanged += cmbJenisStok_SelectedIndexChanged;
+            // 
+            // lblPemasok - Label pemasok untuk barang masuk
+            // 
+            lblPemasok.AutoSize = true;
+            lblPemasok.Font = new Font("Inter", 9F, FontStyle.Bold);
+            lblPemasok.ForeColor = Color.FromArgb(75, 85, 99);
+            lblPemasok.Location = new Point(608, 24);
+            lblPemasok.Name = "lblPemasok";
+            lblPemasok.Size = new Size(100, 15);
+            lblPemasok.TabIndex = 9;
+            lblPemasok.Text = "Pemasok (Wajib)";
+            // 
+            // txtPemasok - Input nama pemasok
+            // 
+            txtPemasok.Font = new Font("Inter", 10F);
+            txtPemasok.Location = new Point(608, 48);
+            txtPemasok.MaxLength = 100;
+            txtPemasok.Name = "txtPemasok";
+            txtPemasok.PlaceholderText = "Contoh: CV Sumber Pangan";
+            txtPemasok.Size = new Size(184, 23);
+            txtPemasok.TabIndex = 10;
+            // 
+            // lblAlasan - Label alasan untuk barang keluar
+            // 
+            lblAlasan.AutoSize = true;
+            lblAlasan.Font = new Font("Inter", 9F, FontStyle.Bold);
+            lblAlasan.ForeColor = Color.FromArgb(75, 85, 99);
+            lblAlasan.Location = new Point(608, 24);
+            lblAlasan.Name = "lblAlasan";
+            lblAlasan.Size = new Size(46, 15);
+            lblAlasan.TabIndex = 11;
+            lblAlasan.Text = "Alasan";
+            lblAlasan.Visible = false;
+            // 
+            // cmbAlasan - Pilihan alasan barang keluar (RUSAK, KADALUARSA, dsb)
+            // 
+            cmbAlasan.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbAlasan.Font = new Font("Inter", 10F);
+            cmbAlasan.Items.AddRange(new object[] { "RUSAK", "KADALUARSA", "RETUR", "LAINNYA" });
+            cmbAlasan.Location = new Point(608, 48);
+            cmbAlasan.Name = "cmbAlasan";
+            cmbAlasan.Size = new Size(184, 24);
+            cmbAlasan.TabIndex = 12;
+            cmbAlasan.Visible = false;
             lblKeterangan.AutoSize = true;
             lblKeterangan.Font = new Font("Inter", 9F, FontStyle.Bold);
             lblKeterangan.ForeColor = Color.FromArgb(75, 85, 99);
@@ -616,5 +686,9 @@ namespace Sukimart
         private ComboBox cmbJenisStok;
         private Label lblKeterangan;
         private TextBox txtKeterangan;
+        private Label lblPemasok;
+        private TextBox txtPemasok;
+        private Label lblAlasan;
+        private ComboBox cmbAlasan;
     }
 }

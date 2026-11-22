@@ -44,6 +44,13 @@ namespace Sukimart
             pnlKanan = new Panel();
             nightControlBox1 = new ReaLTaiizor.Controls.NightControlBox();
             lblJudul = new Label();
+            btnPenjualan = new Button();
+            btnGudangReport = new Button();
+            dtpMulai = new DateTimePicker();
+            dtpSelesai = new DateTimePicker();
+            btnTerapkanTanggal = new Button();
+            btnSimpanJson = new Button();
+            lblRingkasan = new Label();
             pnlCard1 = new Panel();
             lblCard1Judul = new Label();
             lblOmzetNilai = new Label();
@@ -66,6 +73,25 @@ namespace Sukimart
             colItemQty = new DataGridViewTextBoxColumn();
             colTotalOmzet = new DataGridViewTextBoxColumn();
             colStatus = new DataGridViewTextBoxColumn();
+            btnSubTransaksi = new Button();
+            btnSubLaba = new Button();
+            gridLaba = new DataGridView();
+            colLabaKode = new DataGridViewTextBoxColumn();
+            colLabaNama = new DataGridViewTextBoxColumn();
+            colLabaTerjual = new DataGridViewTextBoxColumn();
+            colLabaPendapatan = new DataGridViewTextBoxColumn();
+            colLabaModal = new DataGridViewTextBoxColumn();
+            colLabaKotor = new DataGridViewTextBoxColumn();
+            pnlTotalLaba = new Panel();
+            lblTotalJudul = new Label();
+            lblTotalTerjualLabel = new Label();
+            lblTotalTerjualNilai = new Label();
+            lblTotalPendapatanLabel = new Label();
+            lblTotalPendapatanNilai = new Label();
+            lblTotalModalLabel = new Label();
+            lblTotalModalNilai = new Label();
+            lblTotalLabaLabel = new Label();
+            lblTotalLabaNilai = new Label();
             pnlKiri.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureLogo).BeginInit();
             pnlKanan.SuspendLayout();
@@ -74,6 +100,8 @@ namespace Sukimart
             pnlCard3.SuspendLayout();
             pnlCard4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)gridLaporan).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)gridLaba).BeginInit();
+            pnlTotalLaba.SuspendLayout();
             SuspendLayout();
             // 
             // pnlKiri
@@ -112,6 +140,7 @@ namespace Sukimart
             btnKeluar.TabIndex = 11;
             btnKeluar.Text = "Keluar";
             btnKeluar.UseVisualStyleBackColor = false;
+            btnKeluar.Click += btnKeluar_Click;
             // 
             // btnLaporan
             // 
@@ -130,6 +159,9 @@ namespace Sukimart
             btnLaporan.Text = "Laporan";
             btnLaporan.TextAlign = ContentAlignment.MiddleLeft;
             btnLaporan.UseVisualStyleBackColor = false;
+            // 
+            // btnPengguna
+            // 
             btnPengguna.BackColor = Color.White;
             btnPengguna.Cursor = Cursors.Hand;
             btnPengguna.FlatAppearance.BorderSize = 0;
@@ -145,6 +177,7 @@ namespace Sukimart
             btnPengguna.Text = "Pengguna";
             btnPengguna.TextAlign = ContentAlignment.MiddleLeft;
             btnPengguna.UseVisualStyleBackColor = false;
+            btnPengguna.Click += btnPengguna_Click;
             // 
             // btnGudang
             // 
@@ -163,6 +196,7 @@ namespace Sukimart
             btnGudang.Text = "Gudang";
             btnGudang.TextAlign = ContentAlignment.MiddleLeft;
             btnGudang.UseVisualStyleBackColor = false;
+            btnGudang.Click += btnGudang_Click;
             // 
             // btnRiwayat
             // 
@@ -181,6 +215,7 @@ namespace Sukimart
             btnRiwayat.Text = "Riwayat Transaksi";
             btnRiwayat.TextAlign = ContentAlignment.MiddleLeft;
             btnRiwayat.UseVisualStyleBackColor = false;
+            btnRiwayat.Click += btnRiwayat_Click;
             // 
             // btnKatalog
             // 
@@ -199,6 +234,7 @@ namespace Sukimart
             btnKatalog.Text = "Katalog Produk";
             btnKatalog.TextAlign = ContentAlignment.MiddleLeft;
             btnKatalog.UseVisualStyleBackColor = false;
+            btnKatalog.Click += btnKatalog_Click;
             // 
             // btnKasir
             // 
@@ -217,6 +253,7 @@ namespace Sukimart
             btnKasir.Text = "Kasir / POS";
             btnKasir.TextAlign = ContentAlignment.MiddleLeft;
             btnKasir.UseVisualStyleBackColor = false;
+            btnKasir.Click += btnKasir_Click;
             // 
             // btnDashboard
             // 
@@ -235,6 +272,7 @@ namespace Sukimart
             btnDashboard.Text = "Dashboard";
             btnDashboard.TextAlign = ContentAlignment.MiddleLeft;
             btnDashboard.UseVisualStyleBackColor = false;
+            btnDashboard.Click += btnDashboard_Click;
             // 
             // pictureLogo
             // 
@@ -265,10 +303,21 @@ namespace Sukimart
             pnlKanan.Controls.Add(pnlCard2);
             pnlKanan.Controls.Add(pnlCard3);
             pnlKanan.Controls.Add(pnlCard4);
+            pnlKanan.Controls.Add(btnPenjualan);
+            pnlKanan.Controls.Add(btnGudangReport);
+            pnlKanan.Controls.Add(btnSubTransaksi);
+            pnlKanan.Controls.Add(btnSubLaba);
+            pnlKanan.Controls.Add(dtpMulai);
+            pnlKanan.Controls.Add(dtpSelesai);
+            pnlKanan.Controls.Add(btnTerapkanTanggal);
+            pnlKanan.Controls.Add(btnSimpanJson);
             pnlKanan.Controls.Add(btnHariIni);
             pnlKanan.Controls.Add(btnBulanIni);
             pnlKanan.Controls.Add(btnSemuaWaktu);
+            pnlKanan.Controls.Add(lblRingkasan);
             pnlKanan.Controls.Add(gridLaporan);
+            pnlKanan.Controls.Add(gridLaba);
+            pnlKanan.Controls.Add(pnlTotalLaba);
             pnlKanan.Dock = DockStyle.Fill;
             pnlKanan.Location = new Point(240, 0);
             pnlKanan.Name = "pnlKanan";
@@ -455,6 +504,7 @@ namespace Sukimart
             btnHariIni.TabIndex = 7;
             btnHariIni.Text = "Hari Ini";
             btnHariIni.UseVisualStyleBackColor = false;
+            btnHariIni.Click += btnHariIni_Click;
             // 
             // btnBulanIni
             // 
@@ -470,6 +520,7 @@ namespace Sukimart
             btnBulanIni.TabIndex = 8;
             btnBulanIni.Text = "Bulan Ini";
             btnBulanIni.UseVisualStyleBackColor = false;
+            btnBulanIni.Click += btnBulanIni_Click;
             // 
             // btnSemuaWaktu
             // 
@@ -485,6 +536,7 @@ namespace Sukimart
             btnSemuaWaktu.TabIndex = 9;
             btnSemuaWaktu.Text = "Semua Waktu";
             btnSemuaWaktu.UseVisualStyleBackColor = false;
+            btnSemuaWaktu.Click += btnSemuaWaktu_Click;
             // 
             // gridLaporan
             // 
@@ -572,6 +624,320 @@ namespace Sukimart
             colStatus.Name = "colStatus";
             colStatus.ReadOnly = true;
             // 
+            // btnPenjualan - Tombol untuk memilih mode Laporan Penjualan
+            // 
+            btnPenjualan.BackColor = Color.FromArgb(255, 196, 0);
+            btnPenjualan.Cursor = Cursors.Hand;
+            btnPenjualan.FlatAppearance.BorderSize = 0;
+            btnPenjualan.FlatStyle = FlatStyle.Flat;
+            btnPenjualan.Font = new Font("Inter", 10F, FontStyle.Bold);
+            btnPenjualan.ForeColor = Color.FromArgb(31, 41, 55);
+            btnPenjualan.Location = new Point(40, 248);
+            btnPenjualan.Name = "btnPenjualan";
+            btnPenjualan.Size = new Size(120, 32);
+            btnPenjualan.TabIndex = 11;
+            btnPenjualan.Text = "Penjualan";
+            btnPenjualan.UseVisualStyleBackColor = false;
+            btnPenjualan.Click += btnPenjualan_Click;
+            // 
+            // btnGudangReport - Tombol untuk memilih mode Laporan Inventaris Gudang
+            // 
+            btnGudangReport.BackColor = Color.White;
+            btnGudangReport.Cursor = Cursors.Hand;
+            btnGudangReport.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
+            btnGudangReport.FlatAppearance.BorderSize = 1;
+            btnGudangReport.FlatStyle = FlatStyle.Flat;
+            btnGudangReport.Font = new Font("Inter", 10F);
+            btnGudangReport.ForeColor = Color.FromArgb(75, 85, 99);
+            btnGudangReport.Location = new Point(168, 248);
+            btnGudangReport.Name = "btnGudangReport";
+            btnGudangReport.Size = new Size(152, 32);
+            btnGudangReport.TabIndex = 12;
+            btnGudangReport.Text = "Inventaris Gudang";
+            btnGudangReport.UseVisualStyleBackColor = false;
+            btnGudangReport.Click += btnGudangReport_Click;
+            // 
+            // dtpMulai - Pemilih tanggal awal periode laporan
+            // 
+            dtpMulai.Format = DateTimePickerFormat.Short;
+            dtpMulai.Font = new Font("Inter", 10F);
+            dtpMulai.Location = new Point(336, 252);
+            dtpMulai.Name = "dtpMulai";
+            dtpMulai.Size = new Size(118, 23);
+            dtpMulai.TabIndex = 13;
+            // 
+            // dtpSelesai - Pemilih tanggal akhir periode laporan
+            // 
+            dtpSelesai.Format = DateTimePickerFormat.Short;
+            dtpSelesai.Font = new Font("Inter", 10F);
+            dtpSelesai.Location = new Point(462, 252);
+            dtpSelesai.Name = "dtpSelesai";
+            dtpSelesai.Size = new Size(118, 23);
+            dtpSelesai.TabIndex = 14;
+            // 
+            // btnTerapkanTanggal - Tombol untuk menerapkan filter tanggal
+            // 
+            btnTerapkanTanggal.BackColor = Color.White;
+            btnTerapkanTanggal.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
+            btnTerapkanTanggal.FlatStyle = FlatStyle.Flat;
+            btnTerapkanTanggal.Font = new Font("Inter", 10F, FontStyle.Bold);
+            btnTerapkanTanggal.ForeColor = Color.FromArgb(55, 65, 81);
+            btnTerapkanTanggal.Location = new Point(588, 248);
+            btnTerapkanTanggal.Name = "btnTerapkanTanggal";
+            btnTerapkanTanggal.Size = new Size(108, 32);
+            btnTerapkanTanggal.TabIndex = 15;
+            btnTerapkanTanggal.Text = "Terapkan";
+            btnTerapkanTanggal.Click += btnTerapkanTanggal_Click;
+            // 
+            // btnSimpanJson - Tombol untuk menyimpan laporan ke file JSON
+            // 
+            btnSimpanJson.BackColor = Color.White;
+            btnSimpanJson.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
+            btnSimpanJson.FlatStyle = FlatStyle.Flat;
+            btnSimpanJson.Font = new Font("Inter", 9.5F, FontStyle.Bold);
+            btnSimpanJson.ForeColor = Color.FromArgb(55, 65, 81);
+            btnSimpanJson.Location = new Point(704, 248);
+            btnSimpanJson.Name = "btnSimpanJson";
+            btnSimpanJson.Size = new Size(128, 32);
+            btnSimpanJson.TabIndex = 16;
+            btnSimpanJson.Text = "💾 Simpan JSON";
+            btnSimpanJson.Click += btnSimpanJson_Click;
+            // 
+            // lblRingkasan - Label untuk menampilkan ringkasan laporan
+            // 
+            lblRingkasan.Font = new Font("Inter", 9F);
+            lblRingkasan.ForeColor = Color.FromArgb(75, 85, 99);
+            lblRingkasan.Location = new Point(40, 292);
+            lblRingkasan.Name = "lblRingkasan";
+            lblRingkasan.Size = new Size(960, 42);
+            lblRingkasan.TabIndex = 17;
+            // 
+            // btnSubTransaksi
+            // 
+            btnSubTransaksi.BackColor = Color.FromArgb(255, 196, 0);
+            btnSubTransaksi.Cursor = Cursors.Hand;
+            btnSubTransaksi.FlatAppearance.BorderSize = 0;
+            btnSubTransaksi.FlatStyle = FlatStyle.Flat;
+            btnSubTransaksi.Font = new Font("Inter", 9.5F, FontStyle.Bold);
+            btnSubTransaksi.ForeColor = Color.FromArgb(31, 41, 55);
+            btnSubTransaksi.Location = new Point(40, 248);
+            btnSubTransaksi.Name = "btnSubTransaksi";
+            btnSubTransaksi.Size = new Size(110, 32);
+            btnSubTransaksi.TabIndex = 18;
+            btnSubTransaksi.Text = "Transaksi";
+            btnSubTransaksi.UseVisualStyleBackColor = false;
+            btnSubTransaksi.Click += btnSubTransaksi_Click;
+            // 
+            // btnSubLaba
+            // 
+            btnSubLaba.BackColor = Color.White;
+            btnSubLaba.Cursor = Cursors.Hand;
+            btnSubLaba.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
+            btnSubLaba.FlatAppearance.BorderSize = 1;
+            btnSubLaba.FlatStyle = FlatStyle.Flat;
+            btnSubLaba.Font = new Font("Inter", 9.5F);
+            btnSubLaba.ForeColor = Color.FromArgb(75, 85, 99);
+            btnSubLaba.Location = new Point(158, 248);
+            btnSubLaba.Name = "btnSubLaba";
+            btnSubLaba.Size = new Size(110, 32);
+            btnSubLaba.TabIndex = 19;
+            btnSubLaba.Text = "Laba";
+            btnSubLaba.UseVisualStyleBackColor = false;
+            btnSubLaba.Click += btnSubLaba_Click;
+            // 
+            // gridLaba
+            // 
+            gridLaba.AllowUserToAddRows = false;
+            gridLaba.AllowUserToDeleteRows = false;
+            gridLaba.AutoGenerateColumns = false;
+            gridLaba.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            gridLaba.BackgroundColor = Color.White;
+            gridLaba.BorderStyle = BorderStyle.None;
+            gridLaba.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            gridLaba.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            gridLaba.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            gridLaba.ColumnHeadersHeight = 40;
+            gridLaba.Columns.AddRange(new DataGridViewColumn[] { colLabaKode, colLabaNama, colLabaTerjual, colLabaPendapatan, colLabaModal, colLabaKotor });
+            gridLaba.DefaultCellStyle = dataGridViewCellStyle4;
+            gridLaba.EnableHeadersVisualStyles = false;
+            gridLaba.GridColor = Color.FromArgb(229, 231, 235);
+            gridLaba.Location = new Point(40, 344);
+            gridLaba.MultiSelect = false;
+            gridLaba.Name = "gridLaba";
+            gridLaba.ReadOnly = true;
+            gridLaba.RowHeadersVisible = false;
+            gridLaba.RowTemplate.Height = 36;
+            gridLaba.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            gridLaba.Size = new Size(960, 276);
+            gridLaba.TabIndex = 20;
+            gridLaba.Visible = false;
+            gridLaba.ColumnHeaderMouseClick += gridLaba_ColumnHeaderMouseClick;
+            // 
+            // colLabaKode
+            // 
+            colLabaKode.DataPropertyName = "Kode";
+            colLabaKode.FillWeight = 13F;
+            colLabaKode.HeaderText = "Kode";
+            colLabaKode.Name = "colLabaKode";
+            colLabaKode.ReadOnly = true;
+            // 
+            // colLabaNama
+            // 
+            colLabaNama.DataPropertyName = "Nama";
+            colLabaNama.FillWeight = 23F;
+            colLabaNama.HeaderText = "Nama Barang";
+            colLabaNama.Name = "colLabaNama";
+            colLabaNama.ReadOnly = true;
+            // 
+            // colLabaTerjual
+            // 
+            colLabaTerjual.DataPropertyName = "Terjual";
+            colLabaTerjual.FillWeight = 10F;
+            colLabaTerjual.HeaderText = "Terjual";
+            colLabaTerjual.Name = "colLabaTerjual";
+            colLabaTerjual.ReadOnly = true;
+            // 
+            // colLabaPendapatan
+            // 
+            colLabaPendapatan.DataPropertyName = "Pendapatan";
+            colLabaPendapatan.FillWeight = 18F;
+            colLabaPendapatan.HeaderText = "Pendapatan";
+            colLabaPendapatan.Name = "colLabaPendapatan";
+            colLabaPendapatan.ReadOnly = true;
+            // 
+            // colLabaModal
+            // 
+            colLabaModal.DataPropertyName = "TotalModal";
+            colLabaModal.FillWeight = 18F;
+            colLabaModal.HeaderText = "Total Modal";
+            colLabaModal.Name = "colLabaModal";
+            colLabaModal.ReadOnly = true;
+            // 
+            // colLabaKotor
+            // 
+            colLabaKotor.DataPropertyName = "LabaKotor";
+            colLabaKotor.FillWeight = 18F;
+            colLabaKotor.HeaderText = "Laba Kotor";
+            colLabaKotor.Name = "colLabaKotor";
+            colLabaKotor.ReadOnly = true;
+            // 
+            // pnlTotalLaba
+            // 
+            pnlTotalLaba.BackColor = Color.FromArgb(249, 250, 251);
+            pnlTotalLaba.Controls.Add(lblTotalJudul);
+            pnlTotalLaba.Controls.Add(lblTotalTerjualLabel);
+            pnlTotalLaba.Controls.Add(lblTotalTerjualNilai);
+            pnlTotalLaba.Controls.Add(lblTotalPendapatanLabel);
+            pnlTotalLaba.Controls.Add(lblTotalPendapatanNilai);
+            pnlTotalLaba.Controls.Add(lblTotalModalLabel);
+            pnlTotalLaba.Controls.Add(lblTotalModalNilai);
+            pnlTotalLaba.Controls.Add(lblTotalLabaLabel);
+            pnlTotalLaba.Controls.Add(lblTotalLabaNilai);
+            pnlTotalLaba.Location = new Point(40, 626);
+            pnlTotalLaba.Name = "pnlTotalLaba";
+            pnlTotalLaba.Size = new Size(960, 48);
+            pnlTotalLaba.TabIndex = 21;
+            pnlTotalLaba.Visible = false;
+            // 
+            // lblTotalJudul
+            // 
+            lblTotalJudul.AutoSize = true;
+            lblTotalJudul.Font = new Font("Inter", 9.5F, FontStyle.Bold);
+            lblTotalJudul.ForeColor = Color.FromArgb(55, 65, 81);
+            lblTotalJudul.Location = new Point(14, 14);
+            lblTotalJudul.Name = "lblTotalJudul";
+            lblTotalJudul.Size = new Size(45, 16);
+            lblTotalJudul.TabIndex = 0;
+            lblTotalJudul.Text = "TOTAL";
+            // 
+            // lblTotalTerjualLabel
+            // 
+            lblTotalTerjualLabel.AutoSize = true;
+            lblTotalTerjualLabel.Font = new Font("Inter", 8.5F);
+            lblTotalTerjualLabel.ForeColor = Color.FromArgb(107, 114, 128);
+            lblTotalTerjualLabel.Location = new Point(270, 15);
+            lblTotalTerjualLabel.Name = "lblTotalTerjualLabel";
+            lblTotalTerjualLabel.Size = new Size(48, 15);
+            lblTotalTerjualLabel.TabIndex = 1;
+            lblTotalTerjualLabel.Text = "Terjual:";
+            // 
+            // lblTotalTerjualNilai
+            // 
+            lblTotalTerjualNilai.AutoSize = true;
+            lblTotalTerjualNilai.Font = new Font("Inter", 9.5F, FontStyle.Bold);
+            lblTotalTerjualNilai.ForeColor = Color.FromArgb(31, 41, 55);
+            lblTotalTerjualNilai.Location = new Point(322, 14);
+            lblTotalTerjualNilai.Name = "lblTotalTerjualNilai";
+            lblTotalTerjualNilai.Size = new Size(16, 16);
+            lblTotalTerjualNilai.TabIndex = 2;
+            lblTotalTerjualNilai.Text = "0";
+            // 
+            // lblTotalPendapatanLabel
+            // 
+            lblTotalPendapatanLabel.AutoSize = true;
+            lblTotalPendapatanLabel.Font = new Font("Inter", 8.5F);
+            lblTotalPendapatanLabel.ForeColor = Color.FromArgb(107, 114, 128);
+            lblTotalPendapatanLabel.Location = new Point(410, 15);
+            lblTotalPendapatanLabel.Name = "lblTotalPendapatanLabel";
+            lblTotalPendapatanLabel.Size = new Size(77, 15);
+            lblTotalPendapatanLabel.TabIndex = 3;
+            lblTotalPendapatanLabel.Text = "Pendapatan:";
+            // 
+            // lblTotalPendapatanNilai
+            // 
+            lblTotalPendapatanNilai.AutoSize = true;
+            lblTotalPendapatanNilai.Font = new Font("Inter", 9.5F, FontStyle.Bold);
+            lblTotalPendapatanNilai.ForeColor = Color.FromArgb(31, 41, 55);
+            lblTotalPendapatanNilai.Location = new Point(491, 14);
+            lblTotalPendapatanNilai.Name = "lblTotalPendapatanNilai";
+            lblTotalPendapatanNilai.Size = new Size(38, 16);
+            lblTotalPendapatanNilai.TabIndex = 4;
+            lblTotalPendapatanNilai.Text = "Rp 0";
+            // 
+            // lblTotalModalLabel
+            // 
+            lblTotalModalLabel.AutoSize = true;
+            lblTotalModalLabel.Font = new Font("Inter", 8.5F);
+            lblTotalModalLabel.ForeColor = Color.FromArgb(107, 114, 128);
+            lblTotalModalLabel.Location = new Point(590, 15);
+            lblTotalModalLabel.Name = "lblTotalModalLabel";
+            lblTotalModalLabel.Size = new Size(46, 15);
+            lblTotalModalLabel.TabIndex = 5;
+            lblTotalModalLabel.Text = "Modal:";
+            // 
+            // lblTotalModalNilai
+            // 
+            lblTotalModalNilai.AutoSize = true;
+            lblTotalModalNilai.Font = new Font("Inter", 9.5F, FontStyle.Bold);
+            lblTotalModalNilai.ForeColor = Color.FromArgb(31, 41, 55);
+            lblTotalModalNilai.Location = new Point(640, 14);
+            lblTotalModalNilai.Name = "lblTotalModalNilai";
+            lblTotalModalNilai.Size = new Size(38, 16);
+            lblTotalModalNilai.TabIndex = 6;
+            lblTotalModalNilai.Text = "Rp 0";
+            // 
+            // lblTotalLabaLabel
+            // 
+            lblTotalLabaLabel.AutoSize = true;
+            lblTotalLabaLabel.Font = new Font("Inter", 8.5F);
+            lblTotalLabaLabel.ForeColor = Color.FromArgb(107, 114, 128);
+            lblTotalLabaLabel.Location = new Point(740, 15);
+            lblTotalLabaLabel.Name = "lblTotalLabaLabel";
+            lblTotalLabaLabel.Size = new Size(71, 15);
+            lblTotalLabaLabel.TabIndex = 7;
+            lblTotalLabaLabel.Text = "Laba Kotor:";
+            // 
+            // lblTotalLabaNilai
+            // 
+            lblTotalLabaNilai.AutoSize = true;
+            lblTotalLabaNilai.Font = new Font("Inter", 9.5F, FontStyle.Bold);
+            lblTotalLabaNilai.ForeColor = Color.FromArgb(16, 149, 102);
+            lblTotalLabaNilai.Location = new Point(815, 14);
+            lblTotalLabaNilai.Name = "lblTotalLabaNilai";
+            lblTotalLabaNilai.Size = new Size(38, 16);
+            lblTotalLabaNilai.TabIndex = 8;
+            lblTotalLabaNilai.Text = "Rp 0";
+            // 
             // FormLaporan
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -597,6 +963,9 @@ namespace Sukimart
             pnlCard4.ResumeLayout(false);
             pnlCard4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)gridLaporan).EndInit();
+            ((System.ComponentModel.ISupportInitialize)gridLaba).EndInit();
+            pnlTotalLaba.ResumeLayout(false);
+            pnlTotalLaba.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -638,5 +1007,31 @@ namespace Sukimart
         private DataGridViewTextBoxColumn colItemQty;
         private DataGridViewTextBoxColumn colTotalOmzet;
         private DataGridViewTextBoxColumn colStatus;
+        private Button btnPenjualan;
+        private Button btnGudangReport;
+        private Button btnSubTransaksi;
+        private Button btnSubLaba;
+        private DataGridView gridLaba;
+        private DataGridViewTextBoxColumn colLabaKode;
+        private DataGridViewTextBoxColumn colLabaNama;
+        private DataGridViewTextBoxColumn colLabaTerjual;
+        private DataGridViewTextBoxColumn colLabaPendapatan;
+        private DataGridViewTextBoxColumn colLabaModal;
+        private DataGridViewTextBoxColumn colLabaKotor;
+        private Panel pnlTotalLaba;
+        private Label lblTotalJudul;
+        private Label lblTotalTerjualLabel;
+        private Label lblTotalTerjualNilai;
+        private Label lblTotalPendapatanLabel;
+        private Label lblTotalPendapatanNilai;
+        private Label lblTotalModalLabel;
+        private Label lblTotalModalNilai;
+        private Label lblTotalLabaLabel;
+        private Label lblTotalLabaNilai;
+        private DateTimePicker dtpMulai;
+        private DateTimePicker dtpSelesai;
+        private Button btnTerapkanTanggal;
+        private Button btnSimpanJson;
+        private Label lblRingkasan;
     }
 }

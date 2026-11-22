@@ -24,21 +24,6 @@ namespace Sukimart
             SesuaikanPeran();
             dtpMulai.Value = DateTime.Today.AddDays(-30);
             dtpSelesai.Value = DateTime.Today;
-
-            pnlRingkasan.Resize += (s, e) =>
-            {
-                int sepertiga = pnlRingkasan.ClientSize.Width / 3;
-                lblStatTransaksi.Location = new Point(24, 12);
-                lblValTransaksi.Location = new Point(24, 32);
-
-                lblStatOmzet.Location = new Point(sepertiga + 24, 12);
-                lblValOmzet.Location = new Point(sepertiga + 24, 32);
-
-                lblStatRata.Location = new Point(sepertiga * 2 + 24, 12);
-                lblValRata.Location = new Point(sepertiga * 2 + 24, 32);
-            };
-
-            PasangEventHandlers();
             MuatData();
         }
 
@@ -68,39 +53,119 @@ namespace Sukimart
             UIHelper.SusunTombolSidebar(pnlKiri);
         }
 
-        private void PasangEventHandlers()
+        // ==========================================
+        // EVENT HANDLER NAVIGASI SIDEBAR
+        // ==========================================
+
+        // Membuka halaman Dashboard utama
+        private void btnDashboard_Click(object? sender, EventArgs e)
         {
-            btnDashboard.Click += (s, e) => Navigasi.BukaDashboard(this);
-            btnKasir.Click += (s, e) => Navigasi.BukaKasir(this);
-            btnKatalog.Click += (s, e) => Navigasi.BukaKatalog(this);
-            btnRiwayat.Click += (s, e) => { /* Sedang di form riwayat */ };
-            btnGudang.Click += (s, e) => Navigasi.BukaGudang(this);
-            btnLaporan.Click += (s, e) => Navigasi.BukaLaporan(this);
-            btnPengguna.Click += (s, e) => Navigasi.BukaPengguna(this);
-            btnKeluar.Click += (s, e) => Navigasi.KonfirmasiDanKeluar(this);
+            Navigasi.BukaDashboard(this);
+        }
 
-            btnFilter.Click += (s, e) =>
-            {
-                if (dtpMulai.Value.Date > dtpSelesai.Value.Date)
-                {
-                    MessageBox.Show("Tanggal mulai tidak boleh setelah tanggal selesai!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    dtpMulai.Focus();
-                    return;
-                }
-                TerapkanFilter();
-            };
-            btnReset.Click += (s, e) => ResetFilter();
-            txtCari.TextChanged += (s, e) => TerapkanFilter();
+        // Membuka halaman Kasir / POS
+        private void btnKasir_Click(object? sender, EventArgs e)
+        {
+            Navigasi.BukaKasir(this);
+        }
 
-            gridTransaksi.SelectionChanged += GridTransaksi_SelectionChanged;
-            gridTransaksi.CellDoubleClick += (s, e) =>
+        // Membuka halaman Katalog Produk
+        private void btnKatalog_Click(object? sender, EventArgs e)
+        {
+            Navigasi.BukaKatalog(this);
+        }
+
+        // Halaman saat ini sudah riwayat transaksi
+        private void btnRiwayat_Click(object? sender, EventArgs e)
+        {
+            // Sudah berada di form riwayat transaksi
+        }
+
+        // Membuka halaman Manajemen Gudang
+        private void btnGudang_Click(object? sender, EventArgs e)
+        {
+            Navigasi.BukaGudang(this);
+        }
+
+        // Membuka halaman Laporan
+        private void btnLaporan_Click(object? sender, EventArgs e)
+        {
+            Navigasi.BukaLaporan(this);
+        }
+
+        // Membuka halaman Pengguna
+        private void btnPengguna_Click(object? sender, EventArgs e)
+        {
+            Navigasi.BukaPengguna(this);
+        }
+
+        // Konfirmasi keluar (Logout) akun aktif
+        private void btnKeluar_Click(object? sender, EventArgs e)
+        {
+            Navigasi.KonfirmasiDanKeluar(this);
+        }
+
+        // ==========================================
+        // EVENT HANDLER FILTER & AKSI TRANSAKSI
+        // ==========================================
+
+        // Menerapkan filter rentang tanggal transaksi dengan validasi
+        private void btnFilter_Click(object? sender, EventArgs e)
+        {
+            if (dtpMulai.Value.Date > dtpSelesai.Value.Date)
             {
-                if (e.RowIndex >= 0)
-                {
-                    TampilkanStruk();
-                }
-            };
-            btnLihatStruk.Click += (s, e) => TampilkanStruk();
+                MessageBox.Show("Tanggal mulai tidak boleh setelah tanggal selesai!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dtpMulai.Focus();
+                return;
+            }
+            TerapkanFilter();
+        }
+
+        // Mengembalikan filter transaksi ke rentang bawaan 30 hari terakhir
+        private void btnReset_Click(object? sender, EventArgs e)
+        {
+            ResetFilter();
+        }
+
+        // Pencarian dinamis transaksi kasir berdasarkan ID faktur atau nama kasir
+        private void txtCari_TextChanged(object? sender, EventArgs e)
+        {
+            TerapkanFilter();
+        }
+
+        // Menampilkan rincian detail barang saat baris transaksi dipilih
+        private void gridTransaksi_SelectionChanged(object? sender, EventArgs e)
+        {
+            GridTransaksi_SelectionChanged(sender, e);
+        }
+
+        // Klik dua kali pada baris transaksi membuka pratinjau struk transaksi
+        private void gridTransaksi_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                TampilkanStruk();
+            }
+        }
+
+        // Membuka struk transaksi yang sedang dipilih (Kasus Uji 7)
+        private void btnLihatStruk_Click(object? sender, EventArgs e)
+        {
+            TampilkanStruk();
+        }
+
+        // Merapikan posisi kartu ringkasan omzet saat jendela aplikasi diubah ukurannya
+        private void pnlRingkasan_Resize(object? sender, EventArgs e)
+        {
+            int sepertiga = pnlRingkasan.ClientSize.Width / 3;
+            lblStatTransaksi.Location = new Point(24, 12);
+            lblValTransaksi.Location = new Point(24, 32);
+
+            lblStatOmzet.Location = new Point(sepertiga + 24, 12);
+            lblValOmzet.Location = new Point(sepertiga + 24, 32);
+
+            lblStatRata.Location = new Point(sepertiga * 2 + 24, 12);
+            lblValRata.Location = new Point(sepertiga * 2 + 24, 32);
         }
 
         public void MuatData()

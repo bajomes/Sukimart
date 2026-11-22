@@ -94,6 +94,7 @@ namespace Sukimart
             btnKeluar.UseVisualStyleBackColor = false;
             btnKeluar.Name = "btnKeluar";
             btnKeluar.TabIndex = 11;
+            btnKeluar.Click += btnKeluar_Click;
             btnPengguna.BackColor = Color.FromArgb(255, 196, 0);
             btnPengguna.Cursor = Cursors.Hand;
             btnPengguna.FlatAppearance.BorderSize = 0;
@@ -109,6 +110,7 @@ namespace Sukimart
             btnPengguna.UseVisualStyleBackColor = false;
             btnPengguna.Name = "btnPengguna";
             btnPengguna.TabIndex = 12;
+            btnPengguna.Click += btnPengguna_Click;
             btnLaporan.BackColor = Color.White;
             btnLaporan.Cursor = Cursors.Hand;
             btnLaporan.FlatAppearance.BorderSize = 0;
@@ -124,6 +126,7 @@ namespace Sukimart
             btnLaporan.UseVisualStyleBackColor = false;
             btnLaporan.Name = "btnLaporan";
             btnLaporan.TabIndex = 10;
+            btnLaporan.Click += btnLaporan_Click;
             btnGudang.BackColor = Color.White;
             btnGudang.Cursor = Cursors.Hand;
             btnGudang.FlatAppearance.BorderSize = 0;
@@ -139,6 +142,7 @@ namespace Sukimart
             btnGudang.UseVisualStyleBackColor = false;
             btnGudang.Name = "btnGudang";
             btnGudang.TabIndex = 9;
+            btnGudang.Click += btnGudang_Click;
             btnRiwayat.BackColor = Color.White;
             btnRiwayat.Cursor = Cursors.Hand;
             btnRiwayat.FlatAppearance.BorderSize = 0;
@@ -154,6 +158,7 @@ namespace Sukimart
             btnRiwayat.UseVisualStyleBackColor = false;
             btnRiwayat.Name = "btnRiwayat";
             btnRiwayat.TabIndex = 6;
+            btnRiwayat.Click += btnRiwayat_Click;
             btnKatalog.BackColor = Color.White;
             btnKatalog.Cursor = Cursors.Hand;
             btnKatalog.FlatAppearance.BorderSize = 0;
@@ -169,6 +174,7 @@ namespace Sukimart
             btnKatalog.UseVisualStyleBackColor = false;
             btnKatalog.Name = "btnKatalog";
             btnKatalog.TabIndex = 5;
+            btnKatalog.Click += btnKatalog_Click;
             btnKasir.BackColor = Color.White;
             btnKasir.Cursor = Cursors.Hand;
             btnKasir.FlatAppearance.BorderSize = 0;
@@ -184,6 +190,7 @@ namespace Sukimart
             btnKasir.UseVisualStyleBackColor = false;
             btnKasir.Name = "btnKasir";
             btnKasir.TabIndex = 4;
+            btnKasir.Click += btnKasir_Click;
             btnDashboard.BackColor = Color.White;
             btnDashboard.Cursor = Cursors.Hand;
             btnDashboard.FlatAppearance.BorderSize = 0;
@@ -199,6 +206,7 @@ namespace Sukimart
             btnDashboard.UseVisualStyleBackColor = false;
             btnDashboard.Name = "btnDashboard";
             btnDashboard.TabIndex = 3;
+            btnDashboard.Click += btnDashboard_Click;
             pictureLogo.Image = Properties.Resources.logo;
             pictureLogo.Location = new Point(24, 32);
             pictureLogo.Size = new Size(40, 40);
@@ -298,6 +306,7 @@ namespace Sukimart
             gridPengguna.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             gridPengguna.Size = new Size(600, 568);
             gridPengguna.TabIndex = 3;
+            gridPengguna.CellClick += gridPengguna_CellClick;
             colNamaPengguna.DataPropertyName = "NamaPengguna";
             colNamaPengguna.FillWeight = 130F;
             colNamaPengguna.HeaderText = "Nama Pengguna";
@@ -467,6 +476,7 @@ namespace Sukimart
             btnTambah.UseVisualStyleBackColor = false;
             btnTambah.Name = "btnTambah";
             btnTambah.TabIndex = 19;
+            btnTambah.Click += btnTambah_Click;
             btnSimpan.Cursor = Cursors.Hand;
             btnSimpan.FlatStyle = FlatStyle.Flat;
             btnSimpan.BackColor = Color.White;
@@ -479,6 +489,7 @@ namespace Sukimart
             btnSimpan.UseVisualStyleBackColor = false;
             btnSimpan.Name = "btnSimpan";
             btnSimpan.TabIndex = 20;
+            btnSimpan.Click += btnSimpan_Click;
             btnHapus.Cursor = Cursors.Hand;
             btnHapus.FlatStyle = FlatStyle.Flat;
             btnHapus.BackColor = Color.White;
@@ -491,6 +502,7 @@ namespace Sukimart
             btnHapus.UseVisualStyleBackColor = false;
             btnHapus.Name = "btnHapus";
             btnHapus.TabIndex = 21;
+            btnHapus.Click += btnHapus_Click;
             btnBersihkan.Cursor = Cursors.Hand;
             btnBersihkan.FlatStyle = FlatStyle.Flat;
             btnBersihkan.BackColor = Color.White;
@@ -503,6 +515,7 @@ namespace Sukimart
             btnBersihkan.UseVisualStyleBackColor = false;
             btnBersihkan.Name = "btnBersihkan";
             btnBersihkan.TabIndex = 22;
+            btnBersihkan.Click += btnBersihkan_Click;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1280, 720);

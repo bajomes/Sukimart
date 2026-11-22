@@ -94,6 +94,7 @@ namespace Sukimart
             btnKeluar.Text = "Keluar";
             btnKeluar.TextAlign = ContentAlignment.MiddleLeft;
             btnKeluar.UseVisualStyleBackColor = false;
+            btnKeluar.Click += btnKeluar_Click;
             // 
             // btnLogAktivitas
             // 
@@ -113,6 +114,7 @@ namespace Sukimart
             btnLogAktivitas.Text = "Log Aktivitas";
             btnLogAktivitas.TextAlign = ContentAlignment.MiddleLeft;
             btnLogAktivitas.UseVisualStyleBackColor = false;
+            btnLogAktivitas.Click += btnLogAktivitas_Click;
             // 
             // btnPengguna
             // 
@@ -132,6 +134,7 @@ namespace Sukimart
             btnPengguna.Text = "Pengguna";
             btnPengguna.TextAlign = ContentAlignment.MiddleLeft;
             btnPengguna.UseVisualStyleBackColor = false;
+            btnPengguna.Click += btnPengguna_Click;
             // 
             // btnLaporan
             // 
@@ -151,6 +154,7 @@ namespace Sukimart
             btnLaporan.Text = "Laporan";
             btnLaporan.TextAlign = ContentAlignment.MiddleLeft;
             btnLaporan.UseVisualStyleBackColor = false;
+            btnLaporan.Click += btnLaporan_Click;
             // 
             // btnGudang
             // 
@@ -170,6 +174,7 @@ namespace Sukimart
             btnGudang.Text = "Gudang";
             btnGudang.TextAlign = ContentAlignment.MiddleLeft;
             btnGudang.UseVisualStyleBackColor = false;
+            btnGudang.Click += btnGudang_Click;
             // 
             // btnRiwayat
             // 
@@ -189,6 +194,7 @@ namespace Sukimart
             btnRiwayat.Text = "Riwayat Transaksi";
             btnRiwayat.TextAlign = ContentAlignment.MiddleLeft;
             btnRiwayat.UseVisualStyleBackColor = false;
+            btnRiwayat.Click += btnRiwayat_Click;
             // 
             // btnKatalog
             // 
@@ -208,6 +214,7 @@ namespace Sukimart
             btnKatalog.Text = "Katalog Produk";
             btnKatalog.TextAlign = ContentAlignment.MiddleLeft;
             btnKatalog.UseVisualStyleBackColor = false;
+            btnKatalog.Click += btnKatalog_Click;
             // 
             // btnKasir
             // 
@@ -227,6 +234,7 @@ namespace Sukimart
             btnKasir.Text = "Kasir / POS";
             btnKasir.TextAlign = ContentAlignment.MiddleLeft;
             btnKasir.UseVisualStyleBackColor = false;
+            btnKasir.Click += btnKasir_Click;
             // 
             // btnDashboard
             // 
@@ -246,6 +254,7 @@ namespace Sukimart
             btnDashboard.Text = "Dashboard";
             btnDashboard.TextAlign = ContentAlignment.MiddleLeft;
             btnDashboard.UseVisualStyleBackColor = false;
+            btnDashboard.Click += btnDashboard_Click;
             // 
             // pictureLogo
             // 
@@ -284,13 +293,13 @@ namespace Sukimart
             // 
             // lblStatusTabel
             // 
-            lblStatusTabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblStatusTabel.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             lblStatusTabel.AutoSize = true;
-            lblStatusTabel.Font = new Font("Inter", 8.5F);
+            lblStatusTabel.Font = new Font("Inter", 9F);
             lblStatusTabel.ForeColor = Color.FromArgb(107, 114, 128);
-            lblStatusTabel.Location = new Point(40, 660);
+            lblStatusTabel.Location = new Point(40, 72);
             lblStatusTabel.Name = "lblStatusTabel";
-            lblStatusTabel.Size = new Size(165, 18);
+            lblStatusTabel.Size = new Size(165, 16);
             lblStatusTabel.TabIndex = 9;
             lblStatusTabel.Text = "Menampilkan 0 aktivitas";
             // 
@@ -359,6 +368,7 @@ namespace Sukimart
             btnBersihkan.TabIndex = 7;
             btnBersihkan.Text = "Bersihkan log";
             btnBersihkan.UseVisualStyleBackColor = false;
+            btnBersihkan.Click += btnBersihkan_Click;
             // 
             // btnSegarkan
             // 
@@ -375,6 +385,7 @@ namespace Sukimart
             btnSegarkan.TabIndex = 5;
             btnSegarkan.Text = "Refresh";
             btnSegarkan.UseVisualStyleBackColor = false;
+            btnSegarkan.Click += btnSegarkan_Click;
             // 
             // cmbFilterWaktu
             // 
@@ -386,6 +397,7 @@ namespace Sukimart
             cmbFilterWaktu.Name = "cmbFilterWaktu";
             cmbFilterWaktu.Size = new Size(140, 24);
             cmbFilterWaktu.TabIndex = 4;
+            cmbFilterWaktu.SelectedIndexChanged += cmbFilterWaktu_SelectedIndexChanged;
             // 
             // lblFilterWaktu
             // 
@@ -407,6 +419,7 @@ namespace Sukimart
             cmbFilterJenis.Name = "cmbFilterJenis";
             cmbFilterJenis.Size = new Size(140, 24);
             cmbFilterJenis.TabIndex = 2;
+            cmbFilterJenis.SelectedIndexChanged += cmbFilterJenis_SelectedIndexChanged;
             // 
             // lblFilterJenis
             // 
@@ -427,6 +440,7 @@ namespace Sukimart
             txtCari.PlaceholderText = "Cari kata kunci, akun, detail...";
             txtCari.Size = new Size(280, 24);
             txtCari.TabIndex = 0;
+            txtCari.TextChanged += txtCari_TextChanged;
             // 
             // gridLog
             // 
@@ -467,7 +481,7 @@ namespace Sukimart
             gridLog.RowHeadersWidth = 51;
             gridLog.RowTemplate.Height = 36;
             gridLog.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            gridLog.Size = new Size(960, 472);
+            gridLog.Size = new Size(960, 500);
             gridLog.TabIndex = 8;
             // 
             // colNo

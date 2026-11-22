@@ -12,14 +12,26 @@ namespace Sukimart
             this.kodeBarang = kodeBarang;
             InitializeComponent();
             UIHelper.InisialisasiForm(this);
-            Paint += (s, e) =>
-            {
-                using Pen pena = new Pen(UIHelper.WarnaGarisTepi);
-                e.Graphics.DrawRectangle(pena, 0, 0, ClientSize.Width - 1, ClientSize.Height - 1);
-            };
-            btnTutup.Click += (s, e) => Close();
-            gridRiwayat.CellFormatting += GridRiwayat_CellFormatting;
             MuatRiwayat();
+        }
+
+        // Menggambar garis batas (border) di sekeliling jendela dialog
+        private void FormRiwayatStok_Paint(object? sender, PaintEventArgs e)
+        {
+            using Pen pena = new Pen(UIHelper.WarnaGarisTepi);
+            e.Graphics.DrawRectangle(pena, 0, 0, ClientSize.Width - 1, ClientSize.Height - 1);
+        }
+
+        // Menutup formulir riwayat kartu stok
+        private void btnTutup_Click(object? sender, EventArgs e)
+        {
+            Close();
+        }
+
+        // Memberikan pewarnaan khusus pada kolom jumlah (+ hijau untuk masuk, - merah untuk keluar)
+        private void gridRiwayat_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
+        {
+            GridRiwayat_CellFormatting(sender, e);
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

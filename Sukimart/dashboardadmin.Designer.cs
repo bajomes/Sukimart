@@ -105,6 +105,7 @@ namespace Sukimart
             btnPengguna.Text = "Pengguna";
             btnPengguna.TextAlign = ContentAlignment.MiddleLeft;
             btnPengguna.UseVisualStyleBackColor = false;
+            btnPengguna.Click += btnPengguna_Click;
             // 
             // btnLaporan
             // 
@@ -123,6 +124,7 @@ namespace Sukimart
             btnLaporan.Text = "Laporan";
             btnLaporan.TextAlign = ContentAlignment.MiddleLeft;
             btnLaporan.UseVisualStyleBackColor = false;
+            btnLaporan.Click += btnLaporan_Click;
             // 
             // btnGudang
             // 
@@ -141,6 +143,7 @@ namespace Sukimart
             btnGudang.Text = "Gudang";
             btnGudang.TextAlign = ContentAlignment.MiddleLeft;
             btnGudang.UseVisualStyleBackColor = false;
+            btnGudang.Click += btnGudang_Click;
             // 
             // btnKeluarBenar
             // 
@@ -160,7 +163,7 @@ namespace Sukimart
             btnKeluarBenar.Text = "Keluar";
             btnKeluarBenar.TextAlign = ContentAlignment.MiddleLeft;
             btnKeluarBenar.UseVisualStyleBackColor = false;
-            btnKeluarBenar.Click += button1_Click;
+            btnKeluarBenar.Click += btnKeluarBenar_Click;
             // 
             // btnRiwayat
             // 
@@ -217,6 +220,7 @@ namespace Sukimart
             btnKasir.Text = "Kasir / POS";
             btnKasir.TextAlign = ContentAlignment.MiddleLeft;
             btnKasir.UseVisualStyleBackColor = false;
+            btnKasir.Click += btnKasir_Click;
             // 
             // btnDashboard
             // 
@@ -235,6 +239,7 @@ namespace Sukimart
             btnDashboard.Text = "Dashboard";
             btnDashboard.TextAlign = ContentAlignment.MiddleLeft;
             btnDashboard.UseVisualStyleBackColor = false;
+            btnDashboard.Click += btnDashboard_Click;
             // 
             // pictureLogo
             // 

@@ -28,21 +28,39 @@ namespace Sukimart
                 lblJudul.Text = "Struk Transaksi";
             }
 
-            Paint += (s, e) =>
-            {
-                using Pen pena = new Pen(UIHelper.WarnaGarisTepi);
-                e.Graphics.DrawRectangle(pena, 0, 0, ClientSize.Width - 1, ClientSize.Height - 1);
-            };
-            btnTutup.Click += (s, e) => Close();
-            btnCetak.Click += (s, e) => CetakStruk();
-            gridRincian.SelectionChanged += (s, e) => gridRincian.ClearSelection();
-            Shown += (s, e) =>
-            {
-                gridRincian.ClearSelection();
-                btnTutup.Focus();
-            };
-
             IsiStruk();
+        }
+
+        // Menggambar garis batas (border) di sekeliling jendela dialog
+        private void FormStruk_Paint(object? sender, PaintEventArgs e)
+        {
+            using Pen pena = new Pen(UIHelper.WarnaGarisTepi);
+            e.Graphics.DrawRectangle(pena, 0, 0, ClientSize.Width - 1, ClientSize.Height - 1);
+        }
+
+        // Menutup formulir tampilan struk
+        private void btnTutup_Click(object? sender, EventArgs e)
+        {
+            Close();
+        }
+
+        // Mengirim struk ke dialog pencetak fisik (Printer) (Kasus Uji 7)
+        private void btnCetak_Click(object? sender, EventArgs e)
+        {
+            CetakStruk();
+        }
+
+        // Mencegah baris rincian di struk tersorot biru agar terlihat seperti kertas struk asli
+        private void gridRincian_SelectionChanged(object? sender, EventArgs e)
+        {
+            gridRincian.ClearSelection();
+        }
+
+        // Saat struk pertama kali tampil, bersihkan sorotan tabel dan fokuskan tombol Tutup
+        private void FormStruk_Shown(object? sender, EventArgs e)
+        {
+            gridRincian.ClearSelection();
+            btnTutup.Focus();
         }
 
         private void IsiStruk()

@@ -190,6 +190,7 @@ namespace Sukimart
             gridRincian.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             gridRincian.Size = new Size(304, 204);
             gridRincian.TabIndex = 11;
+            gridRincian.SelectionChanged += gridRincian_SelectionChanged;
             colBarang.DataPropertyName = "Barang";
             colBarang.HeaderText = "Barang";
             colBarang.Name = "colBarang";
@@ -289,6 +290,7 @@ namespace Sukimart
             btnTutup.UseVisualStyleBackColor = false;
             btnTutup.Name = "btnTutup";
             btnTutup.TabIndex = 21;
+            btnTutup.Click += btnTutup_Click;
             btnCetak.BackColor = Color.FromArgb(255, 196, 0);
             btnCetak.Cursor = Cursors.Hand;
             btnCetak.FlatAppearance.BorderSize = 0;
@@ -301,6 +303,7 @@ namespace Sukimart
             btnCetak.UseVisualStyleBackColor = false;
             btnCetak.Name = "btnCetak";
             btnCetak.TabIndex = 22;
+            btnCetak.Click += btnCetak_Click;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(247, 247, 245);
@@ -316,6 +319,8 @@ namespace Sukimart
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Struk Transaksi";
+            Paint += FormStruk_Paint;
+            Shown += FormStruk_Shown;
             pnlStruk.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)gridRincian).EndInit();
             ResumeLayout(false);

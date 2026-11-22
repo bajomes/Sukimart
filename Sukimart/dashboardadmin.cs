@@ -2,8 +2,14 @@ using System.Globalization;
 
 namespace Sukimart
 {
+    /// <summary>
+    /// FormDashboardAdmin: Tampilan utama setelah login untuk Administrator.
+    /// Menyajikan ringkasan statistik: jumlah transaksi hari ini, total omzet hari ini,
+    /// indikator stok menipis/habis, tabel 10 transaksi terbaru, dan peringatan stok.
+    /// </summary>
     public partial class FormDashboardAdmin : Form
     {
+        // Format angka dan mata uang Indonesia (Rp x.xxx)
         private static readonly CultureInfo BudayaIndonesia = new CultureInfo("id-ID");
 
         public FormDashboardAdmin()
@@ -11,19 +17,25 @@ namespace Sukimart
             InitializeComponent();
             UIHelper.InisialisasiForm(this);
             MaximizeBox = true;
-            btnKasir.Click += btnKasir_Click;
-            btnGudang.Click += btnGudang_Click;
-            btnLaporan.Click += btnLaporan_Click;
-            btnPengguna.Click += (s, e) => Navigasi.BukaPengguna(this);
 
+            // Sesuaikan menu sidebar berdasarkan hak akses peran pengguna
             SesuaikanPeran();
 
+            // Tangani event resize agar tampilan dashboard tetap proporsional
             pnlKanan.Resize += (s, e) => AturTataLetakResponsif();
             AturTataLetakResponsif();
 
+            // Ambil dan tampilkan seluruh data metrik dashboard
             IsiDashboard();
         }
 
+        // =========================================================================
+        // PENGATURAN TATA LETAK & HAK AKSES PERAN
+        // =========================================================================
+
+        /// <summary>
+        /// Menyesuaikan tombol sidebar dan judul dashboard sesuai peran pengguna saat ini.
+        /// </summary>
         private void SesuaikanPeran()
         {
             if (Navigasi.PeranAktif == "gudang")
@@ -48,6 +60,7 @@ namespace Sukimart
             }
             else
             {
+                // Default Admin: Semua menu aktif
                 btnKasir.Visible = true;
                 btnRiwayat.Visible = true;
                 btnGudang.Visible = true;
@@ -59,6 +72,9 @@ namespace Sukimart
             UIHelper.SusunTombolSidebar(pnlKiri);
         }
 
+        /// <summary>
+        /// Menata posisi kartu ringkasan, tabel transaksi, dan panel peringatan stok.
+        /// </summary>
         private void AturTataLetakResponsif()
         {
             if (nightControlBox1 != null)
@@ -90,7 +106,7 @@ namespace Sukimart
             pnlStok.Location = new Point(posXKanan, 112);
             pnlStok.Size = new Size(lebarKolomKanan, 112);
 
-            // Tinggi area bawah
+            // Area bawah
             int tinggiBawah = Math.Max(200, pnlKanan.ClientSize.Height - 320);
 
             // Tabel Transaksi Terbaru di kiri bawah
@@ -107,24 +123,40 @@ namespace Sukimart
             lstStokMenipis.Size = new Size(Math.Max(100, pnlPeringatan.ClientSize.Width - 40), Math.Max(100, pnlPeringatan.ClientSize.Height - 40));
         }
 
+        // =========================================================================
+        // PENGAMBILAN & PENAMPILAN DATA DASHBOARD
+        // =========================================================================
+
+        /// <summary>
+        /// Mengisi seluruh komponen dashboard dari file data JSON:
+        /// menghitung transaksi hari ini, omzet hari ini, stok menipis, dan riwayat transaksi terbaru.
+        /// </summary>
         private void IsiDashboard()
         {
             lblTanggal.Text = DateTime.Now.ToString("dd/MM/yyyy");
 
             try
             {
+                // Baca data dari file transaksi.json dan barang.json
                 List<Transaksi> daftarTransaksi = PenyimpananData.BacaTransaksi();
                 List<Barang> daftarBarang = PenyimpananData.BacaBarang();
 
+                // Filter transaksi yang tanggalnya sama dengan hari ini
                 List<Transaksi> transaksiHariIni = daftarTransaksi
                     .Where(transaksi => transaksi.Tanggal.Date == DateTime.Today)
                     .ToList();
 
+                // 1. Tampilkan kartu Jumlah Transaksi Hari Ini
                 lblNilaiTransaksi.Text = HitungTransaksiHariIni(transaksiHariIni).ToString();
+
+                // 2. Tampilkan kartu Total Penjualan (Omzet) Hari Ini
                 lblNilaiPenjualan.Text = "Rp " + HitungPenjualanHariIni(transaksiHariIni)
                     .ToString("N0", BudayaIndonesia);
 
+                // 3. Tampilkan peringatan barang stok menipis/habis
                 IsiStokMenipis(daftarBarang);
+
+                // 4. Tampilkan 10 transaksi terbaru pada tabel
                 IsiTransaksiTerbaru(daftarTransaksi);
             }
             catch (Exception ex)
@@ -143,16 +175,25 @@ namespace Sukimart
             }
         }
 
+        /// <summary>
+        /// Menghitung total banyaknya transaksi yang terjadi hari ini.
+        /// </summary>
         private int HitungTransaksiHariIni(List<Transaksi> transaksiHariIni)
         {
             return transaksiHariIni.Count;
         }
 
+        /// <summary>
+        /// Menghitung total nominal omzet penjualan hari ini.
+        /// </summary>
         private int HitungPenjualanHariIni(List<Transaksi> transaksiHariIni)
         {
             return transaksiHariIni.Sum(transaksi => transaksi.Total);
         }
 
+        /// <summary>
+        /// Memeriksa seluruh barang: jika stok <= stok minimum, masukkan ke daftar peringatan stok.
+        /// </summary>
         private void IsiStokMenipis(List<Barang> daftarBarang)
         {
             lstStokMenipis.Items.Clear();
@@ -161,20 +202,24 @@ namespace Sukimart
             {
                 if (barang.Stok <= barang.StokMinimum)
                 {
-                    lstStokMenipis.Items.Add(
-                        barang.Nama + " (sisa " + barang.Stok + ")");
+                    string status = barang.Stok == 0 ? "HABIS" : $"sisa {barang.Stok}";
+                    lstStokMenipis.Items.Add($"{barang.Nama} ({status})");
                 }
             }
 
+            // Angka badge peringatan stok
             lblNilaiStok.Text = lstStokMenipis.Items.Count.ToString();
 
-            // Tampilkan pesan jika semua stok aman
+            // Jika tidak ada barang menipis
             if (lstStokMenipis.Items.Count == 0)
             {
                 lstStokMenipis.Items.Add("✅ Semua stok dalam batas aman");
             }
         }
 
+        /// <summary>
+        /// Mengisi tabel 10 transaksi terbaru (diurutkan dari waktu paling baru).
+        /// </summary>
         private void IsiTransaksiTerbaru(List<Transaksi> daftarTransaksi)
         {
             dataGridView1.AutoGenerateColumns = true;
@@ -200,7 +245,7 @@ namespace Sukimart
 
             UIHelper.TerapkanWarnaGrid(dataGridView1);
 
-            // Atur lebar kolom Nomor agar tidak terpotong
+            // Atur proporsi lebar kolom tabel
             if (dataGridView1.Columns.Contains("Nomor"))
                 dataGridView1.Columns["Nomor"].FillWeight = 170F;
             if (dataGridView1.Columns.Contains("Tanggal"))
@@ -211,34 +256,57 @@ namespace Sukimart
                 dataGridView1.Columns["Total"].FillWeight = 90F;
         }
 
-        private void button1_Click(object? sender, EventArgs e)
+        // =========================================================================
+        // EVENT HANDLER TOMBOL NAVIGASI SIDEBAR
+        // (Tersambung langsung dengan Designer via Event Click)
+        // =========================================================================
+
+        // Tetap di halaman dashboard
+        private void btnDashboard_Click(object? sender, EventArgs e)
         {
-            Navigasi.KonfirmasiDanKeluar(this);
+            // Sedang di form dashboard
         }
 
-        private void btnKatalog_Click(object? sender, EventArgs e)
-        {
-            Navigasi.BukaKatalog(this);
-        }
-
-        private void btnRiwayat_Click(object? sender, EventArgs e)
-        {
-            Navigasi.BukaRiwayat(this);
-        }
-
+        // Membuka form Kasir / POS
         private void btnKasir_Click(object? sender, EventArgs e)
         {
             Navigasi.BukaKasir(this);
         }
 
+        // Membuka form Katalog Produk
+        private void btnKatalog_Click(object? sender, EventArgs e)
+        {
+            Navigasi.BukaKatalog(this);
+        }
+
+        // Membuka form Riwayat Transaksi
+        private void btnRiwayat_Click(object? sender, EventArgs e)
+        {
+            Navigasi.BukaRiwayat(this);
+        }
+
+        // Membuka form Gudang
         private void btnGudang_Click(object? sender, EventArgs e)
         {
             Navigasi.BukaGudang(this);
         }
 
+        // Membuka form Laporan
         private void btnLaporan_Click(object? sender, EventArgs e)
         {
             Navigasi.BukaLaporan(this);
+        }
+
+        // Membuka form Manajemen Pengguna
+        private void btnPengguna_Click(object? sender, EventArgs e)
+        {
+            Navigasi.BukaPengguna(this);
+        }
+
+        // Tombol Keluar / Logout
+        private void btnKeluarBenar_Click(object? sender, EventArgs e)
+        {
+            Navigasi.KonfirmasiDanKeluar(this);
         }
     }
 }
