@@ -31,6 +31,7 @@ namespace Sukimart
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             pnlKiri = new Panel();
+            btnLogAktivitas = new Button();
             btnPengguna = new Button();
             btnLaporan = new Button();
             btnGudang = new Button();
@@ -72,6 +73,7 @@ namespace Sukimart
             // pnlKiri
             // 
             pnlKiri.BackColor = Color.White;
+            pnlKiri.Controls.Add(btnLogAktivitas);
             pnlKiri.Controls.Add(btnPengguna);
             pnlKiri.Controls.Add(btnLaporan);
             pnlKiri.Controls.Add(btnGudang);
@@ -87,6 +89,25 @@ namespace Sukimart
             pnlKiri.Name = "pnlKiri";
             pnlKiri.Size = new Size(240, 720);
             pnlKiri.TabIndex = 1;
+            // 
+            // btnLogAktivitas
+            // 
+            btnLogAktivitas.BackColor = Color.White;
+            btnLogAktivitas.Cursor = Cursors.Hand;
+            btnLogAktivitas.FlatAppearance.BorderSize = 0;
+            btnLogAktivitas.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
+            btnLogAktivitas.FlatStyle = FlatStyle.Flat;
+            btnLogAktivitas.Font = new Font("Inter", 10F);
+            btnLogAktivitas.ForeColor = Color.FromArgb(31, 41, 55);
+            btnLogAktivitas.Location = new Point(16, 448);
+            btnLogAktivitas.Name = "btnLogAktivitas";
+            btnLogAktivitas.Padding = new Padding(16, 0, 0, 0);
+            btnLogAktivitas.Size = new Size(208, 40);
+            btnLogAktivitas.TabIndex = 13;
+            btnLogAktivitas.Text = "Log Aktivitas";
+            btnLogAktivitas.TextAlign = ContentAlignment.MiddleLeft;
+            btnLogAktivitas.UseVisualStyleBackColor = false;
+            btnLogAktivitas.Click += btnLogAktivitas_Click;
             // 
             // btnPengguna
             // 
@@ -555,6 +576,7 @@ namespace Sukimart
         private Label lblJudul;
         private Button btnLaporan;
         private Button btnPengguna;
+        private Button btnLogAktivitas;
         private Button btnGudang;
         private Panel pnlPeringatan;
         private Label lblPeringatan;

@@ -60,6 +60,7 @@ namespace Sukimart
                 btnGudang.Visible = false;
                 btnLaporan.Visible = false;
                 btnPengguna.Visible = false;
+                btnLogAktivitas.Visible = false;
             }
             else if (this.peran == "gudang")
             {
@@ -68,6 +69,7 @@ namespace Sukimart
                 btnLaporan.Visible = false;
                 btnPengguna.Visible = false;
                 btnGudang.Visible = true;
+                btnLogAktivitas.Visible = false;
             }
             else
             {
@@ -76,6 +78,7 @@ namespace Sukimart
                 btnGudang.Visible = true;
                 btnLaporan.Visible = true;
                 btnPengguna.Visible = true;
+                btnLogAktivitas.Visible = true;
             }
 
             UIHelper.SusunTombolSidebar(pnlKiri);
@@ -183,6 +186,12 @@ namespace Sukimart
         private void btnPengguna_Click(object? sender, EventArgs e)
         {
             Navigasi.BukaPengguna(this);
+        }
+
+        // Membuka form Log Aktivitas sistem
+        private void btnLogAktivitas_Click(object? sender, EventArgs e)
+        {
+            Navigasi.BukaLogAktivitas(this);
         }
 
         private void btnKeluar_Click(object? sender, EventArgs e)

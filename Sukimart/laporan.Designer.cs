@@ -31,6 +31,7 @@ namespace Sukimart
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             pnlKiri = new Panel();
+            btnLogAktivitas = new Button();
             btnKeluar = new Button();
             btnLaporan = new Button();
             btnPengguna = new Button();
@@ -107,6 +108,7 @@ namespace Sukimart
             // pnlKiri
             // 
             pnlKiri.BackColor = Color.White;
+            pnlKiri.Controls.Add(btnLogAktivitas);
             pnlKiri.Controls.Add(btnKeluar);
             pnlKiri.Controls.Add(btnPengguna);
             pnlKiri.Controls.Add(btnLaporan);
@@ -178,6 +180,25 @@ namespace Sukimart
             btnPengguna.TextAlign = ContentAlignment.MiddleLeft;
             btnPengguna.UseVisualStyleBackColor = false;
             btnPengguna.Click += btnPengguna_Click;
+            // 
+            // btnLogAktivitas
+            // 
+            btnLogAktivitas.BackColor = Color.White;
+            btnLogAktivitas.Cursor = Cursors.Hand;
+            btnLogAktivitas.FlatAppearance.BorderSize = 0;
+            btnLogAktivitas.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
+            btnLogAktivitas.FlatStyle = FlatStyle.Flat;
+            btnLogAktivitas.Font = new Font("Inter", 10F);
+            btnLogAktivitas.ForeColor = Color.FromArgb(31, 41, 55);
+            btnLogAktivitas.Location = new Point(16, 448);
+            btnLogAktivitas.Name = "btnLogAktivitas";
+            btnLogAktivitas.Padding = new Padding(16, 0, 0, 0);
+            btnLogAktivitas.Size = new Size(208, 40);
+            btnLogAktivitas.TabIndex = 13;
+            btnLogAktivitas.Text = "Log Aktivitas";
+            btnLogAktivitas.TextAlign = ContentAlignment.MiddleLeft;
+            btnLogAktivitas.UseVisualStyleBackColor = false;
+            btnLogAktivitas.Click += btnLogAktivitas_Click;
             // 
             // btnGudang
             // 
@@ -498,12 +519,13 @@ namespace Sukimart
             btnHariIni.FlatStyle = FlatStyle.Flat;
             btnHariIni.Font = new Font("Inter", 10F, FontStyle.Bold);
             btnHariIni.ForeColor = Color.FromArgb(31, 41, 55);
-            btnHariIni.Location = new Point(40, 248);
+            btnHariIni.Location = new Point(-200, -200);
             btnHariIni.Name = "btnHariIni";
             btnHariIni.Size = new Size(120, 32);
             btnHariIni.TabIndex = 7;
             btnHariIni.Text = "Hari Ini";
             btnHariIni.UseVisualStyleBackColor = false;
+            btnHariIni.Visible = false;
             btnHariIni.Click += btnHariIni_Click;
             // 
             // btnBulanIni
@@ -514,12 +536,13 @@ namespace Sukimart
             btnBulanIni.FlatStyle = FlatStyle.Flat;
             btnBulanIni.Font = new Font("Inter", 10F);
             btnBulanIni.ForeColor = Color.FromArgb(75, 85, 99);
-            btnBulanIni.Location = new Point(168, 248);
+            btnBulanIni.Location = new Point(-200, -200);
             btnBulanIni.Name = "btnBulanIni";
             btnBulanIni.Size = new Size(120, 32);
             btnBulanIni.TabIndex = 8;
             btnBulanIni.Text = "Bulan Ini";
             btnBulanIni.UseVisualStyleBackColor = false;
+            btnBulanIni.Visible = false;
             btnBulanIni.Click += btnBulanIni_Click;
             // 
             // btnSemuaWaktu
@@ -530,12 +553,13 @@ namespace Sukimart
             btnSemuaWaktu.FlatStyle = FlatStyle.Flat;
             btnSemuaWaktu.Font = new Font("Inter", 10F);
             btnSemuaWaktu.ForeColor = Color.FromArgb(75, 85, 99);
-            btnSemuaWaktu.Location = new Point(296, 248);
+            btnSemuaWaktu.Location = new Point(-200, -200);
             btnSemuaWaktu.Name = "btnSemuaWaktu";
             btnSemuaWaktu.Size = new Size(120, 32);
             btnSemuaWaktu.TabIndex = 9;
             btnSemuaWaktu.Text = "Semua Waktu";
             btnSemuaWaktu.UseVisualStyleBackColor = false;
+            btnSemuaWaktu.Visible = false;
             btnSemuaWaktu.Click += btnSemuaWaktu_Click;
             // 
             // gridLaporan
@@ -564,7 +588,7 @@ namespace Sukimart
             dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
             gridLaporan.DefaultCellStyle = dataGridViewCellStyle4;
             gridLaporan.EnableHeadersVisualStyles = false;
-            gridLaporan.Location = new Point(40, 296);
+            gridLaporan.Location = new Point(40, 344);
             gridLaporan.MultiSelect = false;
             gridLaporan.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             gridLaporan.GridColor = Color.FromArgb(229, 231, 235);
@@ -574,7 +598,7 @@ namespace Sukimart
             gridLaporan.RowHeadersVisible = false;
             gridLaporan.RowTemplate.Height = 36;
             gridLaporan.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            gridLaporan.Size = new Size(960, 384);
+            gridLaporan.Size = new Size(960, 336);
             gridLaporan.TabIndex = 10;
             // 
             // colFaktur
@@ -634,7 +658,7 @@ namespace Sukimart
             btnPenjualan.ForeColor = Color.FromArgb(31, 41, 55);
             btnPenjualan.Location = new Point(40, 248);
             btnPenjualan.Name = "btnPenjualan";
-            btnPenjualan.Size = new Size(120, 32);
+            btnPenjualan.Size = new Size(110, 32);
             btnPenjualan.TabIndex = 11;
             btnPenjualan.Text = "Penjualan";
             btnPenjualan.UseVisualStyleBackColor = false;
@@ -649,68 +673,13 @@ namespace Sukimart
             btnGudangReport.FlatStyle = FlatStyle.Flat;
             btnGudangReport.Font = new Font("Inter", 10F);
             btnGudangReport.ForeColor = Color.FromArgb(75, 85, 99);
-            btnGudangReport.Location = new Point(168, 248);
+            btnGudangReport.Location = new Point(156, 248);
             btnGudangReport.Name = "btnGudangReport";
-            btnGudangReport.Size = new Size(152, 32);
+            btnGudangReport.Size = new Size(142, 32);
             btnGudangReport.TabIndex = 12;
             btnGudangReport.Text = "Inventaris Gudang";
             btnGudangReport.UseVisualStyleBackColor = false;
             btnGudangReport.Click += btnGudangReport_Click;
-            // 
-            // dtpMulai - Pemilih tanggal awal periode laporan
-            // 
-            dtpMulai.Format = DateTimePickerFormat.Short;
-            dtpMulai.Font = new Font("Inter", 10F);
-            dtpMulai.Location = new Point(336, 252);
-            dtpMulai.Name = "dtpMulai";
-            dtpMulai.Size = new Size(118, 23);
-            dtpMulai.TabIndex = 13;
-            // 
-            // dtpSelesai - Pemilih tanggal akhir periode laporan
-            // 
-            dtpSelesai.Format = DateTimePickerFormat.Short;
-            dtpSelesai.Font = new Font("Inter", 10F);
-            dtpSelesai.Location = new Point(462, 252);
-            dtpSelesai.Name = "dtpSelesai";
-            dtpSelesai.Size = new Size(118, 23);
-            dtpSelesai.TabIndex = 14;
-            // 
-            // btnTerapkanTanggal - Tombol untuk menerapkan filter tanggal
-            // 
-            btnTerapkanTanggal.BackColor = Color.White;
-            btnTerapkanTanggal.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
-            btnTerapkanTanggal.FlatStyle = FlatStyle.Flat;
-            btnTerapkanTanggal.Font = new Font("Inter", 10F, FontStyle.Bold);
-            btnTerapkanTanggal.ForeColor = Color.FromArgb(55, 65, 81);
-            btnTerapkanTanggal.Location = new Point(588, 248);
-            btnTerapkanTanggal.Name = "btnTerapkanTanggal";
-            btnTerapkanTanggal.Size = new Size(108, 32);
-            btnTerapkanTanggal.TabIndex = 15;
-            btnTerapkanTanggal.Text = "Terapkan";
-            btnTerapkanTanggal.Click += btnTerapkanTanggal_Click;
-            // 
-            // btnSimpanJson - Tombol untuk menyimpan laporan ke file JSON
-            // 
-            btnSimpanJson.BackColor = Color.White;
-            btnSimpanJson.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
-            btnSimpanJson.FlatStyle = FlatStyle.Flat;
-            btnSimpanJson.Font = new Font("Inter", 9.5F, FontStyle.Bold);
-            btnSimpanJson.ForeColor = Color.FromArgb(55, 65, 81);
-            btnSimpanJson.Location = new Point(704, 248);
-            btnSimpanJson.Name = "btnSimpanJson";
-            btnSimpanJson.Size = new Size(128, 32);
-            btnSimpanJson.TabIndex = 16;
-            btnSimpanJson.Text = "💾 Simpan JSON";
-            btnSimpanJson.Click += btnSimpanJson_Click;
-            // 
-            // lblRingkasan - Label untuk menampilkan ringkasan laporan
-            // 
-            lblRingkasan.Font = new Font("Inter", 9F);
-            lblRingkasan.ForeColor = Color.FromArgb(75, 85, 99);
-            lblRingkasan.Location = new Point(40, 292);
-            lblRingkasan.Name = "lblRingkasan";
-            lblRingkasan.Size = new Size(960, 42);
-            lblRingkasan.TabIndex = 17;
             // 
             // btnSubTransaksi
             // 
@@ -720,9 +689,9 @@ namespace Sukimart
             btnSubTransaksi.FlatStyle = FlatStyle.Flat;
             btnSubTransaksi.Font = new Font("Inter", 9.5F, FontStyle.Bold);
             btnSubTransaksi.ForeColor = Color.FromArgb(31, 41, 55);
-            btnSubTransaksi.Location = new Point(40, 248);
+            btnSubTransaksi.Location = new Point(304, 248);
             btnSubTransaksi.Name = "btnSubTransaksi";
-            btnSubTransaksi.Size = new Size(110, 32);
+            btnSubTransaksi.Size = new Size(94, 32);
             btnSubTransaksi.TabIndex = 18;
             btnSubTransaksi.Text = "Transaksi";
             btnSubTransaksi.UseVisualStyleBackColor = false;
@@ -737,13 +706,68 @@ namespace Sukimart
             btnSubLaba.FlatStyle = FlatStyle.Flat;
             btnSubLaba.Font = new Font("Inter", 9.5F);
             btnSubLaba.ForeColor = Color.FromArgb(75, 85, 99);
-            btnSubLaba.Location = new Point(158, 248);
+            btnSubLaba.Location = new Point(404, 248);
             btnSubLaba.Name = "btnSubLaba";
-            btnSubLaba.Size = new Size(110, 32);
+            btnSubLaba.Size = new Size(76, 32);
             btnSubLaba.TabIndex = 19;
             btnSubLaba.Text = "Laba";
             btnSubLaba.UseVisualStyleBackColor = false;
             btnSubLaba.Click += btnSubLaba_Click;
+            // 
+            // dtpMulai - Pemilih tanggal awal periode laporan
+            // 
+            dtpMulai.Format = DateTimePickerFormat.Short;
+            dtpMulai.Font = new Font("Inter", 10F);
+            dtpMulai.Location = new Point(486, 252);
+            dtpMulai.Name = "dtpMulai";
+            dtpMulai.Size = new Size(118, 23);
+            dtpMulai.TabIndex = 13;
+            // 
+            // dtpSelesai - Pemilih tanggal akhir periode laporan
+            // 
+            dtpSelesai.Format = DateTimePickerFormat.Short;
+            dtpSelesai.Font = new Font("Inter", 10F);
+            dtpSelesai.Location = new Point(610, 252);
+            dtpSelesai.Name = "dtpSelesai";
+            dtpSelesai.Size = new Size(118, 23);
+            dtpSelesai.TabIndex = 14;
+            // 
+            // btnTerapkanTanggal - Tombol untuk menerapkan filter tanggal
+            // 
+            btnTerapkanTanggal.BackColor = Color.White;
+            btnTerapkanTanggal.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
+            btnTerapkanTanggal.FlatStyle = FlatStyle.Flat;
+            btnTerapkanTanggal.Font = new Font("Inter", 10F, FontStyle.Bold);
+            btnTerapkanTanggal.ForeColor = Color.FromArgb(55, 65, 81);
+            btnTerapkanTanggal.Location = new Point(734, 248);
+            btnTerapkanTanggal.Name = "btnTerapkanTanggal";
+            btnTerapkanTanggal.Size = new Size(102, 32);
+            btnTerapkanTanggal.TabIndex = 15;
+            btnTerapkanTanggal.Text = "Terapkan";
+            btnTerapkanTanggal.Click += btnTerapkanTanggal_Click;
+            // 
+            // btnSimpanJson - Tombol untuk menyimpan laporan ke file JSON
+            // 
+            btnSimpanJson.BackColor = Color.White;
+            btnSimpanJson.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
+            btnSimpanJson.FlatStyle = FlatStyle.Flat;
+            btnSimpanJson.Font = new Font("Inter", 9.5F, FontStyle.Bold);
+            btnSimpanJson.ForeColor = Color.FromArgb(55, 65, 81);
+            btnSimpanJson.Location = new Point(842, 248);
+            btnSimpanJson.Name = "btnSimpanJson";
+            btnSimpanJson.Size = new Size(130, 32);
+            btnSimpanJson.TabIndex = 16;
+            btnSimpanJson.Text = "💾 Simpan JSON";
+            btnSimpanJson.Click += btnSimpanJson_Click;
+            // 
+            // lblRingkasan - Label untuk menampilkan ringkasan laporan
+            // 
+            lblRingkasan.Font = new Font("Inter", 9F);
+            lblRingkasan.ForeColor = Color.FromArgb(75, 85, 99);
+            lblRingkasan.Location = new Point(40, 292);
+            lblRingkasan.Name = "lblRingkasan";
+            lblRingkasan.Size = new Size(960, 42);
+            lblRingkasan.TabIndex = 17;
             // 
             // gridLaba
             // 
@@ -974,6 +998,7 @@ namespace Sukimart
         private Panel pnlKiri;
         private Button btnLaporan;
         private Button btnPengguna;
+        private Button btnLogAktivitas;
         private Button btnGudang;
         private Button btnRiwayat;
         private Button btnKatalog;

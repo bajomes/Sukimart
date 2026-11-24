@@ -31,6 +31,7 @@ namespace Sukimart
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             pnlKiri = new Panel();
+            btnLogAktivitas = new Button();
             btnKeluar = new Button();
             btnRiwayat = new Button();
             btnKatalog = new Button();
@@ -65,6 +66,7 @@ namespace Sukimart
             // pnlKiri
             // 
             pnlKiri.BackColor = Color.White;
+            pnlKiri.Controls.Add(btnLogAktivitas);
             pnlKiri.Controls.Add(btnKeluar);
             pnlKiri.Controls.Add(btnRiwayat);
             pnlKiri.Controls.Add(btnKatalog);
@@ -77,6 +79,25 @@ namespace Sukimart
             pnlKiri.Name = "pnlKiri";
             pnlKiri.Size = new Size(240, 720);
             pnlKiri.TabIndex = 0;
+            // 
+            // btnLogAktivitas
+            // 
+            btnLogAktivitas.BackColor = Color.White;
+            btnLogAktivitas.Cursor = Cursors.Hand;
+            btnLogAktivitas.FlatAppearance.BorderSize = 0;
+            btnLogAktivitas.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
+            btnLogAktivitas.FlatStyle = FlatStyle.Flat;
+            btnLogAktivitas.Font = new Font("Inter", 10F);
+            btnLogAktivitas.ForeColor = Color.FromArgb(31, 41, 55);
+            btnLogAktivitas.Location = new Point(16, 448);
+            btnLogAktivitas.Name = "btnLogAktivitas";
+            btnLogAktivitas.Padding = new Padding(16, 0, 0, 0);
+            btnLogAktivitas.Size = new Size(208, 40);
+            btnLogAktivitas.TabIndex = 8;
+            btnLogAktivitas.Text = "Log Aktivitas";
+            btnLogAktivitas.TextAlign = ContentAlignment.MiddleLeft;
+            btnLogAktivitas.UseVisualStyleBackColor = false;
+            btnLogAktivitas.Click += btnLogAktivitas_Click;
             // 
             // btnKeluar
             // 
@@ -433,6 +454,7 @@ namespace Sukimart
         private Panel pnlKanan;
         private Label lblTransaksiTerbaru;
         private Button btnKasir;
+        private Button btnLogAktivitas;
         private Button btnKeluar;
         private Button btnRiwayat;
         private Button btnKatalog;

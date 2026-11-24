@@ -1,112 +1,42 @@
 [
-    {
-        "aktif":  true,
-        "kode":  "BRG001",
-        "hargaBeli":  60000,
-        "stok":  40,
-        "kategori":  "Sembako",
-        "stokMinimum":  10,
-        "nama":  "Beras Premium 5kg",
-        "harga":  72000
-    },
-    {
-        "aktif":  true,
-        "kode":  "BRG002",
-        "hargaBeli":  32000,
-        "stok":  8,
-        "kategori":  "Sembako",
-        "stokMinimum":  10,
-        "nama":  "Minyak Goreng 2L",
-        "harga":  38000
-    },
-    {
-        "aktif":  true,
-        "kode":  "BRG003",
-        "hargaBeli":  14000,
-        "stok":  55,
-        "kategori":  "Sembako",
-        "stokMinimum":  15,
-        "nama":  "Gula Pasir 1kg",
-        "harga":  16500
-    },
-    {
-        "aktif":  true,
-        "kode":  "BRG004",
-        "hargaBeli":  4500,
-        "stok":  100,
-        "kategori":  "Minuman",
-        "stokMinimum":  30,
-        "nama":  "Teh Botol 450ml",
-        "harga":  5500
-    },
-    {
-        "aktif":  true,
-        "kode":  "BRG005",
-        "hargaBeli":  2500,
-        "stok":  150,
-        "kategori":  "Minuman",
-        "stokMinimum":  50,
-        "nama":  "Air Mineral 600ml",
-        "harga":  3500
-    },
-    {
-        "aktif":  true,
-        "kode":  "BRG006",
-        "hargaBeli":  10000,
-        "stok":  9,
-        "kategori":  "Minuman",
-        "stokMinimum":  12,
-        "nama":  "Kopi Sachet 10s",
-        "harga":  12000
-    },
-    {
-        "aktif":  true,
-        "kode":  "BRG007",
-        "hargaBeli":  17500,
-        "stok":  5,
-        "kategori":  "Kebersihan",
-        "stokMinimum":  10,
-        "nama":  "Deterjen 800g",
-        "harga":  21000
-    },
-    {
-        "aktif":  true,
-        "kode":  "BRG008",
-        "hargaBeli":  3500,
-        "stok":  80,
-        "kategori":  "Kebersihan",
-        "stokMinimum":  20,
-        "nama":  "Sabun Mandi",
-        "harga":  4500
-    },
-    {
-        "aktif":  true,
-        "kode":  "BRG009",
-        "hargaBeli":  7000,
-        "stok":  10,
-        "kategori":  "Snack",
-        "stokMinimum":  10,
-        "nama":  "Keripik Singkong",
-        "harga":  9000
-    },
-    {
-        "aktif":  true,
-        "kode":  "BRG010",
-        "hargaBeli":  2800,
-        "stok":  200,
-        "kategori":  "Makanan",
-        "stokMinimum":  50,
-        "nama":  "Mie Instan Goreng",
-        "harga":  3500
-    },
-    {
-        "aktif":  true,
-        "kode":  "BRG011",
-        "hargaBeli":  15000,
-        "stok":  0,
-        "kategori":  "Minuman",
-        "stokMinimum":  12,
-        "nama":  "Susu UHT 1L",
-        "harga":  18500
-    }
+  {
+    "kode": "BRG001",
+    "nama": "Sukironi",
+    "kategori": "Snack",
+    "hargaBeli": 4000,
+    "harga": 5000,
+    "stok": 0,
+    "stokMinimum": 100,
+    "aktif": true
+  },
+  {
+    "kode": "BRG002",
+    "nama": "Roti Ambakar",
+    "kategori": "Makanan",
+    "hargaBeli": 10000,
+    "harga": 13000,
+    "stok": 0,
+    "stokMinimum": 100,
+    "aktif": true
+  },
+  {
+    "kode": "BRG003",
+    "nama": "Ayam Ambakar",
+    "kategori": "Makanan",
+    "hargaBeli": 15000,
+    "harga": 20000,
+    "stok": 0,
+    "stokMinimum": 100,
+    "aktif": true
+  },
+  {
+    "kode": "BRG004",
+    "nama": "Ambakso",
+    "kategori": "Makanan",
+    "hargaBeli": 10000,
+    "harga": 13000,
+    "stok": 0,
+    "stokMinimum": 100,
+    "aktif": true
+  }
 ]

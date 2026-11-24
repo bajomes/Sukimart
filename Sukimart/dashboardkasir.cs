@@ -217,6 +217,12 @@ namespace Sukimart
             Navigasi.BukaRiwayat(this);
         }
 
+        // Membuka form Log Aktivitas sistem
+        private void btnLogAktivitas_Click(object? sender, EventArgs e)
+        {
+            Navigasi.BukaLogAktivitas(this);
+        }
+
         // Keluar dari sesi kasir (Logout)
         private void btnKeluar_Click(object? sender, EventArgs e)
         {

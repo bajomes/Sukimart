@@ -18,6 +18,7 @@ namespace Sukimart
             DataGridViewCellStyle gayaJudulKolom = new DataGridViewCellStyle();
             DataGridViewCellStyle gayaSel = new DataGridViewCellStyle();
             pnlKiri = new Panel();
+            btnLogAktivitas = new Button();
             btnKeluar = new Button();
             btnPengguna = new Button();
             btnLaporan = new Button();
@@ -64,6 +65,7 @@ namespace Sukimart
             pnlForm.SuspendLayout();
             SuspendLayout();
             pnlKiri.BackColor = Color.White;
+            pnlKiri.Controls.Add(btnLogAktivitas);
             pnlKiri.Controls.Add(btnKeluar);
             pnlKiri.Controls.Add(btnPengguna);
             pnlKiri.Controls.Add(btnLaporan);
@@ -111,6 +113,25 @@ namespace Sukimart
             btnPengguna.Name = "btnPengguna";
             btnPengguna.TabIndex = 12;
             btnPengguna.Click += btnPengguna_Click;
+            // 
+            // btnLogAktivitas
+            // 
+            btnLogAktivitas.BackColor = Color.White;
+            btnLogAktivitas.Cursor = Cursors.Hand;
+            btnLogAktivitas.FlatAppearance.BorderSize = 0;
+            btnLogAktivitas.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
+            btnLogAktivitas.FlatStyle = FlatStyle.Flat;
+            btnLogAktivitas.Font = new Font("Inter", 10F);
+            btnLogAktivitas.ForeColor = Color.FromArgb(31, 41, 55);
+            btnLogAktivitas.Location = new Point(16, 448);
+            btnLogAktivitas.Padding = new Padding(16, 0, 0, 0);
+            btnLogAktivitas.Size = new Size(208, 40);
+            btnLogAktivitas.Text = "Log Aktivitas";
+            btnLogAktivitas.TextAlign = ContentAlignment.MiddleLeft;
+            btnLogAktivitas.UseVisualStyleBackColor = false;
+            btnLogAktivitas.Name = "btnLogAktivitas";
+            btnLogAktivitas.TabIndex = 13;
+            btnLogAktivitas.Click += btnLogAktivitas_Click;
             btnLaporan.BackColor = Color.White;
             btnLaporan.Cursor = Cursors.Hand;
             btnLaporan.FlatAppearance.BorderSize = 0;
@@ -539,6 +560,7 @@ namespace Sukimart
         private Panel pnlKiri;
         private Button btnKeluar;
         private Button btnPengguna;
+        private Button btnLogAktivitas;
         private Button btnLaporan;
         private Button btnGudang;
         private Button btnRiwayat;

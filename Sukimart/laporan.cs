@@ -114,25 +114,25 @@ namespace Sukimart
             if (isPenjualan)
             {
                 btnPenjualan.Location = new Point(margin, 248);
-                btnGudangReport.Location = new Point(margin + 128, 248);
+                btnGudangReport.Location = new Point(margin + 116, 248);
 
-                btnSubTransaksi.Location = new Point(margin + 288, 248);
-                btnSubLaba.Location = new Point(margin + 406, 248);
+                btnSubTransaksi.Location = new Point(margin + 264, 248);
+                btnSubLaba.Location = new Point(margin + 364, 248);
 
-                dtpMulai.Location = new Point(margin + 526, 252);
-                dtpSelesai.Location = new Point(margin + 652, 252);
-                btnTerapkanTanggal.Location = new Point(margin + 778, 248);
-                btnSimpanJson.Location = new Point(margin + 894, 248);
+                dtpMulai.Location = new Point(margin + 446, 252);
+                dtpSelesai.Location = new Point(margin + 570, 252);
+                btnTerapkanTanggal.Location = new Point(margin + 694, 248);
+                btnSimpanJson.Location = new Point(margin + 802, 248);
             }
             else
             {
                 btnPenjualan.Location = new Point(margin, 248);
-                btnGudangReport.Location = new Point(margin + 128, 248);
+                btnGudangReport.Location = new Point(margin + 116, 248);
 
-                dtpMulai.Location = new Point(margin + 288, 252);
-                dtpSelesai.Location = new Point(margin + 414, 252);
-                btnTerapkanTanggal.Location = new Point(margin + 540, 248);
-                btnSimpanJson.Location = new Point(margin + 656, 248);
+                dtpMulai.Location = new Point(margin + 264, 252);
+                dtpSelesai.Location = new Point(margin + 388, 252);
+                btnTerapkanTanggal.Location = new Point(margin + 512, 248);
+                btnSimpanJson.Location = new Point(margin + 620, 248);
             }
 
             lblRingkasan.Location = new Point(margin, 292);
@@ -174,6 +174,7 @@ namespace Sukimart
             btnGudang.Visible = admin;
             btnLaporan.Visible = admin;
             btnPengguna.Visible = admin;
+            btnLogAktivitas.Visible = admin;
             btnPenjualan.Visible = admin;
             UIHelper.SusunTombolSidebar(pnlKiri);
         }
@@ -241,6 +242,12 @@ namespace Sukimart
         private void btnPengguna_Click(object? sender, EventArgs e)
         {
             Navigasi.BukaPengguna(this);
+        }
+
+        // Membuka form Log Aktivitas sistem
+        private void btnLogAktivitas_Click(object? sender, EventArgs e)
+        {
+            Navigasi.BukaLogAktivitas(this);
         }
 
         private void btnKeluar_Click(object? sender, EventArgs e)
@@ -328,8 +335,8 @@ namespace Sukimart
         private void UbahJenisLaporan(string jenis)
         {
             jenisLaporan = jenis;
-            AturTombolMode(btnPenjualan, "Penjualan", btnPenjualan.Location, jenis == "penjualan", 120);
-            AturTombolMode(btnGudangReport, "Inventaris Gudang", btnGudangReport.Location, jenis == "gudang", 152);
+            AturTombolMode(btnPenjualan, "Penjualan", btnPenjualan.Location, jenis == "penjualan", 110);
+            AturTombolMode(btnGudangReport, "Inventaris Gudang", btnGudangReport.Location, jenis == "gudang", 142);
             AturTataLetakResponsif();
             TerapkanLaporan();
         }

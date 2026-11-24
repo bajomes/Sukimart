@@ -99,6 +99,13 @@ namespace Sukimart
                 string folderSumber = Path.Combine(Application.StartupPath, "Data");
                 Directory.CreateDirectory(folderSumber);
                 File.WriteAllText(Path.Combine(folderSumber, namaFile), json);
+
+                // Sinkronkan juga langsung ke folder Data proyek sumber (..\..\..\Data) jika tersedia
+                string folderProyek = Path.GetFullPath(Path.Combine(Application.StartupPath, "..", "..", "..", "Data"));
+                if (Directory.Exists(folderProyek))
+                {
+                    File.WriteAllText(Path.Combine(folderProyek, namaFile), json);
+                }
             }
             catch { }
         }
@@ -127,16 +134,10 @@ namespace Sukimart
             SimpanData("kategori.json", daftarKategori);
         }
 
-        // Membaca daftar barang dari barang.json (Dilengkapi inisialisasi data contoh resmi penguji BRG001-BRG011)
+        // Membaca daftar barang dari barang.json
         public static List<Barang> BacaBarang()
         {
-            List<Barang> daftar = BacaData<Barang>("barang.json");
-            if (daftar.Count == 0 || !daftar.Any(b => b.Kode == "BRG001"))
-            {
-                daftar = BuatDataBarangAwal();
-                SimpanBarang(daftar);
-            }
-            return daftar;
+            return BacaData<Barang>("barang.json");
         }
 
         public static void SimpanBarang(List<Barang> daftarBarang)
@@ -166,13 +167,7 @@ namespace Sukimart
         // Membaca daftar riwayat transaksi penjualan
         public static List<Transaksi> BacaTransaksi()
         {
-            List<Transaksi> daftar = BacaData<Transaksi>("transaksi.json");
-            if (daftar.Count == 0 || !daftar.Any(t => t.Id == "TRX001"))
-            {
-                daftar = BuatDataTransaksiAwal();
-                SimpanTransaksi(daftar);
-            }
-            return daftar;
+            return BacaData<Transaksi>("transaksi.json");
         }
 
         public static void SimpanTransaksi(List<Transaksi> daftarTransaksi)
@@ -279,39 +274,10 @@ namespace Sukimart
             return pathKerja;
         }
 
-        // Membaca detail transaksi dan memastikan harga beli (modal) terisi akurat untuk kalkulator laba
+        // Membaca detail transaksi
         public static List<DetailTransaksi> BacaDetailTransaksi()
         {
-            List<DetailTransaksi> daftarDetail = BacaData<DetailTransaksi>("detail_transaksi.json");
-            if (daftarDetail.Count == 0 || !daftarDetail.Any(d => d.IdTransaksi == "TRX001"))
-            {
-                daftarDetail = BuatDataDetailAwal();
-                SimpanDetailTransaksi(daftarDetail);
-            }
-            else
-            {
-                // Sinkronisasi otomatis nilai HargaBeli jika ada data transaksi lama yang bernilai 0
-                bool adaPerubahan = false;
-                List<Barang> daftarBarang = BacaBarang();
-                Dictionary<string, int> petaHargaBeli = daftarBarang
-                    .Where(b => !string.IsNullOrEmpty(b.Kode))
-                    .ToDictionary(b => b.Kode, b => b.HargaBeli, StringComparer.OrdinalIgnoreCase);
-
-                foreach (var d in daftarDetail)
-                {
-                    if (d.HargaBeli <= 0 && petaHargaBeli.TryGetValue(d.KodeBarang, out int hb) && hb > 0)
-                    {
-                        d.HargaBeli = hb;
-                        adaPerubahan = true;
-                    }
-                }
-
-                if (adaPerubahan)
-                {
-                    try { SimpanDetailTransaksi(daftarDetail); } catch { }
-                }
-            }
-            return daftarDetail;
+            return BacaData<DetailTransaksi>("detail_transaksi.json");
         }
 
         public static void SimpanDetailTransaksi(List<DetailTransaksi> daftarDetail)
@@ -344,7 +310,7 @@ namespace Sukimart
         public static List<Pengguna> BacaPengguna()
         {
             List<Pengguna> daftarPengguna = BacaData<Pengguna>("pengguna.json");
-            if (daftarPengguna.Count == 0 || !daftarPengguna.Any(p => p.NamaPengguna == "kasir2"))
+            if (daftarPengguna.Count == 0 || !daftarPengguna.Any(p => p.NamaPengguna == "admin"))
             {
                 daftarPengguna = BuatPenggunaAwal();
                 SimpanPengguna(daftarPengguna);
@@ -357,34 +323,30 @@ namespace Sukimart
             SimpanData("pengguna.json", daftarPengguna);
         }
 
-        // Data awal akun pengguna lengkap sesuai Dokumen Penguji (admin, kasir1, kasir2, kasir3, gudang1)
+        // Data awal akun pengguna default sistem (admin, kasir, kasir1, gudang, gudang1, bajomes)
         public static List<Pengguna> BuatPenggunaAwal()
         {
             Pengguna admin = new Pengguna { NamaPengguna = "admin", NamaLengkap = "Administrator Suki MART", Peran = "admin", Aktif = true, Dibuat = new DateTime(2026, 11, 1, 8, 0, 0) };
+            Pengguna kasir = new Pengguna { NamaPengguna = "kasir", NamaLengkap = "Kasir Utama", Peran = "kasir", Aktif = true, Dibuat = new DateTime(2026, 11, 1, 8, 0, 0) };
             Pengguna kasir1 = new Pengguna { NamaPengguna = "kasir1", NamaLengkap = "Dewi Lestari", Peran = "kasir", Aktif = true, Dibuat = new DateTime(2026, 11, 1, 8, 0, 0) };
-            Pengguna kasir2 = new Pengguna { NamaPengguna = "kasir2", NamaLengkap = "Rian Saputra", Peran = "kasir", Aktif = true, Dibuat = new DateTime(2026, 11, 1, 8, 0, 0) };
-            Pengguna kasir3 = new Pengguna { NamaPengguna = "kasir3", NamaLengkap = "Sari Wulandari", Peran = "kasir", Aktif = false, Dibuat = new DateTime(2026, 11, 1, 8, 0, 0) };
+            Pengguna gudang = new Pengguna { NamaPengguna = "gudang", NamaLengkap = "Petugas Gudang", Peran = "gudang", Aktif = true, Dibuat = new DateTime(2026, 11, 1, 8, 0, 0) };
             Pengguna gudang1 = new Pengguna { NamaPengguna = "gudang1", NamaLengkap = "Budi Santoso", Peran = "gudang", Aktif = true, Dibuat = new DateTime(2026, 11, 1, 8, 0, 0) };
+            Pengguna bajomes = new Pengguna { NamaPengguna = "bajomes", NamaLengkap = "Bajomes Admin", Peran = "admin", Aktif = true, Dibuat = new DateTime(2026, 11, 1, 8, 0, 0) };
 
             KeamananSandi.IsiSandi(admin, "admin123");
+            KeamananSandi.IsiSandi(kasir, "kasir123");
             KeamananSandi.IsiSandi(kasir1, "kasir123");
-            KeamananSandi.IsiSandi(kasir2, "kasir123");
-            KeamananSandi.IsiSandi(kasir3, "kasir123");
+            KeamananSandi.IsiSandi(gudang, "gudang123");
             KeamananSandi.IsiSandi(gudang1, "gudang123");
+            KeamananSandi.IsiSandi(bajomes, "admin123");
 
-            return new List<Pengguna> { admin, kasir1, kasir2, kasir3, gudang1 };
+            return new List<Pengguna> { admin, kasir, kasir1, gudang, gudang1, bajomes };
         }
 
         // Membaca berkas log audit aktivitas
         public static List<Aktivitas> BacaAktivitas()
         {
-            List<Aktivitas> daftar = BacaData<Aktivitas>("log_aktivitas.json");
-            if (daftar.Count == 0)
-            {
-                daftar = BuatDataAktivitasAwal();
-                SimpanData("log_aktivitas.json", daftar);
-            }
-            return daftar;
+            return BacaData<Aktivitas>("log_aktivitas.json");
         }
 
         private static List<Aktivitas> BuatDataAktivitasAwal()
@@ -452,13 +414,7 @@ namespace Sukimart
         // Membaca kartu stok barang
         public static List<RiwayatStok> BacaRiwayatStok()
         {
-            List<RiwayatStok> daftar = BacaData<RiwayatStok>("riwayat_stok.json");
-            if (daftar.Count == 0)
-            {
-                daftar = BuatDataRiwayatStokAwal();
-                SimpanData("riwayat_stok.json", daftar);
-            }
-            return daftar;
+            return BacaData<RiwayatStok>("riwayat_stok.json");
         }
 
         public static void TambahRiwayatStok(RiwayatStok catatan)
@@ -494,13 +450,7 @@ namespace Sukimart
         // Membaca daftar dokumen barang masuk gudang
         public static List<BarangMasuk> BacaBarangMasuk()
         {
-            List<BarangMasuk> daftar = BacaData<BarangMasuk>("barang_masuk.json");
-            if (daftar.Count == 0)
-            {
-                daftar = BuatDataBarangMasukAwal();
-                SimpanData("barang_masuk.json", daftar);
-            }
-            return daftar;
+            return BacaData<BarangMasuk>("barang_masuk.json");
         }
 
         public static void TambahBarangMasuk(BarangMasuk barangMasuk)
@@ -523,13 +473,7 @@ namespace Sukimart
         // Membaca daftar dokumen barang keluar gudang
         public static List<BarangKeluar> BacaBarangKeluar()
         {
-            List<BarangKeluar> daftar = BacaData<BarangKeluar>("barang_keluar.json");
-            if (daftar.Count == 0)
-            {
-                daftar = BuatDataBarangKeluarAwal();
-                SimpanData("barang_keluar.json", daftar);
-            }
-            return daftar;
+            return BacaData<BarangKeluar>("barang_keluar.json");
         }
 
         public static void TambahBarangKeluar(BarangKeluar barangKeluar)

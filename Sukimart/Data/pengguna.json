@@ -1,52 +1,42 @@
-﻿[
-    {
-        "namaPengguna":  "admin",
-        "namaLengkap":  "Administrator Suki MART",
-        "peran":  "admin",
-        "aktif":  true,
-        "hashSandi":  "CKu4u0abIDCO9yJV68TCos+I++0kviqh5QB/HqPWG5g=",
-        "garam":  "xsHJbqYD4dRTPIFbgvT5Bw==",
-        "iterasi":  100000,
-        "dibuat":  "2026-11-01T08:00:00"
-    },
-    {
-        "namaPengguna":  "kasir1",
-        "namaLengkap":  "Dewi Lestari",
-        "peran":  "kasir",
-        "aktif":  true,
-        "hashSandi":  "jsmVQRC2QyQi1rD4S6HpDp+S55DQmz18TUtyS+Qrn2g=",
-        "garam":  "Z8nempXbDOEmq3g3H3v3Og==",
-        "iterasi":  100000,
-        "dibuat":  "2026-11-01T08:00:00"
-    },
-    {
-        "namaPengguna":  "kasir2",
-        "namaLengkap":  "Rian Saputra",
-        "peran":  "kasir",
-        "aktif":  true,
-        "hashSandi":  "CaqB0rGGFAHPnKXxUorOQhb/j3fXgkU2ZFNBsbIZ27w=",
-        "garam":  "rgwf898TsN3GdhsNKBbhnQ==",
-        "iterasi":  100000,
-        "dibuat":  "2026-11-01T08:00:00"
-    },
-    {
-        "namaPengguna":  "kasir3",
-        "namaLengkap":  "Sari Wulandari",
-        "peran":  "kasir",
-        "aktif":  false,
-        "hashSandi":  "/DSYFEqQuJif2/+83R1Pw4CAf/5rOKKoE1vquH38Zvg=",
-        "garam":  "6OwjLB9+2m+d3RVahe5Zjg==",
-        "iterasi":  100000,
-        "dibuat":  "2026-11-01T08:00:00"
-    },
-    {
-        "namaPengguna":  "gudang1",
-        "namaLengkap":  "Budi Santoso",
-        "peran":  "gudang",
-        "aktif":  true,
-        "hashSandi":  "3rEwzE2mHBIAJxhAZlPSKbi7C8QhDlWF9a3mKGEAOWw=",
-        "garam":  "NQpH1zEznAT+Dw097KNGjA==",
-        "iterasi":  100000,
-        "dibuat":  "2026-11-01T08:00:00"
-    }
+[
+  {
+    "namaPengguna": "admin",
+    "namaLengkap": "Administrator Suki MART",
+    "peran": "admin",
+    "aktif": true,
+    "hashSandi": "STBSCtWeegZ03qZ0AFR0NhC6FPc8rQ5rdBbPejU9Qgs=",
+    "garam": "GqCjPTMKi7h3EKwLrSRKMA==",
+    "iterasi": 100000,
+    "dibuat": "2026-11-01T08:00:00"
+  },
+  {
+    "namaPengguna": "bajomes",
+    "namaLengkap": "bajomes",
+    "peran": "admin",
+    "aktif": true,
+    "hashSandi": "B1ohYyUG\u002B7d7ad1Ig3Ba1eUF0C2DBLNFYoIhtX/uqnA=",
+    "garam": "ODP5bWLqH4qvhkoR3tbuvQ==",
+    "iterasi": 100000,
+    "dibuat": "2026-11-01T08:00:00"
+  },
+  {
+    "namaPengguna": "rusdi",
+    "namaLengkap": "rusdi",
+    "peran": "kasir",
+    "aktif": true,
+    "hashSandi": "EWcXak8c1PxovT8OChR/jXC6w7XhZFLQsNiYb5rtbKo=",
+    "garam": "wjU8m9bYdx0iPUGfD7QKNg==",
+    "iterasi": 100000,
+    "dibuat": "2026-11-24T18:06:45.3576852+07:00"
+  },
+  {
+    "namaPengguna": "amba",
+    "namaLengkap": "amba",
+    "peran": "gudang",
+    "aktif": true,
+    "hashSandi": "pHyZEYeLvBp1zaRGFXMDeEErOAKDcrB/8rjNvyWxtBw=",
+    "garam": "C9Agx2UERbSFaTkMxRFuDQ==",
+    "iterasi": 100000,
+    "dibuat": "2026-11-24T18:06:59.6567333+07:00"
+  }
 ]

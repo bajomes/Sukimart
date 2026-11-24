@@ -303,6 +303,12 @@ namespace Sukimart
             Navigasi.BukaPengguna(this);
         }
 
+        // Membuka form Log Aktivitas sistem
+        private void btnLogAktivitas_Click(object? sender, EventArgs e)
+        {
+            Navigasi.BukaLogAktivitas(this);
+        }
+
         // Tombol Keluar / Logout
         private void btnKeluarBenar_Click(object? sender, EventArgs e)
         {

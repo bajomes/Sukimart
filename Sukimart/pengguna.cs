@@ -112,6 +112,12 @@ namespace Sukimart
             // Sedang berada di form pengguna
         }
 
+        // Membuka form Log Aktivitas sistem
+        private void btnLogAktivitas_Click(object? sender, EventArgs e)
+        {
+            Navigasi.BukaLogAktivitas(this);
+        }
+
         private void btnKeluar_Click(object? sender, EventArgs e)
         {
             Navigasi.KonfirmasiDanKeluar(this);

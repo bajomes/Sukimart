@@ -1,26 +1,62 @@
 [
-    {
-        "tanggal":  "2026-11-02T09:00:03",
-        "aksi":  "LOGIN",
-        "jenisAktivitas":  "Login",
-        "namaPengguna":  "kasir1"
-    },
-    {
-        "tanggal":  "2026-11-02T09:10:25",
-        "aksi":  "TRANSAKSI TRX001",
-        "jenisAktivitas":  "Transaksi",
-        "namaPengguna":  "kasir1"
-    },
-    {
-        "tanggal":  "2026-11-03T08:15:40",
-        "aksi":  "BARANG KELUAR KLR001 BRG005 6",
-        "jenisAktivitas":  "Stok Keluar",
-        "namaPengguna":  "gudang1"
-    },
-    {
-        "tanggal":  "2026-11-04T16:40:55",
-        "aksi":  "TRANSAKSI TRX004",
-        "jenisAktivitas":  "Transaksi",
-        "namaPengguna":  "kasir2"
-    }
+  {
+    "tanggal": "2026-11-24T18:15:51.0374244+07:00",
+    "namaPengguna": "admin",
+    "jenisAktivitas": "Bersihkan Log",
+    "aksi": "Seluruh riwayat log aktivitas telah dibersihkan oleh Admin (admin)."
+  },
+  {
+    "tanggal": "2026-11-24T18:22:20.3300504+07:00",
+    "namaPengguna": "admin",
+    "jenisAktivitas": "Logout",
+    "aksi": "Pengguna \u0027admin\u0027 (admin) keluar dari sistem."
+  },
+  {
+    "tanggal": "2026-11-24T18:23:45.2524921+07:00",
+    "namaPengguna": "bajomes",
+    "jenisAktivitas": "Login Gagal",
+    "aksi": "Percobaan masuk gagal: Kata sandi salah untuk pengguna \u0027bajomes\u0027 (1/3)."
+  },
+  {
+    "tanggal": "2026-11-24T18:23:47.705422+07:00",
+    "namaPengguna": "bajomes",
+    "jenisAktivitas": "Login Gagal",
+    "aksi": "Percobaan masuk gagal: Kata sandi salah untuk pengguna \u0027bajomes\u0027 (2/3)."
+  },
+  {
+    "tanggal": "2026-11-24T18:23:54.4602635+07:00",
+    "namaPengguna": "bajomes",
+    "jenisAktivitas": "Login Gagal",
+    "aksi": "Percobaan masuk gagal: Kata sandi salah untuk pengguna \u0027bajomes\u0027 (3/3)."
+  },
+  {
+    "tanggal": "2026-11-24T18:24:11.7803175+07:00",
+    "namaPengguna": "admin",
+    "jenisAktivitas": "Login",
+    "aksi": "Pengguna \u0027admin\u0027 (admin) berhasil masuk ke sistem."
+  },
+  {
+    "tanggal": "2026-11-24T18:24:28.0590368+07:00",
+    "namaPengguna": "admin",
+    "jenisAktivitas": "Ubah Password",
+    "aksi": "Mengubah kata sandi untuk akun pengguna \u0027bajomes\u0027."
+  },
+  {
+    "tanggal": "2026-11-24T18:32:12.8277505+07:00",
+    "namaPengguna": "admin",
+    "jenisAktivitas": "Logout",
+    "aksi": "Pengguna \u0027admin\u0027 (admin) keluar dari sistem."
+  },
+  {
+    "tanggal": "2026-11-24T19:00:14.8428301+07:00",
+    "namaPengguna": "bajomes",
+    "jenisAktivitas": "Login",
+    "aksi": "Pengguna \u0027bajomes\u0027 (admin) berhasil masuk ke sistem."
+  },
+  {
+    "tanggal": "2026-11-24T19:00:32.1301381+07:00",
+    "namaPengguna": "bajomes",
+    "jenisAktivitas": "Logout",
+    "aksi": "Pengguna \u0027bajomes\u0027 (admin) keluar dari sistem."
+  }
 ]

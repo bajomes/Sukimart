@@ -31,6 +31,7 @@ namespace Sukimart
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             pnlKiri = new Panel();
+            btnLogAktivitas = new Button();
             btnKeluar = new Button();
             btnLaporan = new Button();
             btnPengguna = new Button();
@@ -80,6 +81,7 @@ namespace Sukimart
             // pnlKiri
             // 
             pnlKiri.BackColor = Color.White;
+            pnlKiri.Controls.Add(btnLogAktivitas);
             pnlKiri.Controls.Add(btnKeluar);
             pnlKiri.Controls.Add(btnPengguna);
             pnlKiri.Controls.Add(btnLaporan);
@@ -152,6 +154,25 @@ namespace Sukimart
             btnPengguna.TextAlign = ContentAlignment.MiddleLeft;
             btnPengguna.UseVisualStyleBackColor = false;
             btnPengguna.Click += btnPengguna_Click;
+            // 
+            // btnLogAktivitas
+            // 
+            btnLogAktivitas.BackColor = Color.White;
+            btnLogAktivitas.Cursor = Cursors.Hand;
+            btnLogAktivitas.FlatAppearance.BorderSize = 0;
+            btnLogAktivitas.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
+            btnLogAktivitas.FlatStyle = FlatStyle.Flat;
+            btnLogAktivitas.Font = new Font("Inter", 10F);
+            btnLogAktivitas.ForeColor = Color.FromArgb(31, 41, 55);
+            btnLogAktivitas.Location = new Point(16, 448);
+            btnLogAktivitas.Name = "btnLogAktivitas";
+            btnLogAktivitas.Padding = new Padding(16, 0, 0, 0);
+            btnLogAktivitas.Size = new Size(208, 40);
+            btnLogAktivitas.TabIndex = 13;
+            btnLogAktivitas.Text = "Log Aktivitas";
+            btnLogAktivitas.TextAlign = ContentAlignment.MiddleLeft;
+            btnLogAktivitas.UseVisualStyleBackColor = false;
+            btnLogAktivitas.Click += btnLogAktivitas_Click;
             // 
             // btnGudang
             // 
@@ -401,7 +422,7 @@ namespace Sukimart
             gridGudang.RowHeadersVisible = false;
             gridGudang.RowTemplate.Height = 36;
             gridGudang.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            gridGudang.Size = new Size(960, 392);
+            gridGudang.Size = new Size(960, 344);
             gridGudang.TabIndex = 6;
             gridGudang.SelectionChanged += gridGudang_SelectionChanged;
             // 
@@ -470,9 +491,9 @@ namespace Sukimart
             pnlRestock.Controls.Add(lblAlasan);
             pnlRestock.Controls.Add(cmbAlasan);
             pnlRestock.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            pnlRestock.Location = new Point(40, 576);
+            pnlRestock.Location = new Point(40, 528);
             pnlRestock.Name = "pnlRestock";
-            pnlRestock.Size = new Size(960, 104);
+            pnlRestock.Size = new Size(960, 152);
             pnlRestock.TabIndex = 7;
             // 
             // lblPilihBarangRestock
@@ -528,7 +549,7 @@ namespace Sukimart
             btnSimpanStok.Font = new Font("Inter", 10F, FontStyle.Bold);
             btnSimpanStok.ForeColor = Color.FromArgb(31, 41, 55);
             btnSimpanStok.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnSimpanStok.Location = new Point(808, 44);
+            btnSimpanStok.Location = new Point(808, 104);
             btnSimpanStok.Name = "btnSimpanStok";
             btnSimpanStok.Size = new Size(128, 32);
             btnSimpanStok.TabIndex = 6;
@@ -612,21 +633,27 @@ namespace Sukimart
             cmbAlasan.Size = new Size(184, 24);
             cmbAlasan.TabIndex = 12;
             cmbAlasan.Visible = false;
+            // 
+            // lblKeterangan - Label keterangan di baris kedua panel restock
+            // 
             lblKeterangan.AutoSize = true;
             lblKeterangan.Font = new Font("Inter", 9F, FontStyle.Bold);
             lblKeterangan.ForeColor = Color.FromArgb(75, 85, 99);
-            lblKeterangan.Location = new Point(608, 24);
+            lblKeterangan.Location = new Point(24, 92);
             lblKeterangan.Name = "lblKeterangan";
             lblKeterangan.Size = new Size(72, 15);
             lblKeterangan.TabIndex = 8;
             lblKeterangan.Text = "Keterangan";
+            // 
+            // txtKeterangan - Input keterangan opsional di baris kedua
+            // 
             txtKeterangan.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtKeterangan.Font = new Font("Inter", 10F);
-            txtKeterangan.Location = new Point(608, 48);
+            txtKeterangan.Location = new Point(24, 116);
             txtKeterangan.MaxLength = 100;
             txtKeterangan.Name = "txtKeterangan";
             txtKeterangan.PlaceholderText = "Opsional";
-            txtKeterangan.Size = new Size(184, 23);
+            txtKeterangan.Size = new Size(768, 23);
             txtKeterangan.TabIndex = 5;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -654,6 +681,7 @@ namespace Sukimart
         private Panel pnlKiri;
         private Button btnLaporan;
         private Button btnPengguna;
+        private Button btnLogAktivitas;
         private Button btnGudang;
         private Button btnRiwayat;
         private Button btnKatalog;
