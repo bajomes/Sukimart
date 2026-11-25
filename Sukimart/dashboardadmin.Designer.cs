@@ -74,7 +74,7 @@ namespace Sukimart
             // 
             // pnlKiri
             // 
-            pnlKiri.BackColor = Color.FromArgb(18, 55, 42);
+            pnlKiri.BackColor = Color.FromArgb(30, 42, 68);
             pnlKiri.Controls.Add(btnPengguna);
             pnlKiri.Controls.Add(btnLogAktivitas);
             pnlKiri.Controls.Add(btnGantiSandi);

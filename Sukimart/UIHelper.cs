@@ -19,11 +19,11 @@ namespace Sukimart
         public static readonly CultureInfo BudayaIndonesia = new CultureInfo("id-ID");
 
         // Palet Visual Terpusat Sukimart (Toko Kelontong / Minimarket Modern Indonesia)
-        public static readonly Color WarnaSidebar = Color.FromArgb(18, 55, 42);          // #12372A
-        public static readonly Color WarnaSidebarAktif = Color.FromArgb(27, 77, 60);     // #1B4D3C
-        public static readonly Color WarnaSidebarHover = Color.FromArgb(23, 66, 51);     // #174233
+        public static readonly Color WarnaSidebar = Color.FromArgb(30, 42, 68);          // #12372A
+        public static readonly Color WarnaSidebarAktif = Color.FromArgb(43, 59, 94);     // #1B4D3C
+        public static readonly Color WarnaSidebarHover = Color.FromArgb(37, 52, 79);     // #174233
         public static readonly Color WarnaTeksSidebar = Color.FromArgb(246, 241, 231);   // #F6F1E7
-        public static readonly Color WarnaTeksSidebarSekunder = Color.FromArgb(200, 214, 205); // #C8D6CD
+        public static readonly Color WarnaTeksSidebarSekunder = Color.FromArgb(200, 208, 224); // #C8D6CD
 
         public static readonly Color WarnaLatarKonten = Color.FromArgb(246, 241, 231);   // #F6F1E7
         public static readonly Color WarnaKartu = Color.FromArgb(255, 253, 248);         // #FFFDF8
@@ -521,6 +521,15 @@ namespace Sukimart
             // Header Baris
             grid.RowHeadersDefaultCellStyle.SelectionBackColor = WarnaSeleksi;
             grid.RowHeadersDefaultCellStyle.SelectionForeColor = WarnaTeksUtama;
+
+            // Tampilan lebih modern: tanpa kisi vertikal, hanya garis tipis antarbaris
+            grid.EnableHeadersVisualStyles = false;
+            grid.BorderStyle = BorderStyle.None;
+            grid.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            grid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            grid.RowHeadersVisible = false;
+            grid.DefaultCellStyle.Padding = new Padding(8, 0, 8, 0);
+            grid.ColumnHeadersDefaultCellStyle.Padding = new Padding(8, 0, 8, 0);
         }
 
         /// <summary>

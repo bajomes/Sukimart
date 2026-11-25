@@ -231,15 +231,15 @@ namespace Sukimart
                 bool aktif = string.Equals(btn.Tag?.ToString(), kategoriTerpilih, StringComparison.OrdinalIgnoreCase);
                 if (aktif)
                 {
-                    btn.BackColor = Color.FromArgb(255, 196, 0);
-                    btn.ForeColor = Color.FromArgb(31, 41, 55);
-                    btn.FlatAppearance.BorderColor = Color.FromArgb(255, 196, 0);
+                    btn.BackColor = UIHelper.WarnaAksen;
+                    btn.ForeColor = UIHelper.WarnaAksen;
+                    btn.FlatAppearance.BorderColor = UIHelper.WarnaAksen;
                     btn.Font = FontInter.Buat(9F, FontStyle.Bold);
                 }
                 else
                 {
                     btn.BackColor = Color.White;
-                    btn.ForeColor = Color.FromArgb(75, 85, 99);
+                    btn.ForeColor = UIHelper.WarnaTeksSekunder;
                     btn.FlatAppearance.BorderColor = Color.FromArgb(229, 231, 235);
                     btn.Font = FontInter.Buat(9F, FontStyle.Regular);
                 }
@@ -622,11 +622,11 @@ namespace Sukimart
                 kolom.Width = 36;
                 kolom.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 kolom.DefaultCellStyle.Font = FontInter.Buat(12F, FontStyle.Bold);
-                kolom.DefaultCellStyle.ForeColor = Color.FromArgb(75, 85, 99);
-                kolom.DefaultCellStyle.SelectionForeColor = Color.FromArgb(31, 41, 55);
+                kolom.DefaultCellStyle.ForeColor = UIHelper.WarnaTeksSekunder;
+                kolom.DefaultCellStyle.SelectionForeColor = UIHelper.WarnaAksen;
             }
-            colHapus.DefaultCellStyle.ForeColor = Color.FromArgb(220, 38, 38);
-            colHapus.DefaultCellStyle.SelectionForeColor = Color.FromArgb(220, 38, 38);
+            colHapus.DefaultCellStyle.ForeColor = UIHelper.WarnaStatusHabis;
+            colHapus.DefaultCellStyle.SelectionForeColor = UIHelper.WarnaStatusHabis;
         }
 
         private bool KolomAksi(int indeks)
@@ -726,12 +726,12 @@ namespace Sukimart
 
             if (kembalian >= 0)
             {
-                lblKembalianNilai.ForeColor = Color.FromArgb(16, 149, 102);
+                lblKembalianNilai.ForeColor = UIHelper.WarnaStatusAman;
                 lblKembalianNilai.Text = "Rp " + kembalian.ToString("N0", BudayaIndonesia);
             }
             else
             {
-                lblKembalianNilai.ForeColor = Color.FromArgb(220, 38, 38);
+                lblKembalianNilai.ForeColor = UIHelper.WarnaStatusHabis;
                 lblKembalianNilai.Text = "- Rp " + Math.Abs(kembalian).ToString("N0", BudayaIndonesia);
             }
         }

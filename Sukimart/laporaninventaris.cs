@@ -66,12 +66,12 @@ namespace Sukimart
             cmbFilterStatus.SelectedIndex = 0;
             cmbJenisPergerakan.SelectedIndex = 0;
 
-            btnLaporanInventaris.BackColor = Color.FromArgb(255, 196, 0);
-            btnLaporanInventaris.ForeColor = Color.FromArgb(31, 41, 55);
+            btnLaporanInventaris.BackColor = UIHelper.WarnaAksen;
+            btnLaporanInventaris.ForeColor = UIHelper.WarnaAksen;
             btnLaporanInventaris.Font = FontInter.Buat(10F, FontStyle.Bold);
 
             btnLaporan.BackColor = Color.White;
-            btnLaporan.ForeColor = Color.FromArgb(31, 41, 55);
+            btnLaporan.ForeColor = UIHelper.WarnaAksen;
             btnLaporan.Font = FontInter.Buat(10F, FontStyle.Regular);
 
             AturTombolSub(btnSubJumlahStok, "Jumlah Stok", true);
@@ -130,13 +130,13 @@ namespace Sukimart
 
         private static void AturTombolSub(Button tombol, string teks, bool aktif, int lebar = 130)
         {
-            tombol.BackColor = aktif ? Color.FromArgb(255, 196, 0) : Color.White;
+            tombol.BackColor = aktif ? UIHelper.WarnaAksen : Color.White;
             tombol.Cursor = Cursors.Hand;
             tombol.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
             tombol.FlatAppearance.BorderSize = aktif ? 0 : 1;
             tombol.FlatStyle = FlatStyle.Flat;
             tombol.Font = FontInter.Buat(9.5F, aktif ? FontStyle.Bold : FontStyle.Regular);
-            tombol.ForeColor = aktif ? Color.FromArgb(31, 41, 55) : Color.FromArgb(75, 85, 99);
+            tombol.ForeColor = aktif ? UIHelper.WarnaAksen : UIHelper.WarnaTeksSekunder;
             tombol.Size = new Size(lebar, 32);
             tombol.Text = teks;
         }
@@ -337,11 +337,11 @@ namespace Sukimart
 
             lblCard1Judul.Text = "TOTAL JENIS BARANG";
             lblCard1Nilai.Text = totalJenis.ToString("N0", BudayaIndonesia);
-            lblCard1Nilai.ForeColor = Color.FromArgb(31, 41, 55);
+            lblCard1Nilai.ForeColor = UIHelper.WarnaAksen;
 
             lblCard2Judul.Text = "STOK AMAN";
             lblCard2Nilai.Text = totalAman.ToString("N0", BudayaIndonesia);
-            lblCard2Nilai.ForeColor = Color.FromArgb(16, 149, 102);
+            lblCard2Nilai.ForeColor = UIHelper.WarnaStatusAman;
 
             lblCard3Judul.Text = "STOK MINIMUM";
             lblCard3Nilai.Text = totalMinimum.ToString("N0", BudayaIndonesia);
@@ -349,7 +349,7 @@ namespace Sukimart
 
             lblCard4Judul.Text = "STOK HABIS";
             lblCard4Nilai.Text = totalHabis.ToString("N0", BudayaIndonesia);
-            lblCard4Nilai.ForeColor = Color.FromArgb(220, 38, 38);
+            lblCard4Nilai.ForeColor = UIHelper.WarnaStatusHabis;
 
             // Filter Tabel
             string cari = txtCariJumlah.Text.Trim().ToLower();
@@ -613,19 +613,19 @@ namespace Sukimart
 
             lblCard1Judul.Text = "TOTAL UNIT MASUK";
             lblCard1Nilai.Text = unitMasuk.ToString("N0", BudayaIndonesia);
-            lblCard1Nilai.ForeColor = Color.FromArgb(16, 149, 102);
+            lblCard1Nilai.ForeColor = UIHelper.WarnaStatusAman;
 
             lblCard2Judul.Text = "TOTAL UNIT KELUAR";
             lblCard2Nilai.Text = unitKeluar.ToString("N0", BudayaIndonesia);
-            lblCard2Nilai.ForeColor = Color.FromArgb(220, 38, 38);
+            lblCard2Nilai.ForeColor = UIHelper.WarnaStatusHabis;
 
             lblCard3Judul.Text = "TRANSAKSI MASUK";
             lblCard3Nilai.Text = trxMasuk.ToString("N0", BudayaIndonesia);
-            lblCard3Nilai.ForeColor = Color.FromArgb(31, 41, 55);
+            lblCard3Nilai.ForeColor = UIHelper.WarnaAksen;
 
             lblCard4Judul.Text = "TRANSAKSI KELUAR";
             lblCard4Nilai.Text = trxKeluar.ToString("N0", BudayaIndonesia);
-            lblCard4Nilai.ForeColor = Color.FromArgb(31, 41, 55);
+            lblCard4Nilai.ForeColor = UIHelper.WarnaAksen;
 
             gridRiwayatStok.DataSource = null;
             gridRiwayatStok.DataSource = hasil;
@@ -641,11 +641,11 @@ namespace Sukimart
                 e.CellStyle.Font = FontInter.Buat(9.5F, FontStyle.Bold);
                 if (val.StartsWith("+"))
                 {
-                    e.CellStyle.ForeColor = Color.FromArgb(16, 149, 102);
+                    e.CellStyle.ForeColor = UIHelper.WarnaStatusAman;
                 }
                 else
                 {
-                    e.CellStyle.ForeColor = Color.FromArgb(220, 38, 38);
+                    e.CellStyle.ForeColor = UIHelper.WarnaStatusHabis;
                 }
             }
             else if (e.ColumnIndex == colRiwayatJenis.Index)
@@ -654,7 +654,7 @@ namespace Sukimart
                 e.CellStyle.Font = FontInter.Buat(9.5F, FontStyle.Bold);
                 if (jenis == "MASUK")
                 {
-                    e.CellStyle.ForeColor = Color.FromArgb(16, 149, 102);
+                    e.CellStyle.ForeColor = UIHelper.WarnaStatusAman;
                 }
                 else if (jenis == "PENJUALAN")
                 {
@@ -662,7 +662,7 @@ namespace Sukimart
                 }
                 else
                 {
-                    e.CellStyle.ForeColor = Color.FromArgb(220, 38, 38);
+                    e.CellStyle.ForeColor = UIHelper.WarnaStatusHabis;
                 }
             }
         }

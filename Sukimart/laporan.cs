@@ -59,22 +59,22 @@ namespace Sukimart
             dtpMulai.Value = DateTime.Today.AddDays(-30);
             dtpSelesai.Value = DateTime.Today;
 
-            btnLaporan.BackColor = Color.FromArgb(255, 196, 0);
-            btnLaporan.ForeColor = Color.FromArgb(31, 41, 55);
+            btnLaporan.BackColor = UIHelper.WarnaAksen;
+            btnLaporan.ForeColor = UIHelper.WarnaAksen;
             btnLaporan.Font = FontInter.Buat(10F, FontStyle.Bold);
 
             btnLaporanInventaris.BackColor = Color.White;
-            btnLaporanInventaris.ForeColor = Color.FromArgb(31, 41, 55);
+            btnLaporanInventaris.ForeColor = UIHelper.WarnaAksen;
             btnLaporanInventaris.Font = FontInter.Buat(10F, FontStyle.Regular);
 
             AturTombolSub(btnSubTransaksi, "Transaksi", true, 110);
             AturTombolSub(btnSubLaba, "Laba", false, 110);
 
             lblRingkasan.Font = FontInter.Buat(9F);
-            lblRingkasan.ForeColor = Color.FromArgb(75, 85, 99);
+            lblRingkasan.ForeColor = UIHelper.WarnaTeksSekunder;
 
             lblJudulTabel.Font = FontInter.Buat(11F, FontStyle.Bold);
-            lblJudulTabel.ForeColor = Color.FromArgb(31, 41, 55);
+            lblJudulTabel.ForeColor = UIHelper.WarnaAksen;
             lblJudulTabel.Text = "Rincian Laba per Produk";
 
             lblSampai.Font = FontInter.Buat(9F);
@@ -85,21 +85,21 @@ namespace Sukimart
             lblTotalJudul.Font = FontInter.Buat(9.5F, FontStyle.Bold);
             lblTotalJudul.ForeColor = Color.FromArgb(55, 65, 81);
             lblTotalTerjualLabel.Font = FontInter.Buat(9F);
-            lblTotalTerjualLabel.ForeColor = Color.FromArgb(107, 114, 128);
+            lblTotalTerjualLabel.ForeColor = UIHelper.WarnaTeksSekunder;
             lblTotalTerjualNilai.Font = FontInter.Buat(9.5F, FontStyle.Bold);
-            lblTotalTerjualNilai.ForeColor = Color.FromArgb(31, 41, 55);
+            lblTotalTerjualNilai.ForeColor = UIHelper.WarnaAksen;
             lblTotalPendapatanLabel.Font = FontInter.Buat(9F);
-            lblTotalPendapatanLabel.ForeColor = Color.FromArgb(107, 114, 128);
+            lblTotalPendapatanLabel.ForeColor = UIHelper.WarnaTeksSekunder;
             lblTotalPendapatanNilai.Font = FontInter.Buat(9.5F, FontStyle.Bold);
-            lblTotalPendapatanNilai.ForeColor = Color.FromArgb(31, 41, 55);
+            lblTotalPendapatanNilai.ForeColor = UIHelper.WarnaAksen;
             lblTotalModalLabel.Font = FontInter.Buat(9F);
-            lblTotalModalLabel.ForeColor = Color.FromArgb(107, 114, 128);
+            lblTotalModalLabel.ForeColor = UIHelper.WarnaTeksSekunder;
             lblTotalModalNilai.Font = FontInter.Buat(9.5F, FontStyle.Bold);
-            lblTotalModalNilai.ForeColor = Color.FromArgb(31, 41, 55);
+            lblTotalModalNilai.ForeColor = UIHelper.WarnaAksen;
             lblTotalLabaLabel.Font = FontInter.Buat(9F);
-            lblTotalLabaLabel.ForeColor = Color.FromArgb(107, 114, 128);
+            lblTotalLabaLabel.ForeColor = UIHelper.WarnaTeksSekunder;
             lblTotalLabaNilai.Font = FontInter.Buat(9.5F, FontStyle.Bold);
-            lblTotalLabaNilai.ForeColor = Color.FromArgb(16, 149, 102);
+            lblTotalLabaNilai.ForeColor = UIHelper.WarnaStatusAman;
 
             pnlTotalLaba.Paint += (s, e) =>
             {
@@ -110,13 +110,13 @@ namespace Sukimart
 
         private static void AturTombolSub(Button tombol, string teks, bool aktif, int lebar = 110)
         {
-            tombol.BackColor = aktif ? Color.FromArgb(255, 196, 0) : Color.White;
+            tombol.BackColor = aktif ? UIHelper.WarnaAksen : Color.White;
             tombol.Cursor = Cursors.Hand;
             tombol.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
             tombol.FlatAppearance.BorderSize = aktif ? 0 : 1;
             tombol.FlatStyle = FlatStyle.Flat;
             tombol.Font = FontInter.Buat(9.5F, aktif ? FontStyle.Bold : FontStyle.Regular);
-            tombol.ForeColor = aktif ? Color.FromArgb(31, 41, 55) : Color.FromArgb(75, 85, 99);
+            tombol.ForeColor = aktif ? UIHelper.WarnaAksen : UIHelper.WarnaTeksSekunder;
             tombol.Size = new Size(lebar, 32);
             tombol.Text = teks;
         }
@@ -345,13 +345,13 @@ namespace Sukimart
             int rataRata = totalTransaksi > 0 ? totalOmzet / totalTransaksi : 0;
 
             lblOmzetNilai.Text = "Rp " + totalOmzet.ToString("N0", BudayaIndonesia);
-            lblOmzetNilai.ForeColor = Color.FromArgb(16, 149, 102);
+            lblOmzetNilai.ForeColor = UIHelper.WarnaStatusAman;
             lblTrxNilai.Text = totalTransaksi.ToString("N0", BudayaIndonesia);
-            lblTrxNilai.ForeColor = Color.FromArgb(31, 41, 55);
+            lblTrxNilai.ForeColor = UIHelper.WarnaAksen;
             lblItemTerjualNilai.Text = totalItem.ToString("N0", BudayaIndonesia);
-            lblItemTerjualNilai.ForeColor = Color.FromArgb(31, 41, 55);
+            lblItemTerjualNilai.ForeColor = UIHelper.WarnaAksen;
             lblRataNilai.Text = "Rp " + rataRata.ToString("N0", BudayaIndonesia);
-            lblRataNilai.ForeColor = Color.FromArgb(31, 41, 55);
+            lblRataNilai.ForeColor = UIHelper.WarnaAksen;
 
             lblRingkasan.Text = BuatRingkasanPenjualan(transaksi, detail);
             AturKolomLaporan();
@@ -415,13 +415,13 @@ namespace Sukimart
 
             // Update 4 KPI Cards
             lblOmzetNilai.Text = "Rp " + totalPendapatan.ToString("N0", BudayaIndonesia);
-            lblOmzetNilai.ForeColor = Color.FromArgb(31, 41, 55);
+            lblOmzetNilai.ForeColor = UIHelper.WarnaAksen;
 
             lblTrxNilai.Text = "Rp " + totalModal.ToString("N0", BudayaIndonesia);
-            lblTrxNilai.ForeColor = Color.FromArgb(31, 41, 55);
+            lblTrxNilai.ForeColor = UIHelper.WarnaAksen;
 
             lblItemTerjualNilai.Text = "Rp " + totalLabaKotor.ToString("N0", BudayaIndonesia);
-            lblItemTerjualNilai.ForeColor = Color.FromArgb(16, 149, 102); // Hijau untuk Laba Kotor
+            lblItemTerjualNilai.ForeColor = UIHelper.WarnaStatusAman; // Hijau untuk Laba Kotor
 
             if (totalPendapatan > 0)
             {
@@ -432,7 +432,7 @@ namespace Sukimart
             {
                 lblRataNilai.Text = "0,0%";
             }
-            lblRataNilai.ForeColor = Color.FromArgb(31, 41, 55);
+            lblRataNilai.ForeColor = UIHelper.WarnaAksen;
 
             // Update Ringkasan Total Keseluruhan di Bawah DataGridView
             lblTotalTerjualNilai.Text = totalTerjual.ToString("N0", BudayaIndonesia);

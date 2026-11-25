@@ -55,8 +55,8 @@ namespace Sukimart
                 if (item.Selisih != 0)
                 {
                     gridRevisi.Rows[rowIndex].Cells[colSelisih.Index].Style.ForeColor = item.Selisih > 0
-                        ? Color.FromArgb(16, 149, 102)
-                        : Color.FromArgb(220, 38, 38);
+                        ? UIHelper.WarnaStatusAman
+                        : UIHelper.WarnaStatusHabis;
                 }
             }
         }

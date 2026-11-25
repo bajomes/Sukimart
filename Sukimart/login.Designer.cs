@@ -206,7 +206,7 @@ namespace Sukimart
             // 
             lblMerk.AutoSize = true;
             lblMerk.Font = new Font("Inter", 14F, FontStyle.Bold);
-            lblMerk.ForeColor = Color.FromArgb(18, 55, 42);
+            lblMerk.ForeColor = Color.FromArgb(30, 42, 68);
             lblMerk.Location = new Point(96, 48);
             lblMerk.Name = "lblMerk";
             lblMerk.Size = new Size(126, 25);
@@ -226,7 +226,7 @@ namespace Sukimart
             // 
             // pnlKanan
             // 
-            pnlKanan.BackColor = Color.FromArgb(18, 55, 42);
+            pnlKanan.BackColor = Color.FromArgb(30, 42, 68);
             pnlKanan.Controls.Add(nightControlBox1);
             pnlKanan.Controls.Add(lblIdentitasToko);
             pnlKanan.Controls.Add(pnlAksenLogin);
@@ -247,15 +247,15 @@ namespace Sukimart
             nightControlBox1.DefaultLocation = false;
             nightControlBox1.DisableMaximizeColor = Color.FromArgb(105, 105, 105);
             nightControlBox1.DisableMinimizeColor = Color.FromArgb(105, 105, 105);
-            nightControlBox1.EnableCloseColor = Color.FromArgb(200, 214, 205);
+            nightControlBox1.EnableCloseColor = Color.FromArgb(200, 208, 224);
             nightControlBox1.EnableMaximizeButton = false;
-            nightControlBox1.EnableMaximizeColor = Color.FromArgb(200, 214, 205);
+            nightControlBox1.EnableMaximizeColor = Color.FromArgb(200, 208, 224);
             nightControlBox1.EnableMinimizeButton = true;
-            nightControlBox1.EnableMinimizeColor = Color.FromArgb(200, 214, 205);
+            nightControlBox1.EnableMinimizeColor = Color.FromArgb(200, 208, 224);
             nightControlBox1.Location = new Point(581, 0);
-            nightControlBox1.MaximizeHoverColor = Color.FromArgb(23, 66, 51);
+            nightControlBox1.MaximizeHoverColor = Color.FromArgb(37, 52, 79);
             nightControlBox1.MaximizeHoverForeColor = Color.White;
-            nightControlBox1.MinimizeHoverColor = Color.FromArgb(23, 66, 51);
+            nightControlBox1.MinimizeHoverColor = Color.FromArgb(37, 52, 79);
             nightControlBox1.MinimizeHoverForeColor = Color.White;
             nightControlBox1.Name = "nightControlBox1";
             nightControlBox1.Size = new Size(139, 31);
@@ -284,7 +284,7 @@ namespace Sukimart
             // 
             lblKecil.AutoSize = true;
             lblKecil.Font = new Font("Inter", 12F);
-            lblKecil.ForeColor = Color.FromArgb(200, 214, 205);
+            lblKecil.ForeColor = Color.FromArgb(200, 208, 224);
             lblKecil.Location = new Point(64, 368);
             lblKecil.Name = "lblKecil";
             lblKecil.Size = new Size(430, 22);

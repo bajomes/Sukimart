@@ -136,14 +136,14 @@ namespace Sukimart
             if (isAktif)
             {
                 btnHapusBarang.Text = "Hapus Barang";
-                btnHapusBarang.ForeColor = Color.FromArgb(220, 38, 38);
+                btnHapusBarang.ForeColor = UIHelper.WarnaStatusHabis;
                 btnHapusBarang.FlatAppearance.BorderColor = Color.FromArgb(254, 202, 202);
                 btnHapusBarang.FlatAppearance.MouseOverBackColor = Color.FromArgb(254, 242, 242);
             }
             else
             {
                 btnHapusBarang.Text = "Aktifkan Barang";
-                btnHapusBarang.ForeColor = Color.FromArgb(16, 149, 102);
+                btnHapusBarang.ForeColor = UIHelper.WarnaStatusAman;
                 btnHapusBarang.FlatAppearance.BorderColor = Color.FromArgb(167, 243, 208);
                 btnHapusBarang.FlatAppearance.MouseOverBackColor = Color.FromArgb(236, 253, 245);
             }
@@ -153,13 +153,13 @@ namespace Sukimart
 
         private static void AturTombolTab(Button tombol, string teks, bool aktif)
         {
-            tombol.BackColor = aktif ? Color.FromArgb(255, 196, 0) : Color.White;
+            tombol.BackColor = aktif ? UIHelper.WarnaAksen : Color.White;
             tombol.Cursor = Cursors.Hand;
             tombol.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
             tombol.FlatAppearance.BorderSize = aktif ? 0 : 1;
             tombol.FlatStyle = FlatStyle.Flat;
             tombol.Font = FontInter.Buat(9.5F, aktif ? FontStyle.Bold : FontStyle.Regular);
-            tombol.ForeColor = aktif ? Color.FromArgb(31, 41, 55) : Color.FromArgb(75, 85, 99);
+            tombol.ForeColor = aktif ? UIHelper.WarnaAksen : UIHelper.WarnaTeksSekunder;
             tombol.Text = teks;
         }
 

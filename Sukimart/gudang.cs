@@ -98,16 +98,16 @@ namespace Sukimart
         {
             activeSubTabIndex = tabIndex;
 
-            btnSubStokGudang.BackColor = tabIndex == 0 ? Color.FromArgb(255, 196, 0) : Color.White;
-            btnSubStokGudang.ForeColor = tabIndex == 0 ? Color.FromArgb(31, 41, 55) : Color.FromArgb(75, 85, 99);
+            btnSubStokGudang.BackColor = tabIndex == 0 ? UIHelper.WarnaAksen : Color.White;
+            btnSubStokGudang.ForeColor = tabIndex == 0 ? UIHelper.WarnaAksen : UIHelper.WarnaTeksSekunder;
             btnSubStokGudang.Font = tabIndex == 0 ? FontInter.Buat(10, FontStyle.Bold) : FontInter.Buat(10, FontStyle.Regular);
 
-            btnSubStokOpname.BackColor = tabIndex == 1 ? Color.FromArgb(255, 196, 0) : Color.White;
-            btnSubStokOpname.ForeColor = tabIndex == 1 ? Color.FromArgb(31, 41, 55) : Color.FromArgb(75, 85, 99);
+            btnSubStokOpname.BackColor = tabIndex == 1 ? UIHelper.WarnaAksen : Color.White;
+            btnSubStokOpname.ForeColor = tabIndex == 1 ? UIHelper.WarnaAksen : UIHelper.WarnaTeksSekunder;
             btnSubStokOpname.Font = tabIndex == 1 ? FontInter.Buat(10, FontStyle.Bold) : FontInter.Buat(10, FontStyle.Regular);
 
-            btnSubRiwayatOpname.BackColor = tabIndex == 2 ? Color.FromArgb(255, 196, 0) : Color.White;
-            btnSubRiwayatOpname.ForeColor = tabIndex == 2 ? Color.FromArgb(31, 41, 55) : Color.FromArgb(75, 85, 99);
+            btnSubRiwayatOpname.BackColor = tabIndex == 2 ? UIHelper.WarnaAksen : Color.White;
+            btnSubRiwayatOpname.ForeColor = tabIndex == 2 ? UIHelper.WarnaAksen : UIHelper.WarnaTeksSekunder;
             btnSubRiwayatOpname.Font = tabIndex == 2 ? FontInter.Buat(10, FontStyle.Bold) : FontInter.Buat(10, FontStyle.Regular);
 
             pnlSubStokGudang.Visible = (tabIndex == 0);
@@ -415,14 +415,14 @@ namespace Sukimart
                 switch (status)
                 {
                     case "Draft":
-                        cellStatus.Style.ForeColor = Color.FromArgb(107, 114, 128);
+                        cellStatus.Style.ForeColor = UIHelper.WarnaTeksSekunder;
                         break;
                     case "Menunggu Persetujuan":
                         cellStatus.Style.ForeColor = Color.FromArgb(217, 119, 6);
                         cellStatus.Style.Font = FontInter.Buat(9, FontStyle.Bold);
                         break;
                     case "Perlu Revisi":
-                        cellStatus.Style.ForeColor = Color.FromArgb(220, 38, 38);
+                        cellStatus.Style.ForeColor = UIHelper.WarnaStatusHabis;
                         cellStatus.Style.Font = FontInter.Buat(9, FontStyle.Bold);
                         break;
                     case "Disetujui":
@@ -446,7 +446,7 @@ namespace Sukimart
                 }
                 else if (totalSelisih < 0)
                 {
-                    cellSelisih.Style.ForeColor = Color.FromArgb(220, 38, 38);
+                    cellSelisih.Style.ForeColor = UIHelper.WarnaStatusHabis;
                     cellSelisih.Style.Font = FontInter.Buat(9, FontStyle.Bold);
                 }
             }
