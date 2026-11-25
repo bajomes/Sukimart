@@ -121,6 +121,7 @@ namespace Sukimart
             colRiwayatJenis.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             colRiwayatJumlah.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
+            UIHelper.PasangBadgeStatusGrid(gridJumlahStok, colJumlahStatus);
             gridJumlahStok.CellFormatting += GridJumlahStok_CellFormatting;
             gridRiwayatStok.CellFormatting += GridRiwayatStok_CellFormatting;
             gridJumlahStok.CellDoubleClick += GridJumlahStok_CellDoubleClick;
@@ -321,13 +322,8 @@ namespace Sukimart
 
         #region Subhalaman Jumlah Stok
 
-        public static string TentukanStatusStok(int stok, int stokMinimum)
-        {
-            if (stok == 0) return "HABIS";
-            if (stok < stokMinimum) return "KRITIS";
-            if (stok == stokMinimum) return "MINIMUM";
-            return "AMAN";
-        }
+        public static string TentukanStatusStok(int stok, int stokMinimum) =>
+            UIHelper.TentukanStatusStok(stok, stokMinimum);
 
         private void TerapkanFilterJumlahStok()
         {
@@ -336,8 +332,8 @@ namespace Sukimart
             // Hitung 4 Kartu KPI Jumlah Stok
             int totalJenis = dataAktif.Count;
             int totalAman = dataAktif.Count(b => b.Stok > b.StokMinimum);
-            int totalMinimum = dataAktif.Count(b => b.Stok == b.StokMinimum && b.StokMinimum > 0);
-            int totalHabis = dataAktif.Count(b => b.Stok == 0);
+            int totalMinimum = dataAktif.Count(b => b.Stok > 0 && b.Stok <= b.StokMinimum);
+            int totalHabis = dataAktif.Count(b => b.Stok <= 0);
 
             lblCard1Judul.Text = "TOTAL JENIS BARANG";
             lblCard1Nilai.Text = totalJenis.ToString("N0", BudayaIndonesia);
@@ -375,19 +371,17 @@ namespace Sukimart
                 bool cocokStatus = true;
                 if (filterStatus == "Aman") cocokStatus = item.Status == "AMAN";
                 else if (filterStatus == "Minimum") cocokStatus = item.Status == "MINIMUM";
-                else if (filterStatus == "Kritis") cocokStatus = item.Status == "KRITIS";
                 else if (filterStatus == "Habis") cocokStatus = item.Status == "HABIS";
 
                 return cocokCari && cocokStatus;
             }).OrderBy(item =>
             {
-                // Urutan prioritas: Habis (1), Kritis (2), Minimum (3), Aman (4)
+                // Urutan prioritas: Habis (1), Minimum (2), Aman (3)
                 return item.Status switch
                 {
                     "HABIS" => 1,
-                    "KRITIS" => 2,
-                    "MINIMUM" => 3,
-                    _ => 4
+                    "MINIMUM" => 2,
+                    _ => 3
                 };
             }).ThenBy(item => item.Nama).ToList();
 
@@ -411,22 +405,10 @@ namespace Sukimart
             else if (e.ColumnIndex == colJumlahStatus.Index && e.CellStyle != null)
             {
                 string status = e.Value?.ToString() ?? "";
-                e.CellStyle.Font = FontInter.Buat(9.5F, FontStyle.Bold);
-                switch (status)
-                {
-                    case "HABIS":
-                        e.CellStyle.ForeColor = Color.FromArgb(220, 38, 38);
-                        break;
-                    case "KRITIS":
-                        e.CellStyle.ForeColor = Color.FromArgb(234, 88, 12);
-                        break;
-                    case "MINIMUM":
-                        e.CellStyle.ForeColor = Color.FromArgb(217, 119, 6);
-                        break;
-                    case "AMAN":
-                        e.CellStyle.ForeColor = Color.FromArgb(16, 149, 102);
-                        break;
-                }
+                var (fore, back, _) = UIHelper.WarnaStatusStok(status);
+                e.CellStyle.Font = FontInter.Buat(9F, FontStyle.Bold);
+                e.CellStyle.ForeColor = fore;
+                e.CellStyle.BackColor = back;
             }
         }
 
@@ -706,9 +688,9 @@ namespace Sukimart
                         total_unit_stok = dataAktif.Sum(b => b.Stok),
                         total_nilai_aset = dataAktif.Sum(b => (long)b.Stok * b.HargaBeli),
                         stok_aman = dataAktif.Count(b => b.Stok > b.StokMinimum),
-                        stok_minimum = dataAktif.Count(b => b.Stok == b.StokMinimum && b.StokMinimum > 0),
-                        stok_kritis = dataAktif.Count(b => b.Stok > 0 && b.Stok < b.StokMinimum),
-                        stok_habis = dataAktif.Count(b => b.Stok == 0),
+                        stok_minimum = dataAktif.Count(b => b.Stok > 0 && b.Stok <= b.StokMinimum),
+                        stok_kritis = 0,
+                        stok_habis = dataAktif.Count(b => b.Stok <= 0),
                         daftar_barang = dataAktif.Select(b => new
                         {
                             kode = b.Kode,

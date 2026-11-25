@@ -5,7 +5,7 @@ namespace Sukimart
         private readonly string peran;
         private List<Barang> daftarBarang = new List<Barang>();
         private Barang? barangTerpilih;
-        private bool hanyaMenipis = false;
+        private bool hanyaMinimum = false;
         private List<SesiOpname> daftarSesiOpname = new List<SesiOpname>();
         private int activeSubTabIndex = 0;
 
@@ -21,6 +21,7 @@ namespace Sukimart
             MaximizeBox = true;
             SiapkanFormPergerakanStok();
             UIHelper.RatakanTengah(colStok, colMinStok);
+            UIHelper.PasangBadgeStatusGrid(gridGudang, colStatus);
             gridGudang.AllowUserToResizeRows = false;
             cmbJenisStok.SelectedIndex = 0;
 
@@ -147,8 +148,8 @@ namespace Sukimart
             btnSubRiwayatOpname.Click += (s, e) => GantiSubTab(2);
 
             txtCariGudang.TextChanged += (s, e) => FilterDaftarGudang();
-            btnFilterMenipis.Click += (s, e) => { hanyaMenipis = true; FilterDaftarGudang(); };
-            btnSemuaStok.Click += (s, e) => { hanyaMenipis = false; FilterDaftarGudang(); };
+            btnFilterMenipis.Click += (s, e) => { hanyaMinimum = true; FilterDaftarGudang(); };
+            btnSemuaStok.Click += (s, e) => { hanyaMinimum = false; FilterDaftarGudang(); };
             cmbJenisStok.SelectedIndexChanged += (s, e) => AturInputPergerakanStok();
 
             gridGudang.SelectionChanged += GridGudang_SelectionChanged;
@@ -486,7 +487,7 @@ namespace Sukimart
 
             var query = daftarBarang.Where(b => b.Aktif).AsEnumerable();
 
-            if (hanyaMenipis)
+            if (hanyaMinimum)
             {
                 query = query.Where(b => b.Stok <= b.StokMinimum);
             }
@@ -509,7 +510,7 @@ namespace Sukimart
                 b.Kategori,
                 b.Stok,
                 b.StokMinimum,
-                StatusStok = b.Stok == 0 ? "HABIS" : b.Stok <= b.StokMinimum ? "MINIMUM" : "AMAN"
+                StatusStok = UIHelper.TentukanStatusStok(b.Stok, b.StokMinimum)
             }).ToList();
             gridGudang.ClearSelection();
             barangTerpilih = null;

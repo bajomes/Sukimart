@@ -20,6 +20,7 @@ namespace Sukimart
             UIHelper.InisialisasiForm(this);
             MaximizeBox = true;
             UIHelper.RatakanTengah(colStok, colStokMin);
+            UIHelper.PasangBadgeStatusGrid(gridBarang, colStatus);
             gridBarang.AllowUserToResizeRows = false;
             SesuaikanPeran();
             PasangEventHandlers();
@@ -36,7 +37,7 @@ namespace Sukimart
             btnTabNonaktif.Visible = isAdmin;
             if (!isAdmin)
             {
-                txtCari.Width = gridBarang.Width;
+                txtCari.Width = gridBarang.Right - txtCari.Left;
                 tabAktif = "aktif";
             }
 
@@ -203,7 +204,8 @@ namespace Sukimart
                 HargaFormat = "Rp " + b.Harga.ToString("N0", BudayaIndonesia),
                 b.Harga,
                 b.Stok,
-                b.StokMinimum
+                b.StokMinimum,
+                StatusStok = UIHelper.TentukanStatusStok(b.Stok, b.StokMinimum)
             }).ToList();
             gridBarang.ClearSelection();
         }

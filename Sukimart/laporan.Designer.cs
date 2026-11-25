@@ -713,9 +713,9 @@ namespace Sukimart
             // colFaktur
             // 
             colFaktur.DataPropertyName = "Id";
-            colFaktur.FillWeight = 110F;
+            colFaktur.FillWeight = 135F;
             colFaktur.HeaderText = "No. Faktur";
-            colFaktur.MinimumWidth = 6;
+            colFaktur.MinimumWidth = 175;
             colFaktur.Name = "colFaktur";
             colFaktur.ReadOnly = true;
             // 

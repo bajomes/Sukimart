@@ -356,6 +356,16 @@ namespace Sukimart
             lblRingkasan.Text = BuatRingkasanPenjualan(transaksi, detail);
             AturKolomLaporan();
             gridLaporan.DataSource = transaksi.OrderByDescending(data => data.Tanggal).Select(data => new { Faktur = data.Id, Waktu = data.Tanggal.ToString("dd/MM/yyyy HH:mm"), data.Kasir, Item = detail.Where(rincian => rincian.IdTransaksi == data.Id).Sum(rincian => rincian.Jumlah), Total = "Rp " + data.Total.ToString("N0", BudayaIndonesia) }).ToList();
+            if (gridLaporan.Columns["Faktur"] is DataGridViewColumn colFakturAuto)
+            {
+                colFakturAuto.MinimumWidth = 175;
+                colFakturAuto.FillWeight = 135F;
+            }
+            if (gridLaporan.Columns["Waktu"] is DataGridViewColumn colWaktuAuto)
+            {
+                colWaktuAuto.MinimumWidth = 135;
+                colWaktuAuto.FillWeight = 110F;
+            }
         }
 
         private void TerapkanLaporanLaba()

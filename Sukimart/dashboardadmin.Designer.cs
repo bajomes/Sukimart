@@ -74,7 +74,7 @@ namespace Sukimart
             // 
             // pnlKiri
             // 
-            pnlKiri.BackColor = Color.White;
+            pnlKiri.BackColor = Color.FromArgb(18, 55, 42);
             pnlKiri.Controls.Add(btnPengguna);
             pnlKiri.Controls.Add(btnLogAktivitas);
             pnlKiri.Controls.Add(btnGantiSandi);
@@ -332,7 +332,7 @@ namespace Sukimart
             // 
             // pnlKanan
             // 
-            pnlKanan.BackColor = Color.FromArgb(247, 247, 245);
+            pnlKanan.BackColor = Color.FromArgb(246, 241, 231);
             pnlKanan.Controls.Add(nightControlBox1);
             pnlKanan.Controls.Add(pnlPeringatan);
             pnlKanan.Controls.Add(pnlStok);
@@ -375,7 +375,7 @@ namespace Sukimart
             // 
             // pnlPeringatan
             // 
-            pnlPeringatan.BackColor = Color.White;
+            pnlPeringatan.BackColor = Color.FromArgb(255, 253, 248);
             pnlPeringatan.Controls.Add(lstStokMenipis);
             pnlPeringatan.Location = new Point(795, 373);
             pnlPeringatan.Margin = new Padding(3, 4, 3, 4);
@@ -397,7 +397,7 @@ namespace Sukimart
             // 
             // pnlStok
             // 
-            pnlStok.BackColor = Color.White;
+            pnlStok.BackColor = Color.FromArgb(255, 253, 248);
             pnlStok.Controls.Add(lblNilaiStok);
             pnlStok.Controls.Add(lblStok);
             pnlStok.Location = new Point(795, 149);
@@ -424,13 +424,13 @@ namespace Sukimart
             lblStok.ForeColor = Color.FromArgb(107, 114, 128);
             lblStok.Location = new Point(27, 27);
             lblStok.Name = "lblStok";
-            lblStok.Size = new Size(94, 18);
+            lblStok.Size = new Size(105, 18);
             lblStok.TabIndex = 15;
-            lblStok.Text = "Stok Menipis";
+            lblStok.Text = "Peringatan Stok";
             // 
             // pnlTerjual
             // 
-            pnlTerjual.BackColor = Color.White;
+            pnlTerjual.BackColor = Color.FromArgb(255, 253, 248);
             pnlTerjual.Controls.Add(lblNilaiPenjualan);
             pnlTerjual.Controls.Add(lblPenjualan);
             pnlTerjual.Location = new Point(421, 149);
@@ -463,7 +463,7 @@ namespace Sukimart
             // 
             // pnlTransaksi
             // 
-            pnlTransaksi.BackColor = Color.White;
+            pnlTransaksi.BackColor = Color.FromArgb(255, 253, 248);
             pnlTransaksi.Controls.Add(lblNilaiTransaksi);
             pnlTransaksi.Controls.Add(lblTransaksiHariIni);
             pnlTransaksi.Location = new Point(46, 149);

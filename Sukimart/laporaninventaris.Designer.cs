@@ -594,7 +594,7 @@ namespace Sukimart
             cmbFilterStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbFilterStatus.Font = new Font("Inter", 9.5F);
             cmbFilterStatus.FormattingEnabled = true;
-            cmbFilterStatus.Items.AddRange(new object[] { "Semua Status", "Aman", "Minimum", "Kritis", "Habis" });
+            cmbFilterStatus.Items.AddRange(new object[] { "Semua Status", "Aman", "Minimum", "Habis" });
             cmbFilterStatus.Location = new Point(352, 8);
             cmbFilterStatus.Name = "cmbFilterStatus";
             cmbFilterStatus.Size = new Size(160, 27);

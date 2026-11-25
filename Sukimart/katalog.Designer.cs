@@ -48,6 +48,7 @@ namespace Sukimart
             btnKelolaKategori = new Button();
             nightControlBox1 = new ReaLTaiizor.Controls.NightControlBox();
             lblJudulKatalog = new Label();
+            lblCari = new Label();
             txtCari = new TextBox();
             btnTabAktif = new Button();
             btnTabNonaktif = new Button();
@@ -59,6 +60,7 @@ namespace Sukimart
             colHarga = new DataGridViewTextBoxColumn();
             colStok = new DataGridViewTextBoxColumn();
             colStokMin = new DataGridViewTextBoxColumn();
+            colStatus = new DataGridViewTextBoxColumn();
             btnTambahItem = new Button();
             btnEditProduk = new Button();
             btnHapusBarang = new Button();
@@ -328,6 +330,7 @@ namespace Sukimart
             pnlKanan.Controls.Add(btnKelolaKategori);
             pnlKanan.Controls.Add(nightControlBox1);
             pnlKanan.Controls.Add(lblJudulKatalog);
+            pnlKanan.Controls.Add(lblCari);
             pnlKanan.Controls.Add(txtCari);
             pnlKanan.Controls.Add(btnTabAktif);
             pnlKanan.Controls.Add(btnTabNonaktif);
@@ -394,16 +397,27 @@ namespace Sukimart
             lblJudulKatalog.TabIndex = 1;
             lblJudulKatalog.Text = "Katalog Produk";
             // 
+            // lblCari
+            // 
+            lblCari.AutoSize = true;
+            lblCari.Font = new Font("Inter", 9.5F, FontStyle.Bold);
+            lblCari.ForeColor = Color.FromArgb(75, 85, 99);
+            lblCari.Location = new Point(46, 156);
+            lblCari.Name = "lblCari";
+            lblCari.Size = new Size(38, 18);
+            lblCari.TabIndex = 2;
+            lblCari.Text = "Cari:";
+            // 
             // txtCari
             // 
             txtCari.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtCari.BackColor = Color.White;
             txtCari.Font = new Font("Inter", 10F);
-            txtCari.Location = new Point(46, 153);
+            txtCari.Location = new Point(92, 153);
             txtCari.Margin = new Padding(3, 4, 3, 4);
             txtCari.Name = "txtCari";
-            txtCari.PlaceholderText = "Cari berdasarkan nama, kode, atau kategori barang...";
-            txtCari.Size = new Size(780, 26);
+            txtCari.PlaceholderText = "Cari kode atau nama barang...";
+            txtCari.Size = new Size(734, 26);
             txtCari.TabIndex = 3;
             // 
             // btnTabAktif
@@ -459,7 +473,7 @@ namespace Sukimart
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             gridBarang.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             gridBarang.ColumnHeadersHeight = 40;
-            gridBarang.Columns.AddRange(new DataGridViewColumn[] { colKode, colNama, colKategori, colHargaBeli, colHarga, colStok, colStokMin });
+            gridBarang.Columns.AddRange(new DataGridViewColumn[] { colKode, colNama, colKategori, colHargaBeli, colHarga, colStok, colStokMin, colStatus });
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = SystemColors.Window;
             dataGridViewCellStyle4.Font = new Font("Inter", 10F);
@@ -543,6 +557,15 @@ namespace Sukimart
             colStokMin.MinimumWidth = 6;
             colStokMin.Name = "colStokMin";
             colStokMin.ReadOnly = true;
+            // 
+            // colStatus
+            // 
+            colStatus.DataPropertyName = "StatusStok";
+            colStatus.FillWeight = 75F;
+            colStatus.HeaderText = "Status";
+            colStatus.MinimumWidth = 100;
+            colStatus.Name = "colStatus";
+            colStatus.ReadOnly = true;
             // 
             // btnTambahItem
             // 
@@ -636,6 +659,7 @@ namespace Sukimart
         private Panel pnlKanan;
         private ReaLTaiizor.Controls.NightControlBox nightControlBox1;
         private Label lblJudulKatalog;
+        private Label lblCari;
         private TextBox txtCari;
         private DataGridView gridBarang;
         private DataGridViewTextBoxColumn colKode;
@@ -645,6 +669,7 @@ namespace Sukimart
         private DataGridViewTextBoxColumn colHarga;
         private DataGridViewTextBoxColumn colStok;
         private DataGridViewTextBoxColumn colStokMin;
+        private DataGridViewTextBoxColumn colStatus;
         private Button btnTambahItem;
         private Button btnEditProduk;
         private Button btnHapusBarang;

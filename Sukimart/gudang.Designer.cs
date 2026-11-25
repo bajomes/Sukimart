@@ -55,6 +55,7 @@ namespace Sukimart
             btnSubStokOpname = new Button();
             btnSubRiwayatOpname = new Button();
             pnlSubStokGudang = new Panel();
+            lblCariGudang = new Label();
             txtCariGudang = new TextBox();
             btnRiwayatStok = new Button();
             btnFilterMenipis = new Button();
@@ -462,6 +463,7 @@ namespace Sukimart
             // pnlSubStokGudang
             // 
             pnlSubStokGudang.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pnlSubStokGudang.Controls.Add(lblCariGudang);
             pnlSubStokGudang.Controls.Add(txtCariGudang);
             pnlSubStokGudang.Controls.Add(btnRiwayatStok);
             pnlSubStokGudang.Controls.Add(btnFilterMenipis);
@@ -473,14 +475,25 @@ namespace Sukimart
             pnlSubStokGudang.Size = new Size(1040, 605);
             pnlSubStokGudang.TabIndex = 5;
             // 
+            // lblCariGudang
+            // 
+            lblCariGudang.AutoSize = true;
+            lblCariGudang.Font = new Font("Inter", 9.5F, FontStyle.Bold);
+            lblCariGudang.ForeColor = Color.FromArgb(75, 85, 99);
+            lblCariGudang.Location = new Point(40, 8);
+            lblCariGudang.Name = "lblCariGudang";
+            lblCariGudang.Size = new Size(38, 16);
+            lblCariGudang.TabIndex = 2;
+            lblCariGudang.Text = "Cari:";
+            // 
             // txtCariGudang
             // 
             txtCariGudang.Font = new Font("Inter", 10F);
             txtCariGudang.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtCariGudang.Location = new Point(40, 5);
+            txtCariGudang.Location = new Point(86, 5);
             txtCariGudang.Name = "txtCariGudang";
-            txtCariGudang.PlaceholderText = "Cari kode, nama, atau kategori produk...";
-            txtCariGudang.Size = new Size(504, 23);
+            txtCariGudang.PlaceholderText = "Cari kode atau nama barang...";
+            txtCariGudang.Size = new Size(458, 23);
             txtCariGudang.TabIndex = 3;
             // 
             // btnFilterMenipis
@@ -496,7 +509,7 @@ namespace Sukimart
             btnFilterMenipis.Name = "btnFilterMenipis";
             btnFilterMenipis.Size = new Size(136, 32);
             btnFilterMenipis.TabIndex = 4;
-            btnFilterMenipis.Text = "Stok Menipis";
+            btnFilterMenipis.Text = "Stok Minimum";
             btnFilterMenipis.UseVisualStyleBackColor = false;
             // 
             // btnSemuaStok
@@ -1198,6 +1211,7 @@ namespace Sukimart
         private Button btnSubStokOpname;
         private Button btnSubRiwayatOpname;
         private Panel pnlSubStokGudang;
+        private Label lblCariGudang;
         private TextBox txtCariGudang;
         private Button btnFilterMenipis;
         private Button btnSemuaStok;

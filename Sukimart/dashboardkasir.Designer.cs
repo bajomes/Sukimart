@@ -65,7 +65,7 @@ namespace Sukimart
             // 
             // pnlKiri
             // 
-            pnlKiri.BackColor = Color.White;
+            pnlKiri.BackColor = Color.FromArgb(18, 55, 42);
             pnlKiri.Controls.Add(btnLogAktivitas);
             pnlKiri.Controls.Add(btnKeluar);
             pnlKiri.Controls.Add(btnRiwayat);
@@ -216,7 +216,7 @@ namespace Sukimart
             // 
             // pnlKanan
             // 
-            pnlKanan.BackColor = Color.FromArgb(247, 247, 245);
+            pnlKanan.BackColor = Color.FromArgb(246, 241, 231);
             pnlKanan.Controls.Add(nightControlBox1);
             pnlKanan.Controls.Add(pnlStok);
             pnlKanan.Controls.Add(pnlTerjual);
@@ -257,7 +257,7 @@ namespace Sukimart
             // 
             // pnlStok
             // 
-            pnlStok.BackColor = Color.White;
+            pnlStok.BackColor = Color.FromArgb(255, 253, 248);
             pnlStok.Controls.Add(lblNilaiStok);
             pnlStok.Controls.Add(lblStok);
             pnlStok.Location = new Point(696, 112);
@@ -284,13 +284,13 @@ namespace Sukimart
             lblStok.ForeColor = Color.FromArgb(107, 114, 128);
             lblStok.Location = new Point(24, 20);
             lblStok.Name = "lblStok";
-            lblStok.Size = new Size(87, 16);
+            lblStok.Size = new Size(98, 16);
             lblStok.TabIndex = 15;
-            lblStok.Text = "Stok Menipis";
+            lblStok.Text = "Peringatan Stok";
             // 
             // pnlTerjual
             // 
-            pnlTerjual.BackColor = Color.White;
+            pnlTerjual.BackColor = Color.FromArgb(255, 253, 248);
             pnlTerjual.Controls.Add(lblNilaiTerjual);
             pnlTerjual.Controls.Add(lblTerjual);
             pnlTerjual.Location = new Point(368, 112);
@@ -323,7 +323,7 @@ namespace Sukimart
             // 
             // pnlTransaksi
             // 
-            pnlTransaksi.BackColor = Color.White;
+            pnlTransaksi.BackColor = Color.FromArgb(255, 253, 248);
             pnlTransaksi.Controls.Add(lblNilaiTransaksi);
             pnlTransaksi.Controls.Add(lblTransaksiHariIni);
             pnlTransaksi.Location = new Point(40, 112);

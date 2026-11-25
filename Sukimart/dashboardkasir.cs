@@ -5,7 +5,7 @@ namespace Sukimart
     /// <summary>
     /// FormDashboardKasir: Tampilan ringkasan metrik khusus untuk pengguna dengan peran Kasir.
     /// Menyajikan informasi transaksi hari ini, total barang yang terjual hari ini,
-    /// indikator stok barang yang menipis, dan riwayat transaksi terbaru.
+    /// indikator peringatan stok barang, dan riwayat transaksi terbaru.
     /// </summary>
     public partial class FormDashboardKasir : Form
     {
@@ -16,6 +16,7 @@ namespace Sukimart
         {
             InitializeComponent();
             UIHelper.InisialisasiForm(this);
+            UIHelper.SusunTombolSidebar(pnlKiri);
             MaximizeBox = true;
 
             // Tangani event resize agar tata letak kartu dan tabel tetap proporsional
@@ -56,7 +57,7 @@ namespace Sukimart
             pnlTerjual.Location = new Point(margin + lebarKartu + jarak, 112);
             pnlTerjual.Size = new Size(lebarKartu, 112);
 
-            // Kartu 3: Stok Menipis
+            // Kartu 3: Peringatan Stok
             pnlStok.Location = new Point(margin + 2 * (lebarKartu + jarak), 112);
             pnlStok.Size = new Size(lebarKartu, 112);
 
@@ -72,7 +73,7 @@ namespace Sukimart
 
         /// <summary>
         /// Mengisi seluruh komponen data dashboard dari file JSON:
-        /// transaksi hari ini, total barang terjual, stok menipis, dan riwayat transaksi.
+        /// transaksi hari ini, total barang terjual, peringatan stok, dan riwayat transaksi.
         /// </summary>
         private void IsiDashboard()
         {
@@ -90,9 +91,11 @@ namespace Sukimart
 
                 // 2. Tampilkan kartu Total Unit Barang Terjual Hari Ini
                 lblNilaiTerjual.Text = HitungBarangTerjual(daftarDetail).ToString();
+                lblNilaiTerjual.ForeColor = UIHelper.WarnaStatusAman;
 
-                // 3. Tampilkan kartu Jumlah Barang Stok Menipis/Habis
-                lblNilaiStok.Text = HitungStokMenipis(daftarBarang).ToString();
+                // 3. Tampilkan kartu Jumlah Barang Peringatan Stok (Habis / Minimum)
+                lblNilaiStok.Text = HitungPeringatanStok(daftarBarang).ToString();
+                lblNilaiStok.ForeColor = UIHelper.WarnaStatusHabis;
 
                 // 4. Tampilkan 10 transaksi terbaru pada tabel
                 IsiTransaksiTerbaru(daftarTransaksi);
@@ -147,12 +150,12 @@ namespace Sukimart
         /// <summary>
         /// Menghitung banyaknya jenis barang yang stoknya berada di bawah atau sama dengan stok minimum.
         /// </summary>
-        private int HitungStokMenipis(List<Barang> daftarBarang)
+        private int HitungPeringatanStok(List<Barang> daftarBarang)
         {
             int jumlah = 0;
             foreach (Barang barang in daftarBarang)
             {
-                if (barang.Stok <= barang.StokMinimum)
+                if (barang.Aktif && barang.Stok <= barang.StokMinimum)
                 {
                     jumlah++;
                 }
@@ -184,6 +187,17 @@ namespace Sukimart
                     Total = "Rp " + transaksi.Total.ToString("N0", BudayaIndonesia)
                 })
                 .ToList();
+
+            if (dataGridView1.Columns["Nomor"] is DataGridViewColumn colNomor)
+            {
+                colNomor.MinimumWidth = 175;
+                colNomor.FillWeight = 135F;
+            }
+            if (dataGridView1.Columns["Waktu"] is DataGridViewColumn colWaktu)
+            {
+                colWaktu.MinimumWidth = 135;
+                colWaktu.FillWeight = 110F;
+            }
 
             UIHelper.TerapkanWarnaGrid(dataGridView1);
         }

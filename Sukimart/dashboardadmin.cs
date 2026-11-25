@@ -11,6 +11,10 @@ namespace Sukimart
             InitializeComponent();
             UIHelper.InisialisasiForm(this);
             MaximizeBox = true;
+            lstStokMenipis.DrawMode = DrawMode.OwnerDrawFixed;
+            lstStokMenipis.ItemHeight = 36;
+            lstStokMenipis.IntegralHeight = false;
+            lstStokMenipis.DrawItem += LstStokMenipis_DrawItem;
             btnKasir.Click += btnKasir_Click;
             btnGudang.Click += btnGudang_Click;
             btnLaporan.Click += btnLaporan_Click;
@@ -109,8 +113,8 @@ namespace Sukimart
             pnlPeringatan.Location = new Point(posXKanan, 280);
             pnlPeringatan.Size = new Size(lebarKolomKanan, tinggiBawah);
 
-            lstStokMenipis.Location = new Point(20, 20);
-            lstStokMenipis.Size = new Size(Math.Max(100, pnlPeringatan.ClientSize.Width - 40), Math.Max(100, pnlPeringatan.ClientSize.Height - 40));
+            lstStokMenipis.Location = new Point(16, 16);
+            lstStokMenipis.Size = new Size(Math.Max(100, pnlPeringatan.ClientSize.Width - 32), Math.Max(100, pnlPeringatan.ClientSize.Height - 32));
         }
 
         private void IsiDashboard()
@@ -129,6 +133,8 @@ namespace Sukimart
                 lblNilaiTransaksi.Text = HitungTransaksiHariIni(transaksiHariIni).ToString();
                 lblNilaiPenjualan.Text = "Rp " + HitungPenjualanHariIni(transaksiHariIni)
                     .ToString("N0", BudayaIndonesia);
+                lblNilaiPenjualan.ForeColor = UIHelper.WarnaStatusAman;
+                lblNilaiStok.ForeColor = UIHelper.WarnaStatusHabis;
 
                 IsiStokMenipis(daftarBarang);
                 IsiTransaksiTerbaru(daftarTransaksi);
@@ -163,16 +169,69 @@ namespace Sukimart
         {
             lstStokMenipis.Items.Clear();
 
-            foreach (Barang barang in daftarBarang)
+            var peringatan = daftarBarang
+                .Where(b => b.Aktif && b.Stok <= b.StokMinimum)
+                .OrderBy(b => b.Stok <= 0 ? 0 : 1)
+                .ThenBy(b => b.Stok)
+                .ThenBy(b => b.Nama)
+                .ToList();
+
+            foreach (Barang barang in peringatan)
             {
-                if (barang.Stok <= barang.StokMinimum)
-                {
-                    lstStokMenipis.Items.Add(
-                        barang.Nama + " (sisa " + barang.Stok + ")");
-                }
+                lstStokMenipis.Items.Add(barang);
             }
 
             lblNilaiStok.Text = lstStokMenipis.Items.Count.ToString();
+        }
+
+        private void LstStokMenipis_DrawItem(object? sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0 || e.Index >= lstStokMenipis.Items.Count) return;
+
+            e.DrawBackground();
+            if (lstStokMenipis.Items[e.Index] is not Barang barang) return;
+
+            string status = UIHelper.TentukanStatusStok(barang.Stok, barang.StokMinimum);
+            var (fore, back, border) = UIHelper.WarnaStatusStok(status);
+
+            Graphics g = e.Graphics;
+            Rectangle bounds = e.Bounds;
+
+            using (SolidBrush brBg = new SolidBrush(lstStokMenipis.BackColor))
+            {
+                g.FillRectangle(brBg, bounds);
+            }
+
+            Rectangle rectBadge = new Rectangle(bounds.X + 4, bounds.Y + (bounds.Height - 22) / 2, 72, 22);
+            using (SolidBrush brBadge = new SolidBrush(back))
+            using (Pen penBadge = new Pen(border))
+            {
+                g.FillRectangle(brBadge, rectBadge);
+                g.DrawRectangle(penBadge, rectBadge.X, rectBadge.Y, rectBadge.Width - 1, rectBadge.Height - 1);
+            }
+
+            using Font fontBadge = FontInter.Buat(8F, FontStyle.Bold);
+            TextRenderer.DrawText(g, status, fontBadge, rectBadge, fore,
+                TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.NoPadding);
+
+            string infoStok = $"Stok: {barang.Stok} / Min: {barang.StokMinimum}";
+            using Font fontInfo = FontInter.Buat(8.5F, FontStyle.Regular);
+            Size ukuranInfo = TextRenderer.MeasureText(g, infoStok, fontInfo);
+            int lebarInfo = Math.Min(ukuranInfo.Width + 4, Math.Max(80, bounds.Width / 3));
+
+            Rectangle rectInfo = new Rectangle(bounds.Right - lebarInfo - 4, bounds.Y, lebarInfo, bounds.Height);
+            TextRenderer.DrawText(g, infoStok, fontInfo, rectInfo, UIHelper.WarnaTeksSekunder,
+                TextFormatFlags.Right | TextFormatFlags.VerticalCenter | TextFormatFlags.EndEllipsis);
+
+            int xNama = rectBadge.Right + 8;
+            int lebarNama = Math.Max(40, rectInfo.Left - xNama - 6);
+            Rectangle rectNama = new Rectangle(xNama, bounds.Y, lebarNama, bounds.Height);
+            using Font fontNama = FontInter.Buat(9F, FontStyle.Bold);
+            TextRenderer.DrawText(g, $"{barang.Kode} · {barang.Nama}", fontNama, rectNama, UIHelper.WarnaTeksUtama,
+                TextFormatFlags.Left | TextFormatFlags.VerticalCenter | TextFormatFlags.EndEllipsis);
+
+            using Pen penGaris = new Pen(UIHelper.WarnaGarisTepi);
+            g.DrawLine(penGaris, bounds.X, bounds.Bottom - 1, bounds.Right, bounds.Bottom - 1);
         }
 
         private void IsiTransaksiTerbaru(List<Transaksi> daftarTransaksi)
@@ -197,6 +256,17 @@ namespace Sukimart
                     Total = "Rp " + transaksi.Total.ToString("N0", BudayaIndonesia)
                 })
                 .ToList();
+
+            if (dataGridView1.Columns["Nomor"] is DataGridViewColumn colNomor)
+            {
+                colNomor.MinimumWidth = 175;
+                colNomor.FillWeight = 135F;
+            }
+            if (dataGridView1.Columns["Tanggal"] is DataGridViewColumn colTgl)
+            {
+                colTgl.MinimumWidth = 130;
+                colTgl.FillWeight = 110F;
+            }
 
             UIHelper.TerapkanWarnaGrid(dataGridView1);
         }

@@ -611,8 +611,9 @@ namespace Sukimart
             // colId
             // 
             colId.DataPropertyName = "Id";
-            colId.FillWeight = 110F;
+            colId.FillWeight = 135F;
             colId.HeaderText = "No. Faktur";
+            colId.MinimumWidth = 175;
             colId.Name = "colId";
             colId.ReadOnly = true;
             // 

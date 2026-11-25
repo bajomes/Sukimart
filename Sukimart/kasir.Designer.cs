@@ -439,7 +439,7 @@ namespace Sukimart
             txtCariProduk.Location = new Point(46, 133);
             txtCariProduk.Margin = new Padding(3, 4, 3, 4);
             txtCariProduk.Name = "txtCariProduk";
-            txtCariProduk.PlaceholderText = "Ketik nama atau kode produk...";
+            txtCariProduk.PlaceholderText = "Cari kode atau nama barang...";
             txtCariProduk.Size = new Size(448, 26);
             txtCariProduk.TabIndex = 4;
             // 
