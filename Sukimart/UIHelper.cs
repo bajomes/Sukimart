@@ -112,7 +112,7 @@ namespace Sukimart
                 jarak = Math.Max(6, (int)Math.Round(tinggi * 0.2));
             }
 
-            string[] urutanTombol = { "btnDashboard", "btnKasir", "btnKatalog", "btnRiwayat", "btnGudang", "btnLaporan", "btnPengguna", "btnLogAktivitas" };
+            string[] urutanTombol = { "btnDashboard", "btnKasir", "btnKatalog", "btnRiwayat", "btnGudang", "btnLaporan", "btnLaporanInventaris", "btnPengguna", "btnLogAktivitas" };
 
             foreach (string nama in urutanTombol)
             {

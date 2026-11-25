@@ -28,13 +28,15 @@ namespace Sukimart
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             pnlKiri = new Panel();
-            btnLogAktivitas = new Button();
             btnKeluar = new Button();
-            btnLaporan = new Button();
+            btnGantiSandi = new Button();
             btnPengguna = new Button();
+            btnLogAktivitas = new Button();
+            btnLaporanInventaris = new Button();
+            btnLaporan = new Button();
             btnGudang = new Button();
             btnRiwayat = new Button();
             btnKatalog = new Button();
@@ -43,9 +45,12 @@ namespace Sukimart
             pictureLogo = new PictureBox();
             lblNama = new Label();
             pnlKanan = new Panel();
+            btnKelolaKategori = new Button();
             nightControlBox1 = new ReaLTaiizor.Controls.NightControlBox();
             lblJudulKatalog = new Label();
             txtCari = new TextBox();
+            btnTabAktif = new Button();
+            btnTabNonaktif = new Button();
             gridBarang = new DataGridView();
             colKode = new DataGridViewTextBoxColumn();
             colNama = new DataGridViewTextBoxColumn();
@@ -57,9 +62,6 @@ namespace Sukimart
             btnTambahItem = new Button();
             btnEditProduk = new Button();
             btnHapusBarang = new Button();
-            btnKelolaKategori = new Button();
-            btnTabAktif = new Button();
-            btnTabNonaktif = new Button();
             pnlKiri.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureLogo).BeginInit();
             pnlKanan.SuspendLayout();
@@ -69,9 +71,11 @@ namespace Sukimart
             // pnlKiri
             // 
             pnlKiri.BackColor = Color.White;
-            pnlKiri.Controls.Add(btnLogAktivitas);
             pnlKiri.Controls.Add(btnKeluar);
+            pnlKiri.Controls.Add(btnGantiSandi);
             pnlKiri.Controls.Add(btnPengguna);
+            pnlKiri.Controls.Add(btnLogAktivitas);
+            pnlKiri.Controls.Add(btnLaporanInventaris);
             pnlKiri.Controls.Add(btnLaporan);
             pnlKiri.Controls.Add(btnGudang);
             pnlKiri.Controls.Add(btnRiwayat);
@@ -82,8 +86,9 @@ namespace Sukimart
             pnlKiri.Controls.Add(lblNama);
             pnlKiri.Dock = DockStyle.Left;
             pnlKiri.Location = new Point(0, 0);
+            pnlKiri.Margin = new Padding(3, 4, 3, 4);
             pnlKiri.Name = "pnlKiri";
-            pnlKiri.Size = new Size(240, 720);
+            pnlKiri.Size = new Size(274, 960);
             pnlKiri.TabIndex = 2;
             // 
             // btnKeluar
@@ -95,34 +100,35 @@ namespace Sukimart
             btnKeluar.FlatStyle = FlatStyle.Flat;
             btnKeluar.Font = new Font("Inter", 10F);
             btnKeluar.ForeColor = Color.FromArgb(75, 85, 99);
-            btnKeluar.Location = new Point(16, 640);
-            btnKeluar.Padding = new Padding(16, 0, 0, 0);
-            btnKeluar.TextAlign = ContentAlignment.MiddleLeft;
+            btnKeluar.Location = new Point(18, 853);
+            btnKeluar.Margin = new Padding(3, 4, 3, 4);
             btnKeluar.Name = "btnKeluar";
-            btnKeluar.Size = new Size(208, 40);
+            btnKeluar.Padding = new Padding(18, 0, 0, 0);
+            btnKeluar.Size = new Size(238, 53);
             btnKeluar.TabIndex = 11;
             btnKeluar.Text = "Keluar";
+            btnKeluar.TextAlign = ContentAlignment.MiddleLeft;
             btnKeluar.UseVisualStyleBackColor = false;
-            btnKeluar.Click += btnKeluar_Click;
             // 
-            // btnLaporan
+            // btnGantiSandi
             // 
-            btnLaporan.BackColor = Color.White;
-            btnLaporan.Cursor = Cursors.Hand;
-            btnLaporan.FlatAppearance.BorderSize = 0;
-            btnLaporan.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
-            btnLaporan.FlatStyle = FlatStyle.Flat;
-            btnLaporan.Font = new Font("Inter", 10F);
-            btnLaporan.ForeColor = Color.FromArgb(31, 41, 55);
-            btnLaporan.Location = new Point(16, 352);
-            btnLaporan.Name = "btnLaporan";
-            btnLaporan.Padding = new Padding(16, 0, 0, 0);
-            btnLaporan.Size = new Size(208, 40);
-            btnLaporan.TabIndex = 10;
-            btnLaporan.Text = "Laporan";
-            btnLaporan.TextAlign = ContentAlignment.MiddleLeft;
-            btnLaporan.UseVisualStyleBackColor = false;
-            btnLaporan.Click += btnLaporan_Click;
+            btnGantiSandi.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnGantiSandi.BackColor = Color.White;
+            btnGantiSandi.Cursor = Cursors.Hand;
+            btnGantiSandi.FlatAppearance.BorderSize = 0;
+            btnGantiSandi.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
+            btnGantiSandi.FlatStyle = FlatStyle.Flat;
+            btnGantiSandi.Font = new Font("Inter", 10F);
+            btnGantiSandi.ForeColor = Color.FromArgb(75, 85, 99);
+            btnGantiSandi.Location = new Point(18, 789);
+            btnGantiSandi.Margin = new Padding(3, 4, 3, 4);
+            btnGantiSandi.Name = "btnGantiSandi";
+            btnGantiSandi.Padding = new Padding(18, 0, 0, 0);
+            btnGantiSandi.Size = new Size(238, 53);
+            btnGantiSandi.TabIndex = 14;
+            btnGantiSandi.Text = "Ganti Kata Sandi";
+            btnGantiSandi.TextAlign = ContentAlignment.MiddleLeft;
+            btnGantiSandi.UseVisualStyleBackColor = false;
             // 
             // btnPengguna
             // 
@@ -133,15 +139,15 @@ namespace Sukimart
             btnPengguna.FlatStyle = FlatStyle.Flat;
             btnPengguna.Font = new Font("Inter", 10F);
             btnPengguna.ForeColor = Color.FromArgb(31, 41, 55);
-            btnPengguna.Location = new Point(16, 400);
+            btnPengguna.Location = new Point(18, 597);
+            btnPengguna.Margin = new Padding(3, 4, 3, 4);
             btnPengguna.Name = "btnPengguna";
-            btnPengguna.Padding = new Padding(16, 0, 0, 0);
-            btnPengguna.Size = new Size(208, 40);
+            btnPengguna.Padding = new Padding(18, 0, 0, 0);
+            btnPengguna.Size = new Size(238, 53);
             btnPengguna.TabIndex = 12;
             btnPengguna.Text = "Pengguna";
             btnPengguna.TextAlign = ContentAlignment.MiddleLeft;
             btnPengguna.UseVisualStyleBackColor = false;
-            btnPengguna.Click += btnPengguna_Click;
             // 
             // btnLogAktivitas
             // 
@@ -152,15 +158,53 @@ namespace Sukimart
             btnLogAktivitas.FlatStyle = FlatStyle.Flat;
             btnLogAktivitas.Font = new Font("Inter", 10F);
             btnLogAktivitas.ForeColor = Color.FromArgb(31, 41, 55);
-            btnLogAktivitas.Location = new Point(16, 448);
+            btnLogAktivitas.Location = new Point(18, 661);
+            btnLogAktivitas.Margin = new Padding(3, 4, 3, 4);
             btnLogAktivitas.Name = "btnLogAktivitas";
-            btnLogAktivitas.Padding = new Padding(16, 0, 0, 0);
-            btnLogAktivitas.Size = new Size(208, 40);
+            btnLogAktivitas.Padding = new Padding(18, 0, 0, 0);
+            btnLogAktivitas.Size = new Size(238, 53);
             btnLogAktivitas.TabIndex = 13;
             btnLogAktivitas.Text = "Log Aktivitas";
             btnLogAktivitas.TextAlign = ContentAlignment.MiddleLeft;
             btnLogAktivitas.UseVisualStyleBackColor = false;
-            btnLogAktivitas.Click += btnLogAktivitas_Click;
+            // 
+            // btnLaporan
+            // 
+            btnLaporan.BackColor = Color.White;
+            btnLaporan.Cursor = Cursors.Hand;
+            btnLaporan.FlatAppearance.BorderSize = 0;
+            btnLaporan.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
+            btnLaporan.FlatStyle = FlatStyle.Flat;
+            btnLaporan.Font = new Font("Inter", 10F);
+            btnLaporan.ForeColor = Color.FromArgb(31, 41, 55);
+            btnLaporan.Location = new Point(18, 469);
+            btnLaporan.Margin = new Padding(3, 4, 3, 4);
+            btnLaporan.Name = "btnLaporan";
+            btnLaporan.Padding = new Padding(18, 0, 0, 0);
+            btnLaporan.Size = new Size(238, 53);
+            btnLaporan.TabIndex = 10;
+            btnLaporan.Text = "Laporan Penjualan";
+            btnLaporan.TextAlign = ContentAlignment.MiddleLeft;
+            btnLaporan.UseVisualStyleBackColor = false;
+            // 
+            // btnLaporanInventaris
+            // 
+            btnLaporanInventaris.BackColor = Color.White;
+            btnLaporanInventaris.Cursor = Cursors.Hand;
+            btnLaporanInventaris.FlatAppearance.BorderSize = 0;
+            btnLaporanInventaris.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
+            btnLaporanInventaris.FlatStyle = FlatStyle.Flat;
+            btnLaporanInventaris.Font = new Font("Inter", 10F);
+            btnLaporanInventaris.ForeColor = Color.FromArgb(31, 41, 55);
+            btnLaporanInventaris.Location = new Point(18, 533);
+            btnLaporanInventaris.Margin = new Padding(3, 4, 3, 4);
+            btnLaporanInventaris.Name = "btnLaporanInventaris";
+            btnLaporanInventaris.Padding = new Padding(18, 0, 0, 0);
+            btnLaporanInventaris.Size = new Size(238, 53);
+            btnLaporanInventaris.TabIndex = 11;
+            btnLaporanInventaris.Text = "Laporan Inventaris";
+            btnLaporanInventaris.TextAlign = ContentAlignment.MiddleLeft;
+            btnLaporanInventaris.UseVisualStyleBackColor = false;
             // 
             // btnGudang
             // 
@@ -171,15 +215,15 @@ namespace Sukimart
             btnGudang.FlatStyle = FlatStyle.Flat;
             btnGudang.Font = new Font("Inter", 10F);
             btnGudang.ForeColor = Color.FromArgb(31, 41, 55);
-            btnGudang.Location = new Point(16, 304);
+            btnGudang.Location = new Point(18, 405);
+            btnGudang.Margin = new Padding(3, 4, 3, 4);
             btnGudang.Name = "btnGudang";
-            btnGudang.Padding = new Padding(16, 0, 0, 0);
-            btnGudang.Size = new Size(208, 40);
+            btnGudang.Padding = new Padding(18, 0, 0, 0);
+            btnGudang.Size = new Size(238, 53);
             btnGudang.TabIndex = 9;
             btnGudang.Text = "Gudang";
             btnGudang.TextAlign = ContentAlignment.MiddleLeft;
             btnGudang.UseVisualStyleBackColor = false;
-            btnGudang.Click += btnGudang_Click;
             // 
             // btnRiwayat
             // 
@@ -190,15 +234,15 @@ namespace Sukimart
             btnRiwayat.FlatStyle = FlatStyle.Flat;
             btnRiwayat.Font = new Font("Inter", 10F);
             btnRiwayat.ForeColor = Color.FromArgb(31, 41, 55);
-            btnRiwayat.Location = new Point(16, 256);
+            btnRiwayat.Location = new Point(18, 341);
+            btnRiwayat.Margin = new Padding(3, 4, 3, 4);
             btnRiwayat.Name = "btnRiwayat";
-            btnRiwayat.Padding = new Padding(16, 0, 0, 0);
-            btnRiwayat.Size = new Size(208, 40);
+            btnRiwayat.Padding = new Padding(18, 0, 0, 0);
+            btnRiwayat.Size = new Size(238, 53);
             btnRiwayat.TabIndex = 6;
             btnRiwayat.Text = "Riwayat Transaksi";
             btnRiwayat.TextAlign = ContentAlignment.MiddleLeft;
             btnRiwayat.UseVisualStyleBackColor = false;
-            btnRiwayat.Click += btnRiwayat_Click;
             // 
             // btnKatalog
             // 
@@ -209,15 +253,15 @@ namespace Sukimart
             btnKatalog.FlatStyle = FlatStyle.Flat;
             btnKatalog.Font = new Font("Inter", 10F, FontStyle.Bold);
             btnKatalog.ForeColor = Color.FromArgb(31, 41, 55);
-            btnKatalog.Location = new Point(16, 208);
+            btnKatalog.Location = new Point(18, 277);
+            btnKatalog.Margin = new Padding(3, 4, 3, 4);
             btnKatalog.Name = "btnKatalog";
-            btnKatalog.Padding = new Padding(16, 0, 0, 0);
-            btnKatalog.Size = new Size(208, 40);
+            btnKatalog.Padding = new Padding(18, 0, 0, 0);
+            btnKatalog.Size = new Size(238, 53);
             btnKatalog.TabIndex = 5;
             btnKatalog.Text = "Katalog Produk";
             btnKatalog.TextAlign = ContentAlignment.MiddleLeft;
             btnKatalog.UseVisualStyleBackColor = false;
-            btnKatalog.Click += btnKatalog_Click;
             // 
             // btnKasir
             // 
@@ -228,15 +272,15 @@ namespace Sukimart
             btnKasir.FlatStyle = FlatStyle.Flat;
             btnKasir.Font = new Font("Inter", 10F);
             btnKasir.ForeColor = Color.FromArgb(31, 41, 55);
-            btnKasir.Location = new Point(16, 160);
+            btnKasir.Location = new Point(18, 213);
+            btnKasir.Margin = new Padding(3, 4, 3, 4);
             btnKasir.Name = "btnKasir";
-            btnKasir.Padding = new Padding(16, 0, 0, 0);
-            btnKasir.Size = new Size(208, 40);
+            btnKasir.Padding = new Padding(18, 0, 0, 0);
+            btnKasir.Size = new Size(238, 53);
             btnKasir.TabIndex = 4;
             btnKasir.Text = "Kasir / POS";
             btnKasir.TextAlign = ContentAlignment.MiddleLeft;
             btnKasir.UseVisualStyleBackColor = false;
-            btnKasir.Click += btnKasir_Click;
             // 
             // btnDashboard
             // 
@@ -247,22 +291,23 @@ namespace Sukimart
             btnDashboard.FlatStyle = FlatStyle.Flat;
             btnDashboard.Font = new Font("Inter", 10F);
             btnDashboard.ForeColor = Color.FromArgb(31, 41, 55);
-            btnDashboard.Location = new Point(16, 112);
+            btnDashboard.Location = new Point(18, 149);
+            btnDashboard.Margin = new Padding(3, 4, 3, 4);
             btnDashboard.Name = "btnDashboard";
-            btnDashboard.Padding = new Padding(16, 0, 0, 0);
-            btnDashboard.Size = new Size(208, 40);
+            btnDashboard.Padding = new Padding(18, 0, 0, 0);
+            btnDashboard.Size = new Size(238, 53);
             btnDashboard.TabIndex = 3;
             btnDashboard.Text = "Dashboard";
             btnDashboard.TextAlign = ContentAlignment.MiddleLeft;
             btnDashboard.UseVisualStyleBackColor = false;
-            btnDashboard.Click += btnDashboard_Click;
             // 
             // pictureLogo
             // 
             pictureLogo.Image = Properties.Resources.logo;
-            pictureLogo.Location = new Point(24, 32);
+            pictureLogo.Location = new Point(27, 43);
+            pictureLogo.Margin = new Padding(3, 4, 3, 4);
             pictureLogo.Name = "pictureLogo";
-            pictureLogo.Size = new Size(40, 40);
+            pictureLogo.Size = new Size(46, 53);
             pictureLogo.SizeMode = PictureBoxSizeMode.Zoom;
             pictureLogo.TabIndex = 2;
             pictureLogo.TabStop = false;
@@ -271,15 +316,16 @@ namespace Sukimart
             // 
             lblNama.AutoSize = true;
             lblNama.Font = new Font("Inter", 14F, FontStyle.Bold);
-            lblNama.Location = new Point(72, 40);
+            lblNama.Location = new Point(82, 53);
             lblNama.Name = "lblNama";
-            lblNama.Size = new Size(112, 23);
+            lblNama.Size = new Size(144, 29);
             lblNama.TabIndex = 1;
             lblNama.Text = "SUKIMART";
             // 
             // pnlKanan
             // 
             pnlKanan.BackColor = Color.FromArgb(247, 247, 245);
+            pnlKanan.Controls.Add(btnKelolaKategori);
             pnlKanan.Controls.Add(nightControlBox1);
             pnlKanan.Controls.Add(lblJudulKatalog);
             pnlKanan.Controls.Add(txtCari);
@@ -289,12 +335,30 @@ namespace Sukimart
             pnlKanan.Controls.Add(btnTambahItem);
             pnlKanan.Controls.Add(btnEditProduk);
             pnlKanan.Controls.Add(btnHapusBarang);
-            pnlKanan.Controls.Add(btnKelolaKategori);
             pnlKanan.Dock = DockStyle.Fill;
-            pnlKanan.Location = new Point(240, 0);
+            pnlKanan.Location = new Point(274, 0);
+            pnlKanan.Margin = new Padding(3, 4, 3, 4);
             pnlKanan.Name = "pnlKanan";
-            pnlKanan.Size = new Size(1040, 720);
+            pnlKanan.Size = new Size(1189, 960);
             pnlKanan.TabIndex = 4;
+            // 
+            // btnKelolaKategori
+            // 
+            btnKelolaKategori.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnKelolaKategori.BackColor = Color.White;
+            btnKelolaKategori.Cursor = Cursors.Hand;
+            btnKelolaKategori.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
+            btnKelolaKategori.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
+            btnKelolaKategori.FlatStyle = FlatStyle.Flat;
+            btnKelolaKategori.Font = new Font("Inter", 10F);
+            btnKelolaKategori.ForeColor = Color.FromArgb(55, 65, 81);
+            btnKelolaKategori.Location = new Point(585, 853);
+            btnKelolaKategori.Margin = new Padding(3, 4, 3, 4);
+            btnKelolaKategori.Name = "btnKelolaKategori";
+            btnKelolaKategori.Size = new Size(162, 53);
+            btnKelolaKategori.TabIndex = 8;
+            btnKelolaKategori.Text = "Kelola Kategori";
+            btnKelolaKategori.UseVisualStyleBackColor = false;
             // 
             // nightControlBox1
             // 
@@ -302,7 +366,7 @@ namespace Sukimart
             nightControlBox1.BackColor = Color.Transparent;
             nightControlBox1.CloseHoverColor = Color.FromArgb(199, 80, 80);
             nightControlBox1.CloseHoverForeColor = Color.White;
-            nightControlBox1.DefaultLocation = false;
+            nightControlBox1.DefaultLocation = true;
             nightControlBox1.DisableMaximizeColor = Color.FromArgb(105, 105, 105);
             nightControlBox1.DisableMinimizeColor = Color.FromArgb(105, 105, 105);
             nightControlBox1.EnableCloseColor = Color.FromArgb(160, 160, 160);
@@ -310,7 +374,7 @@ namespace Sukimart
             nightControlBox1.EnableMaximizeColor = Color.FromArgb(160, 160, 160);
             nightControlBox1.EnableMinimizeButton = true;
             nightControlBox1.EnableMinimizeColor = Color.FromArgb(160, 160, 160);
-            nightControlBox1.Location = new Point(901, 0);
+            nightControlBox1.Location = new Point(1050, 0);
             nightControlBox1.MaximizeHoverColor = Color.FromArgb(15, 255, 255, 255);
             nightControlBox1.MaximizeHoverForeColor = Color.White;
             nightControlBox1.MinimizeHoverColor = Color.FromArgb(15, 255, 255, 255);
@@ -324,23 +388,23 @@ namespace Sukimart
             lblJudulKatalog.AutoSize = true;
             lblJudulKatalog.Font = new Font("Inter", 20F, FontStyle.Bold);
             lblJudulKatalog.ForeColor = Color.FromArgb(31, 41, 55);
-            lblJudulKatalog.Location = new Point(40, 32);
+            lblJudulKatalog.Location = new Point(46, 43);
             lblJudulKatalog.Name = "lblJudulKatalog";
-            lblJudulKatalog.Size = new Size(218, 33);
+            lblJudulKatalog.Size = new Size(264, 39);
             lblJudulKatalog.TabIndex = 1;
             lblJudulKatalog.Text = "Katalog Produk";
             // 
             // txtCari
             // 
+            txtCari.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtCari.BackColor = Color.White;
             txtCari.Font = new Font("Inter", 10F);
-            txtCari.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtCari.Location = new Point(40, 116);
+            txtCari.Location = new Point(46, 153);
+            txtCari.Margin = new Padding(3, 4, 3, 4);
             txtCari.Name = "txtCari";
             txtCari.PlaceholderText = "Cari berdasarkan nama, kode, atau kategori barang...";
-            txtCari.Size = new Size(712, 24);
+            txtCari.Size = new Size(780, 26);
             txtCari.TabIndex = 3;
-            txtCari.TextChanged += txtCari_TextChanged;
             // 
             // btnTabAktif
             // 
@@ -351,13 +415,13 @@ namespace Sukimart
             btnTabAktif.FlatStyle = FlatStyle.Flat;
             btnTabAktif.Font = new Font("Inter", 9.5F, FontStyle.Bold);
             btnTabAktif.ForeColor = Color.FromArgb(31, 41, 55);
-            btnTabAktif.Location = new Point(768, 112);
+            btnTabAktif.Location = new Point(842, 153);
+            btnTabAktif.Margin = new Padding(3, 4, 3, 4);
             btnTabAktif.Name = "btnTabAktif";
-            btnTabAktif.Size = new Size(112, 32);
-            btnTabAktif.TabIndex = 9;
+            btnTabAktif.Size = new Size(124, 34);
+            btnTabAktif.TabIndex = 4;
             btnTabAktif.Text = "Barang Aktif";
             btnTabAktif.UseVisualStyleBackColor = false;
-            btnTabAktif.Click += btnTabAktif_Click;
             // 
             // btnTabNonaktif
             // 
@@ -367,53 +431,55 @@ namespace Sukimart
             btnTabNonaktif.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
             btnTabNonaktif.FlatStyle = FlatStyle.Flat;
             btnTabNonaktif.Font = new Font("Inter", 9.5F);
-            btnTabNonaktif.ForeColor = Color.FromArgb(107, 114, 128);
-            btnTabNonaktif.Location = new Point(888, 112);
+            btnTabNonaktif.ForeColor = Color.FromArgb(75, 85, 99);
+            btnTabNonaktif.Location = new Point(972, 153);
+            btnTabNonaktif.Margin = new Padding(3, 4, 3, 4);
             btnTabNonaktif.Name = "btnTabNonaktif";
-            btnTabNonaktif.Size = new Size(112, 32);
-            btnTabNonaktif.TabIndex = 10;
-            btnTabNonaktif.Text = "Nonaktif";
+            btnTabNonaktif.Size = new Size(171, 34);
+            btnTabNonaktif.TabIndex = 5;
+            btnTabNonaktif.Text = "Barang Nonaktif";
             btnTabNonaktif.UseVisualStyleBackColor = false;
-            btnTabNonaktif.Click += btnTabNonaktif_Click;
             // 
             // gridBarang
             // 
             gridBarang.AllowUserToAddRows = false;
             gridBarang.AllowUserToDeleteRows = false;
+            gridBarang.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             gridBarang.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             gridBarang.BackgroundColor = Color.White;
             gridBarang.BorderStyle = BorderStyle.None;
+            gridBarang.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             gridBarang.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(243, 244, 246);
-            dataGridViewCellStyle1.Font = new Font("Inter", 9F, FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = Color.FromArgb(55, 65, 81);
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(255, 244, 204);
-            dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(31, 41, 55);
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            gridBarang.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(243, 244, 246);
+            dataGridViewCellStyle3.Font = new Font("Inter", 9F, FontStyle.Bold);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(55, 65, 81);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(255, 244, 204);
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(31, 41, 55);
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            gridBarang.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             gridBarang.ColumnHeadersHeight = 40;
             gridBarang.Columns.AddRange(new DataGridViewColumn[] { colKode, colNama, colKategori, colHargaBeli, colHarga, colStok, colStokMin });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Inter", 10F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(255, 244, 204);
-            dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(31, 41, 55);
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            gridBarang.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Window;
+            dataGridViewCellStyle4.Font = new Font("Inter", 10F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(255, 244, 204);
+            dataGridViewCellStyle4.SelectionForeColor = Color.FromArgb(31, 41, 55);
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            gridBarang.DefaultCellStyle = dataGridViewCellStyle4;
             gridBarang.EnableHeadersVisualStyles = false;
-            gridBarang.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            gridBarang.Location = new Point(40, 160);
-            gridBarang.MultiSelect = false;
-            gridBarang.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             gridBarang.GridColor = Color.FromArgb(229, 231, 235);
+            gridBarang.Location = new Point(46, 213);
+            gridBarang.Margin = new Padding(3, 4, 3, 4);
+            gridBarang.MultiSelect = false;
             gridBarang.Name = "gridBarang";
             gridBarang.ReadOnly = true;
             gridBarang.RowHeadersVisible = false;
+            gridBarang.RowHeadersWidth = 51;
             gridBarang.RowTemplate.Height = 36;
             gridBarang.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            gridBarang.Size = new Size(960, 456);
+            gridBarang.Size = new Size(1097, 608);
             gridBarang.TabIndex = 4;
             // 
             // colKode
@@ -421,6 +487,7 @@ namespace Sukimart
             colKode.DataPropertyName = "Kode";
             colKode.FillWeight = 75F;
             colKode.HeaderText = "Kode";
+            colKode.MinimumWidth = 6;
             colKode.Name = "colKode";
             colKode.ReadOnly = true;
             // 
@@ -429,6 +496,7 @@ namespace Sukimart
             colNama.DataPropertyName = "Nama";
             colNama.FillWeight = 160F;
             colNama.HeaderText = "Nama Barang";
+            colNama.MinimumWidth = 6;
             colNama.Name = "colNama";
             colNama.ReadOnly = true;
             // 
@@ -436,6 +504,7 @@ namespace Sukimart
             // 
             colKategori.DataPropertyName = "Kategori";
             colKategori.HeaderText = "Kategori";
+            colKategori.MinimumWidth = 6;
             colKategori.Name = "colKategori";
             colKategori.ReadOnly = true;
             // 
@@ -444,6 +513,7 @@ namespace Sukimart
             colHargaBeli.DataPropertyName = "HargaBeliFormat";
             colHargaBeli.FillWeight = 95F;
             colHargaBeli.HeaderText = "Harga Beli (Rp)";
+            colHargaBeli.MinimumWidth = 6;
             colHargaBeli.Name = "colHargaBeli";
             colHargaBeli.ReadOnly = true;
             // 
@@ -451,7 +521,8 @@ namespace Sukimart
             // 
             colHarga.DataPropertyName = "HargaFormat";
             colHarga.FillWeight = 95F;
-            colHarga.HeaderText = "Harga (Rp)";
+            colHarga.HeaderText = "Harga Jual (Rp)";
+            colHarga.MinimumWidth = 6;
             colHarga.Name = "colHarga";
             colHarga.ReadOnly = true;
             // 
@@ -460,6 +531,7 @@ namespace Sukimart
             colStok.DataPropertyName = "Stok";
             colStok.FillWeight = 55F;
             colStok.HeaderText = "Stok";
+            colStok.MinimumWidth = 6;
             colStok.Name = "colStok";
             colStok.ReadOnly = true;
             // 
@@ -468,8 +540,12 @@ namespace Sukimart
             colStokMin.DataPropertyName = "StokMinimum";
             colStokMin.FillWeight = 65F;
             colStokMin.HeaderText = "Min Stok";
+            colStokMin.MinimumWidth = 6;
             colStokMin.Name = "colStokMin";
             colStokMin.ReadOnly = true;
+            // 
+            // btnTambahItem
+            // 
             btnTambahItem.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnTambahItem.BackColor = Color.FromArgb(255, 196, 0);
             btnTambahItem.Cursor = Cursors.Hand;
@@ -478,13 +554,13 @@ namespace Sukimart
             btnTambahItem.FlatStyle = FlatStyle.Flat;
             btnTambahItem.Font = new Font("Inter", 10F, FontStyle.Bold);
             btnTambahItem.ForeColor = Color.FromArgb(31, 41, 55);
-            btnTambahItem.Location = new Point(40, 640);
+            btnTambahItem.Location = new Point(46, 853);
+            btnTambahItem.Margin = new Padding(3, 4, 3, 4);
             btnTambahItem.Name = "btnTambahItem";
-            btnTambahItem.Size = new Size(152, 40);
+            btnTambahItem.Size = new Size(174, 53);
             btnTambahItem.TabIndex = 5;
             btnTambahItem.Text = "+ Tambah Item";
             btnTambahItem.UseVisualStyleBackColor = false;
-            btnTambahItem.Click += btnTambahItem_Click;
             // 
             // btnEditProduk
             // 
@@ -495,13 +571,13 @@ namespace Sukimart
             btnEditProduk.FlatStyle = FlatStyle.Flat;
             btnEditProduk.Font = new Font("Inter", 10F, FontStyle.Bold);
             btnEditProduk.ForeColor = Color.FromArgb(55, 65, 81);
-            btnEditProduk.Location = new Point(208, 640);
+            btnEditProduk.Location = new Point(238, 853);
+            btnEditProduk.Margin = new Padding(3, 4, 3, 4);
             btnEditProduk.Name = "btnEditProduk";
-            btnEditProduk.Size = new Size(144, 40);
+            btnEditProduk.Size = new Size(165, 53);
             btnEditProduk.TabIndex = 6;
             btnEditProduk.Text = "Edit Produk";
             btnEditProduk.UseVisualStyleBackColor = false;
-            btnEditProduk.Click += btnEditProduk_Click;
             // 
             // btnHapusBarang
             // 
@@ -512,40 +588,23 @@ namespace Sukimart
             btnHapusBarang.FlatStyle = FlatStyle.Flat;
             btnHapusBarang.Font = new Font("Inter", 10F, FontStyle.Bold);
             btnHapusBarang.ForeColor = Color.FromArgb(220, 38, 38);
-            btnHapusBarang.Location = new Point(368, 640);
+            btnHapusBarang.Location = new Point(421, 853);
+            btnHapusBarang.Margin = new Padding(3, 4, 3, 4);
             btnHapusBarang.Name = "btnHapusBarang";
-            btnHapusBarang.Size = new Size(120, 40);
+            btnHapusBarang.Size = new Size(150, 53);
             btnHapusBarang.TabIndex = 7;
-            btnHapusBarang.Text = "Hapus";
+            btnHapusBarang.Text = "Hapus Barang";
             btnHapusBarang.UseVisualStyleBackColor = false;
-            btnHapusBarang.Click += btnHapusBarang_Click;
-            // 
-            // btnKelolaKategori
-            // 
-            btnKelolaKategori.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnKelolaKategori.BackColor = Color.White;
-            btnKelolaKategori.Cursor = Cursors.Hand;
-            btnKelolaKategori.FlatAppearance.BorderColor = Color.FromArgb(209, 213, 219);
-            btnKelolaKategori.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 244, 204);
-            btnKelolaKategori.FlatStyle = FlatStyle.Flat;
-            btnKelolaKategori.Font = new Font("Inter", 10F, FontStyle.Bold);
-            btnKelolaKategori.ForeColor = Color.FromArgb(55, 65, 81);
-            btnKelolaKategori.Location = new Point(504, 640);
-            btnKelolaKategori.Name = "btnKelolaKategori";
-            btnKelolaKategori.Size = new Size(150, 40);
-            btnKelolaKategori.TabIndex = 8;
-            btnKelolaKategori.Text = "Kelola Kategori";
-            btnKelolaKategori.UseVisualStyleBackColor = false;
-            btnKelolaKategori.Click += btnKelolaKategori_Click;
             // 
             // FormKatalog
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1280, 720);
+            ClientSize = new Size(1463, 960);
             Controls.Add(pnlKanan);
             Controls.Add(pnlKiri);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "FormKatalog";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Katalog Produk";
@@ -561,9 +620,11 @@ namespace Sukimart
         #endregion
 
         private Panel pnlKiri;
+        private Button btnLaporanInventaris;
         private Button btnLaporan;
         private Button btnPengguna;
         private Button btnLogAktivitas;
+        private Button btnGantiSandi;
         private Button btnGudang;
         private Button btnRiwayat;
         private Button btnKatalog;

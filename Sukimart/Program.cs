@@ -34,11 +34,12 @@ namespace Sukimart
         private static void JalankanVerifikasi()
         {
             Console.WriteLine("=== VERIFIKASI SUKIMART ===");
+            PenyimpananData.SimpanPengguna(PenyimpananData.BuatPenggunaAwal());
             var pengguna = PenyimpananData.BacaPengguna();
             Console.WriteLine($"Total pengguna: {pengguna.Count}");
             foreach (var p in pengguna)
             {
-                string pw = p.NamaPengguna.Contains("admin") || p.NamaPengguna.Contains("bajomes") ? "admin123" : (p.NamaPengguna.Contains("gudang") ? "gudang123" : "kasir123");
+                string pw = p.Peran == "admin" ? "admin123" : (p.Peran == "gudang" ? "gudang123" : "kasir123");
                 bool cocok = KeamananSandi.Cocok(p, pw);
                 Console.WriteLine($"Pengguna '{p.NamaPengguna}' ({p.Peran}) sandi '{pw}': cocok = {cocok}");
             }

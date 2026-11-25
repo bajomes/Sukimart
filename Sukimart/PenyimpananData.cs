@@ -25,8 +25,8 @@ namespace Sukimart
             string lokasiTujuan = Path.Combine(folderData, namaFile);
             string lokasiAwal = Path.Combine(folderSumber, namaFile);
 
-            // Jika berkas di AppData belum ada tetapi ada berkas awal di folder aplikasi, salin berkas tersebut
-            if (!File.Exists(lokasiTujuan) && File.Exists(lokasiAwal))
+            // Jika berkas di AppData belum ada atau berkas sumber aplikasi jelas lebih baru (mis. setelah edit manual/rebuild), salin berkas tersebut
+            if (File.Exists(lokasiAwal) && (!File.Exists(lokasiTujuan) || File.GetLastWriteTimeUtc(lokasiAwal) > File.GetLastWriteTimeUtc(lokasiTujuan).AddSeconds(2)))
             {
                 try
                 {
@@ -252,6 +252,8 @@ namespace Sukimart
             catch { }
         }
 
+        public static void SimpanStrukJson(Transaksi transaksi, List<DetailTransaksi>? rincian) => SimpanStruk(transaksi, rincian);
+
         // Menyimpan berkas laporan (penjualan atau gudang) dalam format JSON ke folder laporan/ (Fitur 9 & 10)
         public static string SimpanLaporanJson(string namaFile, object dataLaporan)
         {
@@ -310,7 +312,14 @@ namespace Sukimart
         public static List<Pengguna> BacaPengguna()
         {
             List<Pengguna> daftarPengguna = BacaData<Pengguna>("pengguna.json");
-            if (daftarPengguna.Count == 0 || !daftarPengguna.Any(p => p.NamaPengguna == "admin"))
+            bool adaDataDummy = daftarPengguna.Any(p =>
+                string.Equals(p.NamaPengguna, "bajomes", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(p.NamaPengguna, "amba", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(p.NamaPengguna, "rusdi", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(p.NamaPengguna, "kasir1", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(p.NamaPengguna, "gudang1", StringComparison.OrdinalIgnoreCase));
+
+            if (adaDataDummy || daftarPengguna.Count == 0 || !daftarPengguna.Any(p => p.NamaPengguna == "admin"))
             {
                 daftarPengguna = BuatPenggunaAwal();
                 SimpanPengguna(daftarPengguna);
@@ -323,24 +332,18 @@ namespace Sukimart
             SimpanData("pengguna.json", daftarPengguna);
         }
 
-        // Data awal akun pengguna default sistem (admin, kasir, kasir1, gudang, gudang1, bajomes)
+        // Data awal akun pengguna default sistem (admin, gudang, kasir) sesuai instruksi
         public static List<Pengguna> BuatPenggunaAwal()
         {
-            Pengguna admin = new Pengguna { NamaPengguna = "admin", NamaLengkap = "Administrator Suki MART", Peran = "admin", Aktif = true, Dibuat = new DateTime(2026, 11, 1, 8, 0, 0) };
-            Pengguna kasir = new Pengguna { NamaPengguna = "kasir", NamaLengkap = "Kasir Utama", Peran = "kasir", Aktif = true, Dibuat = new DateTime(2026, 11, 1, 8, 0, 0) };
-            Pengguna kasir1 = new Pengguna { NamaPengguna = "kasir1", NamaLengkap = "Dewi Lestari", Peran = "kasir", Aktif = true, Dibuat = new DateTime(2026, 11, 1, 8, 0, 0) };
+            Pengguna admin = new Pengguna { NamaPengguna = "admin", NamaLengkap = "Administrator", Peran = "admin", Aktif = true, Dibuat = new DateTime(2026, 11, 1, 8, 0, 0) };
             Pengguna gudang = new Pengguna { NamaPengguna = "gudang", NamaLengkap = "Petugas Gudang", Peran = "gudang", Aktif = true, Dibuat = new DateTime(2026, 11, 1, 8, 0, 0) };
-            Pengguna gudang1 = new Pengguna { NamaPengguna = "gudang1", NamaLengkap = "Budi Santoso", Peran = "gudang", Aktif = true, Dibuat = new DateTime(2026, 11, 1, 8, 0, 0) };
-            Pengguna bajomes = new Pengguna { NamaPengguna = "bajomes", NamaLengkap = "Bajomes Admin", Peran = "admin", Aktif = true, Dibuat = new DateTime(2026, 11, 1, 8, 0, 0) };
+            Pengguna kasir = new Pengguna { NamaPengguna = "kasir", NamaLengkap = "Kasir", Peran = "kasir", Aktif = true, Dibuat = new DateTime(2026, 11, 1, 8, 0, 0) };
 
             KeamananSandi.IsiSandi(admin, "admin123");
-            KeamananSandi.IsiSandi(kasir, "kasir123");
-            KeamananSandi.IsiSandi(kasir1, "kasir123");
             KeamananSandi.IsiSandi(gudang, "gudang123");
-            KeamananSandi.IsiSandi(gudang1, "gudang123");
-            KeamananSandi.IsiSandi(bajomes, "admin123");
+            KeamananSandi.IsiSandi(kasir, "kasir123");
 
-            return new List<Pengguna> { admin, kasir, kasir1, gudang, gudang1, bajomes };
+            return new List<Pengguna> { admin, gudang, kasir };
         }
 
         // Membaca berkas log audit aktivitas
@@ -422,6 +425,11 @@ namespace Sukimart
             List<RiwayatStok> daftarRiwayat = BacaRiwayatStok();
             daftarRiwayat.Add(catatan);
             SimpanData("riwayat_stok.json", daftarRiwayat);
+        }
+
+        public static void SimpanRiwayatStok(List<RiwayatStok> daftar)
+        {
+            SimpanData("riwayat_stok.json", daftar);
         }
 
         // Data awal kartu stok resmi (memenuhi Kasus Uji 15 untuk BRG005: 03-11 KELUAR 6, 04-11 TERJUAL 3, Stok 150)
@@ -551,5 +559,332 @@ namespace Sukimart
                 SimpanDetailTransaksi(daftarDetail);
             }
         }
+
+        #region Stok Opname
+
+        public static List<SesiOpname> BacaSesiOpname()
+        {
+            return BacaData<SesiOpname>("sesi_opname.json");
+        }
+
+        public static void SimpanSesiOpname(List<SesiOpname> daftarSesi)
+        {
+            SimpanData("sesi_opname.json", daftarSesi);
+        }
+
+        public static string BuatIdSesiOpname()
+        {
+            string prefix = $"OPN-{DateTime.Now:yyyyMMdd}-";
+            var daftar = BacaSesiOpname();
+            int maxNo = 0;
+            foreach (var s in daftar)
+            {
+                if (!string.IsNullOrEmpty(s.Id) && s.Id.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                {
+                    string suffix = s.Id.Substring(prefix.Length);
+                    if (int.TryParse(suffix, out int no) && no > maxNo)
+                    {
+                        maxNo = no;
+                    }
+                }
+            }
+            return $"{prefix}{(maxNo + 1):D3}";
+        }
+
+        public static SesiOpname? AmbilSesiOpnameAktif()
+        {
+            var daftar = BacaSesiOpname();
+            return daftar.FirstOrDefault(s => s.Status == "Draft" || s.Status == "Menunggu Persetujuan" || s.Status == "Perlu Revisi");
+        }
+
+        public static bool ApakahAdaOpnameAktif()
+        {
+            return AmbilSesiOpnameAktif() != null;
+        }
+
+        public static HashSet<string> AmbilKodeBarangTerkunciOpname()
+        {
+            var daftar = BacaSesiOpname();
+            var aktif = daftar.Where(s => s.Status == "Draft" || s.Status == "Menunggu Persetujuan" || s.Status == "Perlu Revisi");
+            var set = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (var sesi in aktif)
+            {
+                foreach (var item in sesi.Items)
+                {
+                    set.Add(item.KodeBarang);
+                }
+            }
+            return set;
+        }
+
+        public static bool ApakahBarangTerkunciOpname(string kodeBarang)
+        {
+            return ApakahBarangTerkunciOpname(kodeBarang, out _);
+        }
+
+        public static bool ApakahBarangTerkunciOpname(string kodeBarang, out string nomorOpname)
+        {
+            nomorOpname = "";
+            if (string.IsNullOrWhiteSpace(kodeBarang)) return false;
+
+            var daftar = BacaSesiOpname();
+            var aktif = daftar.FirstOrDefault(s => (s.Status == "Draft" || s.Status == "Menunggu Persetujuan" || s.Status == "Perlu Revisi")
+                                                 && s.Items.Any(i => string.Equals(i.KodeBarang, kodeBarang, StringComparison.OrdinalIgnoreCase)));
+            if (aktif != null)
+            {
+                nomorOpname = aktif.Id;
+                return true;
+            }
+            return false;
+        }
+
+        public static void SimpanAtauPerbaruiSesiOpname(SesiOpname sesi)
+        {
+            if (sesi == null) return;
+            List<SesiOpname> daftar = BacaSesiOpname();
+            int idx = daftar.FindIndex(s => s.Id.Equals(sesi.Id, StringComparison.OrdinalIgnoreCase));
+            if (idx >= 0)
+            {
+                daftar[idx] = sesi;
+            }
+            else
+            {
+                daftar.Add(sesi);
+            }
+            SimpanSesiOpname(daftar);
+        }
+
+        public static SesiOpname BuatSesiOpnameBaru(string pembuat)
+        {
+            // Validasi hak akses
+            if (Navigasi.PeranAktif != "admin" && Navigasi.PeranAktif != "gudang")
+            {
+                throw new UnauthorizedAccessException("Hanya Petugas Gudang dan Admin yang dapat membuat sesi Stok Opname.");
+            }
+
+            // Validasi apakah sudah ada sesi opname aktif
+            SesiOpname? sesiAktif = AmbilSesiOpnameAktif();
+            if (sesiAktif != null)
+            {
+                throw new InvalidOperationException($"Masih terdapat sesi Stok Opname aktif ({sesiAktif.Id}) dengan status '{sesiAktif.Status}'. Harap selesaikan atau batalkan sesi tersebut terlebih dahulu.");
+            }
+
+            List<Barang> barangAktif = BacaBarang().Where(b => b.Aktif).ToList();
+            if (barangAktif.Count == 0)
+            {
+                throw new InvalidOperationException("Tidak ada produk aktif dalam sistem untuk dilakukan Stok Opname.");
+            }
+
+            string idBaru = BuatIdSesiOpname();
+            SesiOpname sesi = new SesiOpname
+            {
+                Id = idBaru,
+                TanggalDibuat = DateTime.Now,
+                DibuatOleh = pembuat,
+                Status = "Draft",
+                Items = barangAktif.Select(b => new ItemOpname
+                {
+                    KodeBarang = b.Kode,
+                    NamaBarang = b.Nama,
+                    StokSistem = b.Stok,
+                    StokFisik = null,
+                    SudahDihitung = false,
+                    Selisih = 0,
+                    Keterangan = ""
+                }).ToList()
+            };
+
+            sesi.RiwayatStatus.Add(new RiwayatStatusOpname
+            {
+                Waktu = DateTime.Now,
+                Status = "Draft",
+                Oleh = pembuat,
+                Catatan = $"Sesi opname dibuat dengan {sesi.Items.Count} produk aktif."
+            });
+
+            SimpanAtauPerbaruiSesiOpname(sesi);
+            CatatAktivitas(pembuat, "Stok Opname", $"Membuat sesi opname {sesi.Id} dengan {sesi.Items.Count} produk aktif.");
+            return sesi;
+        }
+
+        public static void TerapkanPersetujuanOpname(string idSesi, string adminPengguna)
+        {
+            if (Navigasi.PeranAktif != "admin")
+            {
+                throw new UnauthorizedAccessException("Hanya Admin yang berwenang menyetujui sesi Stok Opname.");
+            }
+
+            List<SesiOpname> daftarSesi = BacaSesiOpname();
+            SesiOpname? sesi = daftarSesi.FirstOrDefault(s => s.Id.Equals(idSesi, StringComparison.OrdinalIgnoreCase));
+            if (sesi == null)
+            {
+                throw new InvalidOperationException($"Sesi opname {idSesi} tidak ditemukan.");
+            }
+
+            if (sesi.Status == "Disetujui")
+            {
+                throw new InvalidOperationException($"Sesi opname {idSesi} sudah pernah disetujui sebelumnya dan tidak dapat diterapkan dua kali.");
+            }
+
+            if (sesi.Status != "Menunggu Persetujuan")
+            {
+                throw new InvalidOperationException($"Sesi opname {idSesi} berstatus '{sesi.Status}', hanya sesi berstatus 'Menunggu Persetujuan' yang dapat disetujui.");
+            }
+
+            // Validasi seluruh item harus sudah dihitung
+            var itemBelumDihitung = sesi.Items.Where(i => !i.SudahDihitung || !i.StokFisik.HasValue).ToList();
+            if (itemBelumDihitung.Count > 0)
+            {
+                throw new InvalidOperationException($"Terdapat {itemBelumDihitung.Count} produk yang belum diisi stok fisiknya.");
+            }
+
+            // Validasi apakah ada item yang masih ditandai revisi
+            var itemMasihRevisi = sesi.Items.Where(i => i.PerluRevisi).ToList();
+            if (itemMasihRevisi.Count > 0)
+            {
+                throw new InvalidOperationException($"Terdapat {itemMasihRevisi.Count} produk yang masih berstatus 'Perlu Revisi'. Harap selesaikan revisi sebelum disetujui.");
+            }
+
+            // Transaksi penyesuaian atomik
+            DateTime waktuSetuju = DateTime.Now;
+            List<Barang> daftarBarang = BacaBarang();
+            List<RiwayatStok> daftarRiwayat = BacaRiwayatStok();
+            List<RiwayatStok> riwayatBaru = new List<RiwayatStok>();
+
+            // Buat backup dalam memori jika gagal simpan
+            List<Barang> backupBarang = daftarBarang.Select(b => new Barang
+            {
+                Kode = b.Kode,
+                Nama = b.Nama,
+                Kategori = b.Kategori,
+                Harga = b.Harga,
+                HargaBeli = b.HargaBeli,
+                Stok = b.Stok,
+                StokMinimum = b.StokMinimum,
+                Aktif = b.Aktif
+            }).ToList();
+
+            List<RiwayatStok> backupRiwayat = new List<RiwayatStok>(daftarRiwayat);
+
+            try
+            {
+                foreach (var item in sesi.Items)
+                {
+                    Barang? barang = daftarBarang.FirstOrDefault(b => b.Kode.Equals(item.KodeBarang, StringComparison.OrdinalIgnoreCase));
+                    if (barang == null)
+                    {
+                        throw new InvalidOperationException($"Produk '{item.NamaBarang}' ({item.KodeBarang}) tidak ditemukan di inventaris.");
+                    }
+
+                    int stokSebelum = barang.Stok;
+                    int stokFisik = item.StokFisik!.Value;
+                    int selisih = stokFisik - stokSebelum;
+
+                    barang.Stok = stokFisik;
+                    item.Selisih = selisih;
+
+                    if (selisih != 0)
+                    {
+                        riwayatBaru.Add(new RiwayatStok
+                        {
+                            Tanggal = waktuSetuju,
+                            KodeBarang = item.KodeBarang,
+                            NamaBarang = item.NamaBarang,
+                            Jenis = "Penyesuaian Opname",
+                            Jumlah = Math.Abs(selisih),
+                            StokSebelum = stokSebelum,
+                            StokSesudah = stokFisik,
+                            Keterangan = $"Penyesuaian stok berdasarkan Opname {sesi.Id}",
+                            Pengguna = adminPengguna
+                        });
+                    }
+                }
+
+                sesi.Status = "Disetujui";
+                sesi.TanggalDisetujui = waktuSetuju;
+                sesi.DisetujuiOleh = adminPengguna;
+                sesi.RiwayatStatus.Add(new RiwayatStatusOpname
+                {
+                    Waktu = waktuSetuju,
+                    Status = "Disetujui",
+                    Oleh = adminPengguna,
+                    Catatan = $"Sesi opname disetujui. {riwayatBaru.Count} produk mengalami penyesuaian stok."
+                });
+
+                // Simpan secara berurutan dan aman
+                daftarRiwayat.AddRange(riwayatBaru);
+                SimpanBarang(daftarBarang);
+                SimpanRiwayatStok(daftarRiwayat);
+                SimpanSesiOpname(daftarSesi);
+
+                CatatAktivitas(adminPengguna, "Stok Opname", $"Menyetujui sesi opname {sesi.Id} ({sesi.Items.Count} produk diperiksa, {riwayatBaru.Count} produk disesuaikan).");
+            }
+            catch (Exception)
+            {
+                // Rollback seluruh perubahan
+                try
+                {
+                    SimpanBarang(backupBarang);
+                    SimpanRiwayatStok(backupRiwayat);
+                }
+                catch { }
+
+                throw;
+            }
+        }
+
+        public static void BatalkanSesiOpname(string idSesi, string pengguna, string alasan)
+        {
+            if (string.IsNullOrWhiteSpace(alasan))
+            {
+                throw new ArgumentException("Alasan pembatalan wajib diisi.");
+            }
+
+            List<SesiOpname> daftarSesi = BacaSesiOpname();
+            SesiOpname? sesi = daftarSesi.FirstOrDefault(s => s.Id.Equals(idSesi, StringComparison.OrdinalIgnoreCase));
+            if (sesi == null)
+            {
+                throw new InvalidOperationException($"Sesi opname {idSesi} tidak ditemukan.");
+            }
+
+            if (sesi.Status == "Disetujui")
+            {
+                throw new InvalidOperationException($"Sesi opname {idSesi} sudah disetujui dan tidak dapat dibatalkan.");
+            }
+
+            if (sesi.Status == "Dibatalkan")
+            {
+                throw new InvalidOperationException($"Sesi opname {idSesi} sudah dibatalkan sebelumnya.");
+            }
+
+            // Validasi peran
+            if (Navigasi.PeranAktif != "admin" && Navigasi.PeranAktif != "gudang")
+            {
+                throw new UnauthorizedAccessException("Kasir tidak memiliki akses untuk membatalkan sesi Stok Opname.");
+            }
+
+            if (Navigasi.PeranAktif == "gudang" && !sesi.DibuatOleh.Equals(pengguna, StringComparison.OrdinalIgnoreCase))
+            {
+                throw new UnauthorizedAccessException("Petugas Gudang hanya dapat membatalkan sesi opname miliknya sendiri.");
+            }
+
+            DateTime waktuBatal = DateTime.Now;
+            sesi.Status = "Dibatalkan";
+            sesi.TanggalDibatalkan = waktuBatal;
+            sesi.DibatalkanOleh = pengguna;
+            sesi.AlasanPembatalan = alasan;
+            sesi.RiwayatStatus.Add(new RiwayatStatusOpname
+            {
+                Waktu = waktuBatal,
+                Status = "Dibatalkan",
+                Oleh = pengguna,
+                Catatan = $"Sesi dibatalkan. Alasan: {alasan}"
+            });
+
+            SimpanSesiOpname(daftarSesi);
+            CatatAktivitas(pengguna, "Stok Opname", $"Membatalkan sesi opname {sesi.Id}. Alasan: {alasan}");
+        }
+
+        #endregion
     }
 }

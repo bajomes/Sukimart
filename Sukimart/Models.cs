@@ -175,4 +175,73 @@ namespace Sukimart
         public long RawModal { get; set; }
         public long RawLaba { get; set; }
     }
+
+    // =========================================================================
+    // MODEL STOK OPNAME
+    // =========================================================================
+
+    public class SesiOpname
+    {
+        public string Id { get; set; } = "";
+        public string IdSesi => Id;
+        public DateTime TanggalDibuat { get; set; } = DateTime.Now;
+        public DateTime TanggalMulai => TanggalDibuat;
+        public string DibuatOleh { get; set; } = "";
+        public string Pembuat => DibuatOleh;
+        public string Status { get; set; } = "Draft"; // Draft, Menunggu Persetujuan, Perlu Revisi, Disetujui, Dibatalkan
+
+        public DateTime? TanggalDiajukan { get; set; }
+
+        public DateTime? TanggalDisetujui { get; set; }
+        public string DisetujuiOleh { get; set; } = "";
+
+        public DateTime? TanggalDibatalkan { get; set; }
+        public string DibatalkanOleh { get; set; } = "";
+        public string AlasanPembatalan { get; set; } = "";
+
+        public DateTime? TanggalSelesai => TanggalDisetujui ?? TanggalDibatalkan;
+
+        public List<ItemOpname> Items { get; set; } = new List<ItemOpname>();
+        public List<RiwayatRevisiOpname> RiwayatRevisi { get; set; } = new List<RiwayatRevisiOpname>();
+        public List<RiwayatStatusOpname> RiwayatStatus { get; set; } = new List<RiwayatStatusOpname>();
+    }
+
+    public class ItemOpname
+    {
+        public string KodeBarang { get; set; } = "";
+        public string NamaBarang { get; set; } = "";
+        public int StokSistem { get; set; }
+        public int? StokFisik { get; set; }
+        public bool SudahDihitung { get; set; } = false;
+        public int Selisih { get; set; } // StokFisik - StokSistem
+        public string Keterangan { get; set; } = "";
+
+        // Status revisi admin
+        public bool PerluRevisi { get; set; } = false;
+        public string AlasanRevisi { get; set; } = "";
+        public int? StokFisikSebelumRevisi { get; set; }
+    }
+
+    public class RiwayatRevisiOpname
+    {
+        public DateTime Tanggal { get; set; } = DateTime.Now;
+        public string DimintaOleh { get; set; } = "";
+        public string KodeBarang { get; set; } = "";
+        public string NamaBarang { get; set; } = "";
+        public int StokSistem { get; set; }
+        public int StokFisikLama { get; set; }
+        public int SelisihLama { get; set; }
+        public string AlasanRevisi { get; set; } = "";
+        public int? StokFisikBaru { get; set; }
+        public DateTime? TanggalDiperbaiki { get; set; }
+        public string DiperbaikiOleh { get; set; } = "";
+    }
+
+    public class RiwayatStatusOpname
+    {
+        public DateTime Waktu { get; set; } = DateTime.Now;
+        public string Status { get; set; } = "";
+        public string Oleh { get; set; } = "";
+        public string Catatan { get; set; } = "";
+    }
 }

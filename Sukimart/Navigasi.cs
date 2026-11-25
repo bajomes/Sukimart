@@ -146,14 +146,31 @@ namespace Sukimart
 
         public static void BukaLaporan(Form formSaatIni)
         {
+            BukaLaporanPenjualan(formSaatIni);
+        }
+
+        public static void BukaLaporanPenjualan(Form formSaatIni)
+        {
             if (PeranAktif != "admin" && PeranAktif != "gudang")
             {
-                MessageBox.Show("Menu Laporan hanya dapat diakses oleh Admin dan Petugas Gudang.", "Akses Ditolak", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Menu Laporan Penjualan hanya dapat diakses oleh Admin dan Petugas Gudang.", "Akses Ditolak", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (formSaatIni is FormLaporan) return;
             BeralihKe(new FormLaporan(PeranAktif), formSaatIni);
+        }
+
+        public static void BukaLaporanInventaris(Form formSaatIni)
+        {
+            if (PeranAktif != "admin" && PeranAktif != "gudang")
+            {
+                MessageBox.Show("Menu Laporan Inventaris hanya dapat diakses oleh Admin dan Petugas Gudang.", "Akses Ditolak", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (formSaatIni is FormLaporanInventaris) return;
+            BeralihKe(new FormLaporanInventaris(PeranAktif), formSaatIni);
         }
 
         public static void BukaPengguna(Form formSaatIni)
