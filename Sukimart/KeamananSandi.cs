@@ -31,101 +31,31 @@ namespace Sukimart
         public static bool Cocok(Pengguna pengguna, string kataSandi)
         {
             if (pengguna == null || kataSandi == null) return false;
+            if (string.IsNullOrEmpty(pengguna.Garam) || string.IsNullOrEmpty(pengguna.HashSandi))
+            {
+                return false;
+            }
 
-            // 1. Verifikasi utama: Hash PBKDF2 SHA-256 standar
             try
             {
-                if (!string.IsNullOrEmpty(pengguna.Garam) && !string.IsNullOrEmpty(pengguna.HashSandi))
-                {
-                    byte[] garam = Convert.FromBase64String(pengguna.Garam);
-                    byte[] hashTersimpan = Convert.FromBase64String(pengguna.HashSandi);
-                    int iterasi = pengguna.Iterasi > 0 ? pengguna.Iterasi : IterasiBawaan;
-                    byte[] hashBaru = Rfc2898DeriveBytes.Pbkdf2(
-                        Encoding.UTF8.GetBytes(kataSandi),
-                        garam,
-                        iterasi,
-                        HashAlgorithmName.SHA256,
-                        hashTersimpan.Length);
+                byte[] garam = Convert.FromBase64String(pengguna.Garam);
+                byte[] hashTersimpan = Convert.FromBase64String(pengguna.HashSandi);
+                int iterasi = pengguna.Iterasi > 0 ? pengguna.Iterasi : IterasiBawaan;
 
-                    if (CryptographicOperations.FixedTimeEquals(hashBaru, hashTersimpan))
-                    {
-                        return true;
-                    }
+                byte[] hashBaru = Rfc2898DeriveBytes.Pbkdf2(
+                    Encoding.UTF8.GetBytes(kataSandi),
+                    garam,
+                    iterasi,
+                    HashAlgorithmName.SHA256,
+                    hashTersimpan.Length);
 
-                    // 2. Fallback PBKDF2 SHA-1 (kompatibilitas jika hash dibuat oleh runtime/skrip legacy)
-                    byte[] hashSha1 = Rfc2898DeriveBytes.Pbkdf2(
-                        Encoding.UTF8.GetBytes(kataSandi),
-                        garam,
-                        iterasi,
-                        HashAlgorithmName.SHA1,
-                        hashTersimpan.Length);
-
-                    if (CryptographicOperations.FixedTimeEquals(hashSha1, hashTersimpan))
-                    {
-                        // Otomatis perbarui hash ke standar SHA-256 yang lebih aman
-                        IsiSandi(pengguna, kataSandi);
-                        return true;
-                    }
-                }
+                return CryptographicOperations.FixedTimeEquals(hashBaru, hashTersimpan);
             }
             catch (FormatException)
             {
-                // Format Base64 tidak valid, lanjutkan ke verifikasi teks biasa
+                // Garam/hash di file bukan Base64 yang valid → tolak.
+                return false;
             }
-
-            // 3. Fallback teks biasa (plaintext) jika berkas JSON diisi kata sandi langsung
-            if (string.Equals(pengguna.HashSandi, kataSandi, StringComparison.Ordinal))
-            {
-                IsiSandi(pengguna, kataSandi);
-                return true;
-            }
-
-            // 4. Fallback kredensial default sistem untuk memastikan pengguna tidak terkunci
-            if (string.Equals(pengguna.NamaPengguna, "admin", StringComparison.OrdinalIgnoreCase) && kataSandi == "admin123")
-            {
-                IsiSandi(pengguna, kataSandi);
-                return true;
-            }
-
-            if ((string.Equals(pengguna.NamaPengguna, "kasir", StringComparison.OrdinalIgnoreCase) ||
-                 string.Equals(pengguna.NamaPengguna, "kasir1", StringComparison.OrdinalIgnoreCase) ||
-                 string.Equals(pengguna.NamaPengguna, "kasir2", StringComparison.OrdinalIgnoreCase)) &&
-                 kataSandi == "kasir123")
-            {
-                IsiSandi(pengguna, kataSandi);
-                return true;
-            }
-
-            if ((string.Equals(pengguna.NamaPengguna, "gudang", StringComparison.OrdinalIgnoreCase) ||
-                 string.Equals(pengguna.NamaPengguna, "gudang1", StringComparison.OrdinalIgnoreCase)) &&
-                 kataSandi == "gudang123")
-            {
-                IsiSandi(pengguna, kataSandi);
-                return true;
-            }
-
-            if (string.Equals(pengguna.NamaPengguna, "bajomes", StringComparison.OrdinalIgnoreCase) &&
-                (kataSandi == "admin123" || kataSandi == "bajomes123"))
-            {
-                IsiSandi(pengguna, kataSandi);
-                return true;
-            }
-
-            if (string.Equals(pengguna.NamaPengguna, "rusdi", StringComparison.OrdinalIgnoreCase) &&
-                (kataSandi == "kasir123" || kataSandi == "admin123" || kataSandi == "rusdi123"))
-            {
-                IsiSandi(pengguna, kataSandi);
-                return true;
-            }
-
-            if (string.Equals(pengguna.NamaPengguna, "amba", StringComparison.OrdinalIgnoreCase) &&
-                (kataSandi == "gudang123" || kataSandi == "admin123" || kataSandi == "amba123"))
-            {
-                IsiSandi(pengguna, kataSandi);
-                return true;
-            }
-
-            return false;
         }
     }
 }

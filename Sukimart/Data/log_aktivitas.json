@@ -1,24 +1,36 @@
 [
   {
-    "tanggal": "2026-11-25T19:21:37.1457508+07:00",
+    "tanggal": "2026-11-25T23:32:13.6501166+07:00",
     "namaPengguna": "admin",
     "jenisAktivitas": "Bersihkan Log",
     "aksi": "Seluruh riwayat log aktivitas telah dibersihkan oleh Admin (admin)."
   },
   {
-    "tanggal": "2026-11-25T19:22:34.3894635+07:00",
+    "tanggal": "2026-11-25T23:32:28.7264263+07:00",
+    "namaPengguna": "admin",
+    "jenisAktivitas": "Ubah Password",
+    "aksi": "Pengguna berhasil mengganti kata sandi akunnya sendiri."
+  },
+  {
+    "tanggal": "2026-11-25T23:32:32.5244892+07:00",
     "namaPengguna": "admin",
     "jenisAktivitas": "Logout",
     "aksi": "Pengguna \u0027admin\u0027 (admin) keluar dari sistem."
   },
   {
-    "tanggal": "2026-11-25T19:37:50.4164378+07:00",
+    "tanggal": "2026-11-25T23:32:36.5708099+07:00",
+    "namaPengguna": "admin",
+    "jenisAktivitas": "Login Gagal",
+    "aksi": "Percobaan masuk gagal: Kata sandi salah untuk pengguna \u0027admin\u0027 (1/3)."
+  },
+  {
+    "tanggal": "2026-11-25T23:32:39.3001349+07:00",
     "namaPengguna": "admin",
     "jenisAktivitas": "Login",
     "aksi": "Pengguna \u0027admin\u0027 (admin) berhasil masuk ke sistem."
   },
   {
-    "tanggal": "2026-11-25T19:38:08.0318352+07:00",
+    "tanggal": "2026-11-25T23:32:57.571739+07:00",
     "namaPengguna": "admin",
     "jenisAktivitas": "Logout",
     "aksi": "Pengguna \u0027admin\u0027 (admin) keluar dari sistem."
